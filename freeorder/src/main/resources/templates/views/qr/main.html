@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/qr/qr_layout}"
       >
@@ -8,45 +8,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
-    <style>
-        .qr_order{
-            color: #ff7622;
-            text-align: center;
-            font-family: "Sen-ExtraBold", sans-serif;
-            font-size: 32px;
-            font-weight: 800;
-            position: relative;
-            width: 175px;
-            height: 51px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .rectangle{
-            box-sizing: border-box;
-            background: rgba(255, 118, 34, 0.68);
-            width: 200px;
-            height: 200px;
-            position: relative;
-        }
-
-    </style>
 </head>
-<body>
-    <div class="container" layout:fragment="content">
-
-        <div class="qr_order">QR order</div>
-
-        <!-- 매장 식사 -->
-        <div class="rectangle">
-            img src
+<body  layout:fragment="content">
+    <div class="container">
+        <div class="allcenter">
+            <div class="flex flex-column justify-content-center align-items-center">
+                <div class="qr_order mt-5 mb-5" >QR order</div>
+                
+                <!-- 매장 식사 -->
+                <a href="/qr/product/list/hall" class="rectangle flex flex-column justify-content-center align-items-center gap-2">
+                    <img src="/img/qr매장.png" alt="qr매장" width="100px">
+                    <span class="color-white">매장식사</span>
+                </a>
+        
+                <!-- 포장 -->
+                <a href="/qr/product/list/takeout" class="rectangle flex flex-column justify-content-center align-items-center gap-2">
+                    <img src="/img/qr포장.png" alt="qr포장" width="100px">
+                    <span class="color-white">포장</span>
+                </a>
+            </div>
         </div>
-        <div class="div">매장식사</div>
-
-        <!-- 포장 -->
-        <div class="rectangle"></div>
-        <div class="div">포장</div>
         <!-- 공지사항 팝업 -->
 
     </div>
