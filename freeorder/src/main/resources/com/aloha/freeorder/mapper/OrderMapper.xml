@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.freeorder.mapper.OrderMapper">
+    
+    <!-- 주문 목록 -->
+    <select id="list" resultType="Order">
+        SELECT *
+        FROM order
+    </select>
+    <!-- 주문 조회 -->
+    <select id="select" resultType="Order">
+        SELECT *
+        FROM order
+        WHERE id = #{id}
+    </select>
+
+    <!-- 주문 등록 -->
+    <insert id="insert">
+        INSERT INTO product ( USER_ID, TITLE, STATUS, ORDERED_AT )
+        VALUES ( #{userId}, #{title}, #{status}, #{orderedAt} )
+    </insert>
+
+    <!-- 주문 수정 -->
+    <update id="update">
+        UPDATE order
+           SET USER_ID = #{user_id}
+              ,TITLE = #{title}
+              ,STATUS = #{status}
+              ,ORDER_AT = noew()
+              ,UPDATED_AT = now()
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 주문 삭제 -->
+    <insert id="delete">
+        DELETE order
+        WHERE id = #{id}
+    </insert>
+</mapper>
