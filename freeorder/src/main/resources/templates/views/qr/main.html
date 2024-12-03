@@ -8,11 +8,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
+    <style>
+        .qr_order{
+            color: #ff7622;
+            text-align: center;
+            font-family: "Sen-ExtraBold", sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            position: relative;
+            width: 175px;
+            height: 51px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rectangle{
+            box-sizing: border-box;
+            background: rgba(255, 118, 34, 0.68);
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+    </style>
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <!-- 매장 식사 / 포장 선택 버튼 -->
+
+        <div class="qr_order">QR order</div>
+
+        <!-- 매장 식사 -->
+        <div class="rectangle">
+            img src
+        </div>
+        <div class="div">매장식사</div>
+
+        <!-- 포장 -->
+        <div class="rectangle"></div>
+        <div class="div">포장</div>
         <!-- 공지사항 팝업 -->
+
     </div>
 </body>
 </html>
