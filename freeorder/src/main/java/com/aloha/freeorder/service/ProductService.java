@@ -10,8 +10,9 @@ public interface ProductService {
     public List<Product> list() throws Exception;
     // 상품 등록
     public int insert(Product product) throws Exception;
-    // 
+    // 상품 수정
     public int update(Product product) throws Exception;
+    // 상품 삭제
     public int delete(Long id) throws Exception;
 
 }
