@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.freeorder.mapper.OptionMapper">
+
+<select id="list" resultType="Option">
+    SELECT *
+    FROM option
+</select>
+
+<select id="read" resultType="Option">
+    SELECT *
+    FROM option
+    WHERE ID = #{id}
+</select>
+
+<insert id="insert">
+    INSERT INTO option( ID, NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
+    VALUES ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
+</insert>
+
+<update id="update">
+    UPDATE option
+        SET NAME = #{name}
+            ,STOCK_CHECK = #{stockCheck}
+            ,STOCK = #{stock}
+            ,ESSENTIAL = #{essential}
+            ,SELECT_MIN = #{selectMin}
+            ,SELECT_MAX = #{selectMax}
+            ,UPDATED_AT = now()
+    WHERE ID = #{id}
+</update>
+
+<delete id="delete">
+    DELETE FROM option
+    WHERE ID = #{id}
+</delete>
+
