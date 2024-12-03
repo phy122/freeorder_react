@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aloha.freeorder.mapper.NoticeMapper">
+
+<select id="list" resultType="Notice">
+    SELECT *
+    FROM notice
+</select>
+
+<select id="read" resultType="Notice">
+    SELECT *
+    FROM notice
+    WHERE ID = #{id}
+</select>
+
+<insert id="insert">
+    INSERT INTO notice( ID, thumbnail, TYPE, TITLE, CONTENT, WRITER )
+    VALUES ( #{id}, #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
+</insert>
+
+<update id="update">
+    UPDATE notice
+        SET thumbnail = #{thumbnail}
+            ,TYPE = #{type}
+            ,TITLE = #{title}
+            ,CONTENT = #{content}
+            ,WRITER = #{writer}
+            ,UPDATED_AT = now()
+    WHERE ID = #{id}
+</update>
+
+<delete id="delete">
+    DELETE FROM notice
+    WHERE ID = #{id}
+</delete>
+
