@@ -19,4 +19,5 @@ public class Product {
     private int seq;
     private Date createdAt;
     private Date updatedAt;
+    
 }
