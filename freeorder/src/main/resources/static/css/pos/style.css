@@ -1,0 +1,10 @@
+:root {
+
+    --main-color : #3b85ba; /* 메인 컬러 */
+    --sub-color : #fff;
+    --title-text-size : 30px;
+    --menu-text-size : 40px;
+    --normal-text-size : 14px;
+    --large-text-size : 20px;
+
+}
