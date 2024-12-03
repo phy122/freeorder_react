@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int delete(String id) throws Exception {
+    public int delete(Long id) throws Exception {
         int result = productMapper.delete(id);
         return result;
     }

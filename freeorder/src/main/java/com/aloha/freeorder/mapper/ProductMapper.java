@@ -15,6 +15,6 @@ public interface ProductMapper {
 
     public int update(Product product) throws Exception;
 
-    public int delete(String id) throws Exception;
+    public int delete(Long id) throws Exception;
 
 }
