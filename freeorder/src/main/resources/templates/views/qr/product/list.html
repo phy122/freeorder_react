@@ -23,14 +23,13 @@
                     <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
                 </th:block>
             </ul>
-            <div class="line"></div>
-            <!-- 상품 목록 -->
 
+            <div class="line"></div>
     
             <!-- 카드 -->
             <th:block th:each="product : ${productList}">
             <div class="card flex justify-content-start align-items-center mt-3">
-                <img th:src="|/img/불고기버거 세트.png|" alt="불고기버거" class="menu-image ml-1">
+                <img th:src="/img/불고기버거 세트.png" alt="불고기버거" class="menu-image ml-1">
                 <div class="menu-name">불고기버거 세트</div>
             </div>
             </th:block>
