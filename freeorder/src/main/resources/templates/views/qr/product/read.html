@@ -9,12 +9,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
-<body>
-    <div class="container" layout:fragment="content">
-        <!-- [상단] 상품명,닫기버튼 -->
-        <!-- [중단] 상품정보 - 이미지,설명,수량-->
-        <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
-        <!-- [하단] 장바구니 추가 버튼 -->
+<body layout:fragment="content">
+    <div class="container">
+        <div class="allcenter">
+            <div class="flex flex-column justify-content-center align-items-center">
+                <!-- [상단] 상품명,닫기버튼 -->
+                <span class="fs-normal black">불고기버거 세트</span>
+                <div class="qr-list-top flex justify-content-start align-items-center gap-2">
+                    <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&#215;</button>
+                </div>
+                
+                <!-- [중단] 상품정보 - 이미지,설명,수량-->
+                <img src="/img/burgerLarge.png" alt="qr매장" width="100px">
+                <span class="color-black">설명 : 참깨빵위에........</span>
+
+                <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
+                <input type="checkbox">
+                <div class="option-name">패티 추가</div>
+                <div class="price">3000원</div>
+                <div class="amount">0</div>
+
+                <!-- [하단] 장바구니 추가 버튼 -->
+                <button onclick="">장바구니 추가</button>
+
+            </div>
+        </div>
     </div>
 </body>
 </html>

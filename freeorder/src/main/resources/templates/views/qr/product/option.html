@@ -9,12 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
-<body>
-    <div class="container" layout:fragment="content">
+<body layout:fragment="content">
+    <div class="container">
         <!-- [상단] 닫기
                     - 상품명
                     - 옵션 변경 
         -->	
+        <div class="qr-list-top flex justify-content-start align-items-center gap-2">
+            <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
+            <span class="fs-normal black">불고기 버거</span>
+            <div class="option">옵션변경</div>
+        </div>
 	
         <!-- [중단] 옵션 리스트	
                     - 체크박스
@@ -22,7 +27,14 @@
                     - 가격
                     - 수량
         -->
+        
+        <input type="checkbox">
+        <div class="option-name">패티 추가</div>
+        <div class="price">3000원</div>
+        <div class="amount">0</div>
+
         <!-- [하단] 변경하기 -->
+        <button onclick="">변경하기</button>
     </div>
 </body>
 </html>

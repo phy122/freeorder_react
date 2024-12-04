@@ -42,6 +42,7 @@
   height: 100vh;
   margin: auto;
   border: 1px dashed var(--main-color);
+  position: relative;
 }
 
 .card {
@@ -72,17 +73,30 @@
   margin: 20px 0;
 }
 
-.c-icon {
-  color: #ff7622;
-  border-radius: 50%;
-}
-
 .cancel {
   width: 139px;
   height: 38px;
   border-color: #ff7622;
 
 }
+
+.c-card {
+  
+}
+
+.c-icon {
+  
+  position: absolute;
+  width: 80px;
+  right: 2.5rem;
+  bottom: 2.5rem;
+}
+
+.qr-list-bottom {
+  position: relative;
+  
+}
+
 
 /* 버튼디자인 */
 
@@ -93,8 +107,8 @@
 /* 버튼 크기 */
 
 .scale-large{
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
 }
 
 .scale-normal{
@@ -180,6 +194,8 @@
 /* padding */
 
 .p-30{padding: 30px;}
+.p-20{padding: 20px;}
+.p-10{padding: 10px;}
 
 
 /* color */
