@@ -5,17 +5,16 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Product {
+public class Files {
 
     private Long id;
-    private Long optionId;
+    private String parentTable;
+    private Long parentId;
     private String name;
-    private String categoryId;
-    private String description;
-    private String content;
-    private int price;
-    private boolean stockCheck;
-    private int stock;
+    private String originName;
+    private String path;
+    private int size;
+    private boolean isMain;
     private int seq;
     private Date createdAt;
     private Date updatedAt;
