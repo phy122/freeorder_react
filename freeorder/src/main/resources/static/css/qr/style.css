@@ -72,6 +72,11 @@
   margin: 20px 0;
 }
 
+.c-icon {
+  color: #ff7622;
+  border-radius: 50%;
+}
+
 /* 버튼디자인 */
 
 .circle-btn {
@@ -79,6 +84,12 @@
 }
 
 /* 버튼 크기 */
+
+.scale-large{
+  width: 90px;
+  height: 90px;
+}
+
 .scale-normal{
   width: 70px;
   height: 70px;
