@@ -55,7 +55,7 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeHttpRequests(auth -> auth
-                                               .requestMatchers("/pos/**").hasRole("ADMIN")
+                                            //    .requestMatchers("/pos/**").hasRole("ADMIN")
                                             //    .requestMatchers("/qr/**").permitAll()
                                             //    .requestMatchers("/**").permitAll()
                                                .anyRequest().permitAll()
