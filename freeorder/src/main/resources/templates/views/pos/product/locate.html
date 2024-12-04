@@ -11,9 +11,43 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <!-- [상단]	취소 버튼 -->
-            <!-- 저장 버튼 -->
-        <!-- [중단]	상품 목록 -->
+        <div class="container">
+            <!-- [상단] 취소 버튼 -->
+             <div>
+                 <a href="">
+                     <button type="button">취소</button>
+                 </a>
+             </div>
+             <!-- 저장 버튼 -->
+             <div>
+                <a href="">
+                    <button type="button">저장</button>
+                </a>
+             </div>
+     
+             <!-- [헤더] 상품 선택 안내 -->
+             <div>
+                 <h3>상품을 끌어서 순서를 변경하세요.</h3>
+             </div>
+     
+             <!-- [중단] 상품 목록 -->
+             <section class="product-list">
+                 <a href="" class="product-card">
+                     <h4>상품 A</h4>
+                     <p>10,000원</p>
+                 </a>
+     
+                 <a href="" class="product-card">
+                     <h4>상품 B</h4>
+                     <p>20,000원</p>
+                 </a>
+     
+                 <a href="" class="product-card">
+                     <h4>상품 C</h4>
+                     <p>15,000원</p>
+                 </a>
+             </section>
+         </div>
     </div>
 </body>
 </html>
