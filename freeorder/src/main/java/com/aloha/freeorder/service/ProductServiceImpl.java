@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.mapper.ProductMapper;
 
@@ -31,12 +30,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product read(Long id) throws Exception{
-        Product product = productMapper.read(id);
-        return product;
-    }
-
-    @Override
     public int insert(Product product) throws Exception {
         return productMapper.insert(product);
     }
@@ -50,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
     public int delete(Long id) throws Exception {
         return productMapper.delete(id);
     }
-
     
 
 }

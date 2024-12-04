@@ -33,7 +33,7 @@ public class QrProductController {
   @GetMapping()
   public ResponseEntity<?> getAll() {
       try {
-          List<Product> productList = productService.list();
+          List<Product> productList = productService.allList();
           return new ResponseEntity<>(productList, HttpStatus.OK);
       } catch (Exception e) {
           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
