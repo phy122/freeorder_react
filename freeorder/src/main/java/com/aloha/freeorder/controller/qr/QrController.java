@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Category;
-import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CategoryService;
-import com.aloha.freeorder.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +30,8 @@ public class QrController {
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ProductService productService;
+    // @Autowired
+    // private ProductService productService;
 
   @GetMapping("/main")
   public String main(Model model) {
