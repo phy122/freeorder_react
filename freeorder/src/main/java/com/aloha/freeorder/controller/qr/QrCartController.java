@@ -18,6 +18,8 @@ import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.service.CartService;
 
 import groovy.util.logging.Slf4j;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * REST 형식 컨트롤러
@@ -53,7 +55,10 @@ public class QrCartController {
     }
     
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Cart cart) {
+    public ResponseEntity<?> create(@RequestBody Cart cart, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String id = session.getId();
+        cart.setId(id);
         try {
             int result = cartService.insert(cart);
             if ( result > 0 ) {
