@@ -6,5 +6,128 @@
     --menu-text-size : 40px;
     --normal-text-size : 14px;
     --large-text-size : 20px;
-
 }
+
+.qr_order{
+    color: #ff7622;
+    text-align: center;
+    font-family: "Sen-ExtraBold", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    position: relative;
+    width: 175px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .rectangle{
+    box-sizing: border-box;
+    background: var(--main-color);
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  }
+
+  .div{
+    display: flex;
+    justify-content: center;
+  }
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  border: 1px dashed var(--main-color);
+}
+/* 버튼디자인 */
+
+.circle-btn {
+  border-radius: 50%;
+}
+
+/* 버튼 크기 */
+.scale-normal{
+  width: 70px;
+  height: 70px;
+}
+/* 글씨 크기 */
+.fs-normal {
+  font-size: var(--normal-text-size);
+}
+/* 글씨 색상 */
+.white {color: #fff;}
+.dark {color: #333;}
+.black {color: #000;}
+/* 배경 색상 */
+.bg-gray {
+  background-color: #acacac;
+}
+.bg-main {
+  background-color: var(--main-color);
+}
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* flex */
+  .allcenter {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .flex { display: flex; }
+  .flex.flex-column { flex-direction: column; }
+  .flex.justify-content-start { justify-content: start; }
+  .flex.justify-content-end { justify-content: end; }
+  .flex.justify-content-center { justify-content: center; }
+  .flex.justify-content-between { justify-content: space-between;}
+  .flex.justify-content-around { justify-content: space-around; }
+  .flex.justify-content-evenly { justify-content: space-evenly;}
+
+  .flex.align-items-start { align-items: start; }
+  .flex.align-items-end { align-items: end; }
+  .flex.align-items-center { align-items: center; }
+
+  .flex.gap-1 { gap: 1rem; }
+  .flex.gap-2 { gap: 1.25rem; }
+  .flex.gap-3 { gap: 1.5rem; }
+  .flex.gap-4 { gap: 1.75rem; }
+  .flex.gap-5 { gap: 2rem; }
+
+
+/* margin */
+.m-1 { margin: 1rem; }
+.m-1 { margin: 1rem; }
+.m-1 { margin: 1rem; }
+.m-1 { margin: 1rem; }
+.m-1 { margin: 1rem; }
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 1.25rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 1.75rem; }
+.mt-5 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 1.25rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 1.75rem; }
+.mb-5 { margin-bottom: 2rem; }
+
+/* padding */
+
+.p-30{padding: 30px;}
+
+
+/* color */
+.color-main { color: var(--main-color); }
+.color-sub { color: var(--sub-color); }
+.color-white { color: white; }

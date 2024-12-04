@@ -11,5 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/qr/products")
 public class QrProductController {
-    
+
+  
 }

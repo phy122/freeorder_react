@@ -11,9 +11,24 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <!-- 상단 / 카테고리 -->
-        <!-- 상품 목록 -->
-        <!-- 하단 / 아이콘 -->
+        <div class="p-30">
+            <!-- 상단 / 카테고리 -->
+            <div class="qr-list-top flex justify-content-start align-items-center gap-2">
+                <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
+                <span class="fs-normal black">메뉴</span>
+            </div>
+            <!-- 상품 목록 -->
+            <ul class="tab-menu">
+                <li>전체</li>
+                <li>메인 메뉴</li>
+                <li>사이드 메뉴</li>
+                <li>음료</li>
+                <li>주류</li>
+            </ul>
+    
+            <!-- 하단 / 아이콘 -->
+        </div>
+
     </div>
 </body>
 </html>
