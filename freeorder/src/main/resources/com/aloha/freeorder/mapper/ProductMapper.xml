@@ -8,21 +8,35 @@
     <!-- 상품 조회 - id -->
     <select id="select" resultMap="productMap">
         SELECT *
-        FROM product
+        FROM products
         WHERE id = #{id}
+    </select>
+
+    <!-- 상품 조회 - id -->
+    <select id="allList" resultMap="productMap">
+        SELECT *
+        FROM products
+        ORDER BY seq asc
+    </select>
+
+    <!-- 상품 조회 - id -->
+    <select id="listByCate" resultMap="productMap">
+        SELECT *
+        FROM products
+        WHERE category_id = #{categoryId}
     </select>
 
     <!-- 상품 등록 -->
     <insert id="insert">
-        INSERT INTO product ( name, category, price, stock_check, seq)
-        VALUES ( #{name}, #{category}, #{price}, #{stockCheck}, #{seq} )
+        INSERT INTO products ( name, category_id, price, stock_check, seq)
+        VALUES ( #{name}, #{categoryId}, #{price}, #{stockCheck}, #{seq} )
     </insert>
 
     <!-- 상품 정보 수정 -->
     <update id="update">
-        UPDATE product
+        UPDATE products
            SET name = #{name}
-              ,category = #{category}
+              ,category_id = #{categoryId}
               ,description = #{description}
               ,content = #{content}
               ,price = #{price}
@@ -35,8 +49,7 @@
 
     <!-- 상품 삭제 -->
     <delete id="delete">
-        DELETE product
-        FROM product
+        DELETE FROM products
         WHERE id = #{id}
     </delete>
 </mapper>
