@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Category;
+import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CategoryService;
+import com.aloha.freeorder.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,31 +32,30 @@ public class QrController {
 
     @Autowired
     private CategoryService categoryService;
-    // @Autowired
-    // private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
   @GetMapping("/main")
   public String main(Model model) {
       log.info("메인 서버에 접속 하셨습니다.");
-      return "/views/qr/main";
+      return "views/qr/main";
   }
   
   // TODO:패스배리어블이던거 쿼리스트링 리퀘스트파람으로 바뀜 URL 처리해야함
   
   @GetMapping("/product/list")
-  public String list(@RequestParam("type") String type, @RequestParam("cate") int cate , Model model) throws Exception {
+  public String list(@RequestParam(value =  "type",required = false) String type, @RequestParam(value = "cate", required = false) Long cate , Model model) throws Exception {
     List<Category> cateList = categoryService.list();
-    // List<Product> productList = productService.list(cate);
+    List<Product> productList = null;
+    log.info("cate : " + cate);
+    if (cate == null)
+      productList = productService.allList();
+    else
+      productList = productService.listByCate(cate);
 
     model.addAttribute("cateList", cateList);
-    // model.addAttribute("productList", productList);
-      if (type.equals("hall")) {
-          // 세션에 매장 등록
-      }
-      else if (type.equals("takeout")) {
-          // 세션에 포장 등록
-      }
-      return "/views/qr/product/list";
+    model.addAttribute("productList", productList);
+    return "views/qr/product/list";
   }
 
   
