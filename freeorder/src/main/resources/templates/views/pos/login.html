@@ -18,6 +18,7 @@
          </div>
         <!-- [중단] 로그인 폼 -->
          <form action="">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <h2>관리자 로그인</h2>
              <!-- 아이디 글씨 -->
              <!-- 이이디 input 박스 -->
