@@ -38,9 +38,34 @@
                     - 삭제
         -->
         <th:block th:each="product : ${productList}">
-            <div class="cart flex justify-content-start align-items-center mt-3">
+            <div class="c-card flex justify-content-start align-items-center mt-3">
                 <img th:src="/img/페퍼로니 피자.png" alt="페퍼로니 피자" class="menu-image ml-1">
                 <div class="menu-name">페퍼로니 피자</div>
+                <div class="c-price">13000원</div>
+                <div class="amount">1개</div>
+                <div class="option">옵션변경</div>
+                <button onclick="" class="cancel">삭제</button>
+            </div>
+            </th:block>
+
+        <th:block th:each="product : ${productList}">
+            <div class="c-card flex justify-content-start align-items-center mt-3">
+                <img th:src="/img/불고기버거 세트.png" alt="불고기버거 세트" class="menu-image ml-1">
+                <div class="menu-name">불고기버거 세트</div>
+                <div class="c-price">10000원</div>
+                <div class="amount">1개</div>
+                <div class="option">옵션변경</div>
+                <button onclick="" class="cancel">삭제</button>
+            </div>
+            </th:block>
+
+        <th:block th:each="product : ${productList}">
+            <div class="c-card flex justify-content-start align-items-center mt-3">
+                <img th:src="/img/콜라.png" alt="콜라" class="menu-image ml-1">
+                <div class="menu-name">콜라</div>
+                <div class="c-price">2000원</div>
+                <div class="amount">1개</div>
+                <div class="option">옵션변경</div>
                 <button onclick="" class="cancel">삭제</button>
             </div>
             </th:block>
