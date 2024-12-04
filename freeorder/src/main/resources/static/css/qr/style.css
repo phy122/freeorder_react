@@ -77,6 +77,13 @@
   border-radius: 50%;
 }
 
+.cancel {
+  width: 139px;
+  height: 38px;
+  border-color: #ff7622;
+
+}
+
 /* 버튼디자인 */
 
 .circle-btn {
@@ -93,6 +100,14 @@
 .scale-normal{
   width: 70px;
   height: 70px;
+}
+
+.total {
+
+}
+
+.pay {
+  
 }
 /* 글씨 크기 */
 .fs-normal {
