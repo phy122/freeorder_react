@@ -69,7 +69,7 @@ public class QrOrderController {
         try {
             int result = orderService.update(order);
             if ( result > 0 ) {
-                return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>("FAIL", HttpStatus.OK);
@@ -84,7 +84,7 @@ public class QrOrderController {
         try {
             int result = orderService.delete(id);
             if ( result > 0 ) {
-                return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>("FAIL", HttpStatus.OK);
