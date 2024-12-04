@@ -9,76 +9,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
-<body>
-    <div class="container" layout:fragment="content">
-
-        <!-- 상단 / 뒤로가기 -->
-        <div class="qr-list-top flex justify-content-start align-items-center gap-2">
-            <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
-            <span class="fs-normal black">장바구니</span>
+<body layout:fragment="content">
+    <div class="container">
+        <div class="allcenter">
+          <div class="flex flex-column justify-content-center align-items-center">
+                <!-- 상단 / 뒤로가기 -->
+                <div class="qr-list-top flex justify-content-start align-items-center gap-2">
+                    <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
+                <span class="fs-normal black">장바구니</span>
+                </div>
+            
+                <!-- 카테고리 -->
+                <ul class="tab-menu mt-2">
+                <a href="#" class="active"><li>장바구니</li></a>
+                <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
+                    <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
+                </th:block>
+                </ul>
+            
+                <div class="line"></div>
+            
+                <!-- [중단] 장바구니 리스트
+                
+                - 상품이미지
+                - 상품명
+                - 가격
+                - 수량
+                - 옵션 변경
+                - 삭제
+                -->
+                <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                    <div class="c-card flex justify-content-start align-items-center mt-3">
+                        <img src="/img/pizza.png" alt="페퍼로니 피자" class="menu-image ml-1">
+                        <div class="menu-name">페퍼로니 피자</div>
+                        <div class="c-price">13000원</div>
+                        <div class="amount">1개</div>
+                        <div class="option">옵션변경</div>
+                        <button onclick="" class="cancel">삭제</button>
+                    </div>
+                </th:block>
+                
+                <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                    <div class="c-card flex justify-content-start align-items-center mt-3">
+                        <img src="/img/buerger.png" alt="불고기버거 세트" class="menu-image ml-1">
+                        <div class="menu-name">불고기버거 세트</div>
+                        <div class="c-price">10000원</div>
+                        <div class="amount">1개</div>
+                        <div class="option">옵션변경</div>
+                        <button onclick="" class="cancel">삭제</button>
+                    </div>
+                </th:block>
+                
+                <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                <div class="c-card flex justify-content-start align-items-center mt-3">
+                    <img src="/img/coke.png" alt="콜라" class="menu-image ml-1">
+                    <div class="menu-name">콜라</div>
+                    <div class="c-price">2000원</div>
+                    <div class="amount">1개</div>
+                    <div class="option">옵션변경</div>
+                    <button onclick="" class="cancel">삭제</button>
+                </div>
+                </th:block>
+            
+                <!-- [하단] 	
+                - 총 금액
+                - 결제하기 
+                -->
+                <th:block>
+                    <div class="total">25,500원</div>
+                    <button onclick="" class="pay">결제하기</button>
+                </th:block>
+            </div>
         </div>
-
-        <!-- 카테고리 -->
-        <ul class="tab-menu mt-2">
-            <a href="#" class="active"><li>장바구니</li></a>
-            <th:block th:each="cate : ${cateList}">
-                <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
-            </th:block>
-        </ul>
-
-        <div class="line"></div>
-
-        <!-- [중단] 장바구니 리스트
-
-                    - 상품이미지
-                    - 상품명
-                    - 가격
-                    - 수량
-                    - 옵션 변경
-                    - 삭제
-        -->
-        <th:block th:each="product : ${productList}">
-            <div class="c-card flex justify-content-start align-items-center mt-3">
-                <img th:src="/img/페퍼로니 피자.png" alt="페퍼로니 피자" class="menu-image ml-1">
-                <div class="menu-name">페퍼로니 피자</div>
-                <div class="c-price">13000원</div>
-                <div class="amount">1개</div>
-                <div class="option">옵션변경</div>
-                <button onclick="" class="cancel">삭제</button>
-            </div>
-            </th:block>
-
-        <th:block th:each="product : ${productList}">
-            <div class="c-card flex justify-content-start align-items-center mt-3">
-                <img th:src="/img/불고기버거 세트.png" alt="불고기버거 세트" class="menu-image ml-1">
-                <div class="menu-name">불고기버거 세트</div>
-                <div class="c-price">10000원</div>
-                <div class="amount">1개</div>
-                <div class="option">옵션변경</div>
-                <button onclick="" class="cancel">삭제</button>
-            </div>
-            </th:block>
-
-        <th:block th:each="product : ${productList}">
-            <div class="c-card flex justify-content-start align-items-center mt-3">
-                <img th:src="/img/콜라.png" alt="콜라" class="menu-image ml-1">
-                <div class="menu-name">콜라</div>
-                <div class="c-price">2000원</div>
-                <div class="amount">1개</div>
-                <div class="option">옵션변경</div>
-                <button onclick="" class="cancel">삭제</button>
-            </div>
-            </th:block>
-
-        <!-- [하단] 	
-                    - 총 금액
-                    - 결제하기 
-        -->
-            <th:block>
-                <div class="total">25,500원</div>
-                <button onclick="" class="pay">결제하기</button>
-            </th:block>
-
     </div>
 </body>
 </html>

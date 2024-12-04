@@ -9,10 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
-<body>
-    <div class="container" layout:fragment="content">
+<body layout:fragment="content">
+    <div class="container">
         <!-- 상단 / 뒤로가기 -->
-        <div class="qr-list-top flex justify-content-start align-items-center gap-2">
+        <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
             <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
             <span class="fs-normal black">메뉴</span>
         </div>
@@ -30,18 +30,16 @@
         <!-- 카드 -->
         <th:block th:if="${productList != null}" th:each="product : ${productList}">
         <div class="card flex justify-content-start align-items-center mt-3">
-            <img th:src="/img/불고기버거 세트.png" alt="불고기버거" class="menu-image ml-1">
+            <img th:src="/img/burger.png" alt="불고기버거" class="menu-image ml-1">
             <div class="menu-name">불고기버거 세트</div>
         </div>
         </th:block>
         
 
         <!-- 하단 / 아이콘 -->
-        <div class="qr-list-bottom">
-            <a href="cart.html" class="c-icon scale-large">
-                <img src="/img/장바구니.png" alt="장바구니버튼">
+            <a href="/qr/product/cart">
+                <img src="/img/cart.png" alt="qr매장" class="c-icon">
             </a>
-        </div>
     </div>
 </body>
 </html>
