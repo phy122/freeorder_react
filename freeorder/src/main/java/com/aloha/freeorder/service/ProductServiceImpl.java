@@ -15,27 +15,35 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public List<Product> list() throws Exception {
-        List<Product> productList = productMapper.list();
-        return productList;
+    public List<Product> allList() throws Exception {
+        return productMapper.allList();
+    }
+
+    @Override
+    public List<Product> listByCate(Long categoryId) throws Exception {
+        return productMapper.listByCate(categoryId);
+    }
+
+    @Override
+    public Product select(Long id) throws Exception {
+        return productMapper.select(id);
     }
 
     @Override
     public int insert(Product product) throws Exception {
-        int result = productMapper.insert(product);
-        return result;
+        return productMapper.insert(product);
     }
 
     @Override
     public int update(Product product) throws Exception {
-        int result = productMapper.update(product);
-        return result;
+        return productMapper.update(product);
     }
 
     @Override
     public int delete(Long id) throws Exception {
-        int result = productMapper.delete(id);
-        return result;
+        return productMapper.delete(id);
     }
+
+    
 
 }
