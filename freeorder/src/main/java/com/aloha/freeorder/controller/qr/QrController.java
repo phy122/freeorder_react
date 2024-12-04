@@ -45,10 +45,10 @@ public class QrController {
   @GetMapping("/product/list")
   public String list(@RequestParam("type") String type, @RequestParam("cate") int cate , Model model) throws Exception {
     List<Category> cateList = categoryService.list();
-    List<Product> productList = productService.list(cate);
+    // List<Product> productList = productService.list(cate);
 
     model.addAttribute("cateList", cateList);
-    model.addAttribute("productList", productList);
+    // model.addAttribute("productList", productList);
       if (type.equals("hall")) {
           // 세션에 매장 등록
       }
