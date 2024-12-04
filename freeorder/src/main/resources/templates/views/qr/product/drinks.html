@@ -11,29 +11,28 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-            <!-- 상단 / 뒤로가기 -->
+        <div class="p-30">
+            <!-- 상단 / 카테고리 -->
             <div class="qr-list-top flex justify-content-start align-items-center gap-2">
                 <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
                 <span class="fs-normal black">메뉴</span>
             </div>
-            <!-- 카테고리 -->
-            <ul class="tab-menu mt-2">
-                <a href="/qr/product/list" class="active"><li>전체</li></a>
-                <th:block th:each="cate : ${cateList}">
-                    <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
-                </th:block>
-            </ul>
-            <div class="line"></div>
             <!-- 상품 목록 -->
+            <ul class="tab-menu mt-2">
+                <a href="/"><li>전체</li></a>
+                <a href="/"><li>메인 메뉴</li></a>
+                <a href="/"><li>사이드 메뉴</li></a>
+                <a href="/" class="active"><li>음료</li></a>
+                <a href="/"><li>주류</li></a>
+            </ul>
 
+            <div class="line"></div>
     
             <!-- 카드 -->
-            <th:block th:each="product : ${productList}">
             <div class="card flex justify-content-start align-items-center mt-3">
-                <img th:src="|/img/불고기버거 세트.png|" alt="불고기버거" class="menu-image ml-1">
+                <img src="/img/불고기버거 세트.png" alt="불고기버거" class="menu-image ml-1">
                 <div class="menu-name">불고기버거 세트</div>
             </div>
-            </th:block>
 
             <!-- 하단 / 아이콘 -->
 
