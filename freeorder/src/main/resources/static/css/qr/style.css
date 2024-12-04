@@ -72,6 +72,18 @@
   margin: 20px 0;
 }
 
+.c-icon {
+  color: #ff7622;
+  border-radius: 50%;
+}
+
+.cancel {
+  width: 139px;
+  height: 38px;
+  border-color: #ff7622;
+
+}
+
 /* 버튼디자인 */
 
 .circle-btn {
@@ -79,9 +91,23 @@
 }
 
 /* 버튼 크기 */
+
+.scale-large{
+  width: 90px;
+  height: 90px;
+}
+
 .scale-normal{
   width: 70px;
   height: 70px;
+}
+
+.total {
+
+}
+
+.pay {
+  
 }
 /* 글씨 크기 */
 .fs-normal {
