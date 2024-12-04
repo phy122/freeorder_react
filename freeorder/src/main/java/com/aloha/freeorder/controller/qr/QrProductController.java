@@ -34,7 +34,7 @@ public class QrProductController {
   public ResponseEntity<?> getAll() {
       try {
           List<Product> productList = productService.list();
-          return new ResponseEntity<>("GetAll Results", HttpStatus.OK);
+          return new ResponseEntity<>(productList, HttpStatus.OK);
       } catch (Exception e) {
           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
       }
