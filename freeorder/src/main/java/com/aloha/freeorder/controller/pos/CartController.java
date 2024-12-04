@@ -12,7 +12,7 @@ import groovy.util.logging.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("/pos/Carts")
+@RequestMapping("/pos/carts")
 public class CartController {
     
     

@@ -6,6 +6,7 @@ import com.aloha.freeorder.domain.Product;
 
 public interface ProductService {
 
+
     // 상품 목록 전체 조회
     public List<Product> allList() throws Exception;
     // 상품 목록 카테고리 조회
