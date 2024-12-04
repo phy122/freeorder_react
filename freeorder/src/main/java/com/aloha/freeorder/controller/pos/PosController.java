@@ -19,25 +19,25 @@ public class PosController {
     @GetMapping("/category")
     public String showCategoryPage() {
         log.info("카테고리 메뉴");
-        return "/pos/category";
+        return "views/pos/category/category";
     }
 
     @GetMapping("/management")
     public String showManagementPage() {
         log.info("더보기 메뉴");
-        return "/pos/management";
+        return "views/pos/management/sales";
     }
 
     @GetMapping("/payment")
     public String showPaymentPage() {
         log.info("결제내역 메뉴");
-        return "/pos/payment";
+        return "views/pos/payment/list";
     }
 
     @GetMapping("/product")
     public String showProductPage() {
         log.info("상품 메뉴");
-        return "/pos/product";
+        return "views/pos/product/products";
     }
     
     

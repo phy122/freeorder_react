@@ -71,7 +71,7 @@ public class ProductController {
     public ResponseEntity<?> getAll() {
         log.info("[비동기] 상품 목록 조회...");
         try {
-            List<Product> productList = productService.list();
+            List<Product> productList = productService.allList();
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,7 +87,7 @@ public class ProductController {
     public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
         log.info("[GET] - /product/" + id);
         try {
-            Product product = productService.read(id);
+            Product product = productService.select(id);
             return new ResponseEntity<>(product, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

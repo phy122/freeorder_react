@@ -39,6 +39,7 @@ public class QrController {
       return "/views/qr/main";
   }
   
+  // TODO:패스배리어블이던거 쿼리스트링 리퀘스트파람으로 바뀜 URL 처리해야함
   
   @GetMapping("/product/list")
   public String list(@RequestParam("type") String type, @RequestParam("cate") int cate , Model model) throws Exception {
