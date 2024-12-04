@@ -7,22 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="list" resultType="Category">
     SELECT *
-    FROM category
+    FROM categories
 </select>
 
 <select id="read" resultType="Category">
     SELECT *
-    FROM category
+    FROM categories
     WHERE ID = #{id}
 </select>
 
 <insert id="insert">
-    INSERT INTO category( ID, CODE, NAME, SEQ)
+    INSERT INTO categories ( ID, CODE, NAME, SEQ)
     VALUES ( #{id}, #{code}, #{name}, #{seq} )
 </insert>
 
 <update id="update">
-    UPDATE category
+    UPDATE categories
         SET CODE = #{code}
             ,NAME = #{name}
             ,UPDATED_AT = now()
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 
 <delete id="delete">
-    DELETE FROM category
+    DELETE FROM categories
     WHERE ID = #{id}
 </delete>
 </mapper>
