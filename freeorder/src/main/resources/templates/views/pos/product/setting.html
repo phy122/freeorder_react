@@ -7,14 +7,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
     <title>POS</title>
 </head>
 <body>
     <div class="container" layout:fragment="content">
+        <div>
+            <h5>설정</h5>
+            <a href="/freeorder/src/main/resources/templates/views/pos/product/products.html">
+                <span class="material-symbols-outlined">
+                    close
+                    </span>
+            </a>
+         </div>
+         <hr>
         <!-- [상품]	수정할 상품 선택 -->
-            <!-- 상품 배치 수정 -->
+         <section class="product-setting">
+            <h3>상품</h3>
             <!-- 상품 등록 -->
-        <!-- [카테고리]	카테고리 정보 수정 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
+                </div>
+                <div>
+                    <h4>상품 등록</h4>
+                </div>
+            </a>
+            <!-- 상품 정보 수정 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
+                </div>
+                <div>
+                    <h4>상품 정보 수정</h4>
+                </div>
+            </a>
+            <!-- 상품 배치 수정 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/상품 배치 수정.png" alt="">
+                </div>
+                <div>
+                    <h4>상품 배치 수정</h4>
+                </div>
+            </a>
+            <!-- 상품 카드 보기 방식 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/상품 카드 보기 방식.png" alt="">
+                </div>
+                <div>
+                    <h4>상품 카드 보기 방식</h4>
+                </div>
+            </a>
+         </section>
+         <hr>
+         <section class="category-setting">
+            <h3>카테고리</h3>
+            <!-- 카테고리 정보 수정 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/카테고리 정보 수정.png" alt="">
+                </div>
+                <div>
+                    <h4>카테고리 정보 수정</h4>
+                </div>
+            </a>
+            <!-- 카테고리 순서 변경 -->
+            <a href="">
+                <div>
+                    <img src="/freeorder/src/main/resources/static/img/카테고리 순서 변경.png" alt="">
+                </div>
+                <div>
+                    <h4>카테고리 순서 변경</h4>
+                </div>
+            </a>
+         </section>
     </div>
 </body>
 </html>
