@@ -40,47 +40,70 @@ public class CartController {
             List<Cart> cartList = cartService.list();
             return new ResponseEntity<>(cartList, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("장바구니 목록 조회 중", e);
+            log.error("장바구니 목록 조회 중 에러...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
+        log.info("장바구니 조회");
         try {
-            //TODO Implement Your Logic To Get Data From Service Layer Or Directly From Repository Layer
-            return new ResponseEntity<>("GetOne Result", HttpStatus.OK);
+            Cart cart = cartService.select(id);
+            return new ResponseEntity<>(cart, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("장바구니 조회 중 에러...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Cart cart) {
+    public ResponseEntity<?> create(Cart cart) {
+        log.info("장바구니 등록");
         try {
-            //TODO Implement Your Logic To Save Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Create Result", HttpStatus.OK);
+            int result = cartService.insert(cart);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("장바구니 DB에 등록 중 에러...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (Exception e) {
+            log.error("장바구니 등록 중 에러...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Cart cart) {
+    public ResponseEntity<?> update(Cart cart) {
+        log.info("장바구니 수정");
         try {
-            //TODO Implement Your Logic To Update Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Update Result", HttpStatus.OK);
+            int result = cartService.update(cart);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("장바구니 DB에서 수정 중 에러...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (Exception e) {
+            log.error("장바구니 수정 중 에러...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
+        log.info("장바구니 삭제");
         try {
-            //TODO Implement Your Logic To Destroy Data And Return Result Through ResponseEntity
-            return new ResponseEntity<>("Destroy Result", HttpStatus.OK);
+            int result = cartService.delete(id);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("장바구니 DB에서 삭제 중 에러...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (Exception e) {
+            log.error("장바구니 삭제 중 에러...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService{
     private CartMapper cartMapper;
     
     @Override
-    public Cart select(Long id) throws Exception {
+    public Cart select(String id) throws Exception {
         return cartMapper.select(id);
     }
 
@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         return cartMapper.delete(id);
     }
     
