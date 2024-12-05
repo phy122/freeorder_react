@@ -97,7 +97,7 @@ public class QrCartController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id) {
+    public ResponseEntity<?> destroy(@PathVariable String id) {
         log.info("장바구니 목록 삭제");
         try {
             int result = cartService.delete(id);
