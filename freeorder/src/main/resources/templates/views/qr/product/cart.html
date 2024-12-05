@@ -13,7 +13,7 @@
     <div class="container">
         <!-- 상단 / 뒤로가기 -->
         <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
-            <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+            <button onclick="history.back()" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
         <span class="fs-normal black">장바구니</span>
         </div>
     
@@ -76,7 +76,7 @@
         <th:block>
             <div class="total-card flex justify-content-start align-items-center mt-3">
                 <div class="total">total : 25,500원</div>
-                <button onclick="location.href='/pay/pay'" class="pay-button white">결제 하기</button>
+                <a href="/pay/pay" class="pay-button"><span class="color-white flex flex-column justify-content-center align-items-center mt-0">결제 하기</span></a>
             </div>
         </th:block>
     </div>
