@@ -10,7 +10,7 @@ import com.aloha.freeorder.domain.Cart;
 public interface CartMapper {
     
     // 조회
-    public Cart select(Long id) throws Exception;
+    public Cart select(String id) throws Exception;
     // 목록
     public List<Cart> list() throws Exception;
     // 등록
@@ -18,6 +18,6 @@ public interface CartMapper {
     // 수정
     public int update(Cart cart) throws Exception;
     // 삭제
-    public int delete(Long id) throws Exception;
+    public int delete(String id) throws Exception;
 
 }
