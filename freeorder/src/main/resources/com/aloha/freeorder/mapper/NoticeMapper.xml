@@ -7,22 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="list" resultType="Notice">
     SELECT *
-    FROM notice
+    FROM notices
 </select>
 
 <select id="read" resultType="Notice">
     SELECT *
-    FROM notice
+    FROM notices
     WHERE ID = #{id}
 </select>
 
 <insert id="insert">
-    INSERT INTO notice( ID, thumbnail, TYPE, TITLE, CONTENT, WRITER )
-    VALUES ( #{id}, #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
+    INSERT INTO notices ( thumbnail, TYPE, TITLE, CONTENT, WRITER )
+    VALUES ( #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
 </insert>
 
 <update id="update">
-    UPDATE notice
+    UPDATE notices
         SET thumbnail = #{thumbnail}
             ,TYPE = #{type}
             ,TITLE = #{title}
@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 
 <delete id="delete">
-    DELETE FROM notice
+    DELETE FROM notices
     WHERE ID = #{id}
 </delete>
 
