@@ -22,15 +22,15 @@
     <!-- 등록 -->
     <insert id="insert">
         INSERT INTO payments ( orders_id, payment_method, status )
-        VALUES ( #{ordersId}, #{paymentMethod}, #{status} )
+        VALUES ( #{ordersId}, '#{paymentMethod}', '#{status}' )
     </insert>
 
     <!-- 수정 -->
     <update id="update">
         UPDATE payments
            SET orders_id = ${ordersId}
-              ,payment_method = ${paymentMethod}
-              ,status = ${status}
+              ,payment_method = '${paymentMethod}'
+              ,status = '${status}'
               ,updated_at = now()
         WHERE id = #{id}
     </update>

@@ -17,14 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO categories ( ID, CODE, NAME, SEQ)
-    VALUES ( #{id}, #{code}, #{name}, #{seq} )
+    INSERT INTO categories ( NAME, SEQ)
+    VALUES ( #{name}, #{seq} )
 </insert>
 
 <update id="update">
     UPDATE categories
-        SET CODE = #{code}
-            ,NAME = #{name}
+        SET NAME = #{name}
             ,UPDATED_AT = now()
     WHERE ID = #{id}
 </update>
