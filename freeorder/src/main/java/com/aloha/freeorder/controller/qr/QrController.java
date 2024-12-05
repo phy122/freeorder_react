@@ -1,10 +1,12 @@
 package com.aloha.freeorder.controller.qr;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,9 @@ import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,9 +59,19 @@ public class QrController {
     private OrderService orderService;
 
   @GetMapping("/main")
-  public String main(Model model) {
-      log.info("메인 서버에 접속 하셨습니다.");
-      return "views/qr/main";
+  public String main(Model model,HttpServletRequest request, @CookieValue(value = "id", defaultValue = "null") String cookieId) {
+    
+    HttpSession session = request.getSession();
+    String id = UUID.randomUUID().toString();
+    if (id.equals("id")) {
+      id = cookieId;
+    }
+    //TODO: 쿠키 마저 구워주세요.
+    session.setAttribute("id", id);
+    log.info("쿠키 아이디 : " + cookieId);
+    log.info("접속시 부여된 아이디 : " + id);
+    log.info("메인 서버에 접속 하셨습니다.");
+    return "views/qr/main";
   }
 
   
@@ -72,7 +86,17 @@ public class QrController {
 
   
   @GetMapping("/list")
-  public String productList(@RequestParam(value =  "type",required = false) String type, @RequestParam(value = "cate", required = false) String cate , Model model) throws Exception {
+  public String productList(@RequestParam(value =  "type",required = false) String type, 
+                            @RequestParam(value = "cate", required = false) String cate , 
+                            Model model,
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws Exception {
+   HttpSession session = request.getSession();
+   String id = (String) session.getAttribute("id");
+   Cookie cookie = new Cookie("id", id);
+   cookie.setMaxAge(60 * 60 * 24 * 1);
+   response.addCookie(cookie);
+// 84a8564b-2b92-4d43-a4bf-36c93b754537
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
@@ -102,7 +126,8 @@ public class QrController {
   public String orderList(Model model, HttpServletRequest request) throws Exception  {
     log.info("장바구니 목록 출력!!");
     HttpSession session = request.getSession();
-    String id = session.getId();
+    String id = (String) session.getAttribute("id");
+    log.info("Session 에 등록 된 사용자 아이디 : " + id);
     List<Cart> cartList = cartService.list();
     model.addAttribute("cartLsit", cartList);
     return "views/qr/product/cart";
@@ -119,17 +144,26 @@ public class QrController {
 
 
   @GetMapping("/pay/complete/{status}")
-  public String complete(@PathVariable("status") String status, Model model) throws Exception {
+  public String complete(@PathVariable("status") String status, Model model,HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+    if (status.equals("complete")) {
+      HttpSession session = request.getSession();
+      String id = (String) session.getAttribute("id");
+      Cookie cookie = new Cookie("id", id);
+      cookie.setMaxAge(60 * 60 * 24 * 1);
+      response.addCookie(cookie);
+    }
       model.addAttribute("status", status);
       return "views/qr/pay/complete";
   }
   
 
   @GetMapping("/order")
-  public String orderPayment(Model model) throws Exception {
-    //TODO: 내가 만든 쿠키~ 에 넣어주세요.
-    // Order order = orderService.read(id);
-    // model.addAttribute("order", order);
+  public String orderPayment(Model model, @CookieValue(value = "id", defaultValue = "null") String id) throws Exception {
+    if (id.equals("null")) {
+      Order order = orderService.read(id);
+      model.addAttribute("order", order);
+    }
     return "views/qr/order/list";
   }
   
