@@ -13,17 +13,25 @@
     <div class="container">
         <!-- 상단 / 뒤로가기 -->
         <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
-            <button onclick="history.back()" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+            <button onclick="location.href='/qr/main'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
             <span class="fs-normal black">메뉴</span>
         </div>
 
         <!-- 카테고리 -->
-        <ul class="tab-menu mt-2">
-            <a href="/qr/list" class="active"><li>전체</li></a>
-            <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
-                <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
-            </th:block>
-        </ul>
+        <div class="tab-menu-wrap">
+            <ul class="tab-menu">
+                <li>
+                    <a href="/qr/list" class="tab-menu-item">
+                        <span th:classappend="${cateId == null ? 'active': ''}">전체</span>
+                    </a>
+                </li>
+                <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
+                    <li><a th:href="|/qr/list?cate=${cate.id}|" class="tab-menu-item">
+                        <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}"></span>
+                    </a></li>
+                </th:block>
+            </ul>
+        </div>
 
         <div class="line"></div>
 

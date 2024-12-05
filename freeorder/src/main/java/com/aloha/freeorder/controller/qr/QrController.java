@@ -82,6 +82,7 @@ public class QrController {
     else
       productList = productService.listByCate(cate);
 
+    model.addAttribute("cateId", cate);
     model.addAttribute("cateList", cateList);
     model.addAttribute("productList", productList);
     return "views/qr/product/list";
