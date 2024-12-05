@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class CancellationServiceImpl implements CancellationService{
     private CancellationMapper cancellationMapper;
 
     @Override
-    public Cancellation select(Long id) throws Exception {
+    public Cancellation select(String id) throws Exception {
         return cancellationMapper.select(id);
     }
 
@@ -29,6 +30,7 @@ public class CancellationServiceImpl implements CancellationService{
 
     @Override
     public int insert(Cancellation cancellation) throws Exception {
+        cancellation.setId(UUID.randomUUID().toString());
         return cancellationMapper.insert(cancellation);
     }
 
@@ -38,7 +40,7 @@ public class CancellationServiceImpl implements CancellationService{
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         return cancellationMapper.delete(id);
     }
     

@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,14 @@ public class OptionServiceImpl implements OptionService{
     }
 
     @Override
-    public Option read(Long id) throws Exception {
+    public Option read(String id) throws Exception {
         Option option = optionMapper.read(id);
         return option;
     }
 
     @Override
     public int insert(Option option) throws Exception {
+        option.setId(UUID.randomUUID().toString());
         int result = optionMapper.insert(option);
         return result;
     }
@@ -39,7 +41,7 @@ public class OptionServiceImpl implements OptionService{
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         int result = optionMapper.delete(id);
         return result;
     }    

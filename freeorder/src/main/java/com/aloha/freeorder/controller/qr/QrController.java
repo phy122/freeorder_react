@@ -125,11 +125,12 @@ public class QrController {
   }
   
 
-  @GetMapping("/order/{id}")
-  public String orderPayment(@PathVariable("id") Long id, Model model) throws Exception {
-      Order order = orderService.read(id);
-      model.addAttribute("order", order);
-      return "views/qr/order/list";
+  @GetMapping("/order")
+  public String orderPayment(Model model) throws Exception {
+    //TODO: 내가 만든 쿠키~ 에 넣어주세요.
+    Order order = orderService.read(id);
+    model.addAttribute("order", order);
+    return "views/qr/order/list";
   }
   
 

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Option {
     
-    private Long id;
+    private String id;
     private String name;
     private boolean stockCheck;
     private int stock;

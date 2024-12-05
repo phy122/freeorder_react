@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO files( parent_id,  parent_table, name, origin_name ,path, size, is_main, seq )
-        VALUES ( #{parentId}, #{parentTable}, #{name}, #{originName} #{path}, #{size}, #{isMain}, #{seq} )
+        INSERT INTO files( id, parent_id,  parent_table, name, origin_name ,path, size, is_main, seq )
+        VALUES ( #{id}, #{parentId}, #{parentTable}, #{name}, #{originName} #{path}, #{size}, #{isMain}, #{seq} )
     </insert>
 
     <!-- 파일 삭제 -->

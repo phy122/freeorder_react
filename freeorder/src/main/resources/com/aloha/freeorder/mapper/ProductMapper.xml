@@ -28,8 +28,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO products ( name, category_id, price, seq )
-        VALUES ( #{name}, #{categoryId}, #{price}, #{seq} )
+        INSERT INTO products ( id, name, category_id, price, seq )
+        VALUES ( #{id}, #{name}, #{categoryId}, #{price}, #{seq} )
     </insert>
 
     <!-- 수정 -->

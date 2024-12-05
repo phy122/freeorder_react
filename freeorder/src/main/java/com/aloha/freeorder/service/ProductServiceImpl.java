@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listByCate(Long categoryId) throws Exception {
+    public List<Product> listByCate(String categoryId) throws Exception {
         return productMapper.listByCate(categoryId);
     }
 
     @Override
-    public Product select(Long id) throws Exception {
+    public Product select(String id) throws Exception {
         return productMapper.select(id);
     }
 
     @Override
     public int insert(Product product) throws Exception {
+        product.setId(UUID.randomUUID().toString());
         return productMapper.insert(product);
     }
 
@@ -40,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         return productMapper.delete(id);
     }
     

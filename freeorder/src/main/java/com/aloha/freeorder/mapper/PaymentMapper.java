@@ -10,7 +10,7 @@ import com.aloha.freeorder.domain.Payment;
 public interface PaymentMapper {
     
     // 조회
-    public Payment select(Long id) throws Exception;
+    public Payment select(String id) throws Exception;
     // 목록
     public List<Payment> list() throws Exception;
     // 등록
@@ -18,5 +18,5 @@ public interface PaymentMapper {
     // 수정
     public int update(Payment payment) throws Exception;
     // 삭제
-    public int delete(Long id) throws Exception;
+    public int delete(String id) throws Exception;
 }

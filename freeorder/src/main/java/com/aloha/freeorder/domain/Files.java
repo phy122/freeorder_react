@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class Files {
 
-    private Long id;
+    private String id;
     private String parentTable;
-    private Long parentId;
+    private String parentId;
     private String name;
     private String originName;
     private String path;

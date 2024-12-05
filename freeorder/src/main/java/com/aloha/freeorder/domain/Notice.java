@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Notice {
-    private Long id;
+    private String id;
     private String thumbnail;
     private String type;
     private String title;

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class OptionItem {
-    private Long id;
+    private String id;
     private String name;
     private int quantity;
     private int price;

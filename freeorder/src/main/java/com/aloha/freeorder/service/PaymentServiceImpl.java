@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentMapper paymentMapper;
     
     @Override
-    public Payment select(Long id) throws Exception {
+    public Payment select(String id) throws Exception {
         return paymentMapper.select(id);
     }
 
@@ -29,6 +30,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public int insert(Payment payment) throws Exception {
+        payment.setId(UUID.randomUUID().toString());
         return paymentMapper.insert(payment);
     }
 
@@ -38,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         return paymentMapper.delete(id);
     }
     

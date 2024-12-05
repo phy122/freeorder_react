@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class Payment {
 
-    private Long id;
-    private Long ordersId;
+    private String id;
+    private String ordersId;
     private String paymentMethod;
     private String status;
     private Date paidAt;
