@@ -36,22 +36,25 @@ public class QrCartController {
     
     @GetMapping()
     public ResponseEntity<?> getAll() {
+        
         log.info("장바구니 전체 목록");
         try {
             List<Cart> cartList = cartService.list();
             return new ResponseEntity<>(cartList, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("장바구니 전체 목록 조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
+    public ResponseEntity<?> getOne(@PathVariable String id) {
         log.info("장바구니 조회");
         try {
-            Cart cart = cartService.select(id);
+            Cart cart = cartService.select("");
             return new ResponseEntity<>(cart, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("장바구니 조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -71,6 +74,7 @@ public class QrCartController {
                 return new ResponseEntity<>("Create Result", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("장바구니 추가 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -87,6 +91,7 @@ public class QrCartController {
                 return new ResponseEntity<>("Create Result", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("장바구니 수정 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -103,6 +108,7 @@ public class QrCartController {
                 return new ResponseEntity<>("Create Result", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("장바구니 삭제 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
