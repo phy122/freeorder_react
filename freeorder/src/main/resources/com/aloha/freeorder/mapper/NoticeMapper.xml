@@ -17,8 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO notices ( thumbnail, TYPE, TITLE, CONTENT )
-    VALUES ( #{thumbnail}, #{type}, #{title}, #{content} )
+
+    INSERT INTO notices ( id, thumbnail, TYPE, TITLE, CONTENT, WRITER )
+    VALUES ( #{id}, #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
+
 </insert>
 
 <update id="update">

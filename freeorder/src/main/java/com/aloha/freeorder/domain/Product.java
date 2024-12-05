@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class Product {
 
-    private Long id;
-    private Long optionId;
+    private String id;
+    private String optionId;
     private String name;
     private String categoryId;
     private String description;

@@ -21,8 +21,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO cancellations ( orders_id, type, status, reason, refunded_amount, is_confirmed, is_refund, account_number, bank_name, depositor, canceled_at )
-        VALUES ( #{ordersId}, #{type}, #{price}, #{reason}, #{refunded_amount}, #{is_confirmed}, #{is_refund}, #{account_number}, #{bank_name}, #{depositor}, #{canceled_at} )
+        INSERT INTO cancellations ( id, orders_id, type, status, reason, refunded_amount, is_confirmed, is_refund, account_number, bank_name, depositor, canceled_at )
+        VALUES ( #{id}, #{ordersId}, #{type}, #{price}, #{reason}, #{refunded_amount}, #{is_confirmed}, #{is_refund}, #{account_number}, #{bank_name}, #{depositor}, #{canceled_at} )
     </insert>
 
     <!-- 수정 -->

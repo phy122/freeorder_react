@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,27 +16,28 @@ public class FileServiceImpl implements FileService{
     private FileMapper fileMapper;
 
     @Override
-    public List<Files> list(Long id, String table) throws Exception {
+    public List<Files> list(String id, String table) throws Exception {
         return fileMapper.list(id, table);
     }
 
     @Override
-    public Files select(Long id) throws Exception {
+    public Files select(String id) throws Exception {
         return fileMapper.select(id);
     }
 
     @Override
     public int insert(Files file) throws Exception {
+        file.setId(UUID.randomUUID().toString());
         return fileMapper.insert(file);
     }
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         return fileMapper.delete(id);
     }
 
     @Override
-    public int allDelete(Long id, String table) throws Exception {
+    public int allDelete(String id, String table) throws Exception {
         return fileMapper.allDelete(id, table);
     }
     

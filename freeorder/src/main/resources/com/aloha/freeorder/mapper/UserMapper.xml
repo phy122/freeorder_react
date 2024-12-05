@@ -44,8 +44,8 @@
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO user ( username, password, name, email )
-        VALUES ( #{username}, #{password}, #{name}, #{email} )
+        INSERT INTO user ( id, username, password, name, email )
+        VALUES ( #{id}, #{username}, #{password}, #{name}, #{email} )
     </insert>
 
     <!-- 회원 정보 수정 -->

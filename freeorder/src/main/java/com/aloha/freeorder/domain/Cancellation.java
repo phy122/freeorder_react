@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class Cancellation {
-    private Long id;
-    private Long ordersId;
+    private String id;
+    private String ordersId;
     private String status;
     private String reason;
     private String refundedAmount;

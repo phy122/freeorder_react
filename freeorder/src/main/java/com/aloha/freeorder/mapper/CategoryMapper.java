@@ -11,12 +11,12 @@ public interface CategoryMapper {
 
      public List<Category> list() throws Exception;
 
-    public Category read(Long id) throws Exception;
+    public Category read(String id) throws Exception;
 
     public int insert(Category category) throws Exception;
 
     public int update(Category category) throws Exception;
 
-    public int delete(Long id) throws Exception;
+    public int delete(String id) throws Exception;
     
 }

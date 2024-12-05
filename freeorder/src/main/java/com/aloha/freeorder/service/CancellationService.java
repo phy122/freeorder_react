@@ -6,7 +6,7 @@ import com.aloha.freeorder.domain.Cancellation;
 
 public interface CancellationService {
      // 조회
-    public Cancellation select(Long id) throws Exception;
+    public Cancellation select(String id) throws Exception;
     // 목록
     public List<Cancellation> list() throws Exception;
     // 등록
@@ -14,5 +14,5 @@ public interface CancellationService {
     // 수정
     public int update(Cancellation cancellation) throws Exception;
     // 삭제
-    public int delete(Long id) throws Exception;
+    public int delete(String id) throws Exception;
 }

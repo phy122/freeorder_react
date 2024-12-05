@@ -1,5 +1,7 @@
 package com.aloha.freeorder.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +73,7 @@ public class UserServiceImpl implements UserService {
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
         user.setPassword(encodedPassword);
+        user.setId(UUID.randomUUID().toString());
 
         // 회원 등록
         int result = userMapper.join(user);

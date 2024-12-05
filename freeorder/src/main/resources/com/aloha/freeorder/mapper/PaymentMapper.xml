@@ -21,8 +21,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO payments ( orders_id, payment_method, status )
-        VALUES ( #{ordersId}, '#{paymentMethod}', '#{status}' )
+        INSERT INTO payments ( id, orders_id, payment_method, status )
+        VALUES ( #{id}, #{ordersId}, '#{paymentMethod}', '#{status}' )
     </insert>
 
     <!-- 수정 -->

@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO categories ( NAME, SEQ)
-    VALUES ( #{name}, #{seq} )
+    INSERT INTO categories ( id, NAME, SEQ)
+    VALUES ( #{id}, #{name}, #{seq} )
 </insert>
 
 <update id="update">

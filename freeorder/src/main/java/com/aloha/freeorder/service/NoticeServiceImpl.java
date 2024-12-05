@@ -1,6 +1,7 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,14 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice read(Long id) throws Exception {
+    public Notice read(String id) throws Exception {
         Notice notice = noticeMapper.read(id);
         return notice;
     }
 
     @Override
     public int insert(Notice notice) throws Exception {
+        notice.setId(UUID.randomUUID().toString());
         int result = noticeMapper.insert(notice);
         return result;
     }
@@ -41,7 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
     
 
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(String id) throws Exception {
         int result = noticeMapper.delete(id);
         return result;
     }
