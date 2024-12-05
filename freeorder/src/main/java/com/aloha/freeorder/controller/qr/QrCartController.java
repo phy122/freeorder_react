@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("/qr/Carts")
+@RequestMapping("/qr/carts")
 public class QrCartController {
     
     @Autowired
