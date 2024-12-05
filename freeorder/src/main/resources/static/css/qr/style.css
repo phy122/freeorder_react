@@ -7,6 +7,48 @@
     --normal-text-size : 14px;
     --large-text-size : 20px;
 }
+/* 상단 */
+.tab-menu-wrap {
+  max-width: 100%;
+  overflow-x: scroll;
+  height: 50px;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.tab-menu-wrap:-webkit-scrollbar {
+  display: none;
+}
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  
+}
+.tab-menu li {
+  height: 100%;
+}
+.tab-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 8rem;
+}
+.active {
+  color: #ff7622;
+  text-decoration : underline;
+  text-underline-offset : 95%;
+  text-decoration-thickness: 2.3px;
+}
+
+.line {
+  width: auto;
+  height: 2px;
+  background-color: #E4E4E4;
+}
+
 
 .qr_order{
     color: #ff7622;
@@ -61,26 +103,13 @@
 }
 
 .menu-name {
-  display: flex;
+  display: flex;  
 }
 
 .menu-image {
   width : 120px;
 }
 
-.active {
-  color: #ff7622;
-  text-decoration : underline;
-  text-underline-offset : 130%;
-  text-decoration-thickness: 2.3px;
-}
-
-.line {
-  width: auto;
-  height: 2px;
-  background-color: #E4E4E4;
-  margin: 20px 0;
-}
 
 .line2 {
   
@@ -169,10 +198,7 @@
 .bg-main {
   background-color: var(--main-color);
 }
-.tab-menu {
-  display: flex;
-  justify-content: space-around;
-}
+
 
 /* flex */
   .allcenter {

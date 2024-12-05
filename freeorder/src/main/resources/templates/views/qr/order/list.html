@@ -20,10 +20,13 @@
 
         <!-- [상단]	카테고리 -->
         <ul class="tab-menu mt-2">
-            <a href="/qr/product/list" class="active"><li>주문내역</li></a>
-            <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
-                <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
-            </th:block>
+            <ul class="tab-menu mt-2">
+                <a href="/qr/cart" class="tab-menu-item"><li>장바구니</li></a>
+                    <li>
+                        <a href="#" class="active">
+                            <span>주문내역</span>
+                        </a>
+                    </li>
         </ul>
 
         <div class="line"></div>
