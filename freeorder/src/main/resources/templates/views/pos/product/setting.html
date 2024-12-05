@@ -10,85 +10,148 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
     <title>POS</title>
     <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            border: 1px dashed coral;
+            width: 1500px;
+            height: 1000px;
+            align-items: center;
+        }
+        .sub-title{
+            margin-top: 100px;
+            font-weight: bold;
+            text-align: left;
+        }
+
          a {
             text-decoration: none; 
             color: inherit;       
+        }
+        .setting-title{
+            width: 1500px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+        }
+        .product-setting{
+            display: grid;
+            grid-template-columns: repeat(2, 320px);
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            padding: 10px;
+            gap: 30px;
+            justify-content: center;
+            height: 200px;
+        }
+        .product-setting .product-card{
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start;
+            text-align: left;
+            gap: 10px;
+            padding: 10px;
+            background-color: white;
+            width: 300px;
+            height: 50px;
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            border-radius: 10px;
+        }
+        .category-setting{
+            display: grid;
+            grid-template-columns: repeat(2, 320px);
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            padding: 10px;
+            gap: 30px;
+            justify-content: center;
+            /* margin-top: 80px; */
+        }
+        .category-setting .category-card{
+            display: flex;
+            align-items: center; 
+            justify-content: flex-start;
+            text-align: left;
+            gap: 10px;
+            padding: 10px;
+            background-color: white;
+            width: 300px;
+            height: 50px;
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            border-radius: 10px;
+        }
+        .material-symbols-outlined {
+            font-size: 36px; /* 아이콘 크기 조정 */
+            margin-top: 15px; 
         }
     </style>
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <div>
-            <h5>설정</h5>
+        <div class="setting-container"></div>
+        <div class="setting-title">
+            <h5>상품 설정</h5>
             <a href="/freeorder/src/main/resources/templates/views/pos/product/products.html">
                 <span class="material-symbols-outlined">
                     close
-                    </span>
+                </span>
             </a>
-         </div>
-         <hr>
-        <!-- [상품]	수정할 상품 선택 -->
-         <section class="product-setting">
-            <h3>상품</h3>
-            <!-- 상품 등록 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
-                </div>
-                <div>
-                    <h4>상품 등록</h4>
-                </div>
-            </a>
-            <!-- 상품 정보 수정 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
-                </div>
-                <div>
-                    <h4>상품 정보 수정</h4>
-                </div>
-            </a>
-            <!-- 상품 배치 수정 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/상품 배치 수정.png" alt="">
-                </div>
-                <div>
-                    <h4>상품 배치 수정</h4>
-                </div>
-            </a>
-            <!-- 상품 카드 보기 방식 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/상품 카드 보기 방식.png" alt="">
-                </div>
-                <div>
-                    <h4>상품 카드 보기 방식</h4>
-                </div>
-            </a>
-         </section>
-         <hr>
-         <section class="category-setting">
-            <h3>카테고리</h3>
-            <!-- 카테고리 정보 수정 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/카테고리 정보 수정.png" alt="">
-                </div>
-                <div>
-                    <h4>카테고리 정보 수정</h4>
-                </div>
-            </a>
-            <!-- 카테고리 순서 변경 -->
-            <a href="">
-                <div>
-                    <img src="/freeorder/src/main/resources/static/img/카테고리 순서 변경.png" alt="">
-                </div>
-                <div>
-                    <h4>카테고리 순서 변경</h4>
-                </div>
-            </a>
-         </section>
+        </div>
+        <div class="product-all">
+            <!-- [상품]	수정할 상품 선택 -->
+             <div class="sub-title">
+                 <h3>상품</h3>
+             </div>
+           <div class="product-setting">
+               <!-- 상품 등록 -->
+               <a href="">
+                   <div class="product-card">
+                       <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
+                       <h4>상품 등록</h4>
+                   </div>
+               </a>
+               <!-- 상품 정보 수정 -->
+               <a href="">
+                   <div class="product-card">
+                       <img src="/freeorder/src/main/resources/static/img/상품 정보 수정.png" alt="">
+                       <h4>상품 정보 수정</h4>
+                   </div>
+               </a>
+               <!-- 상품 배치 수정 -->
+               <a href="">
+                   <div class="product-card">
+                       <img src="/freeorder/src/main/resources/static/img/상품 배치 수정.png" alt="">
+                       <h4>상품 배치 수정</h4>
+                   </div>
+               </a>
+               <!-- 상품 카드 보기 방식 -->
+               <a href="">
+                   <div class="product-card">
+                       <img src="/freeorder/src/main/resources/static/img/상품 카드 보기 방식.png" alt="">
+                       <h4>상품 카드 보기 방식</h4>
+                   </div>
+               </a>
+           </div>
+        </div>
+        <div class="category-all">
+            <div class="sub-title">
+                 <h3>카테고리</h3>
+            </div>
+            <div class="category-setting">
+                <!-- 카테고리 정보 수정 -->
+                <a href="">
+                    <div class="category-card">
+                        <img src="/freeorder/src/main/resources/static/img/카테고리 정보 수정.png" alt="">
+                        <h4>카테고리 정보 수정</h4>
+                    </div>
+                </a>
+                <!-- 카테고리 순서 변경 -->
+                <a href="">
+                    <div class="category-card">
+                        <img src="/freeorder/src/main/resources/static/img/카테고리 순서 변경.png" alt="">
+                        <h4>카테고리 순서 변경</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

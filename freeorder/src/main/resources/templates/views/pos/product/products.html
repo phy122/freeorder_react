@@ -16,21 +16,20 @@
             color: inherit;
         }
         .container {
-        width: 1500px;
-        height: 1000px;
-        display: grid;
-        grid-template-columns: 1000px 500px;
-        border: 1px solid gray;
+            border: 1px solid gray;
+            width: 1500px;
+            height: 1000px;
+            display: grid;
+            grid-template-columns: 1000px 500px;
         }
         .category-list {
             display: flex;
             padding: 20px;
             gap: 15px;
-            border: 1px solid gray;
-            height: 100px; /* 카테고리 리스트의 고정 높이 설정 */
+            height: 100px;
         }
         .category-list .category-card {
-            width: 120px;
+            width: 150px;
             border: 1px solid gray;
             border-radius: 10px;
         }
@@ -38,26 +37,27 @@
             display: flex;
             padding: 10px;
             gap: 50px;
-            border: 1px solid gray;
-            height: calc(1000px - 100px - 20px); /* 전체 컨테이너 높이에서 카테고리 높이(100px)와 패딩(20px)을 뺌 */
-            overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
+            height: calc(1000px - 100px - 62px); 
+            overflow-y: auto;
+            background-color: rgb(183, 182, 182);
         }
         .product-list .product-card {
-            border: 1px solid gray;
+            padding: 10px;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
             text-align: center;
-            height: 250px;
+            height: 200px;
             width: 150px;
         }
         .order-part {
             display: flex;
             flex-direction: column;
-            border: 1px solid gray;
             height: 100%;
         }
         .order-part .setting-btns {
             height: 100px;
             padding: 10px;
-            border: 1px solid gray;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,12 +85,10 @@
         }
         .order-part .order-list {
             flex-grow: 1;
-            border: 1px solid gray;
             padding: 10px;
         }
         .order-part .payment {
             display: flex;
-            border-top: 1px solid gray;
         }
         .pay-btn{
             width: 100%;
@@ -106,9 +104,12 @@
             padding: 30px;
             font-size: 16px;
             background-color: white;
-            border: none;
+            border: 1px solid cornflowerblue;
             color: black;
             font-weight: bold;
+        }
+        .material-symbols-outlined{
+            font-size: 40px;
         }
     </style>
 </head>
