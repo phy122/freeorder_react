@@ -37,11 +37,8 @@
         UPDATE products
            SET name = #{name}
               ,category_id = #{categoryId}
-              ,description = #{description}
-              ,content = #{content}
               ,price = #{price}
               ,stock_check = #{stockCheck}
-              ,stock = #{stock}
               ,seq = #{seq}
               ,updated_at = now()
         WHERE id = #{id}
