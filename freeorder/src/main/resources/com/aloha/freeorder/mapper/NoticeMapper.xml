@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO notices ( thumbnail, TYPE, TITLE, CONTENT, WRITER )
-    VALUES ( #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
+    INSERT INTO notices ( thumbnail, TYPE, TITLE, CONTENT )
+    VALUES ( #{thumbnail}, #{type}, #{title}, #{content} )
 </insert>
 
 <update id="update">
@@ -27,7 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ,TYPE = #{type}
             ,TITLE = #{title}
             ,CONTENT = #{content}
-            ,WRITER = #{writer}
             ,UPDATED_AT = now()
     WHERE ID = #{id}
 </update>

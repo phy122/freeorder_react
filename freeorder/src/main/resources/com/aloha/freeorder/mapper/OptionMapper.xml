@@ -7,22 +7,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="list" resultType="Option">
     SELECT *
-    FROM option
+    FROM options
 </select>
 
 <select id="read" resultType="Option">
     SELECT *
-    FROM option
+    FROM options
     WHERE ID = #{id}
 </select>
 
 <insert id="insert">
-    INSERT INTO option( ID, NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
-    VALUES ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
+    INSERT INTO options( NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
+    VALUES ( #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
 </insert>
 
 <update id="update">
-    UPDATE option
+    UPDATE options
         SET NAME = #{name}
             ,STOCK_CHECK = #{stockCheck}
             ,STOCK = #{stock}
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 
 <delete id="delete">
-    DELETE FROM option
+    DELETE FROM options
     WHERE ID = #{id}
 </delete>
 
