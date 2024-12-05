@@ -63,7 +63,7 @@ public class QrProductController {
   }
   
   @PutMapping()
-  public ResponseEntity<?> update(@RequestBody Product product) {
+  public ResponseEntity<?> update(Product product) {
       log.info("상품 수정");
       try {
         int result = productService.update(product);
