@@ -141,10 +141,6 @@
   bottom: 2.5rem;
 }
 
-.back-icon {
-
-}
-
 .qr-list-bottom {
   position: relative;
   
@@ -183,17 +179,17 @@
 
 .pay-button {
   width: 139px;
-  height: 38px;
+  height: 50px;
   background-color: var(--main-color);
   border-radius: 8px;
   position: absolute;
   right: 2.5rem;
-  bottom: 2.5rem;
+  bottom: 2rem;
   font-size: medium;
 }
 /* 글씨 크기 */
 .fs-normal {
-  font-size: var(--normal-text-size);
+  font-size: var(--large-text-size);
 }
 /* 글씨 색상 */
 .white {color: #fff;}
