@@ -9,6 +9,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS</title>
     <style>
+        .container {
+            border: 1px dashed coral;
+            width: 1500px;
+            height: 1000px;
+            display: flex;
+            flex-direction: column; /* 세로로 쌓이도록 설정 */
+            align-items: center;
+        }
+        .insert-form{
+            width: 500px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .insert-title{
+            width: 1500px;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 20px;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+        }
+        .insert-title .material-symbols-outlined{
+            padding-top: 20px;
+            font-size: 30px;
+        }
+        .input-name{
+            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        .input-price{
+            gap: 10px;
+            display: flex;
+            flex-direction: column; 
+            padding: 10px;
+        }
+         a {
+            text-decoration: none; 
+            color: inherit;       
+        }
+        .input-category{
+            gap: 10px;
+            display: flex;
+            flex-direction: column; 
+            padding: 10px;
+        }
+        .input-description{
+            gap: 10px;
+            display: flex;
+            flex-direction: column; 
+            padding: 10px;
+        }
+        .input-img{
+            gap: 10px;
+            display: flex;
+            flex-direction: column; 
+            padding: 10px;
+        }
+        .input-img input[type="file"] {
+            display: block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            width: 100%; 
+            margin-top: 5px;
+        }
+        .input-option{
+            padding: 10px;
+        }
+        .option-btn{
+            font-size: 20px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px dashed cornflowerblue;
+            background-color: white;
+        }
+        .input-name input,
+        .input-price input,
+        .input-category select,
+        .input-description input,
+        .input-img input {
+            height: 40px;  
+            padding: 5px;  
+            box-sizing: border-box; 
+            border-radius: 10px;
+             
+        }
+        .btns{
+            display: flex;
+            padding-top: 50px;
+        }
+        .insert-btn{
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: cornflowerblue;
+            border: none;
+            font-weight: bold;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+    <style>
          a {
             text-decoration: none; 
             color: inherit;       
@@ -18,7 +127,7 @@
 <body>
     <div class="container">
         <!-- [상단]	닫기 버튼 -->
-         <div>
+         <div class="insert-title">
             <h5>상품 등록</h5>
             <a href="/freeorder/src/main/resources/templates/views/pos/product/products.html">
                 <span class="material-symbols-outlined">close</span>
@@ -26,44 +135,48 @@
          </div>
          <hr>
         <!-- [정보 입력 폼]	상품명 입력창 -->
-         <form action="" method="post" enctype="multipart/form-data">
-            <table border="1">
-                <!-- 가격 입력창 -->
-                <td>
-                    <label for="price">가격</label>
-                    <input type="text" name="price" id="price">
-                </td>
-                <td>
-                    <!-- 카테고리 선택창 -->
-                    <label for="category">카테고리</label>
-                    <select name="category" id="category">
-                        <option value="select">카테고리 선택</option>
-                        <option value="1">돈까스</option>
-                        <option value="2">짱깨</option>
-                        <option value="3">제육</option>
-                        <option value="4">국밥</option>
-                      </select>
-                </td>
-                <td>
-                    <!-- 상품 정보 입력창 -->
-                    <label for="description">상품 정보</label>
-                    <input type="text" name="description" id="description">
-                </td>
-                <td>
-                    <!-- 상품 이미지 선택창 -->
-                    <input type="file" name="img">
-                </td>
-                <td>
-                    <!-- 옵션 선택 버튼 -->
-                    <button type="button">옵션 선택</button>
-                </td>
-                <td>
-                    <!-- 등록 버튼 -->
-                    <button type="button">등록</button>
-                </td>
-            </table>
-            
-         </form>
+        <form class="insert-form" action="" method="post" enctype="multipart/form-data">
+            <h2>기본 정보</h2>
+            <!-- 상품명 입력창 -->
+            <div class="input-name">
+                <label for="name">상품명</label>
+                <input type="text" name="name" id="name" placeholder="상품명을 입력하세요.">
+           </div>
+            <!-- 가격 입력창 -->
+            <div class="input-price">
+                 <label for="price">가격</label>
+                 <input type="text" name="price" id="price" placeholder="가격을 입력하세요.">
+            </div>
+            <div class="input-category">
+                <!-- 카테고리 선택창 -->
+                <label for="category">카테고리</label>
+                <select name="category" id="category">
+                    <option value="select">카테고리 선택</option>
+                    <option value="1">돈까스</option>
+                    <option value="2">짱깨</option>
+                    <option value="3">제육</option>
+                    <option value="4">국밥</option>
+                  </select>
+            </div>
+            <div class="input-description">
+                <!-- 상품 정보 입력창 -->
+                <label for="description">상품 정보</label>
+                <input type="text" name="description" id="description" placeholder="상품 정보를 입력하세요.">
+            </div>
+            <div class="input-img">
+                <!-- 상품 이미지 선택창 -->
+                <label for="img">상품 이미지</label>
+                <input type="file" name="img" id="img">
+            </div>
+            <div class="input-option">
+                <!-- 옵션 선택 버튼 -->
+                <button type="button" class="option-btn">옵션 선택</button>
+            </div>
+            <!-- 저장, 삭제 버튼 -->
+            <div class="btns">
+                <button type="submit" class="insert-btn">등록</button>
+            </div>
+     </form>
     </div>
 </body>
 </html>
