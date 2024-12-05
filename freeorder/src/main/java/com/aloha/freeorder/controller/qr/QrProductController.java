@@ -79,7 +79,7 @@ public class QrProductController {
   }
   
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+  public ResponseEntity<?> destroy(@PathVariable("id") String id) {
     log.info("상품 삭제");
     try {
         int result = productService.delete(id);

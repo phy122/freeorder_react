@@ -47,7 +47,7 @@ public class ProductController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("상품 조회");
         try {
             Product product = productService.select(id);
@@ -93,7 +93,7 @@ public class ProductController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("상품 삭제");
         try {
             int result = productService.delete(id);

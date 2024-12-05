@@ -52,7 +52,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("주문 조회");
         try {
             Order order = orderService.read(id);
@@ -113,7 +113,7 @@ public class OrderController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("주문 삭제");
         try {
             int result = orderService.delete(id);

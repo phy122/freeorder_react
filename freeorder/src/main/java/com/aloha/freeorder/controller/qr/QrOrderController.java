@@ -45,7 +45,7 @@ public class QrOrderController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("주문 조회");
         try {
             Order order = orderService.read(id);
@@ -94,7 +94,7 @@ public class QrOrderController {
     
     // 삭제 예정
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("주문 삭제 중");
         try {
             int result = orderService.delete(id);

@@ -44,7 +44,7 @@ public class PaymentController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("결제내역 조회");
         try {
             Payment payment = paymentService.select(id);
@@ -90,7 +90,7 @@ public class PaymentController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("결제내역 삭제");
         try {
             int result = paymentService.delete(id);

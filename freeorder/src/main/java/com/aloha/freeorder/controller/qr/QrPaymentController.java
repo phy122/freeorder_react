@@ -40,7 +40,7 @@ public class QrPaymentController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
+    public ResponseEntity<?> getOne(@PathVariable String id) {
         try {
             Payment payment = paymentService.select(id);
             return new ResponseEntity<>(payment, HttpStatus.OK);
@@ -80,7 +80,7 @@ public class QrPaymentController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id) {
+    public ResponseEntity<?> destroy(@PathVariable String id) {
         try {
             int result = paymentService.delete(id);
             if ( result > 0 ) {
