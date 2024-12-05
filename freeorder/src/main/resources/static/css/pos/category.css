@@ -1,0 +1,139 @@
+.category-page {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #F9F9F9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 카테고리 헤더 */
+.category-header {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    color: white;
+}
+.category-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.category-header .add-category-btn {
+    background-color: #00A870;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.category-header .add-category-btn:hover {
+    background-color: #007C56;
+}
+
+/* 카테고리 리스트 */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 60%;
+}
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+}
+.category-item:active {
+    cursor: grabbing;
+    opacity: 0.8;
+}
+.category-item .category-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+.category-item .edit-btn{
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.category-item .edit-btn:hover {
+    background-color: #3b70a0;
+}
+
+/* 카테고리 등록 수정 */
+.category-register-page,
+.category-edit-page {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: #F9F9F9;
+}
+
+.category-register-page h1,
+.category-edit-page h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--main-color);
+}
+
+.category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.category-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.category-form input[type="text"],
+.category-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-form input[type="text"]:focus,
+.category-form textarea:focus {
+    border: 1px solid var(--main-color);
+    outline: none;
+}
+
+.category-form .submit-btn {
+    background-color: var(--main-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.category-form .submit-btn:hover {
+    background-color: #3b70a0;
+}
