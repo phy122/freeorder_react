@@ -37,25 +37,28 @@ public class QrOrderController {
         log.info("전체 주문 목록");
         try {
             List<Order> orderList = orderService.list();
+            log.info(orderList.toString());
             return new ResponseEntity<>(orderList, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("목록 조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
-        log.info("주문 목록 조회");
+    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+        log.info("주문 조회");
         try {
             Order order = orderService.read(id);
             return new ResponseEntity<>(order, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(Order order) {
         log.info("주문 중");
         try {
             int result = orderService.insert(order);
@@ -66,6 +69,7 @@ public class QrOrderController {
                 return new ResponseEntity<>("FAIL", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("목록 등록 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -73,7 +77,7 @@ public class QrOrderController {
 
     // 삭제 예정
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Order order) {
+    public ResponseEntity<?> update(Order order) {
         log.info("주문 수정 중");
         try {
             int result = orderService.update(order);
@@ -84,13 +88,14 @@ public class QrOrderController {
                 return new ResponseEntity<>("FAIL", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("목록 등록 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
     // 삭제 예정
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
         log.info("주문 삭제 중");
         try {
             int result = orderService.delete(id);
@@ -101,6 +106,7 @@ public class QrOrderController {
                 return new ResponseEntity<>("FAIL", HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("목록 삭제 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
