@@ -51,5 +51,5 @@ public class PosController {
         log.info("카테고리 등록 페이지");
         return "views/pos/category/update";
     }
-    
+
 }
