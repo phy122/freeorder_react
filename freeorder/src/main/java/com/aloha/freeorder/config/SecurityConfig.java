@@ -61,7 +61,7 @@ public class SecurityConfig {
                                                .anyRequest().permitAll()
                                                );
         
-
+        http.csrf(csrf -> csrf.disable());
         // 🔐 폼 로그인 설정
         http.formLogin(login -> login.loginPage("/login")
                                      .loginProcessingUrl("/login")
