@@ -81,12 +81,13 @@
 .category-register-page,
 .category-edit-page {
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 20px;
     background-color: #F9F9F9;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 100px;
 }
 
 .category-register-page h1,
@@ -126,7 +127,11 @@
     outline: none;
 }
 
-.category-form .submit-btn {
+.ud-btn{
+    margin-left: auto;
+}
+
+.category-form .update-btn {
     background-color: var(--main-color);
     color: white;
     font-size: 16px;
@@ -138,6 +143,28 @@
     align-self: flex-end;
 }
 
+.category-form .submit-btn{
+    background-color: var(--main-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .category-form .submit-btn:hover {
     background-color: #3b70a0;
+}
+
+.category-form .delete-btn{
+    background-color: white;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid red;
+    border-radius: 5px;
+    cursor: pointer;
 }

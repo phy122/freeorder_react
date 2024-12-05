@@ -43,9 +43,15 @@ public class PosController {
     }
     
     @GetMapping("/category/insert")
-    public String getMethodName() {
+    public String showCategoryInsertPage() {
         log.info("카테고리 등록 페이지");
         return "views/pos/category/insert";
+    }
+
+    @GetMapping("/category/update")
+    public String showCategoryUpdatePage() {
+        log.info("카테고리 등록 페이지");
+        return "views/pos/category/update";
     }
     
 }
