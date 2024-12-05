@@ -8,7 +8,7 @@ import lombok.Data;
 public class Payment {
 
     private Long id;
-    private Long orderId;
+    private Long ordersId;
     private String paymentMethod;
     private String status;
     private Date paidAt;

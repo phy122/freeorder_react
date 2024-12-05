@@ -20,31 +20,31 @@ public class PosController {
 
     @GetMapping("/category")
     public String showCategoryPage() {
-        log.info("카테고리 메뉴");
+        log.info("카테고리 페이지");
         return "views/pos/category/category";
     }
 
     @GetMapping("/management")
     public String showManagementPage() {
-        log.info("더보기 메뉴");
+        log.info("더보기 페이지");
         return "views/pos/management/sales";
     }
 
     @GetMapping("/payment")
     public String showPaymentPage() {
-        log.info("결제내역 메뉴");
+        log.info("결제내역 페이지");
         return "views/pos/payment/list";
     }
 
     @GetMapping("/product")
     public String showProductPage() {
-        log.info("상품 메뉴");
+        log.info("상품 페이지");
         return "views/pos/product/products";
     }
     
     @GetMapping("/category/insert")
     public String getMethodName() {
-        log.info("카테고리 추가");
+        log.info("카테고리 등록 페이지");
         return "views/pos/category/insert";
     }
     
