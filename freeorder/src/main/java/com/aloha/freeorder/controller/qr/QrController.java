@@ -62,7 +62,7 @@ public class QrController {
 
   
   @GetMapping("/notice/{id}")
-  public String notice(@PathVariable("id") Long id, Model model) throws Exception {
+  public String notice(@PathVariable("id") String id, Model model) throws Exception {
       log.info("공지사항 출력!!");
       Notice notice = noticeService.read(id);
       model.addAttribute("notice", notice);
@@ -72,7 +72,7 @@ public class QrController {
 
   
   @GetMapping("/list")
-  public String productList(@RequestParam(value =  "type",required = false) String type, @RequestParam(value = "cate", required = false) Long cate , Model model) throws Exception {
+  public String productList(@RequestParam(value =  "type",required = false) String type, @RequestParam(value = "cate", required = false) String cate , Model model) throws Exception {
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
@@ -90,7 +90,7 @@ public class QrController {
 
   
   @GetMapping("/read/{id}")
-  public String product(@PathVariable("id") Long id, Model model) throws Exception {
+  public String product(@PathVariable("id") String id, Model model) throws Exception {
     log.info("상품 상세페이지 출력!!");
       Product product = productService.select(id);
       model.addAttribute("product", product);
@@ -110,7 +110,7 @@ public class QrController {
   
 
   @GetMapping("/pay/{id}")
-  public String payment(@PathVariable("id") Long id, Model model) throws Exception {
+  public String payment(@PathVariable("id") String id, Model model) throws Exception {
     log.info("결제 창 출력!!");
       Payment payment = paymentService.select(id); 
       model.addAttribute("payment", payment);
@@ -128,8 +128,8 @@ public class QrController {
   @GetMapping("/order")
   public String orderPayment(Model model) throws Exception {
     //TODO: 내가 만든 쿠키~ 에 넣어주세요.
-    Order order = orderService.read(id);
-    model.addAttribute("order", order);
+    // Order order = orderService.read(id);
+    // model.addAttribute("order", order);
     return "views/qr/order/list";
   }
   

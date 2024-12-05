@@ -47,7 +47,7 @@ public class OptionController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("옵션 조회");
         try {
             Option option = optionService.read(id);
@@ -93,7 +93,7 @@ public class OptionController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("옵션 삭제");
         try {
             int result = optionService.delete(id);

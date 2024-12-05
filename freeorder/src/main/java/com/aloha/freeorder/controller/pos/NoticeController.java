@@ -39,7 +39,7 @@ public class NoticeController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
         log.info("공지사항 조회");
         try {
             Notice notice = noticeService.read(id);
@@ -85,7 +85,7 @@ public class NoticeController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String id) {
         log.info("공지사항 삭제");
         try {
             int result = noticeService.delete(id);

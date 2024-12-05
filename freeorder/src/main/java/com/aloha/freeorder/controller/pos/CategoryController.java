@@ -39,7 +39,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> read(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<?> read(@PathVariable("id") String id) throws Exception {
         log.info("카테고리 조회");
         Category category = categoryService.read(id);
         return ResponseEntity.ok(category);
@@ -66,7 +66,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception {
         log.info("카테고리 삭제");
         int result = categoryService.delete(id);
         if(result > 0){

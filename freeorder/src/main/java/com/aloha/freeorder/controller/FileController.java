@@ -32,7 +32,7 @@ public class FileController {
     @Autowired private FileService fileDAO;
 
     @GetMapping("/img")
-    public void showImg(@RequestParam("id") Long id
+    public void showImg(@RequestParam("id") String id
                         ,HttpServletResponse response) throws Exception {
         log.info("[FILE] id : " + id);
 
@@ -58,7 +58,7 @@ public class FileController {
 
     @ResponseBody
     @DeleteMapping("/files/{id}")
-    public String getMethodName(@PathVariable("id") Long id) throws Exception {
+    public String getMethodName(@PathVariable("id") String id) throws Exception {
         Files fileInfo  = fileDAO.select(id);
         String filePath = fileInfo.getPath() + "\\" + fileInfo.getName();
         File delFile = new File(filePath);
@@ -73,9 +73,9 @@ public class FileController {
     }
     
     @ResponseBody
-    @GetMapping("/files/{no}")
-    public ResponseEntity<?> fileList(@RequestParam("no") Long no) throws Exception {
-        List<Files> fileList = fileDAO.list(no, "board");
+    @GetMapping("/files/{id}")
+    public ResponseEntity<?> fileList(@RequestParam("no") String id) throws Exception {
+        List<Files> fileList = fileDAO.list(id, "board");
         return new ResponseEntity<>(fileList,HttpStatus.OK);
     }
 }
