@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +37,7 @@ public class OrderController {
      */
     @GetMapping()
     public ResponseEntity<?> getAll() {
-        log.info("[GET] - /order");
+        log.info("주문 목록 조회");
         try {
             List<Order> orderList = orderService.list();
             return new ResponseEntity<>(orderList, HttpStatus.OK);
@@ -54,11 +53,12 @@ public class OrderController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
-        log.info("[GET] - /order/" + id);
+        log.info("주문 조회");
         try {
             Order order = orderService.read(id);
             return new ResponseEntity<>(order, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("주문 조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -69,14 +69,18 @@ public class OrderController {
      * @return
      */
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(Order order) {
         log.info("[POST] - /orders");
         try {
             int result = orderService.insert(order);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return new ResponseEntity<>("CREATED", HttpStatus.OK);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("주문 DB에 등록 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("주문 등록 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -87,14 +91,18 @@ public class OrderController {
      * @return
      */
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Order order) {
-        log.info("[PUT] - /order");
+    public ResponseEntity<?> update(Order order) {
+        log.info("주문 수정");
         try {
-            int result = orderService.update(order);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return new ResponseEntity<>("UPDATED", HttpStatus.OK);
+            int result = orderService.insert(order);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("주문 DB에 수정 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("주문 수정 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -106,13 +114,17 @@ public class OrderController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
-        log.info("[DELETE] - /orders/" + id);
+        log.info("주문 삭제");
         try {
             int result = orderService.delete(id);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return ResponseEntity.ok().build();
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("주문 DB에 등록 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("주문 삭제 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -34,116 +34,79 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    /**
-     * 상품 목록
-     * [GET]
-     * response : productList
-     * @return
-     */
-    // @GetMapping()
-    // public ResponseEntity<?> list() {
-    //     try {
-    //         List<Product> productList = productService.list();
-
-            // ---------JSON 형식 헤더 설정-----
-            // MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
-            // List<String> headerList = new LinkedList<>();
-            // headerList.add("application/json");
-            // headers.put("Content-Type", headerList);
-
-            // return new ResponseEntity<>(productList, headers, HttpStatus.OK);
-    //         return new ResponseEntity<>(productList, HttpStatus.OK);
-    //     } catch (Exception e){
-    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
-    // @GetMapping("/{}")
-    // public String getMethodName(@RequestParam String param) {
-    //     return new String();
-    // }
-    
-    /**
-     * 상품 목록
-     * @return
-     */
     @GetMapping()
     public ResponseEntity<?> getAll() {
-        log.info("[비동기] 상품 목록 조회...");
+        log.info("상품 목록 조회");
         try {
             List<Product> productList = productService.allList();
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("상품 목록 조회 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
-    /**
-     * 상품 조회
-     * @param id
-     * @return
-     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
-        log.info("[GET] - /product/" + id);
+        log.info("상품 조회");
         try {
             Product product = productService.select(id);
             return new ResponseEntity<>(product, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("상품 조회 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
-    /**
-     * 상품 등록 처리
-     * @param product
-     * @return
-     */
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Product product) {
-        log.info("[POST] - /products");
+    public ResponseEntity<?> create(Product product) {
+        log.info("상품 등록");
         try {
             int result = productService.insert(product);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return new ResponseEntity<>("CREATED", HttpStatus.OK);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("상품 DB에 등록 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("상품 등록 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
-    /**
-     * 상품 수정 처리
-     * @param product
-     * @return
-     */
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Product product) {
+    public ResponseEntity<?> update(Product product) {
+        log.info("상품 수정");
         try {
             int result = productService.update(product);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return new ResponseEntity<>("UPDATED", HttpStatus.OK);
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("상품 DB에서 수정 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("상품 수정 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
-    /**
-     * 상품 삭제 처리
-     * @param id
-     * @return
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
-        log.info("[DELETE] - /products/" + id);
+        log.info("상품 삭제");
         try {
             int result = productService.delete(id);
-            if( result == 0 )
-                return ResponseEntity.badRequest().build();
-            return ResponseEntity.ok().build();
+            if( result > 0 )
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            else{
+                log.info("상품 DB에서 삭제 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+            }
         } catch (Exception e) {
+            log.error("상품 삭제 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
