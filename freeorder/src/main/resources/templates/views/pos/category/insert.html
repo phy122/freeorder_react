@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/pos/pos_layout}"
       >
 <head>
     <meta charset="UTF-8">
@@ -9,9 +10,19 @@
     <title>POS</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" layout:fragment="content">
         <!-- [중단]	카테고리명 입력 -->
-	        <!-- 확인 버튼 -->
+        <div class="category-register-page">
+            <h1>카테고리 등록</h1>
+            <form class="category-form">
+                <label for="category-name">카테고리 이름</label>
+                <input type="text" id="category-name" name="category-name" placeholder="카테고리 이름을 입력하세요" required />
+                <label for="category-description">카테고리 설명</label>
+                <textarea id="category-description" name="category-description" placeholder="카테고리 설명을 입력하세요" rows="4"></textarea>
+                <!-- 확인 버튼 -->
+                <button type="submit" class="submit-btn">등록</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

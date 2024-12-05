@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 /**
@@ -40,8 +42,10 @@ public class PosController {
         return "views/pos/product/products";
     }
     
-    
-    
-    
+    @GetMapping("/category/insert")
+    public String getMethodName() {
+        log.info("카테고리 추가");
+        return "views/pos/category/insert";
+    }
     
 }
