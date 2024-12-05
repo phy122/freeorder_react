@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-
 /**
  * 페이지 컨트롤러
  * 뷰페이지 매핑
