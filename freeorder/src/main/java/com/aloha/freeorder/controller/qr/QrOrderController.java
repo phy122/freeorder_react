@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.service.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * REST 형식 컨트롤러
  * CRUD 비동기 처리
  * 
  */
+@Slf4j
 @RestController
 @RequestMapping("/qr/orders")
 public class QrOrderController {
@@ -31,6 +34,7 @@ public class QrOrderController {
     
     @GetMapping()
     public ResponseEntity<?> getAll() {
+        log.info("전체 주문 목록");
         try {
             List<Order> orderList = orderService.list();
             return new ResponseEntity<>(orderList, HttpStatus.OK);
@@ -41,6 +45,7 @@ public class QrOrderController {
     
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) {
+        log.info("주문 목록 조회");
         try {
             Order order = orderService.read(id);
             return new ResponseEntity<>(order, HttpStatus.OK);
@@ -51,6 +56,7 @@ public class QrOrderController {
     
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody Order order) {
+        log.info("주문 중");
         try {
             int result = orderService.insert(order);
             if ( result > 0 ) {
@@ -63,9 +69,12 @@ public class QrOrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
+
+    // 삭제 예정
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Order order) {
+        log.info("주문 수정 중");
         try {
             int result = orderService.update(order);
             if ( result > 0 ) {
@@ -79,8 +88,10 @@ public class QrOrderController {
         }
     }
     
+    // 삭제 예정
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable Long id) {
+        log.info("주문 삭제 중");
         try {
             int result = orderService.delete(id);
             if ( result > 0 ) {

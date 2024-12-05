@@ -19,8 +19,8 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO product ( USER_ID, TITLE, STATUS, ORDERED_AT )
-        VALUES ( #{userId}, #{title}, #{status}, #{orderedAt} )
+        INSERT INTO product ( USER_ID, TITLE )
+        VALUES ( #{userId}, #{title} )
     </insert>
 
     <!-- 주문 수정 -->
