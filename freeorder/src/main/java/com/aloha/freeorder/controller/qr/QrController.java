@@ -112,14 +112,12 @@ public class QrController {
   }
 
 
-  // @GetMapping("/pay/complete/{??}")
-  // public String complete(@PathVariable("id") Long id, Model model) throws Exception {
-  //     Payment payment = paymentService.select(id);
-  //     model.addAttribute("payment", payment);
-  //     return "views/qr/pay/complete";
-  // }
+  @GetMapping("/pay/complete/{status}")
+  public String complete(@PathVariable("status") String status, Model model) throws Exception {
+      model.addAttribute("status", status);
+      return "views/qr/pay/complete";
+  }
   
-  // 결제 결과에 따른 참조 조건 질문하기.
 
   @GetMapping("/order/{id}")
   public String orderPayment(@PathVariable("id") Long id, Model model) throws Exception {
