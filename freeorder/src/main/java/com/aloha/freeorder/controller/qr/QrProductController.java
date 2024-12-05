@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,7 +79,7 @@ public class QrProductController {
   }
   
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> destroy(@PathVariable Long id) {
+  public ResponseEntity<?> destroy(@PathVariable("id") Long id) {
     log.info("상품 삭제");
     try {
         int result = productService.delete(id);
