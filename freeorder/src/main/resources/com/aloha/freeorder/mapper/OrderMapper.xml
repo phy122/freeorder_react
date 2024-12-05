@@ -8,35 +8,34 @@
     <!-- 주문 목록 -->
     <select id="list" resultType="Order">
         SELECT *
-        FROM order
+        FROM orders
     </select>
     <!-- 주문 조회 -->
-    <select id="select" resultType="Order">
+    <select id="read" resultType="Order">
         SELECT *
-        FROM order
+        FROM orders
         WHERE id = #{id}
     </select>
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO product ( USER_ID, TITLE )
+        INSERT INTO orders ( USER_ID, TITLE )
         VALUES ( #{userId}, #{title} )
     </insert>
 
     <!-- 주문 수정 -->
     <update id="update">
-        UPDATE order
-           SET USER_ID = #{user_id}
+        UPDATE orders
+           SET USER_ID = #{userId}
               ,TITLE = #{title}
               ,STATUS = #{status}
-              ,ORDER_AT = noew()
               ,UPDATED_AT = now()
         WHERE ID = #{id}
     </update>
 
     <!-- 주문 삭제 -->
     <insert id="delete">
-        DELETE order
+        DELETE FROM orders
         WHERE id = #{id}
     </insert>
 </mapper>
