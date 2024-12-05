@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.service.CartService;
 
-import groovy.util.logging.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * REST 형식 컨트롤러
@@ -36,6 +36,7 @@ public class QrCartController {
     
     @GetMapping()
     public ResponseEntity<?> getAll() {
+        log.info("장바구니 전체 목록");
         try {
             List<Cart> cartList = cartService.list();
             return new ResponseEntity<>(cartList, HttpStatus.OK);
@@ -46,6 +47,7 @@ public class QrCartController {
     
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) {
+        log.info("장바구니 조회");
         try {
             Cart cart = cartService.select(id);
             return new ResponseEntity<>(cart, HttpStatus.OK);
@@ -59,6 +61,7 @@ public class QrCartController {
         HttpSession session = request.getSession();
         String id = session.getId();
         cart.setId(id);
+        log.info("장바구니 목록 추가");
         try {
             int result = cartService.insert(cart);
             if ( result > 0 ) {
@@ -74,6 +77,7 @@ public class QrCartController {
     
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Cart cart) {
+        log.info("장바구니 목록 수정");
         try {
             int result = cartService.update(cart);
             if ( result > 0 ) {
@@ -89,6 +93,7 @@ public class QrCartController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable Long id) {
+        log.info("장바구니 목록 삭제");
         try {
             int result = cartService.delete(id);
             if ( result > 0 ) {

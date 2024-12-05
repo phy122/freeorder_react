@@ -63,6 +63,7 @@ public class QrController {
   
   @GetMapping("/notice/{id}")
   public String notice(@PathVariable("id") Long id, Model model) throws Exception {
+      log.info("공지사항 출력!!");
       Notice notice = noticeService.read(id);
       model.addAttribute("notice", notice);
       return "views/qr/notice";
@@ -72,6 +73,7 @@ public class QrController {
   
   @GetMapping("/list")
   public String productList(@RequestParam(value =  "type",required = false) String type, @RequestParam(value = "cate", required = false) Long cate , Model model) throws Exception {
+    log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
     log.info("cate : " + cate);
@@ -88,6 +90,7 @@ public class QrController {
   
   @GetMapping("/read/{id}")
   public String product(@PathVariable("id") Long id, Model model) throws Exception {
+    log.info("상품 상세페이지 출력!!");
       Product product = productService.select(id);
       model.addAttribute("product", product);
       return "views/qr/product/read";
@@ -96,6 +99,7 @@ public class QrController {
 
   @GetMapping("/cart")
   public String orderList(Model model, HttpServletRequest request) throws Exception  {
+    log.info("장바구니 목록 출력!!");
     HttpSession session = request.getSession();
     String id = session.getId();
     List<Cart> cartList = cartService.list();
@@ -106,6 +110,7 @@ public class QrController {
 
   @GetMapping("/pay/{id}")
   public String payment(@PathVariable("id") Long id, Model model) throws Exception {
+    log.info("결제 창 출력!!");
       Payment payment = paymentService.select(id); 
       model.addAttribute("payment", payment);
       return "views/qr/pay/pay";
