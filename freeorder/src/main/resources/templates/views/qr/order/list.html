@@ -13,20 +13,51 @@
     <div class="container" layout:fragment="content">
 
         <!-- [상단]	뒤로가기 -->
-        
+        <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
+            <button onclick="history.back()" class="circle-btn bg-gray scale-normal dark">&lt;</button>
+            <span class="fs-normal black">주문 내역</span>
+        </div>
+
         <!-- [상단]	카테고리 -->
+        <ul class="tab-menu mt-2">
+            <a href="/qr/product/list" class="active"><li>주문내역</li></a>
+            <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
+                <li><a th:href="|/qr/list/${cate.id}|" th:text="${cate.name}"></a></li>
+            </th:block>
+        </ul>
+
+        <div class="line"></div>
 
         <!-- [중단]주문내역 리스트	 -->
+        <div class="menu-name">불고기 버거1개</div>
+        <div class="option">기본 : 6,500원</div>
+        <div class="price">6,500원</div>
 
-            <!-- 상품 이미지 -->
+        <div class="line2"></div>
 
-	        <!-- 상품명 -->
+        <div class="menu-name">불고기 버거1개</div>
+        <div class="option">기본 : 6,500원</div>
+        <div class="option">옵션 : 패티 추가(+3000원)</div>
+        <div class="price">9,500원</div>
 
-	        <!-- 가격 -->
+        <div class="line2"></div>
 
-	        <!-- 수량 -->
+        <div class="menu-name">불고기 버거1개</div>
+        <div class="option">기본 : 2,000원</div>
+        <div class="price">2,000원</div>
+
+        <!-- 상품 이미지 -->
+
+        <!-- 상품명 -->
+
+        <!-- 가격 -->
+
+
+        <!-- 수량 -->
+
 
         <!-- [하단]총 금액 -->
+
 
     </div>
 </body>

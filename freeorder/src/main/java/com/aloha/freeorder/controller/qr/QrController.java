@@ -65,7 +65,7 @@ public class QrController {
   public String notice(@PathVariable("id") Long id, Model model) throws Exception {
       Notice notice = noticeService.read(id);
       model.addAttribute("notice", notice);
-      return "view/qr/notice";
+      return "views/qr/notice";
   }
   
 
@@ -90,17 +90,17 @@ public class QrController {
   public String product(@PathVariable("id") Long id, Model model) throws Exception {
       Product product = productService.select(id);
       model.addAttribute("product", product);
-      return "view/qr/product/read";
+      return "views/qr/product/read";
   }
   
 
   @GetMapping("/cart")
-  public String orderList(@RequestParam String cart, Model model, HttpServletRequest request) throws Exception  {
+  public String orderList(Model model, HttpServletRequest request) throws Exception  {
     HttpSession session = request.getSession();
     String id = session.getId();
     List<Cart> cartList = cartService.list();
     model.addAttribute("cartLsit", cartList);
-    return "view/qr/product/cart";
+    return "views/qr/product/cart";
   }
   
 
@@ -108,7 +108,7 @@ public class QrController {
   public String payment(@PathVariable("id") Long id, Model model) throws Exception {
       Payment payment = paymentService.select(id); 
       model.addAttribute("payment", payment);
-      return "view/qr/pay/pay";
+      return "views/qr/pay/pay";
   }
 
 
@@ -116,7 +116,7 @@ public class QrController {
   // public String complete(@PathVariable("id") Long id, Model model) throws Exception {
   //     Payment payment = paymentService.select(id);
   //     model.addAttribute("payment", payment);
-  //     return "view/qr/pay/complete";
+  //     return "views/qr/pay/complete";
   // }
   
   // 결제 결과에 따른 참조 조건 질문하기.
@@ -125,7 +125,7 @@ public class QrController {
   public String orderPayment(@PathVariable("id") Long id, Model model) throws Exception {
       Order order = orderService.read(id);
       model.addAttribute("order", order);
-      return "view/qr/order/list";
+      return "views/qr/order/list";
   }
   
 
