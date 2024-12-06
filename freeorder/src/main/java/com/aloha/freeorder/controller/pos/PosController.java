@@ -48,7 +48,7 @@ public class PosController {
 
     @GetMapping("/category/update")
     public String showCategoryUpdatePage() {
-        log.info("카테고리 등록 페이지");
+        log.info("카테고리 수정 페이지");
         return "views/pos/category/update";
     }
 
