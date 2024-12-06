@@ -1,0 +1,524 @@
+/* 상품목록 products.html */
+/* 전체 레이아웃 */
+.products-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 400px;
+    height: 100%; /* 화면 전체 높이 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+/* 왼쪽 콘텐츠 영역 */
+.left-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    height: 100%;
+}
+
+.p-category-list {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    height: 100px;
+}
+
+.p-category-list .p-category-card {
+    flex: 0 0 auto; /* 카드 크기를 고정 */
+    width: 150px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    text-align: center;
+}
+.p-products{
+    height: 100%;
+}
+
+.p-product-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background-color: rgb(183, 182, 182);
+    overflow-y: auto; /* 세로 스크롤 허용 */
+    flex-grow: 1; /* 남은 공간을 채움 */
+}
+
+.p-product-card {
+    width: 150px;
+    height: 200px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+/* 오른쪽 주문 영역 */
+.right-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-left: 1px solid gray;
+    padding: 10px;
+}
+
+.p-order-part {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.p-setting-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.p-setting-btns .p-all-delete {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.p-order-list.pl {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.p-payment {
+    display: flex;
+    justify-content: space-between;
+}
+
+.p-pay-btn {
+    flex: 1;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.p-add-btn {
+    flex: 1;
+    background-color: white;
+    color: black;
+    border: 1px solid cornflowerblue;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.material-symbols-outlined {
+    font-size: 40px;
+}
+
+/* 상품등록 insert.html */
+.i-container {
+    border: 1px dashed coral;
+    width: 1500px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column; /* 세로로 쌓이도록 설정 */
+    align-items: center;
+}
+.i-insert-form{
+    width: 500px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.i-insert-title{
+    width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+.i-insert-title .material-symbols-outlined{
+    padding-top: 20px;
+    font-size: 30px;
+}
+.i-input-name{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.i-input-price{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+ a {
+    text-decoration: none; 
+    color: inherit;       
+}
+.i-input-category{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.i-input-description{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.i-input-img{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.i-input-img input[type="file"] {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    width: 100%; 
+    margin-top: 5px;
+}
+.i-input-option{
+    padding: 10px;
+}
+.i-option-btn{
+    font-size: 20px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px dashed cornflowerblue;
+    background-color: white;
+}
+.i-input-name input,
+.i-input-price input,
+.i-input-category select,
+.i-input-description input,
+.i-input-img input {
+    height: 40px;  
+    padding: 5px;  
+    box-sizing: border-box; 
+    border-radius: 10px;
+     
+}
+.i-btns{
+    display: flex;
+    padding-top: 50px;
+}
+.i-insert-btn{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: cornflowerblue;
+    border: none;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+}
+
+/* 상품 위치 변경 locate.html */
+.l-container{
+    border: 1px dashed coral;
+    background-color: rgb(213, 209, 209);
+    width: 1500px;
+    height: 1000px;
+    align-items: center;
+}
+.l-product-list{
+    border: 1px dashed coral;
+    display: flex;
+    gap: 80px;
+    margin-left: 200px;
+    margin-right: 200px;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+.l-product-list .l-product-card{
+    text-align: center;
+    background-color: white;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+.l-btn-container{
+    display: flex;
+    border: 1px dashed coral;
+    float: right;
+    margin-top: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+.l-btn-container .l-cancel-btn {
+    width: 100px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.l-btn-container .l-save-btn{
+    width: 100px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: cornflowerblue;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+.l-select-title{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: 30px;
+}
+
+/* 상품 세팅 setting.html */
+.s-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed coral;
+    width: 1500px;
+    height: 1000px;
+    align-items: center;
+}
+.s-sub-title{
+    margin-top: 100px;
+    font-weight: bold;
+    text-align: left;
+}
+
+ a {
+    text-decoration: none; 
+    color: inherit;       
+}
+.s-setting-title{
+    width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+.s-product-setting{
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 10px;
+    gap: 30px;
+    justify-content: center;
+    height: 200px;
+}
+.s-product-setting .s-product-card{
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    text-align: left;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 300px;
+    height: 50px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+.s-category-setting{
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 10px;
+    gap: 30px;
+    justify-content: center;
+    /* margin-top: 80px; */
+}
+.s-category-setting .s-category-card{
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    text-align: left;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 300px;
+    height: 50px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+.s-setting-title .material-symbols-outlined {
+    font-size: 36px; 
+    margin-top: 15px; 
+}
+
+/* 상품 수정 목록 update_list.html */
+.ul-container{
+    border: 1px dashed coral;
+    background-color: rgb(213, 209, 209);
+    width: 1500px;
+    height: 1000px;
+    align-items: center;
+}
+.ul-product-list{
+    border: 1px dashed coral;
+    display: flex;
+    gap: 80px;
+    margin-left: 200px;
+    margin-right: 200px;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+.ul-product-list .ul-product-card{
+    text-align: center;
+    background-color: white;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+.ul-cancel-container{
+    display: flex;
+    border: 1px dashed coral;
+    float: right;
+    margin-top: 10px;
+    padding: 10px;
+}
+.ul-cancel-container .ul-cancel-btn{
+    width: 100px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.ul-list-title{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: 30px;
+}
+
+/* 상품 수정 화면 update.html */
+.u-container {
+    border: 1px dashed coral;
+    width: 1500px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column; /* 세로로 쌓이도록 설정 */
+    align-items: center;
+}
+.u-update-form{
+    width: 500px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.u-update-title{
+    width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+.u-update-title .material-symbols-outlined{
+    padding-top: 20px;
+    font-size: 30px;
+}
+.u-input-name{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.u-input-price{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.u-input-category{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.u-input-description{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.u-input-img{
+    gap: 10px;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+}
+.u-input-img input[type="file"] {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    width: 100%; 
+    margin-top: 5px;
+}
+.u-input-option{
+    padding: 10px;
+}
+.u-option-btn{
+    font-size: 25px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px dashed cornflowerblue;
+    background-color: white;
+}
+.u-input-name input,
+.u-input-price input,
+.u-input-category select,
+.u-input-description input,
+.u-input-img input {
+    height: 40px;  
+    padding: 5px;  
+    box-sizing: border-box; 
+    border-radius: 10px;
+     
+}
+.u-btns{
+    display: flex;
+    padding-top: 50px;
+    gap: 20px;
+}
+.u-delete-btn{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: bold;
+    color: red;
+}
+.u-save-btn{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}

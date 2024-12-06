@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/pos/more_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTICE</title>
+</head>
+<body>
+    <div class="container" layout:fragment="content">
+        <div class="notice">
+            <h1>공지사항</h1>
+            <button class="notice-insert">등록</button>
+            <div class="notice-list">
+                <ul>
+                    <li><a href="#">공지사항1</a></li>
+                    <li><a href="#">공지사항2</a></li>
+                    <li><a href="#">공지사항3</a></li>
+                    <li><a href="#">공지사항4</a></li>
+                    <li><a href="#">공지사항5</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

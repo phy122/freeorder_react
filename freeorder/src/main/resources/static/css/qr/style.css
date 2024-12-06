@@ -98,9 +98,14 @@
 }
 
 .card {
-  width: 100%;
+  width:90%;
   height: 150px;
-  border: 1px solid rgb(189, 189, 189);
+  border: 1px solid lightgray;
+  margin-left: 25px;
+  border-radius: 15px;
+  border-width: 2.5px;
+  font-size: large;
+  font-weight: bold;
 }
 
 .total-card {
@@ -135,7 +140,7 @@
 }
 
 .c-card {
-  
+  width: 80%;
 }
 
 .c-icon {
@@ -150,14 +155,24 @@
   
 }
 
-.order-list-card {
+.burger-png {
+  width: 100%;
+  height: 300px;
 }
-
 
 /* 버튼디자인 */
 
 .circle-btn {
   border-radius: 50%;
+}
+
+.product-icon {
+  width: 42px;
+  height: 26px;
+  border-radius: 20%;
+  color: white;
+  font-style: normal;
+  font-size: medium;
 }
 
 /* 버튼 크기 */
@@ -207,7 +222,7 @@
   display: flex;
 }
 
-.pay-button {
+.pay-btn {
   width: 139px;
   height: 50px;
   background-color: var(--main-color);
@@ -217,6 +232,61 @@
   bottom: 2rem;
   font-size: medium;
 }
+
+.c-add-btn {
+  width: 100%;
+  height: 100px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 2rem;
+  font-size: medium;
+}
+
+.change-btn {
+  width: 90%;
+  height: 90px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  bottom: 0.5rem;
+  position: absolute;
+  font-size: var(--large-text-size);
+  margin: 20px;
+}
+
+.change-btn-border {
+  
+}
+
+.option-name {
+  width: 100px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
+
+.menu-pop-name {
+  
+}
+
 /* 글씨 크기 */
 .fs-normal {
   font-size: var(--large-text-size);
@@ -233,6 +303,19 @@
 .bg-gray {
   background-color: #acacac;
 }
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-yellow {
+  background-color: rgb(255, 196, 0);
+}
+
 .bg-main {
   background-color: var(--main-color);
 }
@@ -286,6 +369,12 @@
 .mb-3 { margin-bottom: 1.5rem; }
 .mb-4 { margin-bottom: 1.75rem; }
 .mb-5 { margin-bottom: 2rem; }
+
+.mr-1 { margin-right: 1rem; }
+.mr-2 { margin-right: 1.25rem; }
+.mr-3 { margin-right: 1.5rem; }
+.mr-4 { margin-right: 1.75rem; }
+.mr-5 { margin-right: 2rem; }
 
 /* padding */
 
