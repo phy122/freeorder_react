@@ -13,21 +13,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="read" resultType="Notice">
     SELECT *
     FROM notices
-    WHERE ID = #{id}
+    LIMIT 1
+</select>
+
+<select id="select" resultType="Notice">
+    SELECT *
+    FROM notices
+    WHERE id = #{id}
 </select>
 
 <insert id="insert">
 
-    INSERT INTO notices ( id, thumbnail, TYPE, TITLE, CONTENT, WRITER )
-    VALUES ( #{id}, #{thumbnail}, #{type}, #{title}, #{content}, #{writer} )
+    INSERT INTO notices ( id, thumbnail, TYPE, CONTENT )
+    VALUES ( #{id}, #{thumbnail}, #{type}, #{content} )
 
 </insert>
 
 <update id="update">
     UPDATE notices
         SET thumbnail = #{thumbnail}
-            ,TYPE = #{type}
-            ,TITLE = #{title}
             ,CONTENT = #{content}
             ,UPDATED_AT = now()
     WHERE ID = #{id}

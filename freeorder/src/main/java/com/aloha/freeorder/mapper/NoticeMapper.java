@@ -11,7 +11,9 @@ public interface NoticeMapper {
 
     public List<Notice> list() throws Exception;
 
-    public Notice read(String id) throws Exception;
+    public Notice read() throws Exception;
+
+    public Notice select(String id) throws Exception;
 
     public int insert(Notice notice) throws Exception;
 

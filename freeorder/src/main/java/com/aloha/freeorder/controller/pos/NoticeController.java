@@ -38,23 +38,18 @@ public class NoticeController {
         }
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") String id) {
-        log.info("공지사항 조회");
-        try {
-            Notice notice = noticeService.read(id);
-            return new ResponseEntity<>(notice, HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("공지사항 조회 중 에러 발생...", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
     @PostMapping()
     public ResponseEntity<?> create(Notice notice) {
         log.info("공지사항 등록");
+        int result = 0;
         try {
-            int result = noticeService.insert(notice);
+            List<Notice> noticeList = noticeService.list();
+            if (noticeList.size() > 0) {
+                result = noticeService.update(notice);
+            }
+            else{
+                result = noticeService.insert(notice);
+            }
             if( result > 0 )
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             else{

@@ -23,9 +23,14 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice read(String id) throws Exception {
-        Notice notice = noticeMapper.read(id);
+    public Notice read() throws Exception {
+        Notice notice = noticeMapper.read();
         return notice;
+    }
+
+    @Override
+    public Notice select(String id) throws Exception {
+        return noticeMapper.select(id);
     }
 
     @Override

@@ -154,7 +154,6 @@ a {
 }
 .ls-btns{
     display: flex;
-    padding-top: 50px;
     gap: 20px;
 }
 .ls-delete-btn{

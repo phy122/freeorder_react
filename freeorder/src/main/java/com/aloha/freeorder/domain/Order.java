@@ -20,4 +20,6 @@ public class Order {
     private Date updatedAt;
 
     private List<OrderItem> itemList;
+
+    private int monthTotalPrice;
 }
