@@ -7,17 +7,23 @@
     <th:block th:replace="~{fragments/pos/link::link}"></th:block>
 </head>
 <body>
-    <!-- header -->
-    <th:block th:replace="~{fragments/pos/header::header}"></th:block>
+    <div class="layout">
+        <!-- header -->
+        <th:block th:replace="~{fragments/pos/header::header}"></th:block>
+        <div class="more-layout">
+            <!-- leftmenu -->
+            <th:block th:replace="~{fragments/pos/leftmenu::leftmenu}"></th:block>
+        
+            <!-- ⭐ content -->
+            <th:block layout:fragment="content"></th:block>
+        </div>
+        
+        <!-- footer -->
+        <th:block th:replace="~{fragments/pos/footer::footer}"></th:block>
+    </div>
 
-    <!-- leftmenu -->
-    <th:block th:replace="~{fragments/pos/leftmenu::leftmenu}"></th:block>
-
-    <!-- ⭐ content -->
-    <th:block layout:fragment="content"></th:block>
-    
-    <!-- footer -->
-    <th:block th:replace="~{fragments/pos/footer::footer}"></th:block>
+    <!-- sidebar -->
+    <th:block th:replace="~{fragments/pos/sidebar::sidebar}"></th:block>
 
     <!-- script -->
     <th:block th:replace="~{fragments/pos/script::script}"></th:block>
