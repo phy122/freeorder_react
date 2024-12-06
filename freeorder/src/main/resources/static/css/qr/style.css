@@ -98,7 +98,7 @@
 }
 
 .card {
-  width:90%;
+  width:100%;
   height: 150px;
   border: 1px solid lightgray;
   margin-left: 25px;
@@ -217,7 +217,7 @@
   display: flex;
 }
 
-.pay-button {
+.pay-btn {
   width: 139px;
   height: 50px;
   background-color: var(--main-color);
@@ -227,6 +227,27 @@
   bottom: 2rem;
   font-size: medium;
 }
+
+.c-add-btn {
+  width: 100%;
+  height: 100px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 2rem;
+  font-size: medium;
+}
+
+.change-btn {
+  width: 100%;
+  height: 100px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  position: absolute;
+  bottom: 2rem;
+  font-size: medium;
+}
+
 /* 글씨 크기 */
 .fs-normal {
   font-size: var(--large-text-size);
