@@ -50,29 +50,25 @@
                     <span class="menu-info" th:text="${product.description}"></span>
                     <!-- 아이콘: 신메뉴/추천메뉴/인기메뉴 -->
                     <div class="btn-box">
-                        <!-- <th:blcok th:if="${favaorite}">
-                            
+                        <th:blcok th:if="${favaorite}">
+                            <i class="product-icon bg-blue">인기</i>
                         </th:blcok>
                         <th:blcok th:if="${recommend}">
-    
+                            <i class="product-icon bg-red">추천</i>
                         </th:blcok>
                         <th:blcok th:if="${newmenu}">
-    
-                        </th:blcok> -->
-                        <i class="product-icon bg-blue">인기</i>
-                        <i class="product-icon bg-red">추천</i>
-                        <i class="product-icon bg-yellow">NEW</i>
+                            <i class="product-icon bg-yellow">NEW</i>
+                        </th:blcok>
                     </div>
                 </div>
             </div>
         </div>
         </th:block>
         
-
         <!-- 하단 / 아이콘 -->
-            <a href="/qr/cart">
-                <img src="/img/cart.png" alt="qr매장" class="c-icon">
-            </a>
+        <a href="/qr/cart">
+            <img src="/img/cart.png" alt="qr매장" class="c-icon">
+        </a>
     </div>
 </body>
 </html>
