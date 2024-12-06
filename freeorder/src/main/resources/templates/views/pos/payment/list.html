@@ -14,11 +14,24 @@
             color: inherit;       
         }
         .container {
+            width: 100%;
             display: grid;
-            width: 1500px;
-            height: 1000px;
-            grid-template-columns: 500px 1000px; 
+            grid-template-columns: 500px 1000px;
+            height: 100%; /* 화면 전체 높이 */
            
+        }
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 10px;
+            overflow-y: auto;
         }
         .left-column{
             display: grid;
@@ -117,6 +130,7 @@
         .pay-compl{
             display: flex;
             justify-content: space-between;
+            margin-bottom: 20px;
         }
         .pay-compl h3{
             color: green;
@@ -126,6 +140,7 @@
         }
         .total-pay{
             border-bottom: 1px solid rgb(198, 200, 198);
+            margin-bottom: 20px;
         }
         .total-pay h5{
             color: rgb(97, 98, 97);
@@ -134,11 +149,13 @@
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid rgb(198, 200, 198);
+            margin-bottom: 20px;
         }
         .cancel-price{
             display: flex;
             justify-content: space-between;
             color:rgb(104, 105, 104);
+            margin-bottom: 20px;
         }
         .cancel-total{
             display: flex;
@@ -253,7 +270,7 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <div class="left-column">
+        <div class="left-container">
             <div class="back-title">
                 <div class="payment-title">
                     <a href="">
@@ -307,6 +324,16 @@
                     </div>
                     
                 </a>
+                <a href="" class="detail-link">
+                    <div class="payment">
+                        <p>카드</p>
+                    </div>
+                    <div class="simple">
+                        <h3>52,000원</h3>
+                        <h5>김치찌개 외 2건</h5>
+                    </div>
+                    
+                </a>
                 <div class="time">
                     <p>금요일</p>
                     <p>2024.11.29</p>
@@ -349,54 +376,55 @@
             </div>
             
         </div>
-
-        <div class="detail-part">
-            <div class="pay-compl">
-                <h3>결제 완료</h3>
-                <h4>결제 시간 : 2024.11.29 (금) 11:04</h4>
-            </div>
-            <div class="total-pay">
-                <h5>총 결제 금액</h5>
-                <h1>52,000원</h1>
-                <h4>테이블 1</h4>
-            </div>
-            <div class="total-price">
-                <h4>합계</h4>
-                <h4>52,000원</h4>
-            </div>
-            <div class="cancel-price">
-                <h4>환불 가능 금액</h4>
-                <h4>52,000원</h4>
-            </div>
-            <div class="cancel-total">
-                <h4>환불된 금액</h4>
-                <h4>0원</h4>
-            </div>
-            <div class="btns">
-                <button type="button" class="save-btn">저장</button>
-                <button type="submit" class="delete-btn">삭제</button>
-            </div>
-            <div>
-                <button type="button" class="re-btn">주문 다시 담기</button>
-            </div>
-            <div class="detail-pay">
-                <h4>결제 수단</h4>
-                <h3>카드</h3>
-            </div>
-            <div class="pay-list">
-                <h4>결제 내역</h4>
-                <div class="list-detail">
-                    <h3>김치찌개 X4</h3>
-                    <h3>52,000원</h3>
+        <div class="right-container">
+            <div class="detail-part">
+                <div class="pay-compl">
+                    <h3>결제 완료</h3>
+                    <h4>결제 시간 : 2024.11.29 (금) 11:04</h4>
                 </div>
-            </div>
-            <div class="reward">
-                <h4>고객 정보 / 적립</h4>
-                <button type="button" class="reward-btn">적립</button>
-            </div>
-            <div class="add">
-                <h4>메모</h4>
-                <button type="button" class="add-btn">추가</button>
+                <div class="total-pay">
+                    <h5>총 결제 금액</h5>
+                    <h1>52,000원</h1>
+                    <h4>테이블 1</h4>
+                </div>
+                <div class="total-price">
+                    <h4>합계</h4>
+                    <h4>52,000원</h4>
+                </div>
+                <div class="cancel-price">
+                    <h4>환불 가능 금액</h4>
+                    <h4>52,000원</h4>
+                </div>
+                <div class="cancel-total">
+                    <h4>환불된 금액</h4>
+                    <h4>0원</h4>
+                </div>
+                <div class="btns">
+                    <button type="button" class="save-btn">저장</button>
+                    <button type="submit" class="delete-btn">삭제</button>
+                </div>
+                <div>
+                    <button type="button" class="re-btn">주문 다시 담기</button>
+                </div>
+                <div class="detail-pay">
+                    <h4>결제 수단</h4>
+                    <h3>카드</h3>
+                </div>
+                <div class="pay-list">
+                    <h4>결제 내역</h4>
+                    <div class="list-detail">
+                        <h3>김치찌개 X4</h3>
+                        <h3>52,000원</h3>
+                    </div>
+                </div>
+                <div class="reward">
+                    <h4>고객 정보 / 적립</h4>
+                    <button type="button" class="reward-btn">적립</button>
+                </div>
+                <div class="add">
+                    <h4>메모</h4>
+                    <button type="button" class="add-btn">추가</button>
+                </div>
             </div>
         </div>
     </div>
