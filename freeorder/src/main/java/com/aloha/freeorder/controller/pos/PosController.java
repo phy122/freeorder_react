@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 /**
@@ -25,7 +27,7 @@ public class PosController {
     @GetMapping("/management")
     public String showManagementPage() {
         log.info("더보기 페이지");
-        return "views/pos/management/sales";
+        return "views/pos/management/sales/sales";
     }
 
     @GetMapping("/payment")
@@ -51,5 +53,17 @@ public class PosController {
         log.info("카테고리 수정 페이지");
         return "views/pos/category/update";
     }
+
+    @GetMapping("/management/notice")
+    public String showManagementNotice() {
+        log.info("매출관리 페이지");
+        return "views/pos/management/notice/notice";
+    }
+
+    @GetMapping("/management/promotion")
+    public String showManagementPromotion() {
+        return "views/pos/management/promotion/promotion";
+    }
+    
 
 }
