@@ -1,0 +1,17 @@
+-- 달력 형식의 매출 현황 (해당 월)
+SELECT 
+    DATE(O.ORDERED_AT) AS 날짜,
+    SUM(O.TOTAL_PRICE) AS 총매출금액,
+    IFNULL(SUM(C.REFUNDED_AMOUNT), 0) AS 환불금액,
+    SUM(O.TOTAL_PRICE) - IFNULL(SUM(C.REFUNDED_AMOUNT), 0) AS 실질총매출액
+FROM 
+    ORDERS O
+LEFT JOIN 
+    CANCELLATIONS C ON O.ID = C.ORDERS_ID AND C.IS_REFUND = 1 -- 환불이 완료된 건
+WHERE 
+    DATE_FORMAT(O.ORDERED_AT, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') -- 현재 월
+    AND O.STATUS = 'PAID' -- 결제 완료된 주문
+GROUP BY 
+    DATE(O.ORDERED_AT)
+ORDER BY 
+    날짜;
