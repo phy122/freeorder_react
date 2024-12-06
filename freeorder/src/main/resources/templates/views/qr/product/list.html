@@ -37,9 +37,10 @@
 
         <!-- 카드 -->
         <th:block th:if="${productList != null}" th:each="product : ${productList}">
+
         <div class="card flex justify-content-start align-items-center mt-3">
-            <img th:src="/img/burger.png" alt="불고기버거" class="menu-image ml-1">
-            <div class="menu-name">불고기버거 세트</div>
+            <img src="/img/burger.png" th:alt="${product.name}" class="menu-image ml-1">
+            <div class="menu-name" th:text="${product.name}"></div>
         </div>
         </th:block>
         
