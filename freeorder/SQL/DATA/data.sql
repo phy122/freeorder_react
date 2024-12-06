@@ -1,14 +1,35 @@
--- USERS (사용자)
-INSERT INTO USERS (ID, USERNAME, PASSWORD, NAME, CREATED_AT, UPDATED_AT, ENABLED)
-VALUES
-('1', 'manager01', 'password123', '관리자', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
-('2', 'staff01', 'password123', '직원01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
+-- 기본 데이터
 
--- USER_AUTH (사용자 권한)
-INSERT INTO USER_AUTH (ID, USERNAME, AUTH)
-VALUES
-('1', 'manager01', 'ROLE_MANAGER'),
-('2', 'staff01', 'ROLE_STAFF');
+-- BCryptPasswordEncoder - 암호화 시
+-- 사용자
+INSERT INTO users ( id, username, password, name )
+VALUES ( UUID(), 'user', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '사용자' );
+
+-- 관리자
+INSERT INTO users ( id, username, password, name )
+VALUES ( UUID(), 'admin', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '관리자' );
+
+INSERT INTO users ( id, username, password, name )
+VALUES ( UUID(), 'test', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '테스트' );
+
+
+
+-- 권한
+-- 사용자 
+-- * 권한 : ROLE_USER
+INSERT INTO user_auth ( id, username,  auth )
+VALUES ( UUID(), 'user', 'ROLE_USER' );
+
+INSERT INTO user_auth ( id, username,  auth )
+VALUES ( UUID(), 'test', 'ROLE_USER' );
+
+-- 관리자
+-- * 권한 : ROLE_USER, ROLE_ADMIN
+INSERT INTO user_auth ( id, username,  auth )
+VALUES ( UUID(), 'admin', 'ROLE_USER' );
+
+INSERT INTO user_auth ( id, username,  auth )
+VALUES ( UUID(), 'admin', 'ROLE_ADMIN' );
 
 -- PRODUCTS (메뉴)
 INSERT INTO PRODUCTS (ID, OPTION_ID, NAME, CATEGORY_ID, DESCRIPTION, CONTENT, PRICE, STOCK_CHECK, STOCK, SEQ, CREATED_AT, UPDATED_AT)

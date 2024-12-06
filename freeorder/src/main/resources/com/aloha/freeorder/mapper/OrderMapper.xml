@@ -38,4 +38,34 @@
         DELETE FROM orders
         WHERE id = #{id}
     </insert>
+
+    <!-- 해당 달의 판매 총액 불러오기 -->
+    <select id="totalMonth">
+        SELECT 
+            SUM(TOTAL_PRICE) AS TOTAL_SALES
+        FROM 
+            ORDERS
+        WHERE 
+            STATUS = '#{status}'
+            AND YEAR(ORDERED_AT) = YEAR(#{day})
+            AND MONTH(ORDERED_AT) = MONTH(#{day})
+    </select>
+
+    <!-- 해당 날짜의 총액 불러오기 [판매/환불]-->
+    <select id="totalDay">
+        SELECT 
+            AVG(SUM(o.TOTAL_PRICE),COUNT(o.ID)) AS AVG_SALES,
+            SUM(o.TOTAL_PRICE) AS TOTAL_SALES,
+            COUNT(o.ID) as total_count
+        FROM 
+            ORDERS o LEFT JOIN payments pm
+        WHERE 
+            o.STATUS = '#{status}'
+            AND YEAR(o.ORDERED_AT) = YEAR(#{day})
+            AND MONTH(o.ORDERED_AT) = MONTH(#{day})
+            AND DAY(o.ORDERED_AT) = DAY(#{day})
+        GROUP BY 
+            pm.payment_method
+    </select>
+
 </mapper>
