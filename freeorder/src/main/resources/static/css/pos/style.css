@@ -280,3 +280,52 @@ footer .more a{
     font-weight: bold;
 }
 /* 사이드바 끝 */
+
+/* 더보기 왼쪽 사이드바 시작 */
+.more-layout{
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+.left-title{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+}
+.list-container{
+    height: 100%;
+}
+.list-container li,
+.setting{
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+.list-container li:hover{
+    background-color: var(--main-color);
+}
+.list-container li:hover a{
+    color: white;
+}
+.setting{
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.setting-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left-item{
+    font-size: 16px;
+}
+
+/* 더보기 왼쪽 사이드바 끝 */
