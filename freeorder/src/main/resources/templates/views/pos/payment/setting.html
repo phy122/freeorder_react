@@ -7,109 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
+    <link rel="stylesheet" href="/css/pos/payment.css">
     <title>POS</title>
-    <style>
-        .filter-title{
-            width: 1500px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(128, 128, 128, 0.3);
-        }
-        .filter-title .material-symbols-outlined{
-            padding-top: 20px;
-            font-size: 30px;
-        }
-        .container {
-            border: 1px dashed coral;
-            width: 1500px;
-            height: 1000px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .period-main{
-            width: 600px;
-        }
-        .period-title{
-            margin-top: 50px;
-            margin-bottom: 15px;
-
-        }
-        .period-setting{
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        .week-btn, .month-btn, .today-btn{
-            width: 200px;
-            height: 60px;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            font-weight: bold;
-            border-radius: 10px;
-            border: 1px solid gray;
-            background-color: white;
-        }
-        .period-btn{
-            width: 100%;
-            padding: 15px;
-            font-size: 20px;
-            border: none;
-            font-weight: bold;
-            border-radius: 10px;
-            margin-top: 10px;
-            border: none;
-            background-color: rgb(217, 213, 213);
-            color: cornflowerblue;
-        }
-        .select-payment{
-            width: 600px;
-            gap: 10px;
-            display: flex;
-            flex-direction: column; 
-            padding: 10px;
-            margin-top: 15px;
-        }
-        .select-payment select{
-            height: 50px;  
-            padding: 10px;  
-            box-sizing: border-box; 
-            border-radius: 10px;
-        }
-        .main-btn{
-            margin-top: 300px;
-            width: 600px;
-            display: flex;
-            padding-top: 50px;
-            gap: 20px;
-        }
-        .delete-btn{
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid rgb(167, 164, 164);
-            border-radius: 5px;
-            background-color: white;
-            font-weight: bold;
-            color: rgb(90, 87, 87);
-        }
-        .save-btn{
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background-color: cornflowerblue;
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="ps-container">
         <!-- [상단]	닫기 버튼 -->
-        <div class="filter-title">
+        <div class="ps-filter-title">
             <h4>필터</h4>
             <a href="/freeorder/src/main/resources/templates/views/pos/product/products.html">
                 <span class="material-symbols-outlined">
@@ -117,22 +21,22 @@
                 </span>
             </a>
         </div>
-        <div class="period-main">
+        <div class="ps-period-main">
             <!-- [기간 설정]	기간 설정 버튼 -->
-            <div class="period-title">
+            <div class="ps-period-title">
                 <label for="period-title">기간 설정</label>
             </div>
-            <div class="period-setting">
-                <button type="button" class="week-btn">1주</button>
-                <button type="button" class="month-btn">1개월</button>
-                <button type="button" class="today-btn">오늘</button>
+            <div class="ps-period-setting">
+                <button type="button" class="ps-week-btn">1주</button>
+                <button type="button" class="ps-month-btn">1개월</button>
+                <button type="button" class="ps-today-btn">오늘</button>
             </div>
-            <div class="setting-btn">
-                <button type="button" class="period-btn">기간 설정</button>
+            <div class="ps-setting-btn">
+                <button type="button" class="ps-period-btn">기간 설정</button>
             </div>
         </div>
         <!-- [결제 수단]	결제 수단 선택 -->
-         <div class="select-payment">
+         <div class="ps-select-payment">
             <label for="payment">결제 수단</label>
             <select name="payment" id="payment">
                 <option value="select">전체</option>
@@ -146,9 +50,9 @@
          </div>
         <!-- [취소]	취소 버튼 -->
         <!-- [적용]	적용 버튼 -->
-        <div class="main-btn">
-            <button type="submit" class="delete-btn">삭제</button>
-            <button type="button" class="save-btn">적용</button>
+        <div class="ps-main-btn">
+            <button type="submit" class="ps-delete-btn">삭제</button>
+            <button type="button" class="ps-save-btn">적용</button>
         </div>
     </div>
 </body>
