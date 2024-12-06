@@ -180,24 +180,24 @@ public class PosController {
     public String notice(Model model) throws Exception {
         Notice notice = noticeService.read();
         model.addAttribute("notice", notice);
-        return "views/pos/notice/update";
+        return "views/pos/management/notice/notice";
     }
 
     @GetMapping({"/promotion","/promotion/list"})
     public String promotionList() {
-        return "views/pos/promotion/list";
+        return "views/pos/management/promotion/promotion";
     }
 
     @GetMapping("/promotion/insert")
     public String promotionInsert() {
-        return "views/pos/promotion/insert";
+        return "views/pos/management/promotion/promotion_insert";
     }
 
     @GetMapping("/promotion/update/{id}")
     public String promotionUpdate(@PathVariable("id") String id, Model model) throws Exception {
         Notice notice = noticeService.select(id);
         model.addAttribute("notice", notice);
-        return "views/pos/promotion/update";
+        return "views/pos/management/promotion/promotion_update";
     }
     
     
