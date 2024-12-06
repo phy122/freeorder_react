@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
+import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.CategoryService;
 import com.aloha.freeorder.service.NoticeService;
+import com.aloha.freeorder.service.OptionService;
 import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
@@ -57,16 +59,17 @@ public class QrController {
     private PaymentService paymentService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OptionService optionService;
 
   @GetMapping("/main")
   public String main(Model model,HttpServletRequest request, @CookieValue(value = "id", defaultValue = "null") String cookieId) {
     
     HttpSession session = request.getSession();
     String id = UUID.randomUUID().toString();
-    if (id.equals("id")) {
+    if (cookieId != null) {
       id = cookieId;
     }
-    //TODO: 쿠키 마저 구워주세요.
     session.setAttribute("id", id);
     log.info("쿠키 아이디 : " + cookieId);
     log.info("접속시 부여된 아이디 : " + id);
@@ -96,7 +99,6 @@ public class QrController {
    Cookie cookie = new Cookie("id", id);
    cookie.setMaxAge(60 * 60 * 24 * 1);
    response.addCookie(cookie);
-// 84a8564b-2b92-4d43-a4bf-36c93b754537
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
@@ -168,6 +170,13 @@ public class QrController {
   }
   
 
+  @GetMapping("/option/{id}")
+  public String option(@PathVariable("id") String id, Model model) throws Exception {
+      List<Option> optionlist = optionService.list();
+      model.addAttribute("optionlist", optionlist);
+      return new String();
+  }
+  
   
   
   
