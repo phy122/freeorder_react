@@ -98,9 +98,14 @@
 }
 
 .card {
-  width: 100%;
+  width:90%;
   height: 150px;
-  border: 1px solid rgb(189, 189, 189);
+  border: 1px solid lightgray;
+  margin-left: 25px;
+  border-radius: 15px;
+  border-width: 2.5px;
+  font-size: large;
+  font-weight: bold;
 }
 
 .total-card {
@@ -135,7 +140,7 @@
 }
 
 .c-card {
-  
+  width: 80%;
 }
 
 .c-icon {
@@ -150,14 +155,19 @@
   
 }
 
-.order-list-card {
-}
-
-
 /* 버튼디자인 */
 
 .circle-btn {
   border-radius: 50%;
+}
+
+.product-icon {
+  width: 42px;
+  height: 26px;
+  border-radius: 20%;
+  color: white;
+  font-style: normal;
+  font-size: medium;
 }
 
 /* 버튼 크기 */
@@ -233,6 +243,19 @@
 .bg-gray {
   background-color: #acacac;
 }
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-yellow {
+  background-color: rgb(255, 196, 0);
+}
+
 .bg-main {
   background-color: var(--main-color);
 }
