@@ -78,10 +78,10 @@ public class QrController {
   }
 
   
-  @GetMapping("/notice/{id}")
-  public String notice(@PathVariable("id") String id, Model model) throws Exception {
+  @GetMapping("/notice")
+  public String notice(Model model) throws Exception {
       log.info("공지사항 출력!!");
-      Notice notice = noticeService.read(id);
+      Notice notice = noticeService.read();
       model.addAttribute("notice", notice);
       return "views/qr/notice";
   }
