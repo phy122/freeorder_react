@@ -11,6 +11,38 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-    </div>
+        <div class="promotion-page">
+            <h1>프로모션</h1>
+            <button type="button" class="insert-btn">프로모션 등록</button>
+        </div>
+        <table class="promotion-list">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>프로모션명</th>
+                    <th>설명</th>
+                    <th>등록일자</th>
+                    <th>수정일자</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>크리스티아누</td>
+                    <td>호날두</td>
+                    <td>2024-12-06</td>
+                    <td>2024-12-06</td>
+                        <td>
+                        <button class="update-btn">수정</button>
+                        <form action="" method="post" style="display:inline;">
+                            <button type="submit" class="delete-btn">삭제</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+</div>
 </body>
 </html>

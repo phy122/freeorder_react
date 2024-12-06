@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/pos/more_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/pos/promotion.css">
+    <title>PROMOTION</title>
+</head>
+<body>
+    <div class="container" layout:fragment="content">
+        <div class="promotion-edit-page">
+            <h1>프로모션 수정</h1>
+            <form class="promotion-form" action="" method="">
+                <label for="promotion-name">프로모션 이름</label>
+                <input type="text" id="promotion-name" name="promotion-name" placeholder="프로모션 이름을 입력하세요" required />
+                <label for="promotion-description">프로모션 설명</label>
+                <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea>
+                <label for="thumbnail">썸네일</label>
+                <input type="file" name="thumbnail" id="thumbnail">
+                <button type="submit" class="promotion-submit-btn">수정</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
