@@ -27,14 +27,14 @@
 
 // 매출관리 달력
 salesFunctions()
-function salesFunctions(params) {
-    const calendarContainer = document.querySelector(".calendar");
+function salesFunctions() {
     const calendarDates = document.getElementById("calendarDates");
     const monthYear = document.getElementById("monthYear");
     const prevMonth = document.getElementById("prevMonth");
     const nextMonth = document.getElementById("nextMonth");
 
     let currentDate = new Date();
+    let selectedDate = null; // 클릭한 날짜 저장
 
     function renderCalendar(date) {
         const year = date.getFullYear();
@@ -60,10 +60,24 @@ function salesFunctions(params) {
         for (let day = 1; day <= daysInMonth; day++) {
             const dateElement = document.createElement("div");
             dateElement.textContent = day;
-            dateElement.addEventListener("click", () => {
-                document.querySelectorAll("#calendarDates div").forEach(div => div.classList.remove("selected"));
+
+            // 클릭한 날짜와 비교하여 강조
+            const isSelected =
+                selectedDate &&
+                selectedDate.getFullYear() === year &&
+                selectedDate.getMonth() === month &&
+                selectedDate.getDate() === day;
+
+            if (isSelected) {
                 dateElement.classList.add("selected");
+            }
+
+            // 날짜 클릭 이벤트
+            dateElement.addEventListener("click", () => {
+                selectedDate = new Date(year, month, day); // 선택한 날짜 저장
+                renderCalendar(currentDate); // 달력 다시 렌더링
             });
+
             calendarDates.appendChild(dateElement);
         }
     }
@@ -81,5 +95,4 @@ function salesFunctions(params) {
 
     // 초기 달력 렌더링
     renderCalendar(currentDate);
-
 }
