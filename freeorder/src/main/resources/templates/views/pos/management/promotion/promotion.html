@@ -17,31 +17,45 @@
             <button type="button" class="insert-btn">프로모션 등록</button>
         </div>
         <table class="promotion-list">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>프로모션명</th>
-                    <th>설명</th>
-                    <th>등록일자</th>
-                    <th>수정일자</th>
-                    <th>관리</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>크리스티아누</td>
-                    <td>호날두</td>
-                    <td>2024-12-06</td>
-                    <td>2024-12-06</td>
-                        <td>
-                        <button class="update-btn">수정</button>
-                        <form action="" method="post" style="display:inline;">
-                            <button type="submit" class="delete-btn">삭제</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
+            <!-- 프로모션이 있을 때 -->
+            <th:block th:if="${proList != null and !proList.isEmpty()}">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>프로모션명</th>
+                        <th>썸네일</th>
+                        <th>등록일자</th>
+                        <th>수정일자</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="pro, stat : ${proList}">
+                        <tr>
+                            <td th:text="${stat.index + 1}">1</td>
+                            <td th:text="${pro.title}">프로모션 이름</td>
+                            <td th:text="${pro.thumbnail}">썸네일</td>
+                            <td th:text="${pro.createdDate}">2024-12-06</td>
+                            <td th:text="${pro.updatedDate}">2024-12-06</td>
+                            <td>
+                                <a class="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
+                                <form th:action="@{/pos/promotion/delete/{id}(id=${pro.id})}" method="post" style="display:inline;">
+                                    <button type="submit" class="delete-btn">삭제</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </th:block>
+        
+            <!-- 프로모션이 없을 때 -->
+            <th:block th:if="${proList == null or proList.isEmpty()}">
+                <tbody>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">등록된 프로모션이 없습니다.</td>
+                    </tr>
+                </tbody>
+            </th:block>
         </table>
     </div>      
 </div>
