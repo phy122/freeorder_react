@@ -38,10 +38,11 @@
         <!-- 카드 -->
         <th:block th:if="${productList != null}" th:each="product : ${productList}">
 
-        <div class="card flex justify-content-start align-items-center mt-3">
-            <img src="/img/burger.png" th:alt="${product.name}" class="menu-image ml-1">
-            <div class="info-box">
-                <div class="top-area">
+        <a th:href="|/qr/option/${product.id}|">
+            <div class="card flex justify-content-start align-items-center mt-3">
+                <img src="/img/burger.png" th:alt="${product.name}" class="menu-image ml-1">
+                <div class="info-box">
+                    <div class="top-area">
                     <span class="menu-name" th:text="${product.name}"></span>
                     <span class="menu-price" th:text="${product.price}"></span>
                 </div>
@@ -63,6 +64,7 @@
                 </div>
             </div>
         </div>
+        </a>
         </th:block>
         
         <!-- 하단 / 아이콘 -->
