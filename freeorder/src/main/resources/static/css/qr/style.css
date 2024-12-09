@@ -98,10 +98,10 @@
 }
 
 .card {
-  width:90%;
+  width: 90%;
   height: 150px;
   border: 1px solid lightgray;
-  margin-left: 25px;
+  margin-left: 5%;
   border-radius: 15px;
   border-width: 2.5px;
   font-size: large;
@@ -117,8 +117,24 @@
   bottom: 0px;
 }
 
-.menu-name {
+.top-area {
   display: flex;  
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-price {
+  margin-right: 20px;
+}
+
+.info-box {
+  width: 100%;
+  margin-top: -30px;
+}
+
+.menu-info {
+  margin: 0 10px;
+  font-size: medium;
 }
 
 .menu-image {
