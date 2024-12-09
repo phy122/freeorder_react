@@ -161,9 +161,9 @@ function proInsert(){
     let formData = new FormData( $("#pro-insert")[0] )
     let url = "/pos/products"
     $.ajax({
-        url     : url,
-        method  : "post",
-        data    : formData,
+        url             : url,
+        method          : "post",
+        data            : formData,
         contentType     :   false,
         processData     :   false,
         success : function(data){
@@ -174,4 +174,41 @@ function proInsert(){
             }
         }              
     })
+}
+// 상품 수정
+function proUpdate(){
+    let formData = new FormData( $("#pro-update")[0] )
+    let url = "/pos/products"
+    $.ajax({
+        url             : url,
+        method          : "put",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "SUCCESS") {
+                alert("상품 수정 성공")
+
+                location.href = "/pos/product"
+            }
+        }
+    })
+}
+// 상품 삭제
+function proDelete() {
+    let formData = new FormData( $("#pro-update")[0])
+    let url = "/pos/products"
+    $.ajax({
+        url             : url,
+        method          : "delete",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "SUCCESS") {
+                alert("삭제 성공")
+                location.href = "/pos/product"
+            }
+        }
+    }) 
 }
