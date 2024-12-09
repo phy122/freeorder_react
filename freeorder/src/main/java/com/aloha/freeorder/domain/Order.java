@@ -21,5 +21,4 @@ public class Order {
 
     private List<OrderItem> itemList;
 
-    private int monthTotalPrice;
 }
