@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
@@ -28,9 +27,6 @@ import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -120,15 +116,18 @@ public class PosController {
         return "views/pos/payment/list";
     }
 
-    @GetMapping({"/product","/product/{id}"})
+    // 상품 목록
+    @GetMapping({"/product", "/product/{id}"})
     public String showProductPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
                                  ,Model model
                                  ,@PathVariable(value = "id",required = false) String id) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        List<Category> cateList = categoryService.list();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+
         // 공통객체 [끝]
 
         // 상품 목록
@@ -139,12 +138,26 @@ public class PosController {
         else{
             productList = productService.allList();
         }
+        log.info(productList.toString());
         model.addAttribute("productList", productList);
+        model.addAttribute("cateList", cateList);
 
         log.info("상품 페이지");
         return "views/pos/product/products";
     }
+
+    // 상품 등록
+    @GetMapping("/product/insert")
+    public String showProductInsertPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation, Model model) throws Exception {
+        List<Product> productList = productService.allList();
+        model.addAttribute("operation", operation);
+        model.addAttribute("productList", productList);
+
+        log.info("상품 등록 페이지");
+        return "views/pos/product/insert";
+    }
     
+    // 카테고리 등록
     @GetMapping("/category/insert")
     public String showCategoryInsertPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
 

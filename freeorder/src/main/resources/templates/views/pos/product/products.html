@@ -11,86 +11,26 @@
     <title>POS</title>
 </head>
 <body>
-    <div class="products-container" layout:fragment="content">
-        <!-- 왼쪽: 카테고리와 상품 목록 -->
-        <div class="left-container">
-            <div class="p-categories">
-                <div class="p-category-list">
-                    <a href="">
-                        <div class="p-category-card">
-                            <span class="material-symbols-outlined">fastfood</span>
-                            <p>햄버거</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="p-category-card">
-                            <span class="material-symbols-outlined">fastfood</span>
-                            <p>햄버거</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="p-category-card">
-                            <span class="material-symbols-outlined">fastfood</span>
-                            <p>햄버거</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="p-category-card">
-                            <span class="material-symbols-outlined">fastfood</span>
-                            <p>카테고리 추가</p>
-                        </div>
-                    </a>
-                </div>
+    <div class="container" layout:fragment="content">
+        <!-- [상품 목록] 상품 선택 수정 -->
+        <div class="product-page">
+            <div class="product-header">
+                <h1>상품 목록</h1>
+                <!-- 상품 추가 -->
+                <a class="add-product-btn" href="/pos/product/insert">+ 추가</a>
             </div>
-            <div class="p-products">
-                <div class="p-product-list">
-                    <a href="" class="p-product-card">
-                        <div>
-                            <img src="/img/burger.png" alt="불고기버거">
-                            <p>불고기버거</p>
-                            <p>50,000원</p>
-                        </div>
-                    </a>
-                    <a href="" class="p-product-card">
-                        <div>
-                            <img src="/img/burger.png" alt="불고기버거">
-                            <p>불고기버거</p>
-                            <p>50,000원</p>
-                        </div>
-                    </a>
-                    <a href="" class="p-product-card">
-                        <div>
-                            <img src="/img/burger.png" alt="불고기버거">
-                            <p>불고기버거</p>
-                            <p>50,000원</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- 오른쪽: 주문 영역 -->
-        <div class="right-container">
-            <div class="p-order-part">
-                <div class="p-setting-btns">
-                    <div class="p-search">
-                        <a href="">
-                            <span class="material-symbols-outlined">search</span>
-                        </a>
+            <div class="product-list">
+                <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                    <div class="product-item" draggable="true">
+                        <span class="product-name" th:text="${product.name}"></span>
+                        <span class="product-price" th:text="${product.price} + '원'"></span>
+                        <a class="edit-btn" th:href="|/pos/product/update/${product.id}|">수정</a>
+                        <a class="delete-btn" th:href="/pos/products">삭제</a>
                     </div>
-                    <div class="p-settings">
-                        <a href="">
-                            <span class="material-symbols-outlined">settings</span>
-                        </a>
-                    </div>
-                    <button class="p-all-delete" type="button">전체 삭제</button>
-                </div>
-                <div class="p-order-list pl">
-                    <h1>주문 목록</h1>
-                </div>
-                <div class="p-payment">
-                    <button class="p-pay-btn" type="button">총 합계 : 50,000원</button>
-                    <button class="p-add-btn" type="button">금액 입력</button>
-                </div>
+                </th:block>
+                <th:block th:if="${productList.isEmpty()}">
+                    상품이 없습니다.
+                </th:block>
             </div>
         </div>
     </div>
