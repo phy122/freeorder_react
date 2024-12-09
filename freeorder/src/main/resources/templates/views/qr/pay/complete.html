@@ -11,19 +11,25 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <div class="allcenter">
-        <div class="flex flex-column justify-content-center align-items-center">
+        <div class="flex flex-column justify-content-center align-items-center p-10">
         <!-- 완료 메시지 -->
-        <div class="payComplete"><img src="/img/payComplete.png" alt="결제 완료" width="100"></div>
-        <div class="compl-text">결제 완료!</div>
+        <div class="payComplete"><img src="/img/payComplete.png" alt="결제 완료" width="300" mt-1></div>
+        <div class="compl-text mt-5 fw-1">결제 완료!</div>
+        </div>
         <!-- 결제 영수증 출력 -->
 
 
         <!-- 확인 -->
-        <a href="/qr/list" class="ok-button white"><span class="ok-button white flex flex-column justify-content-center align-items-center mt-0">OK</span></a>
-
-        <!-- 결제 내역 -->
-        <a href="/qr/order/list" class="pay white"><span class="color-white flex flex-column justify-content-center align-items-center mt-0">결제 내역</span></a>
+         <div class="border">
+             <div class="change-btn-border">
+                 <button onclick="location.href='/qr/list'" class="OK white mt-5">OK</button>
+                </div>
+                
+                <!-- 결제 내역 -->
+                <div class="change-btn-border">
+                    <button onclick="location.href='/order/list'" class="order-list white">결제 내역</button>
+                </div>
+            </div>
 
         <!-- 결제 실패 -->
 
@@ -35,8 +41,6 @@
 
 
         <!-- 장바구니로 이동 -->
-        </div>
       </div>
-    </div>
 </body>
 </html>
