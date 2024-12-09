@@ -34,16 +34,15 @@
                      <label for="price">가격</label>
                      <input type="text" name="price" id="price" placeholder="가격을 입력하세요.">
                 </div>
-                <div class="u-input-category">
-                    <!-- 카테고리 선택창 -->
-                    <label for="category">카테고리</label>
-                    <select name="category" id="category">
-                        <option value="select">카테고리 선택</option>
-                        <option value="1">돈까스</option>
-                        <option value="2">짱깨</option>
-                        <option value="3">제육</option>
-                        <option value="4">국밥</option>
-                      </select>
+                <!-- 카테고리 선택창 -->
+                <div class="i-input-category">
+                    <label for="categoryId">카테고리</label>
+                    <select name="categoryId" id="categoryId" required>
+                        <option value="">카테고리</option>
+                        <th:block th:each="cate : ${cateList}">
+                            <option th:value="${cate.id}" th:text="${cate.name}" th:selected="${cate.id == product.categoryId}"></option>
+                        </th:block>
+                    </select>
                 </div>
                 <div class="u-input-description">
                     <!-- 상품 정보 입력창 -->

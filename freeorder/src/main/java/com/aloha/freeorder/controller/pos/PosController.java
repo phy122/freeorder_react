@@ -105,6 +105,9 @@ public class PosController {
         // 상품 목록
         List<Product> productList = productService.allList();
         model.addAttribute("productList", productList);
+        // 카테고리 목록
+        List<Category> cateList = categoryService.list();
+        model.addAttribute("cateList", cateList);
 
         return "views/pos/product/insert";
     }
@@ -121,8 +124,11 @@ public class PosController {
         // 상품 조회
         Product product = productService.select(id);
         model.addAttribute("product", product);
+        // 카테고리 목록
+        List<Category> cateList = categoryService.list();
+        model.addAttribute("cateList", cateList);
 
-        return "views/pos/product/insert";
+        return "views/pos/product/update";
     }
     
     /**

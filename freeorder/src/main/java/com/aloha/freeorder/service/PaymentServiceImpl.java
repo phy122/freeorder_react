@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aloha.freeorder.domain.PaySearch;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.mapper.PaymentMapper;
 
@@ -27,6 +28,11 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> list() throws Exception {
         return paymentMapper.list();
     }
+    
+    @Override
+    public List<Payment> listByOption(PaySearch paySearch) throws Exception {
+        return paymentMapper.listByOption(paySearch);
+    }
 
     @Override
     public int insert(Payment payment) throws Exception {
@@ -43,5 +49,6 @@ public class PaymentServiceImpl implements PaymentService {
     public int delete(String id) throws Exception {
         return paymentMapper.delete(id);
     }
+
     
 }
