@@ -383,6 +383,10 @@ transform: scale(1);
   justify-content: center;
 }
 
+.option-checkbox {
+  cursor: pointer;
+}
+
 .checkbox-container {
   display: flex;
   flex-direction: column;
