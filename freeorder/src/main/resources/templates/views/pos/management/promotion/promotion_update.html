@@ -17,13 +17,15 @@
             <form class="promotion-form" id="pro-update">
                 <input type="hidden" name="type" value="promotion">
                 <input type="hidden" name="id" th:value="${notice.id}">
-                <label for="promotion-name">프로모션 이름</label>
-                <input type="text" id="promotion-name" name="promotion-name" th:value="${notice.title}" required />
+                <label for="title">프로모션 이름</label>
+                <input type="text" id="title" name="title" th:value="${notice.title}" required />
                 <!-- <label for="promotion-description">프로모션 설명</label>
                 <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea> -->
-                <label for="thumbnail">썸네일</label>
-                <input type="file" name="thumbnail" id="thumbnail" th:value="${notice.thumbnail}">
-                <button type="button" class="promotion-update-btn">수정</button>
+                <label for="thumbFile">썸네일</label>
+                <input type="file" name="thumbFile" id="thumbFile">
+                <label for="contentFile">프로모션 내용</label>
+                <input type="file" name="contentFile" id="contentFile">
+                <button type="button" class="promotion-update-btn" onclick="noticeUpdate()">수정</button>
             </form>
         </div>
     </div>

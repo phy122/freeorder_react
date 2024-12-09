@@ -14,7 +14,7 @@
     <div class="container" layout:fragment="content">
         <div class="promotion-page">
             <h1>프로모션</h1>
-            <button type="button" class="insert-btn">프로모션 등록</button>
+            <a href="/pos/promotion/insert" class="insert-btn">프로모션 등록</a>
         </div>
         <table class="promotion-list">
             <!-- 프로모션이 있을 때 -->
@@ -34,14 +34,14 @@
                         <tr>
                             <td th:text="${stat.index + 1}">1</td>
                             <td th:text="${pro.title}">프로모션 이름</td>
-                            <td th:text="${pro.thumbnail}">썸네일</td>
-                            <td th:text="${pro.createdDate}">2024-12-06</td>
-                            <td th:text="${pro.updatedDate}">2024-12-06</td>
+                            <td>
+                                <img th:src="|/timg?id=${pro.id}|" alt="">
+                            </td>
+                            <td th:text="${pro.createdAt}">2024-12-06</td>
+                            <td th:text="${pro.updatedAt}">2024-12-06</td>
                             <td>
                                 <a class="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
-                                <form th:action="@{/pos/promotion/delete/{id}(id=${pro.id})}" method="post" style="display:inline;">
-                                    <button type="submit" class="delete-btn">삭제</button>
-                                </form>
+                                <button type="submit" class="delete-btn" th:onclick="noticeDelete([[${pro.id}]])">삭제</button>
                             </td>
                         </tr>
                     </th:block>

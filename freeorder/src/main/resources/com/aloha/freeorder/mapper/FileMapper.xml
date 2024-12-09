@@ -21,10 +21,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE id = #{id}
     </select>
 
+    <!-- 썸네일 조회 -->
+    <select id="thumb" resultType="Files">
+        SELECT *
+        FROM files
+        WHERE parent_id = #{id}
+          AND parent_table = 'notice'
+          AND NOT is_main
+    </select>
+
     <!-- 파일 등록 -->
     <insert id="insert">
         INSERT INTO files( id, parent_id,  parent_table, name, origin_name ,path, size, is_main, seq )
-        VALUES ( #{id}, #{parentId}, #{parentTable}, #{name}, #{originName} #{path}, #{size}, #{isMain}, #{seq} )
+        VALUES ( #{id}, #{parentId}, #{parentTable}, #{name}, #{originName} , #{path}, #{size}, #{isMain}, #{seq} )
     </insert>
 
     <!-- 파일 삭제 -->

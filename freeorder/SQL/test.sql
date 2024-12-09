@@ -29,3 +29,22 @@ LEFT JOIN (
 -- 추천 상품 여부를 위한 조인
 LEFT JOIN RECOMMENDED_PRODUCTS rp ON p.ID = rp.PRODUCTS_ID
 ORDER BY p.seq asc;
+
+
+SELECT *
+FROM files
+WHERE parent_id = 'f99062c3-01f4-4f84-87c2-a6070d0dfa28'
+AND parent_table = 'notice'
+AND not is_main;
+
+SELECT *
+FROM files
+WHERE parent_id = '3e7e4bf5-152d-4c23-ae42-789dd929eed5'
+AND parent_table = 'notice'
+AND NOT is_main;
+
+SELECT * FROM files;
+
+SELECT * FROM notices;
+
+
