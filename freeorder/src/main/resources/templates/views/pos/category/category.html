@@ -20,18 +20,12 @@
                 <a class="add-category-btn" href="/pos/category/insert">+ 추가</a>
             </div>
             <div class="category-list">
-                <div class="category-item" draggable="true">
-                    <span class="category-name">메인메뉴</span>
-                    <button class="edit-btn">수정</button>
-                </div>
-                <div class="category-item" draggable="true">
-                    <span class="category-name">서브메뉴</span>
-                    <button class="edit-btn">수정</button>
-                </div>
-                <div class="category-item" draggable="true">
-                    <span class="category-name">주류</span>
-                    <button class="edit-btn" onclick="location">수정</button>
-                </div>
+                <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
+                    <div class="category-item" draggable="true">
+                        <span class="category-name" th:text="${cate.name}"></span>
+                        <a class="edit-btn" th:href="|/pos/category/update/${cate.id}|">수정</a>
+                    </div>
+                </th:block>
             </div>
         </div>
     </div>

@@ -96,3 +96,65 @@ function salesFunctions() {
     // 초기 달력 렌더링
     renderCalendar(currentDate);
 }
+
+
+// 카테고리 CRUD
+
+// function categoryFunctions() {
+    
+// }
+
+// 카테고리 입력
+function cateInsert() {
+    let formData = new FormData( $("#cate-insert")[0])
+    let url = "/pos/categories"
+    $.ajax({
+        url             : url,
+        method          : "post",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("등록 성공")
+                location.href = "/pos/category"
+            }
+        }
+    }) 
+}
+// 카테고리 수정
+function cateUpdate() {
+    let formData = new FormData( $("#cate-update")[0])
+    let url = "/pos/categories"
+    $.ajax({
+        url             : url,
+        method          : "put",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("수정 성공")
+                location.href = "/pos/category"
+            }
+        }
+    }) 
+}
+// 카테고리 삭제
+function cateDelete() {
+    let formData = new FormData( $("#cate-update")[0])
+    let url = "/pos/categories"
+    $.ajax({
+        url             : url,
+        method          : "delete",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("삭제 성공")
+                location.href = "/pos/category"
+            }
+        }
+    }) 
+}
