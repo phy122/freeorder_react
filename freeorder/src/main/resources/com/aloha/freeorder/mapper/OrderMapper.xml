@@ -4,17 +4,53 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.aloha.freeorder.mapper.OrderMapper">
-    
+    <resultMap type="Order" id="orderMap">
+        <id property="id" column="id" />
+        
+        <result property="id" column="id" />
+        <result property="userId" column="userId" />
+        <result property="title" column="title" />
+        <result property="totalQuantity" column="totalQuantity" />
+        <result property="totalCount" column="totalCount" />
+        <result property="totalPrice" column="totalPrice" />
+        <result property="status" column="status" />
+        <result property="orderedAt" column="orderedAt" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        
+        <collection property="itemList" resultMap="itemMap"></collection>
+    </resultMap>
+    <resultMap type="OrderItem" id="itemMap">
+        <result property="id" column="id" />
+        <result property="orderId" column="orderId" />
+        <result property="productId" column="productId" />
+        <result property="quantity" column="quantity" />
+        <result property="price" column="price" />
+        <result property="amount" column="amount" />
+    </resultMap>
+
     <!-- 주문 목록 -->
-    <select id="list" resultType="Order">
-        SELECT *
-        FROM orders
+    <select id="list" resultMap="orderMap">
+        SELECT o.*
+              ,oi.product_id
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+        FROM orders o
+        LEFT OUTER JOIN order_items oi
+        ON o.id = oi.orders_id
     </select>
     <!-- 주문 조회 -->
-    <select id="read" resultType="Order">
-        SELECT *
-        FROM orders
-        WHERE id = #{id}
+    <select id="read" resultMap="orderMap">
+        SELECT o.*
+              ,oi.product_id
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+        FROM orders o
+        LEFT OUTER JOIN order_items oi
+        ON o.id = oi.orders_id
+        WHERE o.id = #{id}
     </select>
 
     <!-- 주문 등록 -->
@@ -40,7 +76,7 @@
     </insert>
 
     <!-- 해당 달의 판매 총액 불러오기 -->
-    <select id="totalMonth">
+    <select id="totalMonth" resultType="SalesReport">
         SELECT 
             AVG(SUM(o.TOTAL_PRICE),COUNT(o.ID)) AS AVG_SALES,
             SUM(o.TOTAL_PRICE) AS TOTAL_SALES,
@@ -57,7 +93,7 @@
 
 
     <!-- 해당 날짜의 총액 불러오기 [판매/환불]-->
-    <select id="totalDay">
+    <select id="totalDay" resultType="SalesReport">
         SELECT 
             AVG(SUM(o.TOTAL_PRICE),COUNT(o.ID)) AS AVG_SALES,
             SUM(o.TOTAL_PRICE) AS TOTAL_SALES,
