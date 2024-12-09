@@ -20,7 +20,4 @@ public class SalesReport {
     private int cashAmount;
     private int simpleAmount;
 
-    
-
-
 }
