@@ -12,25 +12,54 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <!-- [상품 목록] 상품 선택 수정 -->
-        <div class="product-page">
-            <div class="product-header">
-                <h1>상품 목록</h1>
-                <!-- 상품 추가 -->
-                <a class="add-product-btn" href="/pos/product/insert">+ 추가</a>
-            </div>
-            <div class="product-list">
-                <th:block th:if="${productList != null}" th:each="product : ${productList}">
-                    <div class="product-item" draggable="true">
-                        <span class="product-name" th:text="${product.name}"></span>
-                        <span class="product-price" th:text="${product.price} + '원'"></span>
-                        <a class="edit-btn" th:href="|/pos/product/update/${product.id}|">수정</a>
-                        <a class="delete-btn" href="/pos/products">삭제</a>
+        <div class="main-container">
+            <!-- 좌측: 상품 목록 + 카테고리 목록 -->
+            <div class="left-side">
+                <div class="category-list">
+                    <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
+                        <div class="category-item" draggable="true">
+                            <span class="category-name" th:text="${cate.name}"></span>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${ cateList.isEmpty()}">
+                        카테고리가 없습니다.
+                    </th:block>
+                </div>
+
+                <div class="product-page">
+                    <div class="product-header">
+                        <h1>상품 목록</h1>
+                        <a class="add-product-btn" href="/pos/product/insert">+ 추가</a>
                     </div>
-                </th:block>
-                <th:block th:if="${productList.isEmpty()}">
-                    상품이 없습니다.
-                </th:block>
+                    <div class="product-list">
+                        <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                            <div class="product-item">
+                                <div class="product-image-placeholder">이미지</div>
+                                <span class="product-name" th:text="${product.name}"></span>
+                                <span class="product-price" th:text="${product.price} + '원'"></span>
+                                <a class="edit-btn" th:href="|/pos/product/update/${product.id}|">수정</a>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${productList.isEmpty()}">
+                            상품이 없습니다.
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 우측: 선택된 상품 영역 -->
+            <div class="right-side">
+                <div class="right-header">
+                    <button class="settings-btn">⚙️</button>
+                    <button class="delete-all-btn" onclick="clearRightPanel()">전체 삭제</button>
+                </div>
+                <div class="selected-products">
+                    <!-- 선택된 상품들이 여기에 추가됨 -->
+                </div>
+                <div class="total-price">
+                    <span>총 금액: </span>
+                    <span id="total-price">0</span>원
+                </div>
             </div>
         </div>
     </div>
