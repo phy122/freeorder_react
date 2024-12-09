@@ -160,6 +160,10 @@
   height: 300px;
 }
 
+.payComplete {
+  margin-top: 30%;
+}
+
 /* 버튼디자인 */
 
 .circle-btn {
@@ -254,8 +258,31 @@
   margin: 20px;
 }
 
-.change-btn-border {
-  
+.compl-text {
+  font-size: large;
+}
+
+.OK {
+  width: 90%;
+  height: 90px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  position: absolute;
+  font-size: medium;
+}
+
+.order-list {
+  width: 90%;
+  height: 90px;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  position: absolute;
+  font-size: medium;
+  margin-top: 30%;
+}
+
+.border {
+  margin: 20px;
 }
 
 .option-name {
@@ -281,10 +308,6 @@
 input[type="checkbox"]{
   width: 20px;
   height: 20px;
-}
-
-.menu-pop-name {
-  
 }
 
 /* 글씨 크기 */
