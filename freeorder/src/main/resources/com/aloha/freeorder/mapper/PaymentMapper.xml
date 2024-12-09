@@ -19,6 +19,19 @@
         ORDER BY created_at desc
     </select>
 
+    <!-- 목록 조회 -->
+    <select id="listByOption" resultType="Payment">
+        SELECT *
+        FROM payments p
+        LEFT JOIN orders o
+        ON p.`ORDERS_ID` = o.`ID`
+        WHERE p.`CREATED_AT` >= #{startDay}
+            AND p.`CREATED_AT` <= #{endDay}
+            AND payment_method = #{type}
+            AND o.`TOTAL_PRICE` = #{price}
+        ORDER BY p.created_at desc;
+    </select>
+
     <!-- 등록 -->
     <insert id="insert">
         INSERT INTO payments ( id, orders_id, payment_method, status )

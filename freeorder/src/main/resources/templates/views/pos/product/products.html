@@ -25,7 +25,7 @@
                         <span class="product-name" th:text="${product.name}"></span>
                         <span class="product-price" th:text="${product.price} + '원'"></span>
                         <a class="edit-btn" th:href="|/pos/product/update/${product.id}|">수정</a>
-                        <a class="delete-btn" th:href="/pos/products">삭제</a>
+                        <a class="delete-btn" href="/pos/products">삭제</a>
                     </div>
                 </th:block>
                 <th:block th:if="${productList.isEmpty()}">
