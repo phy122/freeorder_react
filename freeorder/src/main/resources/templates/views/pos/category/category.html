@@ -26,6 +26,9 @@
                         <a class="edit-btn" th:href="|/pos/category/update/${cate.id}|">수정</a>
                     </div>
                 </th:block>
+                <th:block th:if="${ cateList.isEmpty()}">
+                    카테고리가 없습니다.
+                </th:block>
             </div>
         </div>
     </div>
