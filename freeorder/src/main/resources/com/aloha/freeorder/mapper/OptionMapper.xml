@@ -5,15 +5,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.aloha.freeorder.mapper.OptionMapper">
 
+
+<resultMap type="Option" id="optionMap">
+    <id property="id" column="id" />
+    
+    <result property="id" column="id" />
+    <result property="name" column="name" />
+    <result property="stockCheck" column="stock_check" />
+    <result property="stock" column="stock" />
+    <result property="essential" column="essential" />
+    <result property="selectMin" column="select_min" />
+    <result property="selectMax" column="select_max" />
+    <result property="createdAt" column="created_at" />
+    <result property="updatedAt" column="updated_at" />
+    
+    <collection property="itemList" resultMap="itemMap"></collection>
+</resultMap>
+    
+<resultMap type="OptionItem" id="itemMap">
+    <result property="id" column="id" />
+    <result property="name" column="name" />
+    <result property="quantity" column="quantity" />
+    <result property="price" column="price" />
+    <result property="seq" column="seq" />
+</resultMap>
+
 <select id="list" resultType="Option">
     SELECT *
     FROM options
+    ORDER BY created_at desc
 </select>
 
-<select id="read" resultType="Option">
-    SELECT *
-    FROM options
-    WHERE ID = #{id}
+<select id="read" resultMap="optionMap">
+    SELECT o.*,
+           oi.name,
+           oi.price,
+           oi.seq,
+           oi.quantity
+    FROM options o LEFT OUTER JOIN option_items oi ON o.id = oi.option_id
+    WHERE o.id = #{id}
 </select>
 
 <insert id="insert">

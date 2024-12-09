@@ -1,6 +1,7 @@
 package com.aloha.freeorder.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -17,4 +18,5 @@ public class Option {
     private Date createdAt;
     private Date updatedAt;
 
+    private List<OptionItem> itemList;
 }
