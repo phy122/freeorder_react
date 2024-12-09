@@ -34,8 +34,8 @@ VALUES ( UUID(), 'admin', 'ROLE_ADMIN' );
 -- PRODUCTS (메뉴)
 INSERT INTO PRODUCTS (ID, OPTION_ID, NAME, CATEGORY_ID, DESCRIPTION, CONTENT, PRICE, STOCK_CHECK, STOCK, SEQ, CREATED_AT, UPDATED_AT)
 VALUES
-('1', NULL, '김치찌개', '1', '매콤한 김치찌개', '신선한 재료로 만든 김치찌개', 8000, TRUE, 20, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('2', NULL, '된장찌개', '1', '구수한 된장찌개', '전통 된장으로 만든 찌개', 7000, TRUE, 15, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('1', '1', '김치찌개', '1', '매콤한 김치찌개', '신선한 재료로 만든 김치찌개', 8000, TRUE, 20, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('2', '1', '된장찌개', '1', '구수한 된장찌개', '전통 된장으로 만든 찌개', 7000, TRUE, 15, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('3', NULL, '불고기', '2', '달콤한 불고기', '국내산 소고기로 만든 불고기', 12000, TRUE, 10, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- CARTS (주문 대기)

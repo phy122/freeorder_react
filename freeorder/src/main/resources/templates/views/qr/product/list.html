@@ -37,7 +37,7 @@
 
         <!-- 카드 -->
         <th:block th:if="${productList != null}" th:each="product : ${productList}">
-        <a th:href="|/qr/option/${product.optionId}|">
+        <a th:href="|/qr/read/${product.id}|">
             <div class="card flex justify-content-start align-items-center mt-3">
                 <img src="/img/burger.png" th:alt="${product.name}" class="menu-image ml-1">
                 <div class="info-box">
