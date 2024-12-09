@@ -29,12 +29,15 @@
         -->
         
         <div class="checkbox-container ml-3 mb-5">
-            <div><input type="checkbox"> 패티 추가 + 3000원</div>
-            <div><input type="checkbox"> 야채 추가 + 1000원</div>
-            <div><input type="checkbox"> 치즈 추가 + 1000원</div>
-            <div><input type="checkbox"> 소스 추가 + 0원</div>
-            <div><input type="checkbox"> 야채 빼기 + 0원</div>
-            <div><input type="checkbox"> 치즈 빼기 + 0원</div>
+            <th:block th:if="${optionList != null}" th:each="option: ${optionList}">
+                <div>
+                    <input type="checkbox">
+                    <span th:text="${optionName}"></span>
+                    <span> + </span>
+                    <span th:text="${optionPrice}"></span>
+                    <span> 원 </span>
+                </div>
+            </th:block>
         </div>
 
         <!-- [하단] 변경하기 -->

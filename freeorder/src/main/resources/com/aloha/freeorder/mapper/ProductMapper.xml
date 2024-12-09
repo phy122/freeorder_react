@@ -16,6 +16,7 @@
     <!-- 목록 조회 -->
     <select id="allList" resultType="Product">
         SELECT 
+            p.ID,
             p.CATEGORY_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCT_ID,
@@ -45,6 +46,7 @@
     <!-- 목록 조회 - category_id -->
     <select id="listByCate" resultType="Product">
         SELECT 
+            p.ID,
             p.CATEGORY_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCT_ID,
@@ -68,7 +70,7 @@
             GROUP BY oi.PRODUCTS_ID
         ) oc ON p.ID = oc.PRODUCTS_ID
         LEFT JOIN RECOMMENDED_PRODUCTS rp ON p.ID = rp.PRODUCTS_ID
-        WHERE p.CATEGORY_ID = ${id}  
+        WHERE p.CATEGORY_ID = #{id}  
         ORDER BY p.seq ASC;
     </select>
 
@@ -85,7 +87,7 @@
         <!-- 추천 메뉴 해제시 추천메뉴 삭제 -->
         <delete id="deleteRecommend">
             DELETE FROM RECOMMENDED_PRODUCTS
-            WHERE PRODUCTS_ID = ${id}
+            WHERE PRODUCTS_ID = #{id}
         </delete>
     <!-- 수정 -->
     <update id="update">

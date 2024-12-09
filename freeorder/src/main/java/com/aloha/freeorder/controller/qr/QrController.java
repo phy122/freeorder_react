@@ -91,23 +91,18 @@ public class QrController {
   @GetMapping("/list")
   public String productList(@RequestParam(value =  "type",required = false) String type, 
                             @RequestParam(value = "cate", required = false) String cate , 
-                            Model model,
-                            HttpServletRequest request,
-                            HttpServletResponse response) throws Exception {
-   HttpSession session = request.getSession();
-   String id = (String) session.getAttribute("id");
-   Cookie cookie = new Cookie("id", id);
-   cookie.setMaxAge(60 * 60 * 24 * 1);
-   response.addCookie(cookie);
+                            Model model
+                            ) throws Exception {
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
     log.info("cate : " + cate);
     if (cate == null)
       productList = productService.allList();
+    
     else
       productList = productService.listByCate(cate);
-
+    
     model.addAttribute("cateId", cate);
     model.addAttribute("cateList", cateList);
     model.addAttribute("productList", productList);
@@ -172,9 +167,11 @@ public class QrController {
 
   @GetMapping("/option/{id}")
   public String option(@PathVariable("id") String id, Model model) throws Exception {
-      List<Option> optionlist = optionService.list();
-      model.addAttribute("optionlist", optionlist);
-      return new String();
+      log.info("옵션 리스트 출력!!");
+      List<Option> optionList = optionService.list();
+
+      model.addAttribute("optionList", optionList);
+      return "views/qr/product/option";
   }
   
   
