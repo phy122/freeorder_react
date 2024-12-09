@@ -29,7 +29,7 @@
             IF(p.CREATED_AT >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS IS_NEW,
             IF(rp.PRODUCTS_ID IS NOT NULL, TRUE, FALSE) AS IS_RECOMMENDED
         FROM PRODUCTS p
-        JOIN CATEGORIES c ON p.CATEGORY_ID = c.ID
+        LEFT JOIN CATEGORIES c ON p.CATEGORY_ID = c.ID
         LEFT JOIN (
             SELECT 
                 oi.PRODUCTS_ID,
