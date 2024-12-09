@@ -19,26 +19,29 @@
             <button onclick="history.back()" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
             <span class="fs-normal black">불고기 버거</span>
         </div>
-        <div class="option-name ml-1 mb-5">옵션변경</div>
-	
-        <!-- [중단] 옵션 리스트	
-                    - 체크박스
-                    - 옵션명
-                    - 가격
-                    - 수량
-        -->
+
+
         
-        <div class="checkbox-container ml-3 mb-5">
-            <th:block th:if="${optionList != null}" th:each="option: ${optionList}">
-                <div>
-                    <input type="checkbox">
-                    <span th:text="${optionName}"></span>
-                    <span> + </span>
-                    <span th:text="${optionPrice}"></span>
-                    <span> 원 </span>
-                </div>
-            </th:block>
-        </div>
+            <div class="option-name ml-1 mb-5">옵션변경</div>
+            <!-- [중단] 옵션 리스트	
+                        - 체크박스
+                        - 옵션명
+                        - 가격
+                        - 수량
+            -->
+            
+            <div class="checkbox-container ml-3 mb-5">
+                <th:block th:if="${itemList != null}" th:each="item: ${itemList}">
+                    <div>
+                        <input type="checkbox">
+                        <span th:text="${item.name}"></span>
+                        <span> + </span>
+                        <span th:text="${item.price}"></span>
+                        <span> 원 </span>
+                    </div>
+                </th:block>
+            </div>
+        </th:block>
 
         <!-- [하단] 변경하기 -->
          <div class="change-btn-border">

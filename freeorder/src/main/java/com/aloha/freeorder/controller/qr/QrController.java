@@ -16,6 +16,7 @@ import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
 import com.aloha.freeorder.domain.Option;
+import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
@@ -106,6 +107,7 @@ public class QrController {
     model.addAttribute("cateId", cate);
     model.addAttribute("cateList", cateList);
     model.addAttribute("productList", productList);
+    log.info(productList.toString());
     return "views/qr/product/list";
   }
 
@@ -113,9 +115,19 @@ public class QrController {
   @GetMapping("/read/{id}")
   public String product(@PathVariable("id") String id, Model model) throws Exception {
     log.info("상품 상세페이지 출력!!");
-      Product product = productService.select(id);
-      model.addAttribute("product", product);
-      return "views/qr/product/read";
+    // 상품 정보
+    Product product = productService.select(id);
+    model.addAttribute("product", product);
+    // 옵션 정보
+    Option option = optionService.read(product.getOptionId());
+    model.addAttribute("option", option);
+    if (option != null) {
+      // 옵션 목록
+      List<OptionItem> itemList = option.getItemList();
+      model.addAttribute("itemList", itemList);
+    }
+    return "views/qr/product/read";
+
   }
   
 
@@ -168,9 +180,13 @@ public class QrController {
   @GetMapping("/option/{id}")
   public String option(@PathVariable("id") String id, Model model) throws Exception {
       log.info("옵션 리스트 출력!!");
-      List<Option> optionList = optionService.list();
+      // 옵션 정보
+      Option option = optionService.read(id);
+      model.addAttribute("option", option);
+      // 옵션 아이템 목록
+      List<OptionItem> itemList = option.getItemList();
+      model.addAttribute("itemList", itemList);
 
-      model.addAttribute("optionList", optionList);
       return "views/qr/product/option";
   }
   
