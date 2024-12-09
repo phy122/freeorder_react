@@ -11,6 +11,9 @@ public interface FileService {
     //파일 조회
     public Files select(String id) throws Exception;
 
+    //썸네일 조회
+    public Files thumb(String id) throws Exception;
+
     //파일 등록
     public int insert(Files file) throws Exception;
 

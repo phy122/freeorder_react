@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="list" resultType="Notice">
     SELECT *
     FROM notices
+    WHERE type = 'promotion'
 </select>
 
 <select id="read" resultType="Notice">
@@ -24,14 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <insert id="insert">
 
-    INSERT INTO notices ( id, thumbnail, TYPE, CONTENT )
-    VALUES ( #{id}, #{thumbnail}, #{type}, #{content} )
+    INSERT INTO notices ( id, thumbnail, TYPE, TITLE, CONTENT )
+    VALUES ( #{id}, #{thumbnail}, #{type}, #{title}, #{content} )
 
 </insert>
 
 <update id="update">
     UPDATE notices
         SET thumbnail = #{thumbnail}
+            ,TITLE = #{title}
             ,CONTENT = #{content}
             ,UPDATED_AT = now()
     WHERE ID = #{id}

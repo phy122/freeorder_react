@@ -257,6 +257,10 @@ public class PosController {
         List<Order> orderList = orderService.list();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+
+        // 프로모션 목록
+        List<Notice> proList = noticeService.list();
+        model.addAttribute("proList", proList);
         return "views/pos/management/promotion/promotion";
     }
     // 프로모션 등록

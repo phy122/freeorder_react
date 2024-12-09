@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.aloha.freeorder.domain.Notice;
 import com.aloha.freeorder.mapper.NoticeMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
@@ -35,13 +38,13 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public int insert(Notice notice) throws Exception {
-        notice.setId(UUID.randomUUID().toString());
         int result = noticeMapper.insert(notice);
         return result;
     }
 
     @Override
     public int update(Notice notice) throws Exception {
+        log.info(" 프로모션 수정중... " + notice.toString());
         int result = noticeMapper.update(notice);
         return result;
     }

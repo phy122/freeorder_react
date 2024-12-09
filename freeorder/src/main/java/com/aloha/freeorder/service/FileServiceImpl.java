@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.aloha.freeorder.domain.Files;
 import com.aloha.freeorder.mapper.FileMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class FileServiceImpl implements FileService{
 
@@ -28,6 +31,7 @@ public class FileServiceImpl implements FileService{
     @Override
     public int insert(Files file) throws Exception {
         file.setId(UUID.randomUUID().toString());
+        log.info(file.toString());
         return fileMapper.insert(file);
     }
 
@@ -39,6 +43,11 @@ public class FileServiceImpl implements FileService{
     @Override
     public int allDelete(String id, String table) throws Exception {
         return fileMapper.allDelete(id, table);
+    }
+
+    @Override
+    public Files thumb(String id) throws Exception {
+        return fileMapper.thumb(id);
     }
     
 }

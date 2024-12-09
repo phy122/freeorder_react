@@ -56,6 +56,33 @@ public class FileController {
         response.setContentType( mediaType.toString() ); //image/jpeg
     }
 
+    @GetMapping("/timg")
+    public void thumbShowImg(@RequestParam("id") String id
+                        ,HttpServletResponse response) throws Exception {
+        log.info("[FILE] id : " + id);
+
+        Files fileInfo = fileDAO.thumb(id);
+        log.info("썸네일 이미지 생성중....");
+        log.info(fileInfo.toString());
+        String filePath = fileInfo.getPath();
+
+        File file = new File(filePath);
+
+        FileInputStream fis = new FileInputStream(file);
+        ServletOutputStream sos = response.getOutputStream();
+
+        FileCopyUtils.copy(fis, sos);   // 입력한 파일 출력
+
+        // 확장자로 컨텐츠 타입 지정
+        // - 확장자 : jpg, png, ....
+        String ext = filePath.substring(filePath.lastIndexOf(".") + 1); // 확장자
+        MediaType mediaType = MediaUtil.getMediaType(ext);
+
+        if ( mediaType == null ) return;
+        log.info("mediaType : " + mediaType);
+        response.setContentType( mediaType.toString() ); //image/jpeg
+    }
+
     @ResponseBody
     @DeleteMapping("/files/{id}")
     public String getMethodName(@PathVariable("id") String id) throws Exception {
