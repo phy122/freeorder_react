@@ -100,11 +100,7 @@ function salesFunctions() {
 
 // 카테고리 CRUD
 
-// function categoryFunctions() {
-    
-// }
-
-// 카테고리 입력
+// 카테고리 등록
 function cateInsert() {
     let formData = new FormData( $("#cate-insert")[0])
     let url = "/pos/categories"
@@ -157,4 +153,25 @@ function cateDelete() {
             }
         }
     }) 
+}
+
+// 상품 curd
+// 상품 등록
+function proInsert(){
+    let formData = new FormData( $("#pro-insert")[0] )
+    let url = "/pos/products"
+    $.ajax({
+        url     : url,
+        method  : "post",
+        data    : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "SUCCESS") {
+                alert("상품 등록 성공")
+
+                location.href = "/pos/product"
+            }
+        }              
+    })
 }

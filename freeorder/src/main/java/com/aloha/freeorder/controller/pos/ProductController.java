@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.ProductService;
 
@@ -60,6 +61,7 @@ public class ProductController {
     @PostMapping()
     public ResponseEntity<?> create(Product product) {
         log.info("상품 등록");
+        log.info(product.toString());
         try {
             int result = productService.insert(product);
             if( result > 0 )
@@ -73,7 +75,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @PutMapping()
     public ResponseEntity<?> update(Product product) {
         log.info("상품 수정");

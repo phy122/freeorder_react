@@ -68,7 +68,7 @@
             GROUP BY oi.PRODUCTS_ID
         ) oc ON p.ID = oc.PRODUCTS_ID
         LEFT JOIN RECOMMENDED_PRODUCTS rp ON p.ID = rp.PRODUCTS_ID
-        WHERE p.CATEGORY_ID = ${id}  
+        WHERE p.CATEGORY_ID = #{id}  
         ORDER BY p.seq ASC;
     </select>
 
