@@ -42,14 +42,19 @@
     <!-- 해당 달의 판매 총액 불러오기 -->
     <select id="totalMonth">
         SELECT 
-            SUM(TOTAL_PRICE) AS TOTAL_SALES
+            AVG(SUM(o.TOTAL_PRICE),COUNT(o.ID)) AS AVG_SALES,
+            SUM(o.TOTAL_PRICE) AS TOTAL_SALES,
+            COUNT(o.ID) as total_count
         FROM 
-            ORDERS
+            ORDERS o LEFT JOIN payments pm
         WHERE 
-            STATUS = '#{status}'
-            AND YEAR(ORDERED_AT) = YEAR(#{day})
-            AND MONTH(ORDERED_AT) = MONTH(#{day})
+             o.STATUS = '#{status}'
+            AND YEAR(o.ORDERED_AT) = YEAR(#{day})
+            AND MONTH(o.ORDERED_AT) = MONTH(#{day})
     </select>
+
+    <!-- TODO:월매출,일매출 -->
+
 
     <!-- 해당 날짜의 총액 불러오기 [판매/환불]-->
     <select id="totalDay">
