@@ -48,6 +48,7 @@ public class CategoryController {
     @PostMapping()
     public ResponseEntity<?> insertPro(Category category) throws Exception {
         log.info("카테고리 등록");
+        log.info(category.toString());
         int result = categoryService.insert(category);
         if (result > 0) {
             return ResponseEntity.ok("success");
@@ -58,19 +59,22 @@ public class CategoryController {
     @PutMapping()
     public ResponseEntity<?> updatePro(Category category) throws Exception {
         log.info("카테고리 수정");
+        log.info(category.toString());
         int result = categoryService.update(category);
+        log.info("result : " + result);
         if(result > 0){
-            return ResponseEntity.ok("seccess");
+            return ResponseEntity.ok("success");
         }
         return ResponseEntity.badRequest().body("error");
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception {
+    @DeleteMapping()
+    public ResponseEntity<?> delete(Category category) throws Exception {
         log.info("카테고리 삭제");
+        String id = category.getId();
         int result = categoryService.delete(id);
         if(result > 0){
-            return ResponseEntity.ok("seccess");
+            return ResponseEntity.ok("success");
         }
         return ResponseEntity.badRequest().body("error");
     }
