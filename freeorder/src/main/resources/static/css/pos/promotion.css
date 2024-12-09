@@ -65,7 +65,7 @@
     align-self: flex-end;
 }
 
-.promotion-form .promotion-submit-btn{
+.promotion-form .promotion-insert-btn{
     background-color: var(--main-color);
     color: white;
     font-size: 16px;
@@ -76,7 +76,7 @@
     cursor: pointer;
 }
 
-.promotion-form .promotion-submit-btn:hover {
+.promotion-form .promotion-insert-btn:hover {
     background-color: var(--main-color);
 }
 

@@ -14,14 +14,15 @@
     <div class="container" layout:fragment="content">
         <div class="promotion-edit-page">
             <h1>프로모션 수정</h1>
-            <form class="promotion-form" action="" method="">
+            <form class="promotion-form" id="pro-update">
+                <input type="hidden" name="id" th:value="${notice.id}">
                 <label for="promotion-name">프로모션 이름</label>
-                <input type="text" id="promotion-name" name="promotion-name" placeholder="프로모션 이름을 입력하세요" required />
-                <label for="promotion-description">프로모션 설명</label>
-                <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea>
+                <input type="text" id="promotion-name" name="promotion-name" th:value="${notice.title}" required />
+                <!-- <label for="promotion-description">프로모션 설명</label>
+                <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea> -->
                 <label for="thumbnail">썸네일</label>
-                <input type="file" name="thumbnail" id="thumbnail">
-                <button type="submit" class="promotion-submit-btn">수정</button>
+                <input type="file" name="thumbnail" id="thumbnail" th:value="${notice.thumbnail}">
+                <button type="button" class="promotion-update-btn">수정</button>
             </form>
         </div>
     </div>

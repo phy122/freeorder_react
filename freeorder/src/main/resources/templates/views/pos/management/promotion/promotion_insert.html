@@ -14,14 +14,14 @@
     <div class="container" layout:fragment="content">
         <div class="promotion-insert-page">
             <h1>프로모션 등록</h1>
-            <form class="promotion-form" action="" method="">
+            <form class="promotion-form" id="pro-insert">
                 <label for="promotion-name">프로모션 이름</label>
-                <input type="text" id="promotion-name" name="promotion-name" placeholder="프로모션 이름을 입력하세요" required />
-                <label for="promotion-description">프로모션 설명</label>
-                <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea>
+                <input type="text" id="title" name="title" placeholder="프로모션 이름을 입력하세요" required />
+                <!-- <label for="promotion-description">프로모션 설명</label>
+                <textarea id="promotion-description" name="promotion-description" placeholder="프로모션 설명을 입력하세요" rows="4"></textarea> -->
                 <label for="thumbnail">썸네일</label>
-                <input type="file" name="thumbnail" id="thumbnail">
-                <button type="submit" class="promotion-submit-btn">등록</button>
+                <input type="text" name="thumbnail" id="thumbnail">
+                <button type="submit" class="promotion-insert-btn" onclick="proInsert()">등록</button>
             </form>
         </div>
     </div>
