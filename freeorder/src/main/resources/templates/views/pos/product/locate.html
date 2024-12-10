@@ -14,12 +14,10 @@
     <div class="l-container" layout:fragment="content">
             <!-- [상단] 취소 버튼 -->
              <div class="l-btn-container">
-                 <a href="">
+                 <a href="/pos/product">
                      <button type="button" class="l-cancel-btn">취소</button>
                  </a>
-                 <a href="">
                     <button type="button" class="l-save-btn">저장</button>
-                </a>
              </div>
      
              <!-- [헤더] 상품 선택 안내 -->
@@ -28,25 +26,21 @@
              </div>
      
              <!-- [중단] 상품 목록 -->
-             <section class="l-product-list">
-                 <a href="" class="l-product-card">
-                     <h4>상품 A</h4>
-                     <br>
-                     <p>10,000원</p>
-                 </a>
-     
-                 <a href="" class="l-product-card">
-                     <h4>상품 B</h4>
-                     <br>
-                     <p>20,000원</p>
-                 </a>
-     
-                 <a href="" class="l-product-card">
-                     <h4>상품 C</h4>
-                     <br>
-                     <p>15,000원</p>
-                 </a>
-             </section>
-    </div>
+             <div class="l-product-list">
+                <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                    <div class="l-product-card">
+                        <div class="product-image-placeholder">
+                            <img th:src="|/pimg?id=${product.id}|" alt="" width="100%" height="100%">
+                        </div>
+                        <span class="product-name" th:text="${product.name}"></span>
+                        <span class="product-price" th:text="${product.price} + '원'"></span>
+                    </div>
+                </th:block>
+                <th:block th:if="${productList.isEmpty()}">
+                    상품이 없습니다.
+                </th:block>
+            </div>
+        </div>
 </body>
+
 </html>
