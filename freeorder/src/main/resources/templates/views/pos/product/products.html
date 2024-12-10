@@ -10,42 +10,6 @@
     <link rel="stylesheet" href="/css/pos/product.css">
     <script src="js/pos/jquery-1.12.3.js"></script>
     <title>POS</title>
-    <style>
-        /* 모달 창 기본 스타일 */
-        #modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-        }
-
-        /* 모달 콘텐츠 */
-        .modal-content {
-            position: relative;
-            margin: 10% auto;
-            padding: 20px;
-            background: white;
-            width: 50%;
-            height: 70%;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 닫기 버튼 */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #333;
-        }
-    </style>
 </head>
 <body>
     <div class="container" layout:fragment="content">
@@ -113,29 +77,29 @@
                     </div>
                 <div class="s-product-setting">
                     <!-- 상품 등록 -->
-                    <a href="/pos/product/insert" class="s-product-card">
-                        <div>
+                    <a href="/pos/product/insert">
+                        <div class="s-product-card">
                             <img src="/img/상품 정보 수정.png" alt="">
                             <h4>상품 등록</h4>
                         </div>
                     </a>
                     <!-- 상품 정보 수정 -->
-                    <a href="" class="s-product-card">
-                        <div>
+                    <a href="/pos/product/update_list">
+                        <div class="s-product-card">
                             <img src="/img/상품 정보 수정.png" alt="">
                             <h4>상품 정보 수정</h4>
                         </div>
                     </a>
                     <!-- 상품 배치 수정 -->
-                    <a href="" class="s-product-card">
-                        <div>
+                    <a href="/pos/product/locate">
+                        <div class="s-product-card">
                             <img src="/img/상품 배치 수정.png" alt="">
                             <h4>상품 배치 수정</h4>
                         </div>
                     </a>
                     <!-- 상품 카드 보기 방식 -->
-                    <a href="" class="s-product-card">
-                        <div>
+                    <a href="">
+                        <div class="s-product-card">
                             <img src="/img/상품 카드 보기 방식.png" alt="">
                             <h4>상품 카드 보기 방식</h4>
                         </div>
@@ -148,14 +112,14 @@
                     </div>
                     <div class="s-category-setting">
                         <!-- 카테고리 정보 수정 -->
-                        <a href="">
+                        <a href="/pos/category">
                             <div class="s-category-card">
                                 <img src="/img/카테고리 정보 수정.png" alt="">
                                 <h4>카테고리 정보 수정</h4>
                             </div>
                         </a>
                         <!-- 카테고리 순서 변경 -->
-                        <a href="">
+                        <a href="/pos/category/seq_list">
                             <div class="s-category-card">
                                 <img src="/img/카테고리 순서 변경.png" alt="">
                                 <h4>카테고리 순서 변경</h4>
