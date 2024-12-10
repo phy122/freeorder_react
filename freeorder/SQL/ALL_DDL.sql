@@ -26,6 +26,7 @@
 		`OPTION_ID`		CHAR(50)								NULL,
 		`NAME`			VARCHAR(100)						NOT NULL,
 		`CATEGORY_ID`	CHAR(50)							NOT NULL,
+	    `PRODUCT_IMG` 	VARCHAR(255)							NULL,
 		`DESCRIPTION`	VARCHAR(200)							NULL,
 		`CONTENT`		TEXT									NULL,
 		`PRICE`			INT									NOT NULL,

@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int insert(Product product) throws Exception {
-        product.setId(UUID.randomUUID().toString());
         return productMapper.insert(product);
     }
 

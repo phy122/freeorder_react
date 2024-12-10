@@ -45,12 +45,18 @@
                         </th:block>
                     </select>
                 </div>
+
+                <!-- 상품 이미지 선택 -->
+                <div class="u-input-img">
+                    <label for="productFile">상품 이미지</label>
+                    <input type="file" name="productFile" id="productFile">
+                </div>
                 
                 <!-- 상품 정보 -->
-                <div class="u-input-description">
+                <!-- <div class="u-input-description">
                     <label for="description">상품 정보</label>
                     <input type="text" name="description" id="description" th:value="${product.description}" placeholder="상품 정보를 입력하세요.">
-                </div>
+                </div> -->
                 
                 <!-- 버튼 -->
                 <div class="u-btns">
