@@ -1,6 +1,6 @@
 
 let url = "/pos/notices";
-// 프로모션 입력
+// 프로모션 등록
 function noticeInsert() {
     let formData = new FormData( $("#promotion-insert")[0])
     $.ajax({
