@@ -5,6 +5,27 @@
 
 <mapper namespace="com.aloha.freeorder.mapper.CartMapper">
 
+    <resultMap type="Cart" id="cartMap">
+        <id property="id" column="id" />
+        
+        <result property="id" column="id" />
+        <result property="productsId" column="productsId" />
+        <result property="usersId" column="usersId" />
+        <result property="optionsId" column="optionsId" />
+        <result property="amount" column="amount" />
+        <result property="price" column="price" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        
+        <collection property="authList" resultMap="authMap"></collection>
+    </resultMap>
+        
+    <resultMap type="CartOption" id="optionMap">
+        <result property="id" column="id" />
+        <result property="cartsId" column="cartsId" />
+        <result property="optionItemsId" column="optionItemsId" />
+    </resultMap>
+
     <!-- 조회 - id -->
     <select id="select" resultType="Cart">
         SELECT *
@@ -19,10 +40,29 @@
         ORDER BY created_at desc
     </select>
 
+    <!-- 목록 조회 -->
+    <select id="listByUser" resultType="Cart">
+        SELECT c.*
+              ,oi.price
+              ,oi.name
+        FROM carts c
+        LEFT OUTER JOIN cart_options co
+        LEFT JOIN option_items oi
+        ON c.id = co.carts_id AND co.option_items_id = oi.id
+        WHERE c.users_id = #{usersId}
+        ORDER BY c.created_at desc, oi.seq asc
+    </select>
+
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO carts ( id, products_id, amount, price )
-        VALUES ( #{id}, #{productsId}, #{amount}, #{price} )
+        INSERT INTO carts ( id, products_id, options_id, users_id, amount, price )
+        VALUES ( #{id}, #{productsId}, #{optionsId}, #{usersId}, #{amount}, #{price} )
+    </insert>
+
+    <!-- 옵션등록 -->
+    <insert id="insertOption">
+        INSERT INTO CART_OPTIONS ( id, carts_id, option_items_id )
+        VALUES ( #{id}, #{cartsId}, #{optionItemsId} )
     </insert>
 
     <!-- 수정 -->

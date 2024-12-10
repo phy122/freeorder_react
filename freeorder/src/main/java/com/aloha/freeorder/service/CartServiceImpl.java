@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.freeorder.domain.Cart;
+import com.aloha.freeorder.domain.CartOption;
 import com.aloha.freeorder.mapper.CartMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,17 @@ public class CartServiceImpl implements CartService{
     @Override
     public int delete(String id) throws Exception {
         return cartMapper.delete(id);
+    }
+
+    @Override
+    public List<Cart> listByUser(String usersId) throws Exception {
+        return cartMapper.listByUser(usersId);
+    }
+
+    @Override
+    public int insertOption(CartOption cartOption) throws Exception {
+        cartOption.setId(UUID.randomUUID().toString());
+        return cartMapper.insertOption(cartOption);
     }
     
 }

@@ -11,19 +11,26 @@
 </head>
 <body layout:fragment="content">
     <div class="container">
-                <!-- [상단] 상품명,닫기버튼 -->
-                <div class="qr-list-top flex justify-content-between align-items-center gap-2 p-10">
-                    <span class="menu-pop-name fs-normal black ml-5">불고기버거 세트</span>
-                    <button onclick="history.back()" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png" class="back-icon scale-small" alt="나가기"></button>
-                </div>
-                
-                <!-- [중단] 상품정보 - 이미지,설명,수량-->
-                <img th:src="|/img?id=${product.id}|" class="burger-png p-30" th:alt="${product.name}" width="100px">
-                <div class="mr-4 ml-4"><span class="color-black" th:text="${product.description}"></span></div>
-                
-
-                <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
+                <form id="cart-insert">
+                    <input type="hidden" th:field="${product.id}">
+                    <!-- [상단] 상품명,닫기버튼 -->
+                    <div class="qr-list-top flex justify-content-between align-items-center gap-2 p-10">
+                        <span class="menu-pop-name fs-normal black ml-5">불고기버거 세트</span>
+                        <button type="button" onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png" class="back-icon scale-small" alt="나가기"></button>
+                    </div>
+                    
+                    <!-- [중단] 상품정보 - 이미지,설명,수량-->
+                    <img th:src="|/img?id=${product.id}|" class="burger-png p-30" th:alt="${product.name}" width="100px">
+                    <div class="mr-4 ml-4"><span class="color-black" th:text="${product.description}"></span></div>
+                    <div>
+                        <button type="button" class="quantity-minus">-</button>
+                        <input type="number" class="quantity" name="quantity" id="quantity" max="10" min="1" value="1" readonly>
+                        <button type="button" class="quantity-plus">+</button>
+                    </div>
+                    
+                    <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
                 <th:block th:if="${option != null}">
+                    <input type="hidden" id="optionId" th:value="${option.id}">
                     <div class="title mt-5 mb-5 ml-4 fs-normal">옵션 선택</div>
                     <div class="checkbox-container ml-5 mb-5">
                         <th:block th:if="${itemList != null}" th:each="item: ${itemList}">
@@ -39,10 +46,11 @@
                         </th:block>
                     </div>
                 </th:block>
-
+            </form>
+                
                 <!-- [하단] 장바구니 추가 버튼 -->
                 <div class="change-btn-border">
-                    <button onclick="history.back()" class="change-btn white">장바구니에 담기</button>
+                    <button onclick="cartInsert()" class="change-btn white">장바구니에 담기</button>
                 </div>
     </div>
 </body>
