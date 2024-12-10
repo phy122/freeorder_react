@@ -32,7 +32,7 @@
     <!-- 주문 목록 -->
     <select id="list" resultMap="orderMap">
         SELECT o.*
-              ,oi.product_id
+              ,oi.products_id
               ,oi.quantity
               ,oi.price
               ,oi.amount
@@ -43,7 +43,7 @@
     <!-- 주문 조회 -->
     <select id="read" resultMap="orderMap">
         SELECT o.*
-              ,oi.product_id
+              ,oi.products_id
               ,oi.quantity
               ,oi.price
               ,oi.amount
