@@ -34,7 +34,9 @@
                     <div class="product-list">
                         <th:block th:if="${productList != null}" th:each="product : ${productList}">
                             <div class="product-item">
-                                <div class="product-image-placeholder">이미지</div>
+                                <div class="product-image-placeholder">
+                                    <img th:src="|/pimg?id=${product.id}|" alt="" width="100%" >
+                                </div>
                                 <span class="product-name" th:text="${product.name}"></span>
                                 <span class="product-price" th:text="${product.price} + '원'"></span>
                                 <a class="edit-btn" th:href="|/pos/product/update/${product.id}|">수정</a>

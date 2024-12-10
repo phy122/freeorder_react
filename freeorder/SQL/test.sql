@@ -39,12 +39,25 @@ AND not is_main;
 
 SELECT *
 FROM files
-WHERE parent_id = '3e7e4bf5-152d-4c23-ae42-789dd929eed5'
-AND parent_table = 'notice'
+WHERE parent_id = '9145fc40-bc4a-46fd-a245-65e1ed403f86'
+AND parent_table = 'product'
 AND NOT is_main;
 
 SELECT * FROM files;
 
 SELECT * FROM notices;
+
+SELECT * 
+FROM files 
+WHERE parent_table = 'product';
+
+SELECT * from products;
+
+SELECT * FROM files WHERE id = '72fca0aa-fa0b-4080-8b7b-901054d37ea2';
+SELECT * FROM files WHERE PARENT_ID = '8c981b05-10ef-4005-aa8a-33a39a8ae3b8';
+
+SELECT * FROM files;
+
+
 
 

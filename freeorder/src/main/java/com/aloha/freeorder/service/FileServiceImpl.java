@@ -49,5 +49,10 @@ public class FileServiceImpl implements FileService{
     public Files thumb(String id) throws Exception {
         return fileMapper.thumb(id);
     }
+
+    @Override
+    public Files proimg(String id) throws Exception {
+        return fileMapper.proimg(id);
+    }
     
 }

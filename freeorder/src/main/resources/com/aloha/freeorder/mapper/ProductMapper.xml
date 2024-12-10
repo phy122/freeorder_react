@@ -23,6 +23,7 @@
             p.NAME,
             p.DESCRIPTION,
             p.PRICE,
+            p.PRODUCT_IMG,
             p.STOCK_CHECK,
             p.STOCK,
             IF(oc.ORDER_COUNT >= 100, TRUE, FALSE) AS IS_POPULAR,
@@ -53,6 +54,7 @@
             p.NAME,
             p.DESCRIPTION,
             p.PRICE,
+            p.PRODUCT_IMG,
             p.STOCK_CHECK,
             p.STOCK,
             IF(oc.ORDER_COUNT >= 100, TRUE, FALSE) AS IS_POPULAR,
@@ -76,8 +78,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO products ( id, name, category_id, price, seq )
-        VALUES ( #{id}, #{name}, #{categoryId}, #{price}, #{seq} )
+        INSERT INTO products ( id, name, category_id, price, product_img,seq )
+        VALUES ( #{id}, #{name}, #{categoryId}, #{price}, #{productImg} , #{seq} )
     </insert>
         <!-- 추천메뉴 체크시 추천메뉴 등록 [reson 컬럼은 차후에]-->
         <insert id="insertRecommend">

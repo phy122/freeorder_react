@@ -19,6 +19,9 @@ public interface FileMapper {
     //썸네일 조회
     public Files thumb(String id) throws Exception;
 
+    //상품 이미지 조회
+    public Files proimg(String id) throws Exception;
+
     //파일 등록
     public int insert(Files file) throws Exception;
 

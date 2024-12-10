@@ -2,6 +2,8 @@ package com.aloha.freeorder.domain;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,7 @@ public class Product {
     private String categoryId;
     private String description;
     private String content;
+    private String productImg;
     private int price;
     private boolean stockCheck;
     private int stock;
@@ -25,4 +28,6 @@ public class Product {
     private boolean isRecommended;      // 추천메뉴 판단    : recomend_products 테이블에 존재
 
     private boolean checkRecommend;     // 추천메뉴 설정    : html 단에 체크박스로 유무판단해서 전달 받음
+
+    private MultipartFile productFile;
 }
