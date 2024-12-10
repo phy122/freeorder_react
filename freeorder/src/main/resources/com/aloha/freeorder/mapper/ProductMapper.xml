@@ -98,6 +98,7 @@
               ,category_id = #{categoryId}
               ,price = #{price}
               ,stock_check = #{stockCheck}
+              ,product_img = #{productImg}
               ,seq = #{seq}
               ,updated_at = now()
         WHERE id = #{id}

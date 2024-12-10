@@ -110,17 +110,32 @@ public class ProductController {
     public ResponseEntity<?> update(Product product) throws Exception{
         log.info("상품 수정");
         log.info(product.toString());
+        int result = 0;
+    
+        // 아이디 생성
+        String id = product.getId();
+        fileDelete(id, "product");
+    
         try {
-            int result = productService.update(product);
-            log.info("result : " + result);
-            if( result > 0 )
+                String productPath = uploadPath + product.getProductFile().getName();
+                product.setProductImg(productPath);
+                Files productFiles = new Files();
+                productFiles.setFile(product.getProductFile());
+                productFiles.setMain(false);
+                productFiles.setParentId(id);
+                productFiles.setParentTable("product");
+                upload(productFiles);
+    
+                // 상품 등록
+                result = productService.update(product);
+                if( result > 0 )
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             else{
-                log.info("상품 DB에서 수정 중 에러 발생...");
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+                log.info("공지사항/프로모션 DB에 등록 중 에러 발생...");
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
-            log.error("상품 수정 중 에러 발생...", e);
+            log.error("공지사항/프로모션 등록 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
