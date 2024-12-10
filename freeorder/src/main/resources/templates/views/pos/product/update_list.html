@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      >
+      layout:decorate="~{/layout/pos/pos_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,10 @@
     <title>POS</title>
 </head>
 <body>
-    <div class="ul-container">
+    <div class="ul-container" layout:fragment="content">
        <!-- [상단] 취소 버튼 -->
         <div class="ul-cancel-container">
-            <a href="">
+            <a href="/pos/product">
                 <button type="button" class="ul-cancel-btn">취소</button>
             </a>
         </div>
@@ -25,25 +25,20 @@
         <!-- [헤더] 상품 선택 안내 -->
 
         <!-- [중단] 상품 목록 -->
-        <section class="ul-product-list">
-            <a href="" class="ul-product-card">
-                <h4>상품 A</h4>
-                <br>
-                <p>10,000원</p>
-            </a>
-
-            <a href="" class="ul-product-card">
-                <h4>상품 B</h4>
-                <br>
-                <p>20,000원</p>
-            </a>
-
-            <a href="" class="ul-product-card">
-                <h4>상품 C</h4>
-                <br>
-                <p>15,000원</p>
-            </a>
-        </section>
+        <div class="ul-product-list">
+            <th:block th:if="${productList != null}" th:each="product : ${productList}">
+                <a class="ul-product-card" th:href="|/pos/product/update/${product.id}|">
+                    <div class="product-image-placeholder">
+                        <img th:src="|/pimg?id=${product.id}|" alt="" width="100%" height="100%">
+                    </div>
+                    <span class="product-name" th:text="${product.name}"></span>
+                    <span class="product-price" th:text="${product.price} + '원'"></span>
+                </a>
+            </th:block>
+            <th:block th:if="${productList.isEmpty()}">
+                상품이 없습니다.
+            </th:block>
+        </div>
     </div>
 </body>
 </html>
