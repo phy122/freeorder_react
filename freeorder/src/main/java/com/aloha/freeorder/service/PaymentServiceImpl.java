@@ -50,5 +50,13 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentMapper.delete(id);
     }
 
-    
+    @Override
+    public void updatePaymentStatus(String id, String status) {
+        Payment payment = Payment.builder()
+                                 .id(id)
+                                 .status(status)
+                                 .build();
+        paymentMapper.updatePaymentStatus(payment);
+    }
+
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h2 id="statusTitle">결제 처리 중...</h2>
+    <p id="paymentKey"></p>
+    <p id="orderId"></p>
+    <p id="amount"></p>
+    <p id="statusMessage"></p>
+
+    <script>
+      // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
+      // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentKey = urlParams.get("paymentKey");
+      const orderId = urlParams.get("orderId");
+      const amount = urlParams.get("amount");
+
+      const paymentKeyElement = document.getElementById("paymentKey");
+      const orderIdElement = document.getElementById("orderId");
+      const amountElement = document.getElementById("amount");
+      const statusTitle = document.getElementById("statusTitle");
+      const statusMessage = document.getElementById("statusMessage");
+
+      // 결제 확인 API 요청 함수
+      async function confirm() {
+        console.log("결제 승인 중..");
+        const requestData = {
+          paymentKey: paymentKey,
+          orderId: orderId,
+          amount: amount,
+        };
+
+        try {
+          // 서버로 결제 확인 요청 전송
+          const response = await fetch("/confirm", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          });
+          
+          const json = await response.json();
+          
+          if (response.ok) {
+            // 결제 성공 비즈니스 로직
+            statusTitle.textContent = "결제 성공";
+            statusMessage.textContent = "결제가 성공적으로 처리되었습니다.";
+            paymentKeyElement.textContent = "paymentKey: " + paymentKey;
+            orderIdElement.textContent = "주문번호: " + orderId;
+            amountElement.textContent = "결제 금액: " + amount + "원";
+
+            console.log("결제 성공: ", json);
+          } else {
+            // 결제 실패 비즈니스 로직
+            throw new Error(json.message || "결제 실패");
+          }
+        } catch (error) {
+          console.error("결제 실패: ", error);
+          
+          // 실패 페이지로 리다이렉션
+          window.location.href = `/fail?message=${encodeURIComponent(
+            error.message
+          )}&code=${response?.status || 500}`;
+          }
+        }
+        // 초기 결제 확인 호출
+        confirm();
+    </script>
+  </body>
+</html>

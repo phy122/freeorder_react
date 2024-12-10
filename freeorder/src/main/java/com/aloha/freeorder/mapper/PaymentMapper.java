@@ -22,4 +22,6 @@ public interface PaymentMapper {
     public int update(Payment payment) throws Exception;
     // 삭제
     public int delete(String id) throws Exception;
+    // TossPay
+    void updatePaymentStatus(Payment payment);
 }
