@@ -28,6 +28,8 @@ import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 /**
@@ -111,6 +113,45 @@ public class PosController {
 
         return "views/pos/product/insert";
     }
+
+    // 상품 수정 목록
+    @GetMapping("/product/update_list")
+    public String showProductUpdateList(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
+                                ,Model model
+                                ,@PathVariable(value = "id",required = false) String id) throws Exception {
+        List<Product> productList = null;
+        if (id != null) {
+            productList = productService.listByCate(id);
+        }
+        else{
+            productList = productService.allList();
+        }
+        log.info(productList.toString());
+        model.addAttribute("productList", productList);
+
+        log.info("상품 수정 목록 페이지");
+        return "views/pos/product/update_list";
+    }
+
+    // 상품 위치 수정
+    @GetMapping("/product/locate")
+    public String showProductLocate(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
+                                ,Model model
+                                ,@PathVariable(value = "id",required = false) String id) throws Exception {
+        List<Product> productList = null;
+        if (id != null) {
+            productList = productService.listByCate(id);
+        }
+        else{
+            productList = productService.allList();
+        }
+        log.info(productList.toString());
+        model.addAttribute("productList", productList);
+
+        log.info("상품 위치 수정 페이지");
+        return "views/pos/product/locate";
+    }
+    
     // 상품 수정
     @GetMapping("/product/update/{id}")
     public String showProductUpdatePage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
@@ -182,6 +223,18 @@ public class PosController {
         
         log.info("카테고리 등록 페이지");
         return "views/pos/category/update";
+    }
+
+    // 카테고리 순서 변경
+    @GetMapping("/category/seq_list")
+    public String showCategorySeqList(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+        
+        // 카테고리 목록
+        List<Category> cateList = categoryService.list();
+        model.addAttribute("cateList", cateList);
+
+        log.info("카테고리 순서 페이지");
+        return "views/pos/category/seq_list";
     }
 
     /**
