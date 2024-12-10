@@ -1,3 +1,12 @@
+$(function() {
+    $(".settings-btn").on("click", function() {
+        $("#modal").show(); // 모달 표시
+    })
+
+    $(".close-btn").on("click", function() {
+        $("#modal").hide(); // 모달 숨김
+    })
+})
 /**
  * 헤더영역 
  * 
