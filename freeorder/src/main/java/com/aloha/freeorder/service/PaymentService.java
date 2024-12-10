@@ -18,4 +18,6 @@ public interface PaymentService {
     public int update(Payment payment) throws Exception;
     // 삭제
     public int delete(String id) throws Exception;
+    // TossPay
+    public void updatePaymentStatus(String id, String status);
 }

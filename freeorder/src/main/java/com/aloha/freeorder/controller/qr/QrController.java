@@ -28,6 +28,7 @@ import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.id_return;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -64,12 +65,22 @@ public class QrController {
     private OptionService optionService;
 
   @GetMapping("/main")
-  public String main(Model model,HttpServletRequest request, @CookieValue(value = "id", defaultValue = "null") String cookieId) {
+  public String main(Model model,
+                     HttpServletRequest request,
+                     HttpServletResponse response,
+                     @CookieValue(value = "id", defaultValue = "null") String cookieId) {
     
     HttpSession session = request.getSession();
     String id = UUID.randomUUID().toString();
-    if (cookieId != null) {
+    log.info("생성된 아이디: " + id);
+    if (!cookieId.equals("null")) {
+      log.info("쿠키가 있음");
       id = cookieId;
+    } else {
+      log.info("쿠키가 생성..");
+      Cookie cookie = new Cookie("id", id);
+      cookie.setMaxAge(60 * 60 * 24 * 1);
+      response.addCookie(cookie);
     }
     session.setAttribute("id", id);
     log.info("쿠키 아이디 : " + cookieId);
@@ -153,15 +164,8 @@ public class QrController {
 
 
   @GetMapping("/pay/complete/{status}")
-  public String complete(@PathVariable("status") String status, Model model,HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String complete(@PathVariable("status") String status, Model model) throws Exception {
 
-    if (status.equals("complete")) {
-      HttpSession session = request.getSession();
-      String id = (String) session.getAttribute("id");
-      Cookie cookie = new Cookie("id", id);
-      cookie.setMaxAge(60 * 60 * 24 * 1);
-      response.addCookie(cookie);
-    }
       model.addAttribute("status", status);
       return "views/qr/pay/complete";
   }
