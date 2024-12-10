@@ -30,4 +30,8 @@ public class Product {
     private boolean checkRecommend;     // 추천메뉴 설정    : html 단에 체크박스로 유무판단해서 전달 받음
 
     private MultipartFile productFile;
+
+    private Option option;
+
+    private int quantity;
 }
