@@ -1,3 +1,4 @@
+// 설정 모달
 $(function() {
     $(".settings-btn").on("click", function() {
         $("#modal").show(); // 모달 표시
@@ -7,6 +8,7 @@ $(function() {
         $("#modal").hide(); // 모달 숨김
     })
 })
+
 /**
  * 헤더영역 
  * 
@@ -258,3 +260,5 @@ function noticeUpdate(){
         }
     })
 }
+
+// 카테고리 목록 슬라이드
