@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.aloha.freeorder.domain.Order;
+import com.aloha.freeorder.domain.OrderItem;
+import com.aloha.freeorder.domain.OrderOption;
 
 @Mapper
 public interface OrderMapper {
@@ -15,6 +17,10 @@ public interface OrderMapper {
     public Order read(String id) throws Exception;
     // 주문 등록
     public int insert(Order order) throws Exception;
+    // 아이템 등록
+    public int insertItem(OrderItem OrderItem) throws Exception;
+    // 옵션 등록
+    public int insertOption(OrderOption orderOption) throws Exception;
     // 주문 수정
     public int update(Order order) throws Exception;
     // 주문 삭제

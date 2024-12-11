@@ -30,7 +30,7 @@
         // ------ 주문의 결제 금액 설정 ------
         await widgets.setAmount({
           currency: "KRW",
-          value: 50000,
+          value: Number("[[${amount}]]"),
         });
         // await widgets.setAmount(totalPrice);
 
@@ -48,7 +48,7 @@
         button.addEventListener("click", async function () {
           await widgets.requestPayment({
             orderId: "[[${orderId}]]",
-            orderName: "토스 티셔츠 외 2건",
+            orderName: "[[${title}]]",
             successUrl: window.location.origin + "/page/success.html",
             failUrl: window.location.origin + "/page/fail.html",
             customerEmail: "customer123@gmail.com",

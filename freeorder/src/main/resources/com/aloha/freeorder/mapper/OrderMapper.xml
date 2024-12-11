@@ -55,9 +55,23 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, USER_ID, TITLE )
-        VALUES ( #{id}, #{userId}, #{title} )
+        INSERT INTO orders ( ID, USER_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
+        VALUES ( #{id}, #{userId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
     </insert>
+
+    <!-- 아이템 등록 -->
+    <insert id="insertItem">
+        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTION_ID, QUANTITY, PRICE, AMOUNT  )
+        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionId}, #{quantity}, #{price}, #{amount} )
+    </insert>
+
+    <!-- 옵션 등록 -->
+    <insert id="insertOption">
+        INSERT INTO orders_options ( ID, OPTION_ITEM_ID, ORDER_ITEM_ID, NAME )
+        VALUES ( #{id}, #{optionItemId}, #{orderItemId}, #{name} )
+    </insert>
+
+
 
     <!-- 주문 수정 -->
     <update id="update">
