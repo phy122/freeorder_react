@@ -7,7 +7,7 @@ a {
     width: 100%;
     display: grid;
     grid-template-columns: 500px 1000px;
-    height: 100%; /* 화면 전체 높이 */
+    height: auto; /* 화면 전체 높이 */
    
 }
 .ls-left-container {

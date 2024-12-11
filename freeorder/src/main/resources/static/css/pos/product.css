@@ -14,20 +14,23 @@
     display: grid;
     grid-template-columns: 70% auto; /* 좌측 70%, 우측 30% 비율 */
     gap: 10px;
-    height: 100%;
+    height: auto;
     padding: 10px;
     box-sizing: border-box;
     background-color: #f4f4f4;
+    height: 100%;
+    max-height: 80vh;
 }
 
 /* 좌측 영역 */
 .left-side {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: 100%; /* 부모 요소 기준으로 높이를 설정합니다 */
+    background-color: #f8f8f8;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    overflow-x: hidden; /* 가로 스크롤 숨김 (필요에 따라 조정 가능) */
 }
 
 /* 카테고리 목록 */
@@ -417,10 +420,14 @@ h2 {
 /* 상품 수정 목록 update_list.html */
 .ul-container{
     width: 100%;
-    height: 100%;
+    height: auto;
     padding: 20px;
     background-color: rgba(128, 128, 128, 0.3);
-    border-radius: 8px;
+}
+.ul-container-son{
+    height: 100%;
+    max-height: 76vh;
+    overflow: scroll;
 }
 .ul-product-list {
     display: flex;

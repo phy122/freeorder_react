@@ -135,6 +135,7 @@ footer .footer-list{
     justify-content: space-around;
 }
 footer .footer-list a{
+    display: block;
     font-size: 24px;
     font-weight: bold;
     color: #7C8694;
