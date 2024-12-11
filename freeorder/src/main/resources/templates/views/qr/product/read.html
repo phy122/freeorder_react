@@ -20,7 +20,7 @@
                     </div>
                     
                     <!-- [중단] 상품정보 - 이미지,설명,수량-->
-                    <img th:src="|/img?id=${product.id}|" class="burger-png p-30" th:alt="${product.name}" width="100px">
+                    <img th:src="|/pimg?id=${product.id}|" class="burger-png p-30" th:alt="${product.name}" width="100px">
                     <div class="mr-4 ml-4"><span class="color-black" th:text="${product.description}"></span></div>
                     <div>
                         <button type="button" class="quantity-minus">-</button>
@@ -50,7 +50,7 @@
                 
                 <!-- [하단] 장바구니 추가 버튼 -->
                 <div class="change-btn-border">
-                    <button onclick="cartInsert()" class="change-btn white">장바구니에 담기</button>
+                    <button type="button" onclick="cartInsert()" class="change-btn white">장바구니에 담기</button>
                 </div>
     </div>
 </body>

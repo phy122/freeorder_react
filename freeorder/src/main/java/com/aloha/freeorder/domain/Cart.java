@@ -11,6 +11,7 @@ public class Cart {
     private String productsId;
     private String usersId;
     private String optionsId;
+    private String productName;
     private int amount;
     private int price;
     private Date createdAt;

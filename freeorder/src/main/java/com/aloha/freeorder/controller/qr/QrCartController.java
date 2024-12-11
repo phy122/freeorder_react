@@ -23,6 +23,7 @@ import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CartService;
+import com.aloha.freeorder.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,8 @@ public class QrCartController {
     
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ProductService productService;
     
     @GetMapping()
     public ResponseEntity<?> getAll() {
@@ -69,6 +72,7 @@ public class QrCartController {
         log.info("장바구니 목록 추가");
         try {
             log.info(product.toString());
+            Product infoProduct = productService.select(product.getId());
             String id = UUID.randomUUID().toString();
             Cart cart = new Cart();
             cart.setId(id);
@@ -78,30 +82,30 @@ public class QrCartController {
             List<CartOption> optionList = new ArrayList<>();
             for (OptionItem optionItem : getOpList) {
                 CartOption cartOption = CartOption.builder()
-                                                  .cartsId(id)
                                                   .id(UUID.randomUUID().toString())
+                                                  .cartsId(id)
                                                   .optionItemsId(optionItem.getId())
                                                   .build();
                 optionList.add(cartOption);
-                log.info("장바구니 옵션목록 추가 : " + optionItem.getName());
+                log.info("장바구니 옵션목록 추가 : " + optionItem.toString());
                 cartService.insertOption(cartOption);
             }
             cart.setOptionList(optionList);
             cart.setOptionsId(option.getId());
-            cart.setPrice(product.getPrice());
+            cart.setPrice(infoProduct.getPrice());
             cart.setAmount(product.getQuantity());
             cart.setUsersId(usersId);
-
+            log.info(cart.toString());
             int result = cartService.insert(cart);
             if (result > 0){
                 log.info("장바구니 추가 성공.");
-                return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("추가 실패.",HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            else
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             log.error("장바구니 추가 중 에러 발생", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("추가중 에러발생",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
@@ -122,12 +126,14 @@ public class QrCartController {
         }
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy(@PathVariable String id) {
+    @DeleteMapping()
+    public ResponseEntity<?> destroy(Cart cart) {
         log.info("장바구니 목록 삭제");
+        String id = cart.getId();
         try {
             int result = cartService.delete(id);
             if ( result > 0 ) {
+                cartService.deleteOption(id);
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             }
             else {
