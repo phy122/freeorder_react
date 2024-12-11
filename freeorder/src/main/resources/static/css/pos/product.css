@@ -306,7 +306,79 @@ h2 {
 
 
 /* 상품 위치 변경 locate.html */
-
+.l-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(128, 128, 128, 0.3);
+}
+.l-product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 100px auto;
+    padding: 0 50px;
+    border: 1px dashed coral;
+}
+.l-product-list .l-product-card {
+    text-align: center;
+    background-color: white;
+    width: 100%;
+    height: 300px;
+    border: 1px dashed coral;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: move;
+}
+.l-product-card.dragging {
+    opacity: 0.5;  /* 드래그 중인 항목은 반투명하게 */
+}
+.l-product-list .product-image-placeholder img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.l-product-list .product-name,
+.l-product-list .product-price {
+    font-size: 14px;
+    margin-top: 10px;
+}
+.l-btn-container {
+    display: flex;
+    border: 1px dashed coral;
+    float: right;
+    margin-top: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+.l-btn-container .l-cancel-btn {
+    width: 100px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.l-btn-container .l-save-btn {
+    width: 100px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: cornflowerblue;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+.l-select-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: 30px;
+}
 /* 상품 세팅 setting.html */
 .s-container {
     display: flex;
