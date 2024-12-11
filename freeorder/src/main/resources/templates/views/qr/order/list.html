@@ -13,34 +13,37 @@
     <div class="container" layout:fragment="content">
 
         <!-- [상단]	뒤로가기 -->
-        <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
-            <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
-        <span class="fs-normal black">주문 내역</span>
+         <div class="header">
+             <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
+                 <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+                 <span class="fs-normal black">주문 내역</span>
+                </div>
+                
+                <!-- [상단]	카테고리 -->
+                <div class="tab-menu-wrap">
+                    <ul class="tab-menu db-tab-menu">
+                        <li>
+                            <a href="/qr/cart" class="tab-menu-item">
+                                <span>장바구니</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/qr/order" class="tab-menu-item">
+                                <span class="active">주문내역</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="line"></div>
         </div>
 
-        <!-- [상단]	카테고리 -->
-        <div class="tab-menu-wrap">
-            <ul class="tab-menu db-tab-menu">
-                <li>
-                    <a href="/qr/cart" class="tab-menu-item">
-                        <span>장바구니</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/qr/order" class="tab-menu-item">
-                        <span class="active">주문내역</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="line"></div>
 
         <!-- [중단]주문내역 리스트	 -->
+        <div class="scrollable-content">
         <div class="order-card p-50">
             <div class="order-list-card mb-5">
                 <div class="menu-name fw-1 fs-normal">불고기 버거 1개</div>
-                <div class="option">기본 : 6,500원</div>
+                <div class="option2">기본 : 6,500원</div>
                 <div class="price fw-1 fs-normal">6,500원</div>
             </div>
                 
@@ -48,8 +51,8 @@
                 
             <div class="order-list-card mb-5 mt-5">
                 <div class="menu-name fw-1 fs-normal">불고기 버거 1개</div>
-                <div class="option">기본 : 6,500원</div>
-                <div class="option">옵션 : 패티 추가(+3000원)</div>
+                <div class="option2">기본 : 6,500원</div>
+                <div class="option2">옵션 : 패티 추가(+3000원)</div>
                 <div class="price fw-1 fs-normal">9,500원</div>
             </div>
         
@@ -57,15 +60,18 @@
         
             <div class="order-list-card mb-5 mt-5">
                 <div class="menu-name fw-1 fs-normal">콜라 1개</div>
-                <div class="option">기본 : 2,000원</div>
+                <div class="option2">기본 : 2,000원</div>
                 <div class="price fw-1 fs-normal">2,000원</div>
             </div>
         </div>
+        </div>
 
         <!-- [하단]총 금액 -->
-            <div class="total">TOTAL : </div>
-            <div class="total-list-price">18,000원</div>
-        </div>
+         <div class="total-card-fix">
+             <div class="total">TOTAL : </div>
+             <div class="total-list-price">18,000원</div>
+         </div>
+    </div>
     </div>
 </body>
 </html>
