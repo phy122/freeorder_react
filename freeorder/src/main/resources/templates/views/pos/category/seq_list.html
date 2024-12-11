@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/pos/category.css">
     <title>POS</title>
 </head>
-<body>
+<body onload=" seqListFunction()">
     <div class="seq-container" layout:fragment="content">
         <!-- [상단] 취소 버튼 -->
          <div class="seq-btn-container">
@@ -29,7 +29,7 @@
          <div class="seq-category-list">
             <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
                 <div class="seq-category-item" draggable="true">
-                    <span class="seq-category-name" th:text="${cate.name}"></span>
+                    <a class="seq-category-name" th:text="${cate.name}"></a>
                 </div>
             </th:block>
             <th:block th:if="${ cateList.isEmpty()}">

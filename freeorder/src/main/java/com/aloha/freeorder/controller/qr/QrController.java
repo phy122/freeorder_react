@@ -109,7 +109,6 @@ public class QrController {
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
-    log.info("cate : " + cate);
     if (cate == null)
       productList = productService.allList();
     

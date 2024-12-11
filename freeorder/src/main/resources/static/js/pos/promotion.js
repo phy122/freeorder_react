@@ -1,7 +1,7 @@
 
 let url = "/pos/notices";
 // 프로모션 등록
-function noticeInsert() {
+function promotionInsert() {
     let formData = new FormData( $("#promotion-insert")[0])
     $.ajax({
         url             : url,
@@ -18,7 +18,7 @@ function noticeInsert() {
     }) 
 }
 // 프로모션 수정
-function noticeUpdate() {
+function promotionUpdate() {
     let formData = new FormData($("#pro-update")[0]);
     $.ajax({
         url: url,
@@ -36,7 +36,7 @@ function noticeUpdate() {
 }
 
 // 프로모션 삭제
-function noticeDelete(id) {
+function promotionDelete(id) {
     let formData = new FormData();
     formData.append("id",id)
     if (confirm("삭제 하시겠습니까?")) {

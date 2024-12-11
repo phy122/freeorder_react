@@ -79,4 +79,3 @@ SELECT * FROM carts;
 SELECT * FROM cart_options;
 
 TRUNCATE TABLE cart_options;
-TRUNCATE TABLE carts;

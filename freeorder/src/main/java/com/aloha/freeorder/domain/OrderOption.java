@@ -1,7 +1,6 @@
 package com.aloha.freeorder.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,19 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class Order {
+public class OrderOption {
     
     private String id;
-    private String userId;
-    private String title;
-    private int totalQuantity;
-    private int totalCount;
-    private int totalPrice;
-    private String status;
-    private Date orderedAt;
+    private String optionItemId;
+    private String orderItemId;
+    private String name;
     private Date createdAt;
     private Date updatedAt;
-
-    private List<OrderItem> itemList;
 
 }

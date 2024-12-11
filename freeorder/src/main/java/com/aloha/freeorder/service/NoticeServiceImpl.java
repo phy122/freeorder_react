@@ -44,7 +44,6 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public int update(Notice notice) throws Exception {
-        log.info(" 프로모션 수정중... " + notice.toString());
         int result = noticeMapper.update(notice);
         return result;
     }
