@@ -1,14 +1,18 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.freeorder.domain.Order;
+import com.aloha.freeorder.domain.OrderItem;
+import com.aloha.freeorder.domain.OrderOption;
 import com.aloha.freeorder.mapper.OrderMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class OrderServiceImpl implements OrderService{
 
@@ -29,7 +33,15 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public int insert(Order order) throws Exception {
-        order.setId(UUID.randomUUID().toString());
+        List<OrderItem> orderItemsList = order.getItemList();
+        for (OrderItem orderItem : orderItemsList) {
+            orderMapper.insertItem(orderItem);
+            List<OrderOption> orderOptionsList = orderItem.getOptionList();
+            for (OrderOption orderOption : orderOptionsList) {
+                orderMapper.insertOption(orderOption);
+            }
+        }
+        log.info("주문내역 등록");
         int result = orderMapper.insert(order);
         return result;
     }
