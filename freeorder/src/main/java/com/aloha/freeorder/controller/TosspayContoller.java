@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,10 @@ public class TosspayContoller {
     private PaymentService paymentService;
 
     @GetMapping({"/checkout"})
-    public String payment() {
+    public String payment(Model model) {
+        String orderId = UUID.randomUUID().toString();
+
+        model.addAttribute("orderId", orderId);
         return "checkout";
     }
 
@@ -42,20 +47,20 @@ public class TosspayContoller {
         log.info("결제성공 후 프로그램 DB에 연동 시도...");
         log.info(jsonBody);
         JSONParser parser = new JSONParser();
-        String ordersId;
+        String orderId;
         String amount;
         String paymentKey;
         try {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
             paymentKey = (String) requestData.get("paymentKey");
-            ordersId = (String) requestData.get("ordersId");
+            orderId = (String) requestData.get("orderId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         };
         JSONObject obj = new JSONObject();
-        obj.put("ordersId", ordersId);
+        obj.put("orderId", orderId);
         obj.put("amount", amount);
         obj.put("paymentKey", paymentKey);
 
@@ -89,9 +94,12 @@ public class TosspayContoller {
         responseStream.close();
         log.info("로그" + jsonObject.toJSONString());
 
-        Payment payment = paymentService.select(ordersId);
+        Payment payment = paymentService.select(orderId);
+        log.info(orderId);
         if (payment == null) {
             int result = paymentService.insert(payment);
+        } else {
+            
         }
         
 
@@ -100,24 +108,23 @@ public class TosspayContoller {
 
             JSONObject responseJson = new JSONObject();
             // 결제 성공 처리 로직
-            log.info("결제 성공: ordersId={}, amount={}", ordersId, amount);
+            log.info("결제 성공: orderId={}, amount={}", orderId, amount);
             
             // TODO: 데이터베이스에 결제 상태 업데이트
-            paymentService.updatePaymentStatus(ordersId, "PAID");
+            paymentService.updatePaymentStatus(orderId, "PAID");
             
-            // TODO: 사용자에게 결제 성공 알림 발송 (예: 이메일, SMS)
             responseJson.put("status", "success");
             responseJson.put("message", "Payment confirmed successfully.");
             return ResponseEntity.ok(responseJson);
         } else {
             
-            log.error("결제 실패: ordersId={}, code={}, message={}", ordersId, code, jsonObject.get("message"));
+            log.error("결제 실패: orderId={}, code={}, message={}", orderId, code, jsonObject.get("message"));
             JSONObject responseJson = new JSONObject();
             // 결제 실패 처리 로직
             
             // TODO: 결제 실패 사유를 저장 및 분석
-            paymentService.updatePaymentStatus(ordersId, "PENDING");
-            // TODO: 사용자에게 결제 실패 알림 발송
+            paymentService.updatePaymentStatus(orderId, "PENDING");
+
             responseJson.put("status", "failure");
             responseJson.put("message", "Payment confirmation failed. Please try again.");
             return ResponseEntity.status(code).body(responseJson);
