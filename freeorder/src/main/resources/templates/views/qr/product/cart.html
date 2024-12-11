@@ -10,31 +10,31 @@
     <title>QR오더</title>
 </head>
 <body layout:fragment="content">
-    <div class="container">
+    <div class="container cart-container">
 
         <!-- 상단 / 뒤로가기 -->
         <div class="qr-list-top flex justify-content-start align-items-center gap-2 p-10">
             <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
-        <span class="fs-normal black">장바구니</span>
+            <span class="fs-normal black">장바구니</span>
         </div>
-    
         <!-- 카테고리 -->
-        <div class="tab-menu-wrap">
-            <ul class="tab-menu db-tab-menu">
-                <li>
-                    <a href="/qr/cart" class="tab-menu-item">
-                        <span class="active">장바구니</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/qr/order" class="tab-menu-item">
-                        <span>주문내역</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="top">
+            <div class="tab-menu-wrap">
+                <ul class="tab-menu db-tab-menu">
+                    <li>
+                        <a href="/qr/cart" class="tab-menu-item">
+                            <span class="active">장바구니</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qr/order" class="tab-menu-item">
+                            <span>주문내역</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="line"></div>
         </div>
-    
-        <div class="line"></div>
     
         <!-- [중단] 장바구니 리스트
         
@@ -45,47 +45,38 @@
         - 옵션 변경
         - 삭제
         -->
-        <th:block th:if="${productList != null}" th:each="product : ${productList}">
-            <div class="c-card flex justify-content-start align-items-center mt-3">
-                <img src="/img/pizza.png" alt="페퍼로니 피자" class="menu-image ml-1">
-                <div class="menu-name">페퍼로니 피자</div>
-                <div class="c-price">13000원</div>
-                <div class="amount">1개</div>
-                <div class="option">옵션변경</div>
-                <button onclick="" class="cancel">삭제</button>
-            </div>
-        </th:block>
-        
-        <th:block th:if="${productList != null}" th:each="product : ${productList}">
-            <div class="c-card flex justify-content-start align-items-center mt-3">
-                <img src="/img/buerger.png" alt="불고기버거 세트" class="menu-image ml-1">
-                <div class="menu-name">불고기버거 세트</div>
-                <div class="c-price">10000원</div>
-                <div class="amount">1개</div>
-                <div class="option">옵션변경</div>
-                <button onclick="" class="cancel">삭제</button>
-            </div>
-        </th:block>
-        
-        <th:block th:if="${productList != null}" th:each="product : ${productList}">
-        <div class="c-card flex justify-content-start align-items-center mt-3">
-            <img src="/img/coke.png" alt="콜라" class="menu-image ml-1">
-            <div class="menu-name">콜라</div>
-            <div class="c-price">2000원</div>
-            <div class="amount">1개</div>
-            <div class="option">옵션변경</div>
-            <button onclick="" class="cancel">삭제</button>
-        </div>
-        </th:block>
+
+        <ul class="cart-list flex flex-column justify-content-start align-items-center gap-2">
+            <th:block th:if="${cartList != null}" th:each="cart : ${cartList}">
+                <li class="c-card flex flex-column  justify-content-start align-items-center">
+                    <div class="item-info flex justify-content-start align-items-center">
+                        <img th:src="|/pimg?id=${cart.productsId}|" alt="페퍼로니 피자" class="menu-image ml-1"/>
+                        <div class="menu-name" th:text="${cart.productName}"></div>
+                        <div class="c-price" th:text="${#numbers.formatInteger(cart.price, 3, 'COMMA') + '원'}"></div>
+                        <div class="amount" th:text="${cart.amount + '개'}"></div>
+                        <button type="button" class="option">옵션변경</button>
+                        <button type="button" class="cancel" th:onclick="cartDelete([[${cart.id}]])">삭제</button>
+                    </div>
+                    <ul class="option-list">
+                        <th:block th:if="${cart.optionList != null}" th:each=" option : ${cart.optionList}">
+                            <li>
+                                <span th:text="${option.name}"></span>
+                                <span th:text="${#numbers.formatInteger(option.price, 3, 'COMMA') + '원'}"></span>
+                            </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
     
         <!-- [하단] 	
         - 총 금액
         - 결제하기 
         -->
         <th:block>
-            <div class="total-card flex justify-content-start align-items-center mt-3">
+            <div class="total-card flex justify-content-start align-items-center">
                 <div class="total">TOTAL : </div>
-                <div class="total-price">25,500원</div>
+                <div class="total-price" th:text="${#numbers.formatInteger(total, 3, 'COMMA') + '원'}"></div>
                 <a href="/pay/pay" class="pay-btn"><span class="color-white flex flex-column justify-content-center align-items-center mt-1">결제 하기</span></a>
             </div>
         </th:block>

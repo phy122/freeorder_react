@@ -20,5 +20,6 @@ public interface CartService {
     public int update(Cart cart) throws Exception;
     // 삭제
     public int delete(String id) throws Exception;
-
+    // 장바구니 옵션 삭제
+    public int deleteOption(String id) throws Exception;
 }

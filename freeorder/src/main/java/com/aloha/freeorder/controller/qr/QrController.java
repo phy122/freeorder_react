@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Cart;
+import com.aloha.freeorder.domain.CartOption;
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
 import com.aloha.freeorder.domain.Option;
@@ -148,8 +149,19 @@ public class QrController {
     HttpSession session = request.getSession();
     String id = (String) session.getAttribute("id");
     log.info("Session 에 등록 된 사용자 아이디 : " + id);
-    List<Cart> cartList = cartService.list();
-    model.addAttribute("cartLsit", cartList);
+    List<Cart> cartList = cartService.listByUser(id);
+    log.info(cartList.toString());
+    int total = 0;
+    for (Cart cart : cartList) {
+      List<CartOption> optionList = cart.getOptionList();
+      total += cart.getPrice() * cart.getAmount();
+      for (CartOption cartOption : optionList) {
+        total += cartOption.getPrice();
+      }
+    }
+    
+    model.addAttribute("cartList", cartList);
+    model.addAttribute("total", total);
     return "views/qr/product/cart";
   }
   

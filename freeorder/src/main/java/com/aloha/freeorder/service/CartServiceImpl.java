@@ -31,7 +31,6 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public int insert(Cart cart) throws Exception {
-        cart.setId(UUID.randomUUID().toString());
         return cartMapper.insert(cart);
     }
 
@@ -52,8 +51,12 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public int insertOption(CartOption cartOption) throws Exception {
-        cartOption.setId(UUID.randomUUID().toString());
         return cartMapper.insertOption(cartOption);
+    }
+
+    @Override
+    public int deleteOption(String id) throws Exception {
+        return cartMapper.deleteOption(id);
     }
     
 }

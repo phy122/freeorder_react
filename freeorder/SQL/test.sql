@@ -58,6 +58,25 @@ SELECT * FROM files WHERE PARENT_ID = '8c981b05-10ef-4005-aa8a-33a39a8ae3b8';
 
 SELECT * FROM files;
 
+SELECT c.*
+FROM carts c
+LEFT JOIN products p
+    ON c.products_id = p.id 
+LEFT OUTER JOIN cart_options co
+    ON c.id = co.carts_id 
+LEFT JOIN option_items oi
+    ON co.option_items_id = oi.id
+WHERE c.users_id = '5b443691-cc5b-4b8a-a4de-aa1f627c6e2d'
+ORDER BY c.created_at desc, oi.seq asc;
 
 
 
+SELECT * FROM `options`;
+
+SELECT * FROM option_items;
+SELECT * FROM products;
+SELECT * FROM carts;
+SELECT * FROM cart_options;
+
+TRUNCATE TABLE cart_options;
+TRUNCATE TABLE carts;
