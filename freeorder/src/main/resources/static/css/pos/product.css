@@ -32,39 +32,67 @@
 
 /* 카테고리 목록 */
 /* 선택된 리스트 강조 추가 */
-.category-list {
-    width: 100%;
+.cate-wrap {
     display: grid;
     grid-template-columns: auto 100px;
+    align-items: center;
+    height: 50px;
+    width: 100%;
     margin-bottom: 20px;
 }
-.tab-menu{
-    height: 50px;
-    display: grid;
-    grid-template-columns: repeat(4, calc((100%)/4));
-}
-.tab-menu-item{
-    border: 1px solid #ccc;
-    height: 100%;
+
+.tab-menu {
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+    flex-direction: row;
     width: 100%;
+    height: 50px;
+}
+
+.tab-menu li{
+    width: 25%;
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.tab-menu-item {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    height: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
-.tab-menu-item:hover{
+
+.cate-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.btn-left,
+.btn-right {
+    width: 50px;
+    height: 100%;
+    background-color: white;
+    border: none;
     cursor: pointer;
-}
-.cate-btn{
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-.cate-btn button{
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #ccc;
 }
-.cate-btn button:hover{
-    cursor: pointer;
-    filter: brightness(50%);
+
+.btn-left:hover,
+.btn-right:hover {
+    background-color: #f0f0f0;
 }
+
 
 /* 상품 목록 */
 .product-page {
