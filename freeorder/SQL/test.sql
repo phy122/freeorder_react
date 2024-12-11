@@ -80,3 +80,6 @@ SELECT * FROM cart_options;
 
 TRUNCATE TABLE cart_options;
 TRUNCATE TABLE carts;
+
+
+SELECT * FROM notices;
