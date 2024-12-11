@@ -15,6 +15,7 @@
         <form class="notice" action="/pos/notices" id="notice-insert">
             <h1>공지사항</h1>
             <div class="notice-title">
+                <input type="hidden" name="type" value="notice">
                 <a href="#">제목</a>
                 <input type="text" id="notice-title" placeholder="제목을 입력하세요">
             </div>
@@ -22,7 +23,7 @@
                 <a href="#">내용</a>
                 <textarea name="notice-content" id="notice-content" placeholder="내용을 입력하세요"></textarea>
             </div>
-            <button class="insert-btn">저장</button>
+            <button class="insert-btn" onclick="noticeInsert()">저장</button>
         </form>
     </div>
 </body>

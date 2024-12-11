@@ -41,7 +41,7 @@
                             <td th:text="${pro.updatedAt}">2024-12-06</td>
                             <td>
                                 <a class="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
-                                <button type="submit" class="delete-btn" th:onclick="noticeDelete([[${pro.id}]])">삭제</button>
+                                <button type="submit" class="delete-btn" th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
                             </td>
                         </tr>
                     </th:block>
