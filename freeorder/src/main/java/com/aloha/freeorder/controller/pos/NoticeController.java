@@ -60,8 +60,10 @@ public class NoticeController {
         notice.setId(id);
         try {
             if (notice.getType().equals("notice")) {
-                List<Notice> noticeList = noticeService.list();
-                if (noticeList.size() > 0) {
+                Notice readNotice = noticeService.read();
+
+                if (readNotice != null) {
+                    notice.setId(readNotice.getId());
                     result = noticeService.update(notice);
                 }
                 else{

@@ -225,7 +225,7 @@ function proDelete() {
 // 공지사항 등록
 function noticeInsert(){
     let formData = new FormData ( $("#notice-insert")[0] )
-    let url = "/pos/notice"
+    let url = "/pos/notices"
     $.ajax({
         url             : url,
         method          : "post",

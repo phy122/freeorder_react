@@ -292,7 +292,7 @@ public class PosController {
     @GetMapping("/notice")
     public String notice(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
                         ,Model model) throws Exception {
-        log.info("공지사항 목록 페이지");
+        log.info("공지사항 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         model.addAttribute("operation", operation);

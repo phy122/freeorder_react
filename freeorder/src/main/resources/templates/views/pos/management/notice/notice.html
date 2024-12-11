@@ -12,18 +12,18 @@
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <form class="notice" action="/pos/notices" id="notice-insert">
+        <form class="notice" id="notice-insert" onsubmit="return false;">
             <h1>공지사항</h1>
             <div class="notice-title">
                 <input type="hidden" name="type" value="notice">
                 <a href="#">제목</a>
-                <input type="text" id="notice-title" placeholder="제목을 입력하세요">
+                <input type="text" id="notice-title" name="title" th:value="${notice != null?notice.title:''}" placeholder="제목을 입력하세요">
             </div>
             <div class="notice-content">
                 <a href="#">내용</a>
-                <textarea name="notice-content" id="notice-content" placeholder="내용을 입력하세요"></textarea>
+                <textarea name="content" id="notice-content" th:text="${notice != null?notice.content:''}" placeholder="내용을 입력하세요"></textarea>
             </div>
-            <button class="insert-btn" onclick="noticeInsert()">저장</button>
+            <button type="button" class="insert-btn" onclick="noticeInsert()">저장</button>
         </form>
     </div>
 </body>
