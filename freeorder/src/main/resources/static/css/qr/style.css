@@ -6,6 +6,13 @@
     --menu-text-size : 40px;
     --normal-text-size : 14px;
     --large-text-size : 20px;
+
+    overflow-x: hidden;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+img {
+  object-fit: cover;
 }
 img {
   object-fit: cover;
@@ -23,6 +30,12 @@ img {
 }
 
 .scrollable-content {
+  margin-top: 140px;
+  /* height: calc(100vh - 50px); */
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-bottom: 100px;
   margin-top: 120px;
   height: calc(100vh - 50px);
   overflow-y: auto;
@@ -42,6 +55,7 @@ img {
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
 }
+
 /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
 .tab-menu-wrap:-webkit-scrollbar {
   display: none;
@@ -151,11 +165,31 @@ transform: scale(1);
 
 .container {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
+  min-height: 100vh;
   border: 1px dashed var(--main-color);
   position: relative;
   /* overflow: hidden; */
 }
+
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  border: 1px dashed var(--main-color);
+  position: relative;
+  /* overflow: hidden; */
+}
+
+/* .container.cart-container {
+  display: grid;
+  grid-template-rows: 90px 52px auto 110px;
+} */
+
+.cart-list {
+  padding: 1.25rem 0;
+  overflow-y: auto;
+  
 .container.cart-container {
   display: grid;
   grid-template-rows: 90px 52px auto 110px;
@@ -196,11 +230,16 @@ transform: scale(1);
 }
 
 .total-card {
+}
+
+.total-card-fix {
   width: 100%;
   height: 110px;
   border-radius: 30px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
 }
 
 .top-area {
@@ -211,7 +250,7 @@ transform: scale(1);
 
 .menu-price {
   margin-right: 20px;
-  font-size: 1em;
+  font-size: 1px;
   color: #666;
 }
 
@@ -228,6 +267,7 @@ transform: scale(1);
 .menu-image {
   width : 120px;
   height: 120px;
+  border-radius: 8px;
 }
 
 
@@ -238,22 +278,94 @@ transform: scale(1);
 }
 
 .cancel {
-  width: 139px;
+  width: 117px;
   height: 38px;
   border-color: #ff7622;
-
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1.5px;
+  border-radius: 8px;
+  background-color: white;
 }
 
 .c-card {
+  width: 90%;
+  height: 150px;
+  border: 1px solid lightgray;
+  margin-left: 5%;
+  border-radius: 15px;
+  border-width: 2.5px;
+  font-size: large;
+  font-weight: bold;
+  margin-right: 30px;
+  justify-content: space-between;
+}
+
+.c-price {
+  font-size: 15px;
+  width: 60px;
+}
+
+.amount {
+  font-size: 15px;
+  width: 30px;
+}
+
+.price-amount {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.name-amount {
+  justify-content: space-between;
+}
+
+.left-left{
+  margin-right: 30px;
+}
+
+.right-right {
+  height: 100px;
+  margin-bottom: 1px;
+}
+
+.list-right {
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 120px;
+  height: 140px;
+}
+
+.item-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item-info .list-right{
+  display: flex;
+  
+}
+.item-info .list-left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 80%;
   position: fixed;
 }
 
 .c-icon {
-  position: absolute;
   width: 80px;
+  background: none;
+}
+
+.c-icon-fix {
+  position: fixed;
   right: 2.5rem;
   bottom: 2.5rem;
+  background: none;
 }
 
 .c-icon:hover {
@@ -264,7 +376,6 @@ transform: scale(1);
 
 .qr-list-bottom {
   position: relative;
-  
 }
 
 .burger-png {
@@ -314,32 +425,36 @@ transform: scale(1);
   height: 30px;
 }
 
-.total {
-  position: absolute;
-  bottom: 3rem;
-  left: 5rem;
-  font-size: larger;
-  color: gray;
-}
-
 .total-price {
-  position: absolute;
+  /* position: absolute; */
   bottom: 3rem;
   right: 15rem;
   font-size: larger;
   justify-content: space-between;
 }
 
+.total {
+  /* position: absolute; */
+  bottom: 3rem;
+  left: 5rem;
+  font-size: larger;
+  color: gray;
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+}
+
 .total-list-price {
-  position: absolute;
   right: 5rem;
   bottom: 3rem;
   font-size: larger;
+  position: fixed;
+  z-index: 1000;
 }
 
 .total-container {
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   display: flex;
 }
@@ -349,7 +464,7 @@ transform: scale(1);
   height: 50px;
   background-color: var(--main-color);
   border-radius: 8px;
-  position: absolute;
+  /* position: absolute; */
   right: 2.5rem;
   bottom: 2rem;
   font-size: medium;
@@ -367,7 +482,7 @@ transform: scale(1);
   height: 100px;
   background-color: var(--main-color);
   border-radius: 8px;
-  position: absolute;
+  /* position: absolute; */
   bottom: 2rem;
   font-size: medium;
 }
@@ -380,7 +495,7 @@ transform: scale(1);
   border-radius: 8px;
   border-width: 2.5px;
   bottom: 0.5rem;
-  position: absolute;
+  /* position: absolute; */
   font-size: var(--large-text-size);
   margin: 20px;
   cursor: pointer;
@@ -400,7 +515,7 @@ transform: scale(1);
   height: 90px;
   background-color: var(--main-color);
   border-radius: 8px;
-  position: absolute;
+  /* position: absolute; */
   font-size: medium;
 }
 
@@ -409,13 +524,24 @@ transform: scale(1);
   height: 90px;
   background-color: var(--main-color);
   border-radius: 8px;
-  position: absolute;
+  /* position: absolute; */
   font-size: medium;
   margin-top: 30%;
 }
 
 .border {
   margin: 20px;
+}
+
+.option {
+  width: 80px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: rgb(207, 207, 207);
+}
+
+.option2 {
+  
 }
 
 .option-name {
@@ -426,6 +552,12 @@ transform: scale(1);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.option-list {
+  margin-top: 1rem;
+  font-size: 15px;
+  width: 120px;
 }
 
 .option-checkbox {
@@ -543,6 +675,11 @@ input[type="checkbox"]{
 .p-30{padding: 30px;}
 .p-20{padding: 20px;}
 .p-10{padding: 10px;}
+
+.pt-10{padding-top: 10px;}
+.pt-20{padding-top: 20px;}
+.pt-30{padding-top: 30px;}
+.pt-40{padding-top: 40px;}
 
 
 /* color */

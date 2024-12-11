@@ -24,18 +24,18 @@
                         <li>
                             <a href="/qr/list" class="tab-menu-item">
                                 <span th:classappend="${cateId == null ? 'active': ''}">전체</span>
-                    </a>
-                </li>
-                    <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
-                        <li><a th:href="|/qr/list?cate=${cate.id}|" class="tab-menu-item">
-                            <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}"></span>
-                        </a></li>
-                    </th:block>
+                            </a>
+                        </li>
+                        <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
+                            <li><a th:href="|/qr/list?cate=${cate.id}|" class="tab-menu-item">
+                                <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}"></span>
+                            </a></li>
+                        </th:block>
                     </ul>
                 </div>
+                <div class="line"></div>
          </div>
 
-        <div class="line"></div>
 
         <!-- 카드 -->
          <div class="scrollable-content">
@@ -71,9 +71,11 @@
     </div>
         
         <!-- 하단 / 아이콘 -->
-        <a href="/qr/cart">
-            <img src="/img/cart.png" alt="qr매장" class="c-icon">
-        </a>
+         <div class="c-icon-fix">
+            <button type="button" class="c-icon" onclick="location.href='/qr/cart'">
+                <img src="/img/cart.png" alt="qr매장" class="c-icon">
+            </button>
+         </div>
     </div>
 </body>
 </html>
