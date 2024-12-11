@@ -37,7 +37,6 @@ $(function() {
 // 모달 닫기
 
 // 매출관리 달력
-salesFunctions()
 function salesFunctions() {
     const calendarDates = document.getElementById("calendarDates");
     const monthYear = document.getElementById("monthYear");
@@ -260,5 +259,28 @@ function noticeUpdate(){
         }
     })
 }
-
-// 카테고리 목록 슬라이드
+function categorySlide() {
+    // 카테고리 목록 슬라이드
+    // DOM 요소 선택
+    const cateWrap = document.getElementById('cate-tab-menu'); // 카테고리 리스트
+    const btnLeft = document.getElementById('cate-left-btn'); // 왼쪽 버튼
+    const btnRight = document.getElementById('cate-right-btn'); // 오른쪽 버튼
+    
+    // 슬라이드 이동량 (1개 항목의 너비)
+    const itemWidth = cateWrap.firstElementChild.offsetWidth;
+    const slideAmount = itemWidth * 4; // 4개씩 이동
+    // 왼쪽으로 이동
+    btnLeft.addEventListener('click', () => {
+        cateWrap.scrollBy({
+            top: -slideAmount,
+        });
+    });
+    
+    // 오른쪽으로 이동
+    btnRight.addEventListener('click', () => {
+        cateWrap.scrollBy({
+            top: slideAmount,
+        });
+    });
+    
+}

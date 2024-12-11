@@ -10,7 +10,6 @@
         SELECT *
         FROM products
         WHERE id = #{id}
-
     </select>
 
     <!-- 목록 조회 -->
