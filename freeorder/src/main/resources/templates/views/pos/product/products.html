@@ -17,11 +17,22 @@
             <!-- 좌측: 상품 목록 + 카테고리 목록 -->
             <div class="left-side">
                 <div class="category-list">
-                    <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
-                        <div class="category-item" draggable="true">
-                            <span class="category-name" th:text="${cate.name}"></span>
-                        </div>
-                    </th:block>
+                    <div class="cate-wrap">
+                        <ul class="tab-menu">
+                            <li><a href="/pos/product" class="tab-menu-item">
+                                <span th:classappend="${cateId == null ? 'active': ''}">전체</span>
+                            </a></li>
+                            <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
+                                <li><a th:href="|/pos/product/products?cate=${cate.id}|" class="tab-menu-item">
+                                    <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}"></span>
+                                </a></li>
+                            </th:block>
+                        </ul>
+                    </div>
+                    <div class="cate-btn">
+                        <button type="button">◀</button>
+                        <button type="button">▶</button>
+                    </div>
                     <th:block th:if="${ cateList.isEmpty()}">
                         카테고리가 없습니다.
                     </th:block>
@@ -131,7 +142,4 @@
         </div>
     </div>
 </body>
-<!-- <script>
-
-</script> -->
 </html>
