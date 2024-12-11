@@ -7,18 +7,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/pos/promotion.css">
+    <link rel="stylesheet" href="/css/pos/notice.css">
     <title>NOTICE</title>
 </head>
 <body>
     <div class="container" layout:fragment="content">
-        <form class="notice" action="/pos/notices">
-            <input type="hidden" name="type" value="notice">
+        <form class="notice" action="/pos/notices" id="notice-insert">
             <h1>공지사항</h1>
-            <div class="insert-btn">
-                <a href="#">저장</a>
-                <h1>asd</h1>
+            <div class="notice-title">
+                <a href="#">제목</a>
+                <input type="text" id="notice-title" placeholder="제목을 입력하세요">
             </div>
+            <div class="notice-content">
+                <a href="#">내용</a>
+                <textarea name="notice-content" id="notice-content" placeholder="내용을 입력하세요"></textarea>
+            </div>
+            <div class="insert-btn"><a href="#">저장</a></div>
         </form>
     </div>
 </body>
