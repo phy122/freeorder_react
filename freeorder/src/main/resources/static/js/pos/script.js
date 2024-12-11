@@ -108,7 +108,6 @@ function salesFunctions() {
 
 
 // 카테고리 CRUD
-
 // 카테고리 등록
 function cateInsert() {
     let formData = new FormData( $("#cate-insert")[0])
@@ -220,4 +219,42 @@ function proDelete() {
             }
         }
     }) 
+}
+
+// 공지사항 등록
+function noticeInsert(){
+    let formData = new FormData ( $("#notice-insert")[0] )
+    let url = "/pos/notice"
+    $.ajax({
+        url             : url,
+        method          : "post",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,       
+        success : function(data){
+            if($.trim(data) == "SUCCESS"){
+                alert("등록 성공")
+                location.href = "/pos/notice"
+            }
+        }
+    })
+}
+
+// 공지사항 수정
+function noticeUpdate(){
+    let formData = new FormData ( $("#notice-update")[0] )
+    let url = "/pos/notice"
+    $.ajax({
+        url             : url,
+        method          : "put",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,       
+        success : function(data){
+            if($.trim(data) == "SUCCESS"){
+                alert("수정 성공")
+                location.href = "/pos/notice"
+            }
+        }
+    })
 }
