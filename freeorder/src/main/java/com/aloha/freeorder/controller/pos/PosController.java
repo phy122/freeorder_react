@@ -288,6 +288,14 @@ public class PosController {
         log.info("더보기 페이지");
         return "views/pos/management/sales/sales";
     }
+
+    // 판매 관리 상세 내역
+    @GetMapping("/management/sales_detail")
+    public String showSalesDetailPage() {
+        return "views/pos/management/sales/sales_detail";
+    }
+    
+
     // 공지사항
     @GetMapping("/notice")
     public String notice(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
