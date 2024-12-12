@@ -62,12 +62,12 @@
                                 <div class="menu-name" th:text="${cart.productName}"></div>
                                 <div class="price-amount">
                                 <div class="c-price" th:text="${#numbers.formatInteger(cart.price, 3, 'COMMA') + '원'}"></div>
-                                <div class="amount" th:text="${cart.amount + '개'}"></div>
+                                <div class="amount" th:text="${'|' + ' ' + cart.amount + '개'}"></div>
                                 </div>
                                 <ul class="option-list">
                                     <th:block th:if="${cart.optionList != null}" th:each=" option : ${cart.optionList}">
                                         <li>
-                                            <span th:text="${option.name}"></span>
+                                            <span th:text="'+' + ${option.name}"></span>
                                             <span th:text="${#numbers.formatInteger(option.price, 3, 'COMMA') + '원'}"></span>
                                         </li>
                                     </th:block>

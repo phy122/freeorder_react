@@ -71,7 +71,7 @@ img {
   -ms-overflow-style: none;
   scrollbar-width: none;
   padding-bottom: 100px;
-  margin-top: 120px;
+  margin-top: 140px;
   height: calc(100vh - 50px);
   overflow-y: auto;
   -ms-overflow-style: none;
@@ -208,8 +208,9 @@ img {
 
 .menu-price {
   margin-right: 20px;
-  font-size: 1px;
+  font-size: 18px;
   color: #666;
+  font-weight: normal;
 }
 
 .info-box {
@@ -220,6 +221,7 @@ img {
 .menu-info {
   margin: 0 10px;
   font-size: medium;
+  font-weight: normal;
 }
 
 .menu-image {
@@ -285,6 +287,7 @@ img {
 .burger-png {
   width: 100%;
   height: 300px;
+  border-radius: 10%;
 }
 
 .change-btn {
@@ -316,10 +319,6 @@ img {
   justify-content: center;
 }
 
-.option-checkbox {
-  cursor: pointer;
-}
-
 .checkbox-container {
   display: flex;
   flex-direction: column;
@@ -333,6 +332,44 @@ img {
 input[type="checkbox"]{
   width: 20px;
   height: 20px;
+}
+
+.option-checkbox {
+  cursor: pointer;
+}
+
+.read-option-price {
+  margin-left: auto;
+}
+
+.amount-select {
+  width: 115px;
+  padding: 5px 10px;
+  margin-left: auto;
+  border-radius: 30px;
+  background-color: #ff7622;
+}
+
+.quantity {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  background-color :transparent;
+}
+
+.quantity-minus {
+  border-radius: 50%;
+  font-size: larger;
+  background-color: #ffa069;
+  cursor: pointer;
+}
+
+.quantity-plus {
+  border-radius: 50%;
+  font-size: larger;
+  background-color: #ffa069;
+  cursor: pointer;
 }
 
 /* pay/complete */
