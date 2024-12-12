@@ -117,6 +117,7 @@ public class TosspayContoller {
         log.info("order: " + order);
         int result = orderService.insert(order);
         if (result > 0) {
+            cartService.delete(userId);
             log.info("주문내역 생성 성공!!");
         }else{
             log.info("주문내역 생성 실패!!");

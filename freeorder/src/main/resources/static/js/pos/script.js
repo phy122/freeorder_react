@@ -259,8 +259,9 @@ function noticeUpdate(){
         }
     })
 }
+
+// 카테고리 목록 슬라이드
 function categorySlide() {
-    // 카테고리 목록 슬라이드
     // DOM 요소 선택
     const cateWrap = document.getElementById('cate-tab-menu'); // 카테고리 리스트
     const btnLeft = document.getElementById('cate-left-btn'); // 왼쪽 버튼
@@ -283,4 +284,64 @@ function categorySlide() {
         });
     });
     
+}
+
+// 상품 장바구니에 추가
+function cartInsert(id, name, price){
+    let product = {
+        id: id,
+        name: name,
+        price: price
+    }
+    let url = '/qr/carts'
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(product)
+    }).then(data=>{
+        console.log(data)
+        cartList()
+    })
+}
+cartList()
+function cartList(){
+    let url = '/pos/carts'
+    const cartList = document.getElementById("cart-list")
+    fetch(url, {
+        method: 'GET'
+    }).then(Response => Response.json())
+    .then(data => {
+        cartList.innerHTML = ""
+        data.forEach(cart => {
+            let cartTag = document.createElement("li")
+            let cartItem = `
+                <button class="cancel">X</button>
+                <span class="cart-menu">${cart.productName}</span>
+                <div class="btn-box">
+                    <button class="quantity-minus">-</button>
+                    <input type="text" class="quantity" value="${cart.amount}">
+                    <button class="quantity-plus">+</button>
+                </div>
+                <input type="hidden" class="price" value="${cart.price}">
+                <span class="amount">${cart.price * cart.amount}</span>
+            ` 
+            cartTag.innerHTML = cartItem
+            cartList.appendChild(cartTag)
+        });
+
+        document.querySelectorAll(".btn-box").forEach((e)=>{
+            let qunatityTag = e.querySelector(".quantity")
+            e.querySelector(".quantity-minus").addEventListener("click",() => {
+                let value = qunatityTag.value <= 1? 1: Number(qunatityTag.value) - 1
+                qunatityTag.value = value
+            })
+            e.querySelector(".quantity-plus").addEventListener("click",() => {
+                let value = qunatityTag.value > 9 ? 10 : Number(qunatityTag.value) + 1
+                qunatityTag.value = value
+            })
+        })
+        
+    })
 }

@@ -40,6 +40,7 @@
     <select id="list" resultType="Cart">
         SELECT *
         FROM carts
+        WHERE users_id = #{id}
         ORDER BY created_at desc
     </select>
 
@@ -91,6 +92,19 @@
     <!-- 장바구니 옵션 삭제 -->
     <delete id="deleteOption">
         DELETE FROM cart_options
-        WHERE carts_id = #{id}
+        WHERE carts = #{id}
     </delete>
+
+    <!-- 결제시 해당 장바구니 전체 삭제 -->
+    <delete id="allDeleteByUserId">
+        DELETE FROM carts
+        WHERE users_id = #{usersId}
+    </delete>
+
+    <!-- 결제시 해당 장바구니 옵션 전체 삭제 -->
+    <delete id="allDeleteOptionByUserId">
+        DELETE FROM cart_options
+        WHERE users_id = #{usersId}
+    </delete>
+
 </mapper>

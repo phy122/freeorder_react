@@ -37,7 +37,7 @@ function cartInsert() {
   let quantity = $("#quantity").val()
   let otpionId = $("#optionId").val()
   let itemList = new Array();
-  $("input[name=itemList").each(function(){
+  $("input[name=itemList]").each(function(){
     itemList.push({"id":$(this).val()})
   })
   let data = {

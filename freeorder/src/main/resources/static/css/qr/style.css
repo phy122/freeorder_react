@@ -158,10 +158,10 @@ transform: scale(1);
   transform: translateY(-5px);
 }
 
-  .div{
-    display: flex;
-    justify-content: center;
-  }
+.div{
+  display: flex;
+  justify-content: center;
+}
 
 .container {
   width: 100vw;
@@ -189,7 +189,7 @@ transform: scale(1);
 .cart-list {
   padding: 1.25rem 0;
   overflow-y: auto;
-  
+}
 .container.cart-container {
   display: grid;
   grid-template-rows: 90px 52px auto 110px;

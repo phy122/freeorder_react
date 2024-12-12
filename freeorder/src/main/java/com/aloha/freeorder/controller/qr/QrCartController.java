@@ -42,19 +42,6 @@ public class QrCartController {
     @Autowired
     private ProductService productService;
     
-    @GetMapping()
-    public ResponseEntity<?> getAll() {
-        
-        log.info("장바구니 전체 목록");
-        try {
-            List<Cart> cartList = cartService.list();
-            return new ResponseEntity<>(cartList, HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("장바구니 전체 목록 조회 중 에러 발생", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
         log.info("장바구니 조회");
@@ -78,20 +65,22 @@ public class QrCartController {
             cart.setId(id);
             cart.setProductsId(product.getId());
             Option option = product.getOption();
-            List<OptionItem> getOpList = option.getItemList();
-            List<CartOption> optionList = new ArrayList<>();
-            for (OptionItem optionItem : getOpList) {
-                CartOption cartOption = CartOption.builder()
-                                                  .id(UUID.randomUUID().toString())
-                                                  .cartsId(id)
-                                                  .optionItemsId(optionItem.getId())
-                                                  .build();
-                optionList.add(cartOption);
-                log.info("장바구니 옵션목록 추가 : " + optionItem.toString());
-                cartService.insertOption(cartOption);
+            if (option != null) {
+                List<OptionItem> getOpList = option.getItemList();
+                List<CartOption> optionList = new ArrayList<>();
+                for (OptionItem optionItem : getOpList) {
+                    CartOption cartOption = CartOption.builder()
+                                                      .id(UUID.randomUUID().toString())
+                                                      .cartsId(id)
+                                                      .optionItemsId(optionItem.getId())
+                                                      .build();
+                    optionList.add(cartOption);
+                    log.info("장바구니 옵션목록 추가 : " + optionItem.toString());
+                    cartService.insertOption(cartOption);
+                }
+                cart.setOptionList(optionList);
+                cart.setOptionsId(option.getId());
             }
-            cart.setOptionList(optionList);
-            cart.setOptionsId(option.getId());
             cart.setPrice(infoProduct.getPrice());
             cart.setAmount(product.getQuantity());
             cart.setUsersId(usersId);
