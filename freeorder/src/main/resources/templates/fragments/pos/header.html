@@ -1,10 +1,5 @@
-<!-- 
-    스크립트
-    1. 영업 시작, 영업 종료 탭 메뉴 스크립트
-    2. 영업중, 영업종료 ( 아이콘 및 글자 변경 )
-  -->
-<th:blcok th:fragment="header">
-    <!-- [상단]	영업시작/정지 -->
+<th:block th:fragment="header">
+    <!-- [상단] 영업시작/정지 -->
     <header>
         <!-- 로고 -->
         <div class="logo">
@@ -14,23 +9,66 @@
         <div class="header-content">
             <div class="open-btn">
                 <!-- 영업시작버튼 -->
-                <button class="start">
+                <button class="start" onclick="startBusiness()">
                     <a href="#">영업시작</a>
                 </button>
                 <!-- 영업종료버튼 -->
-                <button class="end">
+                <button class="end" onclick="endBusiness()">
                     <a href="#">영업종료</a>
                 </button>
             </div>
             <!-- 시간 -->
             <div class="time">
-                <a href="#">2024.12.04(수) 15:55</a>
+                <a id="current-time" href="#"></a> <!-- 시간 표시를 위한 링크 -->
             </div>
             <!-- 영업상태창 -->
             <div class="status">
-                <p class="status-on">●</p>
-                <p class="status-name">영업중</p>
+                <p class="status-on" id="status-icon">●</p>
+                <p class="status-name" id="status-name">영업중</p>
             </div>
         </div>
     </header>
-</th:blcok>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 해줘야 함
+            var date = String(now.getDate()).padStart(2, '0');
+            var dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+            var day = dayNames[now.getDay()];
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+
+            var timeString = year + '.' + month + '.' + date + '(' + day + ') ' + hours + ':' + minutes;
+            document.getElementById('current-time').textContent = timeString;
+        }
+
+        // 페이지 로드 시 시간 업데이트
+        window.onload = updateTime;
+        
+        // 매분마다 시간 업데이트
+        setInterval(updateTime, 60000);
+
+        // 영업시작 버튼 클릭 시 상태 업데이트
+        function startBusiness() {
+            document.getElementById('status-icon').textContent = '●'; // 영업중 상태 아이콘
+            document.getElementById('status-name').textContent = '영업중'; // 상태 텍스트
+            document.getElementById('status-icon').style.color = 'green'; // 초록색으로 아이콘 색 변경
+        }
+
+        // 영업종료 버튼 클릭 시 상태 업데이트
+        function endBusiness() {
+            document.getElementById('status-icon').textContent = '●'; // 영업종료 상태 아이콘
+            document.getElementById('status-name').textContent = '영업종료'; // 상태 텍스트
+            document.getElementById('status-icon').style.color = 'black'; // 검은색으로 아이콘 색 변경
+        }
+    </script>
+
+    <style>
+        /* 아이콘 색상 초기값 설정 */
+        .status-on {
+            color: green; /* 기본 아이콘 색은 초록색 */
+        }
+    </style>
+</th:block>
