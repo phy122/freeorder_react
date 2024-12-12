@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.OrderOption;
+import com.aloha.freeorder.domain.SalesReport;
 
 @Mapper
 public interface OrderMapper {
@@ -25,5 +26,9 @@ public interface OrderMapper {
     public int update(Order order) throws Exception;
     // 주문 삭제
     public int delete(String id) throws Exception;
+    // 월별 매출 조회
+    public SalesReport totalMonth(String status, String day) throws Exception;
+    // 일별 매출 조회
+    public SalesReport totalDay(String status, String day) throws Exception;
 
 }

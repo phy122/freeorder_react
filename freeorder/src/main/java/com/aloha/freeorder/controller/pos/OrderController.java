@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aloha.freeorder.domain.Order;
+import com.aloha.freeorder.domain.SalesReport;
 import com.aloha.freeorder.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -128,4 +130,45 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+     /**
+     * 월별 매출 조회
+     * @param status
+     * @param day
+     * @return
+     */
+    @GetMapping("/month")
+    public ResponseEntity<?> getMonthlySales(
+            @RequestParam("status") String status,
+            @RequestParam("day") String day) {
+        log.info("월별 매출 조회");
+        try {
+            SalesReport salesReport = orderService.totalMonth(status, day);
+            return new ResponseEntity<>(salesReport, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("월별 매출 조회 중 에러 발생", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 일별 매출 조회
+     * @param status
+     * @param day
+     * @return
+     */
+    @GetMapping("/day")
+    public ResponseEntity<?> getDailySales(
+            @RequestParam("status") String status,
+            @RequestParam("day") String day) {
+        log.info("일별 매출 조회");
+        try {
+            SalesReport salesReport = orderService.totalDay(status, day);
+            return new ResponseEntity<>(salesReport, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("일별 매출 조회 중 에러 발생", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
+
