@@ -65,7 +65,7 @@
     text-align: center;
 }
 
-.insert-btn a {
+.insert-btn {
     display: inline-block;
     padding: 10px 30px;
     font-size: 1rem;
@@ -75,6 +75,7 @@
     transition: background-color 0.3s;
 }
 
-.insert-btn a:hover {
+.insert-btn:hover {
     filter: brightness(90%);
+    cursor: pointer;
 }

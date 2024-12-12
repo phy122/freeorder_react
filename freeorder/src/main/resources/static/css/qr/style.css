@@ -166,6 +166,11 @@ img {
   background-color: gray;
 }
 
+.div{
+  display: flex;
+  justify-content: center;
+}
+
 .container {
   width: 100vw;
   /* height: 100vh; */
@@ -175,6 +180,37 @@ img {
   /* overflow: hidden; */
 }
 
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  border: 1px dashed var(--main-color);
+  position: relative;
+  /* overflow: hidden; */
+}
+
+/* .container.cart-container {
+  display: grid;
+  grid-template-rows: 90px 52px auto 110px;
+} */
+
+.cart-list {
+  padding: 1.25rem 0;
+  overflow-y: auto;
+}
+.container.cart-container {
+  display: grid;
+  grid-template-rows: 90px 52px auto 110px;
+}
+.cart-list {
+  padding: 1.25rem 0;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+.cart-list:-webkit-scrollbar {
+  display: none;
+}
 .card {
   width: 90%;
   height: 150px;

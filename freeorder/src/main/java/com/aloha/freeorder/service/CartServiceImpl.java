@@ -1,7 +1,6 @@
 package com.aloha.freeorder.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,8 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public List<Cart> list() throws Exception {
-        return cartMapper.list();
+    public List<Cart> list(String usersId) throws Exception {
+        return cartMapper.list(usersId);
     }
 
     @Override
@@ -57,6 +56,16 @@ public class CartServiceImpl implements CartService{
     @Override
     public int deleteOption(String id) throws Exception {
         return cartMapper.deleteOption(id);
+    }
+
+    @Override
+    public int allDeleteByUserId(String usersId) throws Exception {
+        return cartMapper.allDeleteByUserId(usersId);
+    }
+    
+    @Override
+    public int allDeleteOptionByUserId(String usersId) throws Exception {
+        return cartMapper.allDeleteOptionByUserId(usersId);
     }
     
 }

@@ -78,4 +78,22 @@ SELECT * FROM products;
 SELECT * FROM carts;
 SELECT * FROM cart_options;
 
-TRUNCATE TABLE cart_options;
+TRUNCATE TABLE carts
+
+SELECT 
+    c.products_id, -- 제품 ID
+    p.name AS product_name, -- 제품 이름
+    p.price AS product_price, -- 제품 가격
+    GROUP_CONCAT(DISTINCT oi.name ORDER BY oi.name ASC) AS option_names, -- 옵션 이름 목록
+    SUM(CASE WHEN c.amount = 0 THEN 1 WHEN c.`AMOUNT` > 0 THEN c.`AMOUNT` END) AS total_quantity, -- 주문 수량
+    SUM(c.price + COALESCE(oi.price, 0)) AS total_price -- 제품 가격 + 옵션 가격 합계
+FROM carts c
+LEFT JOIN products p
+    ON c.products_id = p.id 
+LEFT JOIN cart_options co
+    ON c.id = co.carts_id
+LEFT JOIN option_items oi
+    ON co.option_items_id = oi.id
+WHERE c.users_id = '727b293b-1a0a-4ad6-8032-c8f0d83f0075' -- 특정 사용자 주문
+GROUP BY c.products_id, co.option_items_id -- 제품 및 옵션별로 그룹화
+ORDER BY c.products_id ASC, co.option_items_id ASC;
