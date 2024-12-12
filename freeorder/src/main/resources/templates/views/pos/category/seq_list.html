@@ -17,7 +17,7 @@
              <a href="/pos/product">
                  <button type="button" class="seq-cancel-btn">취소</button>
              </a>
-                <button type="button" class="seq-save-btn">저장</button>
+                <button type="button" class="seq-save-btn" id="seqSavaBtn">저장</button>
          </div>
  
          <!-- [헤더] 상품 선택 안내 -->
@@ -29,7 +29,8 @@
          <div class="seq-category-list">
             <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">
                 <div class="seq-category-item" draggable="true">
-                    <a class="seq-category-name" th:text="${cate.name}"></a>
+                    <span class="category-name" th:text="${cate.name}" th:data-id="${cate.id}"></span>
+                    <span class="category-seq" th:text="${cate.seq}"></span>
                 </div>
             </th:block>
             <th:block th:if="${ cateList.isEmpty()}">

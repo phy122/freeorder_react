@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="list" resultType="Category">
     SELECT *
     FROM categories
+    ORDER BY seq asc
 </select>
 
 <select id="read" resultType="Category">
@@ -32,4 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     DELETE FROM categories
     WHERE ID = #{id}
 </delete>
+
+<update id="updateCategoryOrder" parameterType="map">
+    UPDATE categories
+    SET seq = #{seq}
+    WHERE id = #{id}
+</update>
 </mapper>

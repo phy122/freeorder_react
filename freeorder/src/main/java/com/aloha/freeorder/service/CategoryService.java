@@ -16,5 +16,7 @@ public interface CategoryService {
 
     public int delete(String id) throws Exception;
 
+    public void updateCategoryOrder(List<Category> cateList) throws Exception;
+
     
 }

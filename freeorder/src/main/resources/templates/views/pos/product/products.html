@@ -24,7 +24,7 @@
                                 </a></li>
                                 <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
                                     <li><a th:href="|/pos/product/products?cate=${cate.id}|" class="tab-menu-item">
-                                        <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}"></span>
+                                        <span th:classappend="${cate.id == cateId ? 'active': ''}" th:text="${cate.name}" th:data-id="${cate.id}"></span>
                                     </a></li>
                                 </th:block>
                             </ul>

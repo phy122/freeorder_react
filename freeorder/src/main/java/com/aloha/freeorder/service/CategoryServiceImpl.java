@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.freeorder.domain.Category;
+import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.mapper.CategoryMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CategoryServiceImpl implements CategoryService{
 
@@ -47,5 +51,14 @@ public class CategoryServiceImpl implements CategoryService{
         int result = categoryMapper.delete(id);
         return result;
     }
+
+	@Override
+    public void updateCategoryOrder(List<Category> cateList) throws Exception {
+        log.info("Received category list for update: " + cateList);
+        for (Category cate : cateList) {
+            categoryMapper.updateCategoryOrder(cate.getId(), cate.getSeq());
+        }
+    }
+
     
 }
