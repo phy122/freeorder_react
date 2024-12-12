@@ -284,10 +284,10 @@ img {
 }
 
 /* read, option */
-.burger-png {
+.read-png {
   width: 100%;
   height: 300px;
-  border-radius: 10%;
+  border-radius: 30px;
 }
 
 .change-btn {
@@ -363,6 +363,7 @@ input[type="checkbox"]{
   font-size: larger;
   background-color: #ffa069;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .quantity-plus {

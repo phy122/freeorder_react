@@ -58,7 +58,7 @@
                             <div class="left-left">
                                 <img th:src="|/pimg?id=${cart.productsId}|" alt="페퍼로니 피자" class="menu-image"/>
                             </div>
-                            <div class="right-right">
+                            <div class="right-right mr-1">
                                 <div class="menu-name" th:text="${cart.productName}"></div>
                                 <div class="price-amount">
                                 <div class="c-price" th:text="${#numbers.formatInteger(cart.price, 3, 'COMMA') + '원'}"></div>
