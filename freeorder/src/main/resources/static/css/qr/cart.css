@@ -19,6 +19,8 @@
   border-width: 1.5px;
   border-radius: 8px;
   background-color: white;
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
 
 .c-card {
@@ -36,17 +38,20 @@
 
 .c-price {
   font-size: 15px;
-  width: 60px;
+  width: 70px;
+  font-weight: lighter;
 }
 
 .amount {
   font-size: 15px;
-  width: 30px;
+  width: 40px;
+  color: rgb(163, 163, 163);
+  font-weight: 100;
 }
 
 .price-amount {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -96,6 +101,7 @@
   margin-top: 1rem;
   font-size: 15px;
   width: 120px;
+  font-weight: lighter;
 }
 
 /* 하단 */
