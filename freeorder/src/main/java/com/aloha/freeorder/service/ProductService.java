@@ -2,6 +2,7 @@ package com.aloha.freeorder.service;
 
 import java.util.List;
 
+
 import com.aloha.freeorder.domain.Product;
 
 public interface ProductService {
@@ -19,5 +20,7 @@ public interface ProductService {
     public int update(Product product) throws Exception;
     // 상품 삭제
     public int delete(String id) throws Exception;
+
+    public void updateProductOrder(List<Product> productList) throws Exception;
 
 }
