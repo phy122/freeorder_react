@@ -353,7 +353,19 @@ public class PosController {
         return "views/pos/management/promotion/promotion_update";
     }
     
-    
+    // 옵션 등록
+    @GetMapping("/product/option")
+    public String optionInsertPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        // 공통객체 [끝]
+
+        log.info("카테고리 등록 페이지");
+        return "views/pos/product/option";
+    }    
     
 
 }
