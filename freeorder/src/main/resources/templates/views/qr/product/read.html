@@ -20,12 +20,14 @@
                     </div>
                     
                     <!-- [중단] 상품정보 - 이미지,설명,수량-->
-                    <img th:src="|/pimg?id=${product.id}|" class="burger-png p-30" th:alt="${product.name}" width="100px">
-                    <div class="amount-select flex align-items-center justify-content-end mr-5">
-                        <button type="button" class="quantity-minus scale-small">-</button>
-                        <input type="number" class="quantity" name="quantity" id="quantity" max="10" min="1" value="1" readonly>
-                        <button type="button" class="quantity-plus scale-small">+</button>
-                    </div>
+                     <div class="read-png-p p-30">
+                         <img th:src="|/pimg?id=${product.id}|" class="read-png" th:alt="${product.name}" width="100px">
+                         <div class="amount-select flex align-items-center justify-content-end mr-1 mt-3 white">
+                             <button type="button" class="quantity-minus scale-small white">-</button>
+                             <input type="number" class="quantity white" name="quantity" id="quantity" max="10" min="1" value="1" readonly>
+                             <button type="button" class="quantity-plus scale-small white">+</button>
+                            </div>
+                        </div>
                     
                     <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
                 <th:block th:if="${option != null}">
@@ -34,7 +36,7 @@
                     <div class="checkbox-container ml-5 mb-5">
                         <th:block th:if="${itemList != null}" th:each="item: ${itemList}">
                             <div>
-                                <label class="option-checkbox flex align-items-center" th:for="${item.id}">
+                                <label class="option-checkbox flex align-items-center mr-5 ml-5" th:for="${item.id}">
                                 <input type="checkbox" th:id="${item.id}" name="itemList" th:value="${item.id}">
                                         <span th:text="${item.name}"></span>
                                         <div class="read-option-price mr-5">
