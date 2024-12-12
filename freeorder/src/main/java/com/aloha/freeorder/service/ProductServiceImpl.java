@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.mapper.ProductMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -45,5 +48,10 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.delete(id);
     }
     
-
-}
+    @Override
+    public void updateProductOrder(List<Product> productList) throws Exception {
+        for (Product product : productList) {
+            productMapper.updateProductOrder(product.getId(), product.getSeq());
+        }
+    }
+}   

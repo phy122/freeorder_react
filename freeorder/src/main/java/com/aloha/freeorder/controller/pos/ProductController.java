@@ -1,7 +1,9 @@
 package com.aloha.freeorder.controller.pos;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -157,6 +160,26 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/locate")
+    public ResponseEntity<?> saveProductOrder(@RequestBody List<Product> productList) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            // 로그 추가
+            System.out.println("Received product list: " + productList);
+            
+            productService.updateProductOrder(productList);
+            response.put("status", "SUCCESS");
+            response.put("message", "순서가 성공적으로 업데이트 되었습니다.");
+            return ResponseEntity.ok(response);  // 200 OK 응답
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "FAIL");
+            response.put("message", "순서 업데이트에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);  // 500 Internal Server Error 응답
+        }
+    }
+
 
     public boolean upload(Files file) throws Exception {
         log.info("file : " + file);
