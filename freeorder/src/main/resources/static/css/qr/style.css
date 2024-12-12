@@ -189,6 +189,7 @@ transform: scale(1);
 .cart-list {
   padding: 1.25rem 0;
   overflow-y: auto;
+}
   
 .container.cart-container {
   display: grid;
@@ -685,4 +686,4 @@ input[type="checkbox"]{
 /* color */
 .color-main { color: var(--main-color); }
 .color-sub { color: var(--sub-color); }
-.color-white { color: white; }
+.color-white { color: var(white); }
