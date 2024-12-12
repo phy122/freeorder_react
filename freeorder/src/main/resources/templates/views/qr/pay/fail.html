@@ -13,16 +13,15 @@
     <div class="container" layout:fragment="content">
         <div class="allcenter">
         <div class="flex flex-column justify-content-center align-items-center">
-        <!-- 완료 메시지 -->
-        <div class="payComplete"><img src="/img/payComplete.png" alt="결제 완료" width="300"></div>
-        <div class="compl-text flex align-items-center justify-content-center">결제 완료!</div>
-        <!-- 결제 영수증 출력 -->
 
+        <!-- 실패 메시지 -->
+        <div class="payFail"><img src="/img/payFail.png" alt="결제 완료" width="110"></div>
+        <div class="fail-text flex align-items-center justify-content-center">결제 실패</div>
+        <div class="fail-text-list flex align-items-center justify-content-center">결제에 실패 하였습니다.<br>잠시후 다시 시도해 주세요.</div>
 
-        <!-- 확인, 결제 내역 -->
+        <!-- 장바구니로 이동 -->
          <div class="ok-btn-border flex flex-column align-items-center justify-content-center">
-             <a href="/qr/list" class="ok-button white mb-5"><span class="ok-button-text white flex flex-column justify-content-center align-items-center mt-2">OK</span></a>
-             <a href="/qr/order/list" class="pay-list white"><span class="color-white flex flex-column justify-content-center align-items-center mt-2">결제 내역</span></a>
+             <a href="/qr/cart" class="go-cart white mb-5"><span class="ok-button-text white flex flex-column justify-content-center align-items-center mt-2">장바구니로 이동</span></a>
          </div>
         </div>
       </div>
