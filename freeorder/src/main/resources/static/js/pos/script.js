@@ -345,3 +345,59 @@ function cartList(){
         
     })
 }
+
+// 옵션아이템 CRUD
+// 옵션아이템 등록
+function optInsert() {
+    let formData = new FormData( $("#opt-insert")[0])
+    let url = "/pos/options"
+    $.ajax({
+        url             : url,
+        method          : "post",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("등록 성공")
+                location.href = "/pos/option"
+            }
+        }
+    }) 
+}
+// 옵션아이템 수정
+function optUpdate() {
+    let formData = new FormData( $("#opt-update")[0])
+    let url = "/pos/options"
+    $.ajax({
+        url             : url,
+        method          : "put",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("수정 성공")
+                location.href = "/pos/option"
+            }
+        }
+    }) 
+}
+// 옵션아이템 삭제
+function optDelete() {
+    let formData = new FormData( $("#opt-update")[0])
+    let url = "/pos/options"
+    $.ajax({
+        url             : url,
+        method          : "delete",
+        data            : formData,
+        contentType     :   false,
+        processData     :   false,
+        success : function(data){
+            if ($.trim(data) == "success") {
+                alert("삭제 성공")
+                location.href = "/pos/option"
+            }
+        }
+    }) 
+}

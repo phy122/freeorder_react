@@ -354,8 +354,22 @@ public class PosController {
         return "views/pos/management/promotion/promotion_update";
     }
     
+    // 옵션 조회
+    @GetMapping("/option")
+    public String optionListPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        // 공통객체 [끝]
+
+        log.info("옵션 조회 페이지");
+        return "views/pos/option/option";
+    }
+
     // 옵션 등록
-    @GetMapping("/product/option")
+    @GetMapping("/option/insert")
     public String optionInsertPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
@@ -364,9 +378,22 @@ public class PosController {
         model.addAttribute("orderlist", orderList);
         // 공통객체 [끝]
 
-        log.info("카테고리 등록 페이지");
-        return "views/pos/product/option";
-    }    
+        log.info("옵션 등록 페이지");
+        return "views/pos/option/insert";
+    }
     
+    // 옵션 수정
+    @GetMapping("/option/update")
+    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        // 공통객체 [끝]
+
+        log.info("옵션 수정 페이지");
+        return "views/pos/option/update";
+    }
 
 }
