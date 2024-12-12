@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.OrderOption;
+import com.aloha.freeorder.domain.SalesReport;
 import com.aloha.freeorder.mapper.OrderMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,16 @@ public class OrderServiceImpl implements OrderService{
     public int delete(String id) throws Exception {
         int result = orderMapper.delete(id);
         return result;
-    }    
+    }
+
+    @Override
+    public SalesReport totalMonth(String status, String day) throws Exception {
+        return orderMapper.totalMonth(status, day);
+    }
+
+    @Override
+    public SalesReport totalDay(String status, String day) throws Exception {
+        return orderMapper.totalDay(status, day);
+    }
     
 }
