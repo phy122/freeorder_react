@@ -82,10 +82,10 @@ public class PosController {
 
         // 상품 목록
         List<Product> productList = null;
-        if (cate != null) {
+        if (cate != null && !cate.isEmpty()) {
             productList = productService.listByCate(cate);
-        }
-        else{
+        } else {
+            // cate 값이 null이거나 비어있을 경우, 모든 상품을 가져옵니다.
             productList = productService.allList();
         }
         log.info(productList.toString());
@@ -188,6 +188,7 @@ public class PosController {
         
         // 카테고리 목록
         List<Category> cateList = categoryService.list();
+        log.info("cateList: " + cateList);
         model.addAttribute("cateList", cateList);
 
         log.info("카테고리 페이지");
