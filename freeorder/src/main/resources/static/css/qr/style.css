@@ -409,13 +409,82 @@ input[type="checkbox"]{
   cursor: pointer;
 }
 
-/* pay/complete */
+/* pay/complete, fail */
+
+.ok-btn-border {
+}
+
+.ok-button {
+  width: 90%;
+  height: 70px;
+  background-color: var(--main-color);
+  margin-left: 5%;
+  border-radius: 8px;
+  border-width: 2.5px;
+  bottom: 15rem;
+  position: fixed;
+  font-size: var(--large-text-size);
+  margin: 20px;
+  cursor: pointer;
+}
+
+.pay-list {
+  width: 90%;
+  height: 70px;
+  background-color: var(--main-color);
+  margin-left: 5%;
+  border-radius: 8px;
+  border-width: 2.5px;
+  bottom: 9.5rem;
+  position: fixed;
+  font-size: var(--large-text-size);
+  margin: 20px;
+  cursor: pointer;
+}
+
 .payComplete {
-  margin-top: 30%;
+  margin-top: 50%;
 }
 
 .compl-text {
-  font-size: large;
+  width: 200px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 20%;
+}
+
+/* fail */
+
+.payFail {
+  margin-top: 80%;
+}
+
+.fail-text {
+  width: 200px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 20%;
+}
+
+.fail-text-list {
+  width: 230px;
+  height: 72px;
+  font-size: 18px;
+  margin-top: 20%;
+}
+
+.go-cart {
+  width: 90%;
+  height: 70px;
+  background-color: var(--main-color);
+  margin-left: 5%;
+  border-radius: 8px;
+  border-width: 2.5px;
+  bottom: 15rem;
+  position: fixed;
+  font-size: var(--large-text-size);
+  margin: 20px;
+  cursor: pointer;
 }
 
 /* 버튼디자인 */
