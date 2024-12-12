@@ -254,8 +254,26 @@ h2 {
     color: #555555;
 }
 
+.form-group .plus-box{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.form-group .plus-box a{
+    font-size: 20px;
+    color: #007bff;
+}
+.form-group .plus-box:hover{
+    cursor: pointer;
+    border-color: #007bff;
+    outline: none;
+}
+
 .form-group input,
-.form-group select {
+.form-group select{
     width: 100%;
     padding: 10px;
     border: 1px solid #dddddd;
@@ -264,7 +282,7 @@ h2 {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus{
     border-color: #007bff;
     outline: none;
 }
