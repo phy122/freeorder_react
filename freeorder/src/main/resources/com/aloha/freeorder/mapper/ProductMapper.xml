@@ -108,5 +108,10 @@
         DELETE FROM products
         WHERE id = #{id}
     </delete>
-    
+
+    <update id="updateProductOrder" parameterType="map">
+        UPDATE products
+        SET seq = #{seq}
+        WHERE id = #{id}
+    </update>
 </mapper>

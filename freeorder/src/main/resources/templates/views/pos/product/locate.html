@@ -29,8 +29,9 @@
                     <div class="product-image-placeholder">
                         <img th:src="|/pimg?id=${product.id}|" alt="" width="100%" height="100%" draggable="false" ondragover="preventDrop(event)" ondrop="preventDrop(event)">
                     </div>
-                    <span class="product-name" th:text="${product.name}"></span>
-                    <span class="product-price" th:text="${product.price} + '원'"></span>
+                    <span class="product-name" th:text="${product.name}" th:data-id="${product.id}"></span>
+                    <span class="product-price" th:text="${product.price}"></span>
+                    <span class="product-seq" th:text="${product.seq}"></span>
                 </div>
             </th:block>
             <th:block th:if="${productList.isEmpty()}">
