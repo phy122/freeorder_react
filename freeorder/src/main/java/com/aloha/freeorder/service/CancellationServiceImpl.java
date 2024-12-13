@@ -43,5 +43,12 @@ public class CancellationServiceImpl implements CancellationService{
     public int delete(String id) throws Exception {
         return cancellationMapper.delete(id);
     }
+
+    // 결제 취소
+    public void cancelPayment(String ordersId, String paymentKey, String reason) {
+        cancellationMapper.cancelPayment(ordersId, paymentKey, reason);
+    }
+
+
     
 }
