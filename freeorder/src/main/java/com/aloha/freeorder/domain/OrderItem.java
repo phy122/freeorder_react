@@ -17,7 +17,7 @@ public class OrderItem {
     private String id;
     private String ordersId;
     private String productsId;
-    private String optionId;
+    private String optionsId;
     private int quantity;
     private int price;
     private int amount;

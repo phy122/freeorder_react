@@ -16,9 +16,9 @@
     <select id="allList" resultType="Product">
         SELECT 
             p.ID,
-            p.CATEGORY_ID,
+            p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
-            p.ID AS PRODUCT_ID,
+            p.ID AS PRODUCTS_ID,
             p.NAME,
             p.DESCRIPTION,
             p.PRICE,
@@ -29,7 +29,7 @@
             IF(p.CREATED_AT >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS IS_NEW,
             IF(rp.PRODUCTS_ID IS NOT NULL, TRUE, FALSE) AS IS_RECOMMENDED
         FROM PRODUCTS p
-        LEFT JOIN CATEGORIES c ON p.CATEGORY_ID = c.ID
+        LEFT JOIN CATEGORIES c ON p.CATEGORIES_ID = c.ID
         LEFT JOIN (
             SELECT 
                 oi.PRODUCTS_ID,
@@ -43,13 +43,13 @@
         ORDER BY p.seq ASC;
     </select>
 
-    <!-- 목록 조회 - category_id -->
+    <!-- 목록 조회 - categories_id -->
     <select id="listByCate" resultType="Product">
         SELECT 
             p.ID,
-            p.CATEGORY_ID,
+            p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
-            p.ID AS PRODUCT_ID,
+            p.ID AS PRODUCTS_ID,
             p.NAME,
             p.DESCRIPTION,
             p.PRICE,
@@ -60,7 +60,7 @@
             IF(p.CREATED_AT >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS IS_NEW,
             IF(rp.PRODUCTS_ID IS NOT NULL, TRUE, FALSE) AS IS_RECOMMENDED
         FROM PRODUCTS p
-        JOIN CATEGORIES c ON p.CATEGORY_ID = c.ID
+        JOIN CATEGORIES c ON p.CATEGORIES_ID = c.ID
         LEFT JOIN (
             SELECT 
                 oi.PRODUCTS_ID,
@@ -71,14 +71,14 @@
             GROUP BY oi.PRODUCTS_ID
         ) oc ON p.ID = oc.PRODUCTS_ID
         LEFT JOIN RECOMMENDED_PRODUCTS rp ON p.ID = rp.PRODUCTS_ID
-        WHERE p.CATEGORY_ID = #{id}  
+        WHERE p.CATEGORIES_ID = #{id}  
         ORDER BY p.seq ASC;
     </select>
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO products ( id, name, category_id, price, product_img,seq )
-        VALUES ( #{id}, #{name}, #{categoryId}, #{price}, #{productImg} , #{seq} )
+        INSERT INTO products ( id, name, categories_id, price, product_img,seq )
+        VALUES ( #{id}, #{name}, #{categoriesId}, #{price}, #{productImg} , #{seq} )
     </insert>
         <!-- 추천메뉴 체크시 추천메뉴 등록 [reson 컬럼은 차후에]-->
         <insert id="insertRecommend">
@@ -94,7 +94,7 @@
     <update id="update">
         UPDATE products
            SET name = #{name}
-              ,category_id = #{categoryId}
+              ,categories_id = #{categoriesId}
               ,price = #{price}
               ,stock_check = #{stockCheck}
               ,product_img = #{productImg}

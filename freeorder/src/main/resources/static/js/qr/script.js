@@ -93,6 +93,19 @@ function cartDelete(id) {
   }
 }
 
+// 장바구니 비었을 시 알람
+function validateCart(event) {
+  event.preventDefault();
+  const cartItems = document.querySelectorAll(".cart-list .c-card");
+  if (cartItems.length === 0) {
+      alert("장바구니가 비어있습니다!");
+      return false;
+  } else {
+      location.href = "/pay/pay";
+  }
+}
+
+
 // 주문하기
 
 /**

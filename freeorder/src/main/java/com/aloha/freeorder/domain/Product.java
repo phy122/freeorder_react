@@ -10,9 +10,9 @@ import lombok.Data;
 public class Product {
 
     private String id;
-    private String optionId;
+    private String optionsId;
     private String name;
-    private String categoryId;
+    private String categoriesId;
     private String description;
     private String content;
     private String productImg;

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Order {
     
     private String id;
-    private String userId;
+    private String usersId;
     private String title;
     private int totalQuantity;
     private int totalCount;
