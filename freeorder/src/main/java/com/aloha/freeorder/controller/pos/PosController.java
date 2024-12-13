@@ -392,8 +392,10 @@ public class PosController {
     }
     
     // 옵션 수정
-    @GetMapping("/option/update")
-    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    @GetMapping("/option/update/{id}")
+    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
+                                   , Model model
+                                   , @PathVariable("id") String id) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
@@ -401,6 +403,8 @@ public class PosController {
         model.addAttribute("orderlist", orderList);
         // 공통객체 [끝]
 
+        Option option = optionService.read(id);
+        model.addAttribute("option", option);
         log.info("옵션 수정 페이지");
         return "views/pos/option/update";
     }

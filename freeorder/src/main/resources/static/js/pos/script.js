@@ -411,7 +411,8 @@ function addOptionItem() {
     const id = crypto.randomUUID(); // 브라우저에서 UUID 생성
 
     div.className = "opt-item";
-    div.innerHTML = `
+    div.innerHTML = `z
+    
         <input type="hidden" name="itemList[${itemIndex}].id" value="${id}">
         <input type="text" name="itemList[${itemIndex}].name" placeholder="옵션명" required>
         <input type="number" name="itemList[${itemIndex}].price" placeholder="금액" required>

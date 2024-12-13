@@ -36,6 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY created_at desc
 </select>
 
+<select id="findItemsByOptionId" parameterType="String" resultMap="itemMap"> 
+    SELECT * 
+    FROM option_items 
+    WHERE options_id = #{optionId} 
+</select>
+
 <select id="read" resultMap="optionMap">
     SELECT o.*,
            oi.name,
