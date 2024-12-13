@@ -19,12 +19,23 @@ public class OptionServiceImpl implements OptionService{
     @Override
     public List<Option> list() throws Exception {
         List<Option> optionList = optionMapper.list();
+        
+        // 각 옵션의 아이템 리스트를 조회해 채워줍니다.
+        for (Option option : optionList) {
+            List<OptionItem> itemList = optionMapper.findItemsByOptionId(option.getId());
+            option.setItemList(itemList);
+        }
         return optionList;
     }
 
     @Override
     public Option read(String id) throws Exception {
         Option option = optionMapper.read(id);
+        
+        // 옵션의 아이템 리스트를 조회해 채워줍니다.
+        List<OptionItem> itemList = optionMapper.findItemsByOptionId(option.getId());
+        option.setItemList(itemList);
+        
         return option;
     }
 
