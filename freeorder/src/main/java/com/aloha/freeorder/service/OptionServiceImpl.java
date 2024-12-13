@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.freeorder.domain.Option;
+import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.mapper.OptionMapper;
 
 @Service
@@ -44,6 +45,12 @@ public class OptionServiceImpl implements OptionService{
     public int delete(String id) throws Exception {
         int result = optionMapper.delete(id);
         return result;
-    }    
-    
+    }
+
+    @Override
+    public int insertItem(OptionItem optionItem) throws Exception {
+        int result = optionMapper.insertItem(optionItem);
+        return result;
+    }
+
 }

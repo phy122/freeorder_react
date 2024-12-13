@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <result property="seq" column="seq" />
 </resultMap>
 
-<select id="list" resultType="Option">
+<select id="list" resultType="option">
     SELECT *
     FROM options
     ORDER BY created_at desc
@@ -46,8 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO options( NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
-    VALUES ( #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
+    INSERT INTO options( ID, NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
+    VALUES ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
+</insert>
+<insert id="insertItem">
+    INSERT INTO option_items( ID, OPTIONS_ID, NAME, PRICE, SEQ )
+    VALUES ( #{id}, #{optionsId}, #{name}, #{price}, #{seq} )
 </insert>
 
 <update id="update">

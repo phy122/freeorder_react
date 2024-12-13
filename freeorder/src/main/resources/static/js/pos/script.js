@@ -305,7 +305,7 @@ function cartInsert(id, name, price){
         cartList()
     })
 }
-cartList()
+
 function cartList(){
     let url = '/pos/carts'
     const cartList = document.getElementById("cart-list")
@@ -346,8 +346,8 @@ function cartList(){
     })
 }
 
-// 옵션아이템 CRUD
-// 옵션아이템 등록
+// 옵션 CRUD
+// 옵션 등록
 function optInsert() {
     let formData = new FormData( $("#opt-insert")[0])
     let url = "/pos/options"
@@ -358,14 +358,15 @@ function optInsert() {
         contentType     :   false,
         processData     :   false,
         success : function(data){
-            if ($.trim(data) == "success") {
+            if ($.trim(data) == "SUCCESS") {
                 alert("등록 성공")
                 location.href = "/pos/option"
             }
         }
     }) 
 }
-// 옵션아이템 수정
+
+// 옵션 수정
 function optUpdate() {
     let formData = new FormData( $("#opt-update")[0])
     let url = "/pos/options"
@@ -376,14 +377,14 @@ function optUpdate() {
         contentType     :   false,
         processData     :   false,
         success : function(data){
-            if ($.trim(data) == "success") {
+            if ($.trim(data) == "SUCCESS") {
                 alert("수정 성공")
                 location.href = "/pos/option"
             }
         }
     }) 
 }
-// 옵션아이템 삭제
+// 옵션 삭제
 function optDelete() {
     let formData = new FormData( $("#opt-update")[0])
     let url = "/pos/options"
@@ -394,10 +395,37 @@ function optDelete() {
         contentType     :   false,
         processData     :   false,
         success : function(data){
-            if ($.trim(data) == "success") {
+            if ($.trim(data) == "SUCCESS") {
                 alert("삭제 성공")
                 location.href = "/pos/option"
             }
         }
     }) 
 }
+
+// 옵션 추가
+let itemIndex = 0; // 전역 변수로 인덱스 관리
+function addOptionItem() {
+    const list = document.getElementById("opt-item-list");
+    const div = document.createElement("div");
+    const id = crypto.randomUUID(); // 브라우저에서 UUID 생성
+
+    div.className = "opt-item";
+    div.innerHTML = `
+        <input type="hidden" name="itemList[${itemIndex}].id" value="${id}">
+        <input type="text" name="itemList[${itemIndex}].name" placeholder="옵션명" required>
+        <input type="number" name="itemList[${itemIndex}].price" placeholder="금액" required>
+        <button type="button" class="remove-btn" onclick="removeOptionItem(this)">삭제</button>
+    `;
+    list.appendChild(div);
+    itemIndex++;
+}
+
+
+// 옵션 삭제
+function removeOptionItem(button) {
+    const item = button.closest(".opt-item");
+    item.remove();
+}
+
+
