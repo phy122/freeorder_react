@@ -12,22 +12,17 @@ import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.catalina.connector.Response;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.CartOption;
@@ -73,7 +68,7 @@ public class TosspayContoller {
         String title = "";
         Order order = Order.builder()
                            .id(orderId)
-                           .userId(userId)
+                           .usersId(userId)
                            .totalPrice(total)
                            .totalQuantity(cartList.size())
                            .build();
@@ -94,7 +89,7 @@ public class TosspayContoller {
                                            .id(orderItemId)
                                            .ordersId(orderId)
                                            .productsId(cart.getProductsId())
-                                           .optionId(cart.getOptionsId())
+                                           .optionsId(cart.getOptionsId())
                                            .quantity(cart.getAmount())
                                            .price(cart.getPrice())
                                            .amount(cart.getAmount()*cart.getPrice())
@@ -105,8 +100,8 @@ public class TosspayContoller {
             for (CartOption cartOption : cartOptionList) {
                 OrderOption orderOption = OrderOption.builder()
                                                      .id(UUID.randomUUID().toString())
-                                                     .optionItemId(cartOption.getOptionItemsId())
-                                                     .orderItemId(orderItemId)
+                                                     .optionItemsId(cartOption.getOptionItemsId())
+                                                     .orderItemsId(orderItemId)
                                                      .name(cartOption.getName())
                                                      .build();
                 orderOptionList.add(orderOption);
@@ -119,7 +114,7 @@ public class TosspayContoller {
         order.setItemList(itemList);
         title += title + "외" + (itemList.size() -1) + "건";
         order.setTitle(title);
-        order.setUserId(userId);
+        order.setUsersId(userId);
         log.info("order: " + order);
         int result = orderService.insert(order);
         if (result > 0) {
