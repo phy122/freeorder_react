@@ -65,6 +65,17 @@ img {
   z-index: 10;
 }
 
+.event {
+  width: 90%;
+  height: 160px;
+  display: block;
+  object-fit: contain;
+  margin-bottom: 10px;
+  margin-left: 5%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .scrollable-content {
   margin-top: 140px;
   overflow-y: auto;

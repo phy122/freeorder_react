@@ -39,6 +39,7 @@
 
         <!-- 카드 -->
          <div class="scrollable-content">
+            <img src="/img/event3.png" alt="이벤트카드" class="event mt-1">
              <th:block th:if="${productList != null}" th:each="product : ${productList}">
                  <a th:href="|/qr/read/${product.id}|">
             <div class="card flex justify-content-start align-items-center mt-3">
