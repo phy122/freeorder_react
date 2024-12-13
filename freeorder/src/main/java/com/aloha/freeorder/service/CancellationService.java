@@ -2,6 +2,8 @@ package com.aloha.freeorder.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.aloha.freeorder.domain.Cancellation;
 
 public interface CancellationService {
@@ -15,4 +17,11 @@ public interface CancellationService {
     public int update(Cancellation cancellation) throws Exception;
     // 삭제
     public int delete(String id) throws Exception;
+    // 결제 취소
+    static void cancelPayment(@Param("paymentKey") String paymentKey,
+                          @Param("ordersId") String ordersId,
+                          @Param("reason") String reason) {
+    }
+    
+
 }

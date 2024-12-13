@@ -1,74 +1,36 @@
-<th:block th:fragment="header">
-    <!-- [상단] 영업시작/정지 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영업 상태 관리</title>
+</head>
+<body>
     <header>
         <!-- 로고 -->
         <div class="logo">
-            <img src="/img/header/chanel.png" alt="" class="logo-img">
+            <img src="/img/header/chanel.png" alt="CHANEL Logo" class="logo-img">
             <a href="#">CHANEL</a>
         </div>
         <div class="header-content">
             <div class="open-btn">
-                <!-- 영업시작버튼 -->
-                <button class="start" onclick="startBusiness()">
-                    <a href="#">영업시작</a>
-                </button>
-                <!-- 영업종료버튼 -->
-                <button class="end" onclick="endBusiness()">
-                    <a href="#">영업종료</a>
-                </button>
+                <!-- 영업 시작 버튼 -->
+                <button type="button" class="start" th:appendClass="${stsus == 'END'? 'active':''}" onclick="systemStatus('END')">영업 시작</button>
+                <!-- 영업 종료 버튼 -->
+                <button type="button" class="end" th:appendClass="${stsus == 'START'? 'active':''}" onclick="systemStatus('START')">영업 종료</button>
             </div>
             <!-- 시간 -->
             <div class="time">
-                <a id="current-time" href="#"></a> <!-- 시간 표시를 위한 링크 -->
+                <a id="current-time" href="#"></a> <!-- 시간 표시 -->
             </div>
-            <!-- 영업상태창 -->
+            <!-- 영업 상태 -->
             <div class="status">
-                <p class="status-on" id="status-icon">●</p>
-                <p class="status-name" id="status-name">영업중</p>
+                <p id="status-icon" class="status-off">●</p>
+                <p id="status-name">영업 종료</p>
             </div>
         </div>
     </header>
-
-    <script>
-        function updateTime() {
-            var now = new Date();
-            var year = now.getFullYear();
-            var month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 해줘야 함
-            var date = String(now.getDate()).padStart(2, '0');
-            var dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-            var day = dayNames[now.getDay()];
-            var hours = String(now.getHours()).padStart(2, '0');
-            var minutes = String(now.getMinutes()).padStart(2, '0');
-
-            var timeString = year + '.' + month + '.' + date + '(' + day + ') ' + hours + ':' + minutes;
-            document.getElementById('current-time').textContent = timeString;
-        }
-
-        // 페이지 로드 시 시간 업데이트
-        window.onload = updateTime;
-        
-        // 매분마다 시간 업데이트
-        setInterval(updateTime, 60000);
-
-        // 영업시작 버튼 클릭 시 상태 업데이트
-        function startBusiness() {
-            document.getElementById('status-icon').textContent = '●'; // 영업중 상태 아이콘
-            document.getElementById('status-name').textContent = '영업중'; // 상태 텍스트
-            document.getElementById('status-icon').style.color = 'green'; // 초록색으로 아이콘 색 변경
-        }
-
-        // 영업종료 버튼 클릭 시 상태 업데이트
-        function endBusiness() {
-            document.getElementById('status-icon').textContent = '●'; // 영업종료 상태 아이콘
-            document.getElementById('status-name').textContent = '영업종료'; // 상태 텍스트
-            document.getElementById('status-icon').style.color = 'black'; // 검은색으로 아이콘 색 변경
-        }
-    </script>
-
-    <style>
-        /* 아이콘 색상 초기값 설정 */
-        .status-on {
-            color: green; /* 기본 아이콘 색은 초록색 */
-        }
-    </style>
-</th:block>
+    
+    
+</body>
+</html>

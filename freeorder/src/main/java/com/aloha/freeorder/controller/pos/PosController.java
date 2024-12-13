@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
+import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
+import com.aloha.freeorder.domain.SystemStatus;
 import com.aloha.freeorder.service.CancellationService;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.CategoryService;
@@ -27,6 +29,7 @@ import com.aloha.freeorder.service.OptionService;
 import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 import com.aloha.freeorder.service.ProductService;
+import com.aloha.freeorder.service.SystemStatusService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,6 +62,8 @@ public class PosController {
     private CartService cartService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private SystemStatusService statusService;
 
     /**
      * Product
@@ -73,13 +78,14 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
-        List<Category> cateList = categoryService.list();
-        log.info("cate : " + cate);
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
-
+        
+        List<Category> cateList = categoryService.list();
+        log.info("cate : " + cate);
         // 상품 목록
         List<Product> productList = null;
         if (cate != null && !cate.isEmpty()) {
@@ -103,8 +109,11 @@ public class PosController {
         log.info("상품 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
         // 상품 목록
         List<Product> productList = productService.allList();
         model.addAttribute("productList", productList);
@@ -161,8 +170,11 @@ public class PosController {
         log.info("상품 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
         // 상품 조회
         Product product = productService.select(id);
         model.addAttribute("product", product);
@@ -182,8 +194,10 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
         
         // 카테고리 목록
@@ -200,8 +214,10 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
 
         log.info("카테고리 등록 페이지");
@@ -216,8 +232,10 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
         
         Category category = categoryService.read(id);
@@ -248,8 +266,10 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
         
         List<Payment> payList = paymentService.list();
@@ -270,8 +290,10 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
 
         // 날짜 설정
@@ -304,8 +326,11 @@ public class PosController {
         log.info("공지사항 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
 
         Notice notice = noticeService.read();
         model.addAttribute("notice", notice);
@@ -318,8 +343,11 @@ public class PosController {
         log.info("프로모션 목록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
 
         // 프로모션 목록
         List<Notice> proList = noticeService.list();
@@ -333,8 +361,11 @@ public class PosController {
         log.info("프로모션 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
 
         return "views/pos/management/promotion/promotion_insert";
     }
@@ -346,8 +377,11 @@ public class PosController {
         log.info("프로모션 수정 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
+        // 공통객체 [끝]
 
         Notice notice = noticeService.select(id);
         model.addAttribute("notice", notice);
@@ -360,9 +394,16 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
+
+        // 옵션 목록
+        List<Option> optionList = optionService.list();
+        log.info("optionList: " + optionList);
+        model.addAttribute("optionList", optionList);
 
         log.info("옵션 조회 페이지");
         return "views/pos/option/option";
@@ -374,24 +415,35 @@ public class PosController {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
+
+        Option option = new Option();
+        model.addAttribute("option", option);
 
         log.info("옵션 등록 페이지");
         return "views/pos/option/insert";
     }
     
     // 옵션 수정
-    @GetMapping("/option/update")
-    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    @GetMapping("/option/update/{id}")
+    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
+                                   , Model model
+                                   , @PathVariable("id") String id) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus.getStatus());
         // 공통객체 [끝]
 
+        Option option = optionService.read(id);
+        model.addAttribute("option", option);
         log.info("옵션 수정 페이지");
         return "views/pos/option/update";
     }
