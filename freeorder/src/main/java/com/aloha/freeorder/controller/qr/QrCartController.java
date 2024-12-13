@@ -24,6 +24,7 @@ import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.ProductService;
+import com.aloha.freeorder.util.OptionComparator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -75,8 +76,7 @@ public class QrCartController {
                                                       .optionItemsId(optionItem.getId())
                                                       .build();
                     optionList.add(cartOption);
-                    log.info("장바구니 옵션목록 추가 : " + optionItem.toString());
-                    cartService.insertOption(cartOption);
+                    // cartService.insertOption(cartOption);
                 }
                 cart.setOptionList(optionList);
                 cart.setOptionsId(option.getId());
@@ -85,13 +85,16 @@ public class QrCartController {
             cart.setAmount(product.getQuantity());
             cart.setUsersId(usersId);
             log.info(cart.toString());
-            int result = cartService.insert(cart);
-            if (result > 0){
-                log.info("장바구니 추가 성공.");
-                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>("추가 실패.",HttpStatus.INTERNAL_SERVER_ERROR);
+            List<Cart> existCartList = cartService.ListByUsersIdAndProductsId(usersId, product.getId());
+            for (Cart existCart : existCartList) {
+                if (OptionComparator.areOptionListsEqual(existCart.getOptionList(), cart.getOptionList())) {
+                    existCart.setAmount(existCart.getAmount() + cart.getAmount());
+                    cartService.updateAmount(existCart);
+                    return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+                }
             }
+            cartService.insert(cart);
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 추가 중 에러 발생", e);
             return new ResponseEntity<>("추가중 에러발생",HttpStatus.INTERNAL_SERVER_ERROR);

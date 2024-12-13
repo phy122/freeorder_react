@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aloha.freeorder.domain.Category;
-import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.mapper.CategoryMapper;
 
 import lombok.extern.slf4j.Slf4j;
