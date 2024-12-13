@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="/css/pos/product.css">
     <title>POS</title>
 </head>
-<body onload="locateFunction()">
+<body window.onload="locateFunction()">
 
     <div class="l-container" layout:fragment="content">
         <div class="l-btn-container">
             <a href="/pos/product">
                 <button type="button" class="l-cancel-btn">취소</button>
             </a>
-            <button type="button" class="l-save-btn" id="saveBtn">저장</button>
+            <button type="button" class="l-save-btn" id="saveBtn" onclick="setupSaveProductOrder()">저장</button>
         </div>
 
         <div class="l-select-title">
