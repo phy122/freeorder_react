@@ -194,12 +194,28 @@ public class QrController {
   @GetMapping("/option/{id}")
   public String option(@PathVariable("id") String id, Model model) throws Exception {
       log.info("옵션 리스트 출력!!");
-      // 옵션 정보
-      Option option = optionService.read(id);
-      model.addAttribute("option", option);
-      // 옵션 아이템 목록
-      List<OptionItem> itemList = option.getItemList();
-      model.addAttribute("itemList", itemList);
+      // 장바구니 정보 조회
+      Cart cart = cartService.select(id);
+      model.addAttribute("cart", cart);
+      Product product = productService.select(cart.getProductsId());
+    //   model.addAttribute("optionList", product.getOption().getItemList());
+
+
+      // 장바구니 옵션 리스트 - optionItemsId
+      List<CartOption> cartOptionList = cart.getOptionList();
+
+      // 상품 옵션 리스트 - id
+      List<OptionItem> productOptionList = product.getOption().getItemList();
+
+      for (OptionItem optionItem : productOptionList) {
+        for (CartOption cartOption : cartOptionList) {
+            if( cartOption.getOptionItemsId().equals(optionItem.getId()) ) {
+                optionItem.setChecked(true);
+            }
+        }
+      }
+      model.addAttribute("productOptionList", productOptionList);
+
 
       return "views/qr/product/option";
   }

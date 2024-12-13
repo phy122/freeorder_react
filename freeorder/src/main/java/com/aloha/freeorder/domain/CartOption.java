@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class CartOption {
   private String id;
   private String cartsId;
+  private String usersId;
   private String optionItemsId;
   private String name;
   private int price;

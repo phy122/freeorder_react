@@ -43,6 +43,7 @@
               ,p.name as product_name
               ,oi.price as option_price
               ,oi.name as option_name
+              ,oi.id as option_items_id
         FROM carts c
         LEFT JOIN products p
             ON c.products_id = p.id 
@@ -70,6 +71,7 @@
               ,p.name as product_name
               ,oi.price as option_price
               ,oi.name as option_name
+              ,oi.id as option_items_id
         FROM carts c
         LEFT JOIN products p
             ON c.products_id = p.id 
@@ -89,8 +91,8 @@
 
     <!-- 옵션등록 -->
     <insert id="insertOption">
-        INSERT INTO CART_OPTIONS ( id, carts_id, option_items_id )
-        VALUES ( #{id}, #{cartsId}, #{optionItemsId} )
+        INSERT INTO CART_OPTIONS ( id, users_id, carts_id, option_items_id )
+        VALUES ( #{id}, #{usersId}, #{cartsId}, #{optionItemsId} )
     </insert>
 
     <!-- 수정 -->

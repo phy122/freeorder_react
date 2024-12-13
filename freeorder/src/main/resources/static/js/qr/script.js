@@ -38,7 +38,11 @@ function cartInsert() {
   let otpionId = $("#optionId").val()
   let itemList = new Array();
   $("input[name=itemList]").each(function(){
-    itemList.push({"id":$(this).val()})
+    let checked = $(this).is(":checked")
+    itemList.push({
+      "id":$(this).val(),
+      "checked" : checked
+    })
   })
   let data = {
     id : id,
@@ -139,16 +143,19 @@ function validateCart(event) {
 function openModal(productId) {
   const modal = document.getElementById('option-modal');
   modal.style.display = 'flex';
-  fetch(`/option/${productId}`)
+  fetch(`/qr/option/${productId}`)
       .then(response => response.text())
       .then(html => {
           document.getElementById('modal-body').innerHTML = html;
+          closeModalMapping() 
       })
       .catch(error => console.error('Error loading modal content:', error));
 }
 
 // 모달 닫기
-function closeModal() {
-  const modal = document.getElementById('option-modal');
-  modal.style.display = 'none';
+function closeModalMapping() {
+  document.getElementById('close-modal').addEventListener('click',()=>{
+    const modal = document.getElementById('option-modal');
+    modal.style.display = 'none';
+  })
 }

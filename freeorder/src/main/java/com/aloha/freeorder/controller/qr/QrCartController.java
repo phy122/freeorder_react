@@ -61,22 +61,29 @@ public class QrCartController {
         try {
             log.info(product.toString());
             Product infoProduct = productService.select(product.getId());
+            log.info("infoProdsuct : " + infoProduct);
+
             String id = UUID.randomUUID().toString();
             Cart cart = new Cart();
             cart.setId(id);
             cart.setProductsId(product.getId());
+            log.info("product : " + product);
             Option option = product.getOption();
             if (option != null) {
+                // log.info("option null 아님");
                 List<OptionItem> getOpList = option.getItemList();
+                // log.info(getOpList.toString());
                 List<CartOption> optionList = new ArrayList<>();
                 for (OptionItem optionItem : getOpList) {
-                    CartOption cartOption = CartOption.builder()
-                                                      .id(UUID.randomUUID().toString())
-                                                      .cartsId(id)
-                                                      .optionItemsId(optionItem.getId())
-                                                      .build();
-                    optionList.add(cartOption);
-                    // cartService.insertOption(cartOption);
+                    if ( optionItem.isChecked() ) {
+                        CartOption cartOption = CartOption.builder()
+                                                          .id(UUID.randomUUID().toString())
+                                                          .cartsId(id)
+                                                          .usersId(usersId)
+                                                          .optionItemsId(optionItem.getId())
+                                                          .build();
+                        optionList.add(cartOption);
+                    }
                 }
                 cart.setOptionList(optionList);
                 cart.setOptionsId(option.getId());
@@ -84,19 +91,39 @@ public class QrCartController {
             cart.setPrice(infoProduct.getPrice());
             cart.setAmount(product.getQuantity());
             cart.setUsersId(usersId);
-            log.info(cart.toString());
+            // log.info(cart.toString());
             List<Cart> existCartList = cartService.ListByUsersIdAndProductsId(usersId, product.getId());
+            // log.info("existCartList : " + existCartList);
+            if( existCartList != null)
             for (Cart existCart : existCartList) {
-                if (OptionComparator.areOptionListsEqual(existCart.getOptionList(), cart.getOptionList())) {
+                
+                if( existCart == null || cart == null )
+                    continue;
+                
+                List<CartOption> existCartOptionList =  existCart.getOptionList();
+                List<CartOption> cartOptionList = cart.getOptionList();
+
+                log.info("existCartOptionList : " + existCartOptionList);
+
+                if( existCartOptionList == null || cartOptionList == null )
+                    continue;
+
+                if (OptionComparator.areOptionListsEqual(existCartOptionList, cartOptionList)) {
                     existCart.setAmount(existCart.getAmount() + cart.getAmount());
                     cartService.updateAmount(existCart);
                     return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+                }
+            }
+            if (option != null) {
+                for (CartOption cartOption : cart.getOptionList()) {
+                    cartService.insertOption(cartOption);
                 }
             }
             cartService.insert(cart);
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 추가 중 에러 발생", e);
+            e.printStackTrace();
             return new ResponseEntity<>("추가중 에러발생",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
