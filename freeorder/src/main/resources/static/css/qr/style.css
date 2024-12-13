@@ -344,10 +344,9 @@ img {
   margin-left: 5%;
   border-radius: 8px;
   border-width: 2.5px;
-  bottom: 0.5rem;
+  bottom: 1.5rem;
   position: fixed;
   font-size: var(--large-text-size);
-  margin: 20px;
   cursor: pointer;
 }
 
@@ -534,6 +533,41 @@ input[type="checkbox"]{
   height: 30px;
 }
 
+/* 모달 디자인 */
+#option-modal {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: end;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+.modal-wrap {
+  width: 100%;
+  height: 80vh;
+  position: relative;
+}
+#modal-close {
+  background: red;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+}
+#modal-body {
+  width: 100%;
+  height: 100%;
+  background: #aaa;
+}
+
 /* .OK {
   width: 90%;
   height: 90px;
@@ -658,6 +692,13 @@ input[type="checkbox"]{
 .pt-20{padding-top: 20px;}
 .pt-30{padding-top: 30px;}
 .pt-40{padding-top: 40px;}
+.pt-140{padding-top: 140px;}
+
+.pb-15{padding-bottom: 1.5rem;}
+.pb-20{padding-bottom: 2.0rem;}
+.pb-25{padding-bottom: 2.5rem;}
+.pb-30{padding-bottom: 3.0rem;}
+.pb-35{padding-bottom: 3.5rem;}
 
 
 /* color */

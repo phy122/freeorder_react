@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
     
 <resultMap type="OptionItem" id="itemMap">
-    <result property="id" column="id" />
-    <result property="name" column="name" />
+    <result property="id" column="option_items_id" />
+    <result property="name" column="option_items_name" />
     <result property="quantity" column="quantity" />
     <result property="price" column="price" />
     <result property="seq" column="seq" />
@@ -38,11 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="read" resultMap="optionMap">
     SELECT o.*,
-           oi.name,
+           oi.id as option_items_id,
+           oi.name as option_items_name,
            oi.price,
            oi.seq
     FROM options o LEFT OUTER JOIN option_items oi ON o.id = oi.options_id
     WHERE o.id = #{id}
+    ORDER BY seq ASC
 </select>
 
 <insert id="insert">
