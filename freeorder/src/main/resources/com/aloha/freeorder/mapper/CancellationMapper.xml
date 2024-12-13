@@ -33,6 +33,16 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 결제 취소 -->
+    <update id="cancelPayment">
+        UPDATE Cancellation_table
+        SET status = "COMPLETE",
+            reason = #{reason}
+            updated_at = now()
+        WHERE ordersId = #{ordersId}
+          AND payment_key = #{paymentKey};
+    </update>
+
     <!-- 삭제 -->
     <delete id="delete">
         DELETE FROM cancellations

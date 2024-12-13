@@ -17,12 +17,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.CartOption;
@@ -30,6 +33,7 @@ import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.OrderOption;
 import com.aloha.freeorder.domain.Payment;
+import com.aloha.freeorder.service.CancellationService;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
@@ -37,6 +41,7 @@ import com.aloha.freeorder.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+
 
 
 @Slf4j
@@ -219,15 +224,14 @@ public class TosspayContoller {
         }
     }
 
-    // @PostMapping("/pay/cancel/{id}")
-    // public ResponseEntity paymentCancel(@PathVariable("id") String id,
-    //                                     @AuthenticationPrincipal Order principal,
-    //                                     @RequestParam String paymentKey,
-    //                                     @RequestParam String cancelReason
-    //                                     ) {
-    //     return ResponseEntity.ok().body(new <>(
-                                        
-    //     ));
-    // }
-    
+    @PostMapping("/cancel")
+    public ResponseEntity paymentCancel(
+                                        @AuthenticationPrincipal Payment principal,
+                                        @RequestParam String paymentKey,
+                                        @RequestParam String reason
+    ){
+        CancellationService.cancelPayment(principal.getOrdersId(), paymentKey, reason);
+        return ResponseEntity.ok().body("cancel success");
+    }
+
 }
