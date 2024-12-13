@@ -12,17 +12,22 @@ import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.catalina.connector.Response;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.CartOption;
@@ -37,6 +42,7 @@ import com.aloha.freeorder.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @Controller
@@ -217,4 +223,16 @@ public class TosspayContoller {
             return ResponseEntity.status(code).body(responseJson);
         }
     }
+
+    // @PostMapping("/pay/cancel/{id}")
+    // public ResponseEntity paymentCancel(@PathVariable("id") String id,
+    //                                     @AuthenticationPrincipal Order principal,
+    //                                     @RequestParam String paymentKey,
+    //                                     @RequestParam String cancelReason
+    //                                     ) {
+    //     return ResponseEntity.ok().body(new <>(
+                                        
+    //     ));
+    // }
+    
 }
