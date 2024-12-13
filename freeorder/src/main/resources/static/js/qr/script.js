@@ -93,6 +93,32 @@ function cartDelete(id) {
   }
 }
 
+// 장바구니 상품 전체 제거
+function deleteAllCartItems() {
+  if (!confirm("장바구니의 모든 항목을 삭제하시겠습니까?")) {
+      return;
+  }
+  fetch('/qr/cart/delete-all', {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+  .then(response => {
+      if (response.ok) {
+          alert("장바구니가 비워졌습니다!");
+          location.reload();
+      } else {
+          alert("장바구니 삭제 중 오류가 발생했습니다.");
+      }
+  })
+  .catch(error => {
+      console.error("Error:", error);
+      alert("서버와 통신 중 문제가 발생했습니다.");
+  });
+}
+
+
 // 장바구니 비었을 시 알람
 function validateCart(event) {
   event.preventDefault();
@@ -105,13 +131,24 @@ function validateCart(event) {
   }
 }
 
-
-// 주문하기
-
 /**
  *  MODAL
  */
 
 // 모달 열기
+function openModal(productId) {
+  const modal = document.getElementById('option-modal');
+  modal.style.display = 'flex';
+  fetch(`/option/${productId}`)
+      .then(response => response.text())
+      .then(html => {
+          document.getElementById('modal-body').innerHTML = html;
+      })
+      .catch(error => console.error('Error loading modal content:', error));
+}
 
 // 모달 닫기
+function closeModal() {
+  const modal = document.getElementById('option-modal');
+  modal.style.display = 'none';
+}
