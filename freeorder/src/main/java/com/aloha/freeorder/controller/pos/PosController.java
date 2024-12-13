@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
+import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
@@ -364,6 +365,11 @@ public class PosController {
         model.addAttribute("orderlist", orderList);
         // 공통객체 [끝]
 
+        // 옵션 목록
+        List<Option> optionList = optionService.list();
+        log.info("optionList: " + optionList);
+        model.addAttribute("optionList", optionList);
+
         log.info("옵션 조회 페이지");
         return "views/pos/option/option";
     }
@@ -377,6 +383,9 @@ public class PosController {
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
         // 공통객체 [끝]
+
+        Option option = new Option();
+        model.addAttribute("option", option);
 
         log.info("옵션 등록 페이지");
         return "views/pos/option/insert";

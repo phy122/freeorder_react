@@ -12,20 +12,33 @@
     <div class="container" layout:fragment="content">
         <div class="i-container">
             <h2>옵션 그룹 수정</h2>
-            <form action="/pos/options/update" method="put">
+            <form id="opt-update" th:action="@{/pos/options}" method="post">
+                <input type="hidden" name="id" th:value="*{id}">
                 <div class="form-group">
-                    <label for="name">옵션</label>
-                    <input type="text" id="opt-u-name" name="opt-u-name" placeholder="옵션 그룹명을 입력해주세요." required>
+                    <label for="name">옵션 그룹명</label>
+                    <input type="text" id="opt-u-name" name="name" placeholder="옵션 그룹명을 입력해주세요." th:value="*{name}" required>
                 </div>
+
+                <!-- 옵션 아이템 추가 버튼 -->
                 <div class="form-group">
-                    <button><a href="#">+ 추가</a></button>
+                    <button type="button" class="plus-box" onclick="addOptionItem()">
+                        <a class="material-symbols-outlined">add_circle</a>
+                        <a href="#">옵션 추가</a>
+                    </button>
                 </div>
-                <div class="opt-item">
-                    <input type="text" id="opt-name" name="opt-name" placeholder="옵션명" required>
-                    <input type="text" id="opt-price" name="opt-price" placeholder="금액" required>
+
+                <!-- 옵션 아이템 리스트 -->
+                <div id="opt-item-list">
+                    <div class="opt-item" th:each="item, iterStat : ${option.itemList}">
+                        <input type="text" th:name="|itemList[${iterStat.index}].name|" placeholder="옵션명" th:value="*{name}" required>
+                        <input type="number" th:name="|itemList[${iterStat.index}].price|" placeholder="금액" th:value="*{price}" required>
+                        <button type="button" class="remove-btn" onclick="removeOptionItem(this)">삭제</button>
+                    </div>
                 </div>
+
+                <!-- 삭제/저장 버튼 -->
                 <div class="button-group">
-                    <button type="button" class="delete-btn">삭제</button>
+                    <button type="button" class="delete-btn" onclick="optDelete()">삭제</button>
                     <button type="submit" class="update-btn">저장</button>
                 </div>
             </form>

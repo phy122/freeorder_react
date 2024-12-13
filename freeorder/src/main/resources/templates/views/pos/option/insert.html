@@ -12,22 +12,26 @@
     <div class="container" layout:fragment="content">
         <div class="i-container">
             <h2>옵션 그룹 추가</h2>
-            <form action="/pos/options/create" method="post">
+            <form onsubmit="return false" method="post" id="opt-insert">
+                <input type="hidden" name="id" th:value="${option.id}">
                 <div class="form-group">
                     <label for="name">옵션</label>
-                    <input type="text" id="opt-g-name" name="opt-g-name" placeholder="옵션 그룹명을 입력해주세요." required>
+                    <input type="text" id="name" name="name" placeholder="옵션 그룹명을 입력해주세요." required>
                 </div>
                 <div class="form-group">
-                    <span class="material-symbols-outlined">add_circle</span>
-                    <button class="plus-box"><a href="#">추가</a></button>
+                    <button type="button" class="plus-box" onclick="addOptionItem()">
+                        <i class="material-symbols-outlined">add_circle</i>
+                        <span>추가</span>
+                    </button>
+                    <ul id="opt-item-list"></ul>
                 </div>
                 <div class="opt-item">
-                    <input type="text" id="opt-name" name="opt-name" placeholder="옵션명" required>
-                    <input type="text" id="opt-price" name="opt-price" placeholder="금액" required>
+                    <input type="text" id="itemList[0].name" placeholder="옵션명" required>
+                    <input type="text" id="itemList[0].price" placeholder="금액" required>
                 </div>
                 <div class="button-group">
                     <button type="button" onclick="location.href='/pos/option'" class="cancel-btn">취소</button>
-                    <button type="submit" class="insert-btn">등록</button>
+                    <button type="submit" class="insert-btn" onclick="optInsert()">등록</button>
                 </div>
             </form>
         </div>

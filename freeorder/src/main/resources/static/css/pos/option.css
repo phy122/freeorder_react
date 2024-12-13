@@ -1,4 +1,120 @@
-/* 옵션 그룹 등록 페이지 시작 */
+/* 옵션 목록 페이지 시작 */
+
+/* 헤더 스타일 */
+.opt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.opt-header h2 {
+    font-size: 24px;
+    color: #333333;
+}
+
+.opt-header button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.opt-header button:hover {
+    border: 1px solid #0056b3;
+}
+
+.opt-header button:hover a{
+    color: #0056b3;
+}
+
+.opt-header .material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* 옵션 리스트 */
+.opt-list {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opt-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.opt-title a {
+    text-decoration: none;
+    color: #333333;
+}
+
+.opt-title a:hover {
+    color: #007bff;
+}
+
+/* 옵션 아이템 */
+.opt-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.opt-item a {
+    font-size: 14px;
+    color: #555555;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+}
+
+.opt-item a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.opt-list-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.opt-list-right:hover{
+    background-color: #dcedff;
+}
+
+.material-symbols-outlined {
+    font-size: 25px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+/* 옵션 목록 페이지 끝 */
+
+
+
+/* 옵션 그룹 등록, 수정 페이지 시작 */
 .i-container {
     width: 800px;
     margin: 50px auto;
@@ -22,6 +138,15 @@ form {
 
 .form-group {
     margin-bottom: 15px;
+}
+
+.plus-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.plus-box a{
+    margin-right: 5px;
 }
 
 .form-group label {
@@ -102,19 +227,23 @@ form {
     cursor: pointer;
 }
 
-.cancel-btn {
+.cancel-btn,
+.delete-btn {
     background-color: #dc3545;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover,
+.delete-btn:hover {
     background-color: #c82333;
 }
 
-.insert-btn {
+.insert-btn,
+.update-btn {
     background-color: #28a745;
 }
 
-.insert-btn:hover {
+.insert-btn:hover,
+.update-btn:hover {
     background-color: #218838;
 }
 
@@ -136,4 +265,4 @@ form {
     outline: none;
 }
 
-/* 옵션 그룹 등록 페이지 끝 */
+/* 옵션 그룹 등록, 수정 페이지 끝 */
