@@ -135,6 +135,7 @@ public class SecurityConfig {
     *     ➡ 👩‍💼(ID, 시리즈, 토큰) 삭제
     * @return
     */
+    @SuppressWarnings("null")
     @Bean
     public PersistentTokenRepository tokenRepository() {
         // JdbcTokenRepositoryImpl : 토큰 저장 데이터 베이스를 등록하는 객체

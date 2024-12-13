@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aloha.freeorder.domain.Category;
-import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CategoryService;
 
 import lombok.extern.slf4j.Slf4j;

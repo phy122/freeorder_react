@@ -37,6 +37,10 @@ public class CartServiceImpl implements CartService{
     public int update(Cart cart) throws Exception {
         return cartMapper.update(cart);
     }
+    @Override
+    public int updateAmount(Cart cart) throws Exception {
+        return cartMapper.updateAmount(cart);
+    }
 
     @Override
     public int delete(String id) throws Exception {
@@ -46,6 +50,10 @@ public class CartServiceImpl implements CartService{
     @Override
     public List<Cart> listByUser(String usersId) throws Exception {
         return cartMapper.listByUser(usersId);
+    }
+    @Override
+    public List<Cart> ListByUsersIdAndProductsId(String usersId, String productId) throws Exception {
+        return cartMapper.ListByUsersIdAndProductsId(usersId,productId);
     }
 
     @Override
@@ -67,5 +75,7 @@ public class CartServiceImpl implements CartService{
     public int allDeleteOptionByUserId(String usersId) throws Exception {
         return cartMapper.allDeleteOptionByUserId(usersId);
     }
+
+    
     
 }
