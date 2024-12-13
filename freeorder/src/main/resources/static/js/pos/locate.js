@@ -1,4 +1,4 @@
-function locateFunction() {
+window.onload = function locateFunction() {
     const list = document.querySelector('.l-product-list');
     let currentItemIndex = null;
     let currentItem = null;

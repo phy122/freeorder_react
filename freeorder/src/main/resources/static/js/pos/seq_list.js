@@ -1,4 +1,4 @@
-function seqListFunction() {
+window.onload = function seqListFunction() {
     const list = document.querySelector('.seq-category-list');
     let currentItemIndex = null;
     let currentItem = null;
