@@ -130,7 +130,7 @@ public class QrController {
     Product product = productService.select(id);
     model.addAttribute("product", product);
     // 옵션 정보
-    Option option = optionService.read(product.getOptionId());
+    Option option = optionService.read(product.getOptionsId());
     model.addAttribute("option", option);
     if (option != null) {
       // 옵션 목록

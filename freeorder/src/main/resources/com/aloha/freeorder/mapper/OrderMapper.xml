@@ -8,13 +8,13 @@
         <id property="id" column="id" />
         
         <result property="id" column="id" />
-        <result property="userId" column="userId" />
+        <result property="usersId" column="users_id" />
         <result property="title" column="title" />
-        <result property="totalQuantity" column="totalQuantity" />
-        <result property="totalCount" column="totalCount" />
-        <result property="totalPrice" column="totalPrice" />
+        <result property="totalQuantity" column="total_quantity" />
+        <result property="totalCount" column="total_count" />
+        <result property="totalPrice" column="total_price" />
         <result property="status" column="status" />
-        <result property="orderedAt" column="orderedAt" />
+        <result property="orderedAt" column="ordered_at" />
         <result property="createdAt" column="created_at" />
         <result property="updatedAt" column="updated_at" />
         
@@ -22,8 +22,8 @@
     </resultMap>
     <resultMap type="OrderItem" id="itemMap">
         <result property="id" column="id" />
-        <result property="orderId" column="orderId" />
-        <result property="productId" column="productId" />
+        <result property="ordersId" column="orders_id" />
+        <result property="productsId" column="products_id" />
         <result property="quantity" column="quantity" />
         <result property="price" column="price" />
         <result property="amount" column="amount" />
@@ -55,20 +55,20 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, USER_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
-        VALUES ( #{id}, #{userId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
+        INSERT INTO orders ( ID, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
+        VALUES ( #{id}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
     </insert>
 
     <!-- 아이템 등록 -->
     <insert id="insertItem">
-        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTION_ID, QUANTITY, PRICE, AMOUNT  )
-        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionId}, #{quantity}, #{price}, #{amount} )
+        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTIONS_ID, QUANTITY, PRICE, AMOUNT  )
+        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionsId}, #{quantity}, #{price}, #{amount} )
     </insert>
 
     <!-- 옵션 등록 -->
     <insert id="insertOption">
-        INSERT INTO orders_options ( ID, OPTION_ITEM_ID, ORDER_ITEM_ID, NAME )
-        VALUES ( #{id}, #{optionItemId}, #{orderItemId}, #{name} )
+        INSERT INTO order_options ( ID, OPTION_ITEMS_ID, ORDER_ITEMS_ID, NAME )
+        VALUES ( #{id}, #{optionItemsId}, #{orderItemsId}, #{name} )
     </insert>
 
 
@@ -76,7 +76,7 @@
     <!-- 주문 수정 -->
     <update id="update">
         UPDATE orders
-           SET USER_ID = #{userId}
+           SET USERS_ID = #{usersId}
               ,TITLE = #{title}
               ,STATUS = #{status}
               ,UPDATED_AT = now()

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class OrderOption {
     
     private String id;
-    private String optionItemId;
-    private String orderItemId;
+    private String optionItemsId;
+    private String orderItemsId;
     private String name;
     private Date createdAt;
     private Date updatedAt;

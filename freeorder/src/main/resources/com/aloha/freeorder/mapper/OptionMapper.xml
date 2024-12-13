@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            oi.name,
            oi.price,
            oi.seq
-    FROM options o LEFT OUTER JOIN option_items oi ON o.id = oi.option_id
+    FROM options o LEFT OUTER JOIN option_items oi ON o.id = oi.options_id
     WHERE o.id = #{id}
 </select>
 
