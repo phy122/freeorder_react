@@ -92,7 +92,7 @@
     <!-- 장바구니 옵션 삭제 -->
     <delete id="deleteOption">
         DELETE FROM cart_options
-        WHERE carts = #{id}
+        WHERE carts_id = #{id}
     </delete>
 
     <!-- 결제시 해당 장바구니 전체 삭제 -->
