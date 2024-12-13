@@ -5,30 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/pos/option.css">
     <title>POS - 옵션 목록</title>
 </head>
 <body>
     <div class="container" layout:fragment="content">
         <div class="i-container">
-            <h2>옵션 목록</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>옵션명</th>
-                        <th>가격</th>
-                        <th>관리</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="option : ${options}">
-                        <td th:text="${option.id}"></td>
-                        <td th:text="${option.name}"></td>
-                        <td th:text="${option.price}"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="location.href='/pos/option/insert'">옵션 등록</button>
+            <div class="opt-header">
+                <h2>옵션 관리</h2>
+                <button onclick="location.href='/pos/option/insert'">옵션 추가</button>
+            </div>
+            <div class="opt-item-list">
+                <div class="opt-list">
+                    <div class="opt-title"><a href="#">옵션명</a></div>
+                    <div class="opt-item">
+                        <a href="#">옵션아이템1</a>
+                        <a href="#">옵션아이템2</a>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
 </body>
