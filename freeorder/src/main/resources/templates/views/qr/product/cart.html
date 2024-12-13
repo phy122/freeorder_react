@@ -50,6 +50,11 @@
         - 삭제
         -->
         <div class="scrollable-content">
+            <!-- 전체 삭제 버튼 -->
+        <div class="delete-all flex justify-content-center align-items-center mr-5 mt-1">
+            <button type="button" class="delete-all-btn color-main" onclick="deleteAllCartItems()">전체 삭제</button>
+        </div>
+
         <ul class="cart-list flex flex-column justify-content-start align-items-center gap-2">
             <th:block th:if="${cartList != null}" th:each="cart : ${cartList}">
                 <li class="c-card flex flex-column justify-content-center align-items-center">
