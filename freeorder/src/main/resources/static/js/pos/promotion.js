@@ -1,21 +1,20 @@
-
 let url = "/pos/notices";
 // 프로모션 등록
 function promotionInsert() {
-    let formData = new FormData( $("#promotion-insert")[0])
+    let formData = new FormData($("#promotion-insert")[0])
     $.ajax({
-        url             : url,
-        method          : "post",
-        data            : formData,
-        contentType     :   false,
-        processData     :   false,
-        success : function(data){
+        url: url,
+        method: "post",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
             if ($.trim(data) == "SUCCESS") {
                 alert("등록 성공")
                 location.href = "/pos/promotion"
             }
         }
-    }) 
+    })
 }
 // 프로모션 수정
 function promotionUpdate() {
@@ -26,7 +25,7 @@ function promotionUpdate() {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(data) {
+        success: function (data) {
             if ($.trim(data) == "SUCCESS") {
                 alert("수정 성공");
                 location.href = "/pos/promotion";
@@ -38,7 +37,7 @@ function promotionUpdate() {
 // 프로모션 삭제
 function promotionDelete(id) {
     let formData = new FormData();
-    formData.append("id",id)
+    formData.append("id", id)
     if (confirm("삭제 하시겠습니까?")) {
         $.ajax({
             url: url,
@@ -46,7 +45,7 @@ function promotionDelete(id) {
             data: formData,
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 if ($.trim(data) == "SUCCESS") {
                     alert("삭제 성공");
                     location.href = "/pos/promotion";

@@ -4,11 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프리오더</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }   
+        .container{
+            width: 400px;
+            height: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            position: relative;
+        }
+        h1 {
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #a4a4a4;
+            height: 70px;
+            padding-bottom: 20px;
+        }
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #aaa;
+            width: 200px;
+            height: 200px;
+            position: relative;
+            font-size: 25px;
+            font-weight: bold;
+            border-radius: 15px;
+        }
+        a:hover {
+            background-color: #ff7622;
+            color: white;
+        }
+        a:active {
+            top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>프로젝트 명 : 프리 오더</h1>
-    <a href="/pos/product">POS 보기</a>
-    <br>
-    <a href="/qr/main">QR오더 보기</a>
+    <div class="container">
+        <h1>Project : FreeOrder</h1>
+        <a href="/pos/product">POS</a>
+        <a href="/qr/main">QR order</a>
+    </div>
 </body>
 </html>

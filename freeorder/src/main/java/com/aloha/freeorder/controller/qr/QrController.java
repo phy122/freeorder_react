@@ -19,6 +19,7 @@ import com.aloha.freeorder.domain.Notice;
 import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.domain.Order;
+import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CartService;
@@ -35,11 +36,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-
-
-
-
-
 /**
  * 페이지 컨트롤러
  * 뷰페이지 매핑
@@ -49,27 +45,27 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/qr")
 public class QrController {
 
-    @Autowired
-    private NoticeService noticeService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private CartService cartService;
-    @Autowired
-    private PaymentService paymentService;
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private OptionService optionService;
+  @Autowired
+  private NoticeService noticeService;
+  @Autowired
+  private CategoryService categoryService;
+  @Autowired
+  private ProductService productService;
+  @Autowired
+  private CartService cartService;
+  @Autowired
+  private PaymentService paymentService;
+  @Autowired
+  private OrderService orderService;
+  @Autowired
+  private OptionService optionService;
 
   @GetMapping("/main")
   public String main(Model model,
-                     HttpServletRequest request,
-                     HttpServletResponse response,
-                     @CookieValue(value = "id", defaultValue = "null") String cookieId) {
-    
+      HttpServletRequest request,
+      HttpServletResponse response,
+      @CookieValue(value = "id", defaultValue = "null") String cookieId) {
+
     HttpSession session = request.getSession();
     String id = UUID.randomUUID().toString();
     log.info("생성된 아이디: " + id);
@@ -89,60 +85,61 @@ public class QrController {
     return "views/qr/main";
   }
 
-  
   @GetMapping("/notice")
   public String notice(Model model) throws Exception {
-      log.info("공지사항 출력!!");
-      Notice notice = noticeService.read();
-      model.addAttribute("notice", notice);
-      return "views/qr/notice";
+    log.info("공지사항 출력!!");
+    Notice notice = noticeService.read();
+    model.addAttribute("notice", notice);
+    return "views/qr/notice";
   }
-  
 
-  
   @GetMapping("/list")
-  public String productList(@RequestParam(value =  "type",required = false) String type, 
-                            @RequestParam(value = "cate", required = false) String cate , 
-                            Model model
-                            ) throws Exception {
+  public String productList(@RequestParam(value = "type", required = false) String type,
+      @RequestParam(value = "cate", required = false) String cate,
+      Model model) throws Exception {
     log.info("카테고리별 상품 목록 출력!!");
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
     if (cate == null)
       productList = productService.allList();
-    
+
     else
       productList = productService.listByCate(cate);
-    
+
     model.addAttribute("cateId", cate);
     model.addAttribute("cateList", cateList);
     model.addAttribute("productList", productList);
+
+    // 프로모션 등록
+    List<Notice> noticeList = noticeService.list();
+    model.addAttribute("noticeList", noticeList);
     log.info(productList.toString());
     return "views/qr/product/list";
   }
 
-  
   @GetMapping("/read/{id}")
   public String product(@PathVariable("id") String id, Model model) throws Exception {
     log.info("상품 상세페이지 출력!!");
     // 상품 정보
     Product product = productService.select(id);
+    log.info("상품 정보 : " + product);
     model.addAttribute("product", product);
+    String optionsId = product.getOptionsId();
     // 옵션 정보
-    Option option = optionService.read(product.getOptionsId());
-    model.addAttribute("option", option);
-    if (option != null) {
+    Option option = null;
+    if (optionsId != null && !optionsId.equals("")) {
+      option = optionService.read(product.getOptionsId());
       // 옵션 목록
       List<OptionItem> itemList = option.getItemList();
       model.addAttribute("itemList", itemList);
     }
+    model.addAttribute("option", option);
     return "views/qr/product/read";
 
   }
-  
 
   @GetMapping("/cart")
-  public String orderList(Model model, HttpServletRequest request) throws Exception  {
+  public String orderList(Model model, HttpServletRequest request) throws Exception {
     log.info("장바구니 목록 출력!!");
     HttpSession session = request.getSession();
     String id = (String) session.getAttribute("id");
@@ -157,73 +154,68 @@ public class QrController {
         total += cartOption.getPrice();
       }
     }
-    
+
     model.addAttribute("cartList", cartList);
     model.addAttribute("total", total);
     return "views/qr/product/cart";
   }
-  
 
   @GetMapping("/pay/{id}")
   public String payment(@PathVariable("id") String id, Model model) throws Exception {
     log.info("결제 창 출력!!");
-      Payment payment = paymentService.select(id); 
-      model.addAttribute("payment", payment);
-      return "views/qr/pay/pay";
+    Payment payment = paymentService.select(id);
+    model.addAttribute("payment", payment);
+    return "views/qr/pay/pay";
   }
-
 
   @GetMapping("/pay/complete/{status}")
   public String complete(@PathVariable("status") String status, Model model) throws Exception {
-
-      model.addAttribute("status", status);
-      return "views/qr/pay/complete";
+    model.addAttribute("status", status);
+    return "views/qr/pay/complete";
   }
-  
 
   @GetMapping("/order")
-  public String orderPayment(Model model, @CookieValue(value = "id", defaultValue = "null") String id) throws Exception {
-    if (id.equals("null")) {
-      Order order = orderService.read(id);
+  public String orderPayment(Model model, HttpServletRequest request)
+      throws Exception {
+    HttpSession session = request.getSession();
+    String usersId = (String) session.getAttribute("id");
+    log.info("Session 에 등록 된 사용자 아이디 : " + usersId);
+    if (!usersId.equals("null")) {
+      Order order = orderService.readByUsersId(usersId);
+      if (order != null) {
+        List<OrderItem> itemList = order.getItemList();
+        model.addAttribute("itemList", itemList);
+      }
+      log.info("주문내역 : " + order);
       model.addAttribute("order", order);
     }
     return "views/qr/order/list";
   }
-  
 
   @GetMapping("/option/{id}")
   public String option(@PathVariable("id") String id, Model model) throws Exception {
-      log.info("옵션 리스트 출력!!");
-      // 장바구니 정보 조회
-      Cart cart = cartService.select(id);
-      model.addAttribute("cart", cart);
-      Product product = productService.select(cart.getProductsId());
-    //   model.addAttribute("optionList", product.getOption().getItemList());
+    log.info("옵션 리스트 출력!!");
+    // 장바구니 정보 조회
+    Cart cart = cartService.select(id);
+    model.addAttribute("cart", cart);
+    Product product = productService.select(cart.getProductsId());
+    // model.addAttribute("optionList", product.getOption().getItemList());
 
+    // 장바구니 옵션 리스트 - optionItemsId
+    List<CartOption> cartOptionList = cart.getOptionList();
 
-      // 장바구니 옵션 리스트 - optionItemsId
-      List<CartOption> cartOptionList = cart.getOptionList();
+    // 상품 옵션 리스트 - id
+    List<OptionItem> productOptionList = product.getOption().getItemList();
 
-      // 상품 옵션 리스트 - id
-      List<OptionItem> productOptionList = product.getOption().getItemList();
-
-      for (OptionItem optionItem : productOptionList) {
-        for (CartOption cartOption : cartOptionList) {
-            if( cartOption.getOptionItemsId().equals(optionItem.getId()) ) {
-                optionItem.setChecked(true);
-            }
+    for (OptionItem optionItem : productOptionList) {
+      for (CartOption cartOption : cartOptionList) {
+        if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+          optionItem.setChecked(true);
         }
       }
-      model.addAttribute("productOptionList", productOptionList);
+    }
+    model.addAttribute("productOptionList", productOptionList);
 
-
-      return "views/qr/product/option";
+    return "views/qr/product/option";
   }
-  
-  
-  
-  
-  
-  
-  
 }

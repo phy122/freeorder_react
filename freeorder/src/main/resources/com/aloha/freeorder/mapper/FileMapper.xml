@@ -29,6 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           AND parent_table = 'notice'
           AND NOT is_main
     </select>
+
+    <!-- 컨텐츠츠 조회 -->
+    <select id="content" resultType="Files">
+        SELECT *
+        FROM files
+        WHERE parent_id = #{id}
+          AND parent_table = 'notice'
+          AND is_main
+    </select>
     
     <!-- 상품 이미지 조회 -->
     <select id="proimg" resultType="Files">
@@ -36,7 +45,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM files
         WHERE parent_id = #{id}
           AND parent_table = 'product'
-          AND NOT is_main
     </select>
 
     <!-- 파일 등록 -->

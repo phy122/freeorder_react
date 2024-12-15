@@ -688,3 +688,49 @@ h2 {
     font-weight: bold;
     border-radius: 5px;
 }
+
+/* 상품 등록/수정 공통 옵션 리스트 */
+#optionList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+.opt-list {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    gap: 10px;
+}
+.opt-list.active {
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+.opt-list .opt-title {
+    padding: 5px;
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #aaa;
+}
+.opt-list.active .opt-title {
+    background-color: #fff;
+}
+.opt-list .text-icon {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #aaa;
+    border-radius: 5px;
+    text-decoration: none;
+    font-style: normal;
+}

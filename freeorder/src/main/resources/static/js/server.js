@@ -4,11 +4,17 @@ const got = require("got");
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 
 app.post("/confirm", function (req, res) {
   // 클라이언트에서 받은 JSON 요청 바디입니다.
-  const { paymentKey, ordersId, amount } = req.body;
+  const {
+    paymentKey,
+    ordersId,
+    amount
+  } = req.body;
 
   // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
   // 비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.

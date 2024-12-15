@@ -77,8 +77,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO products ( id, name, categories_id, price, product_img,seq )
-        VALUES ( #{id}, #{name}, #{categoriesId}, #{price}, #{productImg} , #{seq} )
+        INSERT INTO products ( id, name, categories_id, options_id, price, product_img,seq )
+        VALUES ( #{id}, #{name}, #{categoriesId}, #{optionsId}, #{price}, #{productImg} , #{seq} )
     </insert>
         <!-- 추천메뉴 체크시 추천메뉴 등록 [reson 컬럼은 차후에]-->
         <insert id="insertRecommend">

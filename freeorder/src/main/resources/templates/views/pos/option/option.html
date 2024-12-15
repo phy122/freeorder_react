@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/pos/pos_layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/pos/pos_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/pos/option.css">
     <title>POS - 옵션 목록</title>
 </head>
+
 <body>
     <div class="container" layout:fragment="content">
         <div class="i-container">
@@ -33,7 +34,7 @@
                                     <a th:text="${item.name}" href="javascript:void(0)"></a>
                                 </div>
                             </th:block>
-                            
+
                             <!-- 아이템이 없을 경우 -->
                             <th:block th:if="${option.itemList == null or #lists.isEmpty(option.itemList)}">
                                 <p>아이템 없음</p>
@@ -54,4 +55,5 @@
         </div>
     </div>
 </body>
+
 </html>

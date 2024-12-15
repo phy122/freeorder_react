@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/pos/pos_layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/pos/pos_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/pos/product.css">
     <title>POS - 상품 수정</title>
 </head>
+
 <body>
     <div class="i-container" layout:fragment="content">
         <h2>상품 수정</h2>
@@ -24,7 +25,8 @@
             <!-- 가격 입력 -->
             <div class="form-group">
                 <label for="price">가격</label>
-                <input type="number" name="price" id="price" th:value="${product.price}" placeholder="가격을 입력하세요." required>
+                <input type="number" name="price" id="price" th:value="${product.price}" placeholder="가격을 입력하세요."
+                    required>
             </div>
 
             <!-- 카테고리 선택 -->
@@ -33,7 +35,8 @@
                 <select name="categoriesId" id="categoriesId" required>
                     <option value="">카테고리 선택</option>
                     <th:block th:each="cate : ${cateList}">
-                        <option th:value="${cate.id}" th:text="${cate.name}" th:selected="${cate.id == product.categoriesId}"></option>
+                        <option th:value="${cate.id}" th:text="${cate.name}"
+                            th:selected="${cate.id == product.categoriesId}"></option>
                     </th:block>
                 </select>
             </div>
@@ -44,6 +47,14 @@
                 <input type="file" name="productFile" id="productFile">
             </div>
 
+            <!-- 옵션 선택 -->
+            <div class="form-group">
+                <label for="optionId">옵션</label>
+                <div class="plus-box" onclick="selectOptions()"><a>+선택</a></div>
+                <ul id="optionList"></ul>
+                <input type="hidden" name="optionsId" id="optionsId" th:value="${product.optionsId}">
+            </div>
+
             <!-- 버튼 -->
             <div class="button-group">
                 <button type="button" onclick="proDelete()" class="cancel-btn">삭제</button>
@@ -52,4 +63,5 @@
         </form>
     </div>
 </body>
+
 </html>

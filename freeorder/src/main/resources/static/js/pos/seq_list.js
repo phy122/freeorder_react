@@ -20,7 +20,7 @@ function seqListFunction() {
 
     // l-product-list 영역 내에서만 드래그오버 허용
     list.addEventListener('dragover', (e) => {
-        e.preventDefault();  // 드래그 오버가 l-product-list 안에서만 작동하도록 허용
+        e.preventDefault(); // 드래그 오버가 l-product-list 안에서만 작동하도록 허용
     });
 
     // 드롭 처리
@@ -43,14 +43,16 @@ function seqListFunction() {
     });
 }
 
-// DOMContentLoaded 이벤트 발생 시 seqListFunction 호출
-document.addEventListener('DOMContentLoaded', seqListFunction);
+function bindingSeq() {
+    // DOMContentLoaded 이벤트 발생 시 seqListFunction 호출
+    document.addEventListener('DOMContentLoaded', seqListFunction);
+}
 
 
 // 저장 버튼 클릭 시 순서 저장
 function setupSaveCategoryOrder() {
     const saveBtn = document.getElementById('seqSavaBtn');
-    
+
     if (!saveBtn) {
         console.error("'seqSavaBtn' 요소를 찾을 수 없습니다. HTML 구조를 확인하세요.");
         return;
@@ -72,29 +74,29 @@ function setupSaveCategoryOrder() {
 
         // AJAX로 상품 순서 저장 요청
         fetch('/pos/categories/seq_list', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cateList)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json(); // 서버 응답을 JSON으로 처리
-        })
-        .then(result => {
-            if (result.status === "SUCCESS") {
-                alert(result.message || '저장이 완료되었습니다.');
-                location.href = "/pos/product";  // 수정 성공 후 페이지 이동
-            } else {
-                alert(result.message || '저장에 실패했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('서버와 통신 중 오류가 발생했습니다.');
-        });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cateList)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // 서버 응답을 JSON으로 처리
+            })
+            .then(result => {
+                if (result.status === "SUCCESS") {
+                    alert(result.message || '저장이 완료되었습니다.');
+                    location.href = "/pos/product"; // 수정 성공 후 페이지 이동
+                } else {
+                    alert(result.message || '저장에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            });
     });
 }

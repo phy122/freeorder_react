@@ -68,5 +68,10 @@ public class OrderServiceImpl implements OrderService{
     public SalesReport totalDay(String status, String day) throws Exception {
         return orderMapper.totalDay(status, day);
     }
+
+    @Override
+    public Order readByUsersId(String usersId) throws Exception {
+        return orderMapper.readByUsersId(usersId);
+    }
     
 }

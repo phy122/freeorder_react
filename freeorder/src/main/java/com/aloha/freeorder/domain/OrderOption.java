@@ -17,6 +17,7 @@ public class OrderOption {
     private String optionItemsId;
     private String orderItemsId;
     private String name;
+    private int price;
     private Date createdAt;
     private Date updatedAt;
 

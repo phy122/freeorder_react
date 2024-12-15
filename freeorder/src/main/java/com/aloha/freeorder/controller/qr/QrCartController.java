@@ -137,7 +137,7 @@ public class QrCartController {
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<>("Create Result", HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
             log.error("장바구니 수정 중 에러 발생", e);
@@ -156,7 +156,25 @@ public class QrCartController {
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<>("Create Result", HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("장바구니 삭제 중 에러 발생", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> destroyAll(@CookieValue(value = "id",defaultValue = "",required = false) String usersId) {
+        log.info("장바구니 목록 전체 삭제");
+        try {
+            int result = cartService.allDeleteByUserId(usersId);
+            if ( result > 0 ) {
+                cartService.allDeleteOptionByUserId(usersId);
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
             log.error("장바구니 삭제 중 에러 발생", e);

@@ -36,8 +36,9 @@ public class FileController {
                         ,HttpServletResponse response) throws Exception {
         log.info("[FILE] id : " + id);
 
-        Files fileInfo  = fileDAO.select(id);
-        String filePath = fileInfo.getPath() + "\\" + fileInfo.getName();
+        Files fileInfo  = fileDAO.content(id);
+
+        String filePath = fileInfo.getPath();
 
         File file = new File(filePath);
 

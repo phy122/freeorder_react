@@ -24,8 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
 <resultMap type="OptionItem" id="itemMap">
     <result property="id" column="option_items_id" />
+    <result property="optionsId" column="options_id" />
     <result property="name" column="option_items_name" />
-    <result property="quantity" column="quantity" />
     <result property="price" column="price" />
     <result property="seq" column="seq" />
 </resultMap>
@@ -37,9 +37,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="findItemsByOptionId" parameterType="String" resultMap="itemMap"> 
-    SELECT * 
-    FROM option_items 
-    WHERE options_id = #{optionId} 
+    SELECT o.id as option_items_id
+          ,o.options_id
+          ,o.name as option_items_name
+          ,o.price
+          ,o.seq
+    FROM option_items o
+    WHERE o.options_id = #{optionId} 
 </select>
 
 <select id="read" resultMap="optionMap">
@@ -77,6 +81,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="delete">
     DELETE FROM options
     WHERE ID = #{id}
+</delete>
+
+<delete id="deleteItem">
+    DELETE FROM option_items
+    WHERE options_id = #{optionsId}
 </delete>
 
 </mapper>

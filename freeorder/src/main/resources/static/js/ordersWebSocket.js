@@ -9,7 +9,7 @@ function connect() {
 
     stompClient.connect({}, () => {
         console.log("Connected");
-        
+
         // 주문 수신
         stompClient.subscribe('/orders/' + orderId, function (messageOutput) {
             const message = JSON.parse(messageOutput.body);
@@ -22,19 +22,19 @@ function connect() {
         // 사용자 입장 주문 결제시 전송
         const orderMessage = {
             userId: userId,
-            orderId : orderId
+            orderId: orderId
         };
         msg = JSON.stringify(orderMessage)
         stompClient.send("/app/order.addorder/" + orderId, {}, msg);
     });
-   
+
 }
 
 function showOrders(message) {
     const orderMessages = document.getElementById('chat-messages');
     const messageElement = document.createElement('div');
     messageElement.classList.add('msg-box');
-    if( message.userId === userId ) messageElement.classList.add('me');
+    if (message.userId === userId) messageElement.classList.add('me');
     messageElement.innerHTML = `<div class="sidebar-list">
         <ul class="order-list">
             <div class="order-container">
@@ -76,7 +76,7 @@ function deleteOrder() {
 
 // 주문 수 업데이트
 function updateOrderCount() {
-    
+
     fetch(`/orders/orderCount`)
         .then(response => response.json())
         .then(data => {

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/qr/qr_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/qr/qr_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
+
 <body layout:fragment="content">
     <div class="container pb-35">
         <form id="cart-insert">
@@ -16,31 +15,34 @@
             <!-- [상단] 상품명,닫기버튼 -->
             <div class="back flex justify-content-between align-items-center gap-2 p-10 bg-white">
                 <span class="menu-pop-name fs-normal black ml-5" th:text="${product.description}"></span>
-                <button type="button" onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png" class="back-icon scale-small" alt="나가기"></button>
+                <button type="button" onclick="location.href='/qr/list'"
+                    class="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png"
+                        class="back-icon scale-small" alt="나가기"></button>
             </div>
-            
+
             <!-- [중단] 상품정보 - 이미지,설명,수량-->
             <div class="read-png-p p-30">
                 <img th:src="|/pimg?id=${product.id}|" class="read-png" th:alt="${product.name}" width="100px">
                 <div class="amount-select flex align-items-center justify-content-end mr-1 mt-3 white">
                     <button type="button" class="quantity-minus scale-small white">-</button>
-                    <input type="number" class="quantity white" name="quantity" id="quantity" max="10" min="1" value="1" readonly>
+                    <input type="number" class="quantity white" name="quantity" id="quantity" max="10" min="1" value="1"
+                        readonly>
                     <button type="button" class="quantity-plus scale-small white">+</button>
                 </div>
             </div>
-                    
+
             <!-- [중단] 옵션선택 - 체크박스,옵션명,가격,수량 -->
             <th:block th:if="${option != null}">
                 <input type="hidden" id="optionId" th:value="${option.id}">
                 <div class="title mt-5 mb-5 ml-4 fs-normal">옵션 선택</div>
                 <div class="checkbox-container ml-5 mb-5">
-                    <th:block th:if="${itemList != null}" th:each="item, iterStat : ${itemList}">
+                    <th:block th:if="${itemList != null and not itemList.isEmpty()}" th:each="item, iterStat : ${itemList}">
                         <div>
                             <label class="option-checkbox flex align-items-center mr-5 ml-5" th:for="${item.id}">
                                 <input type="checkbox" th:id="${item.id}" name="itemList" th:value="${item.id}">
                                 <span th:text="${item.name}"></span>
                                 <div class="read-option-price mr-5">
-                                    <span th:text="${'+' + item.price + '원'}"></span>
+                                    <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
                                 </div>
                             </label>
                         </div>
@@ -54,4 +56,5 @@
         </div>
     </div>
 </body>
+
 </html>

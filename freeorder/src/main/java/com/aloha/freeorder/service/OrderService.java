@@ -11,6 +11,8 @@ public interface OrderService {
     public List<Order> list() throws Exception;
     // 주문 조회
     public Order read(String id) throws Exception;
+    // 주문 조회(유저아이디)
+    public Order readByUsersId(String usersId) throws Exception;
     // 주문 등록
     public int insert(Order order) throws Exception;
     // 주문 수정
