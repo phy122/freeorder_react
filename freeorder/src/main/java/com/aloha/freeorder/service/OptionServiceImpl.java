@@ -47,6 +47,12 @@ public class OptionServiceImpl implements OptionService{
     }
 
     @Override
+    public int insertItem(OptionItem optionItem) throws Exception {
+        int result = optionMapper.insertItem(optionItem);
+        return result;
+    }
+
+    @Override
     public int update(Option option) throws Exception {
         int result = optionMapper.update(option);
         return result;
@@ -59,9 +65,10 @@ public class OptionServiceImpl implements OptionService{
     }
 
     @Override
-    public int insertItem(OptionItem optionItem) throws Exception {
-        int result = optionMapper.insertItem(optionItem);
-        return result;
+    public int deleteItem(String optionsId) throws Exception {
+        return optionMapper.deleteItem(optionsId);
     }
+
+    
 
 }

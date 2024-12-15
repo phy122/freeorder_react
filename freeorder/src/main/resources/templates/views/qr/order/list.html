@@ -1,77 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/qr/qr_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/qr/qr_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
+
 <body>
     <div class="container" layout:fragment="content">
 
         <!-- [상단]	뒤로가기 -->
-         <div class="header">
-             <div class="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
-                 <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
-                 <span class="fs-normal black">주문 내역</span>
-                </div>
-                
-                <!-- [상단]	카테고리 -->
-                <div class="tab-menu-wrap">
-                    <ul class="tab-menu db-tab-menu">
-                        <li>
-                            <a href="/qr/cart" class="tab-menu-item">
-                                <span>장바구니</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/qr/order" class="tab-menu-item">
-                                <span class="active">주문내역</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                    <div class="line"></div>
-         </div>
+        <div class="header">
+            <div class="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
+                <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img
+                        src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+                <span class="fs-large black">주문 내역</span>
+            </div>
 
-
-        <!-- [중단]주문내역 리스트	 -->
-        <div class="scrollable-content">
-        <div class="order-card p-50">
-            <div class="order-list-card mb-5">
-                <div class="menu-name fw-1 fs-normal">불고기 버거 1개</div>
-                <div class="option2">기본 : 6,500원</div>
-                <div class="price fw-1 fs-normal">6,500원</div>
+            <!-- [상단]	카테고리 -->
+            <div class="tab-menu-wrap">
+                <ul class="tab-menu db-tab-menu">
+                    <li>
+                        <a href="/qr/cart" class="tab-menu-item">
+                            <span>장바구니</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qr/order" class="tab-menu-item">
+                            <span class="active">주문내역</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-                
-            <div class="line2"></div>
-                
-            <div class="order-list-card mb-5 mt-5">
-                <div class="menu-name fw-1 fs-normal">불고기 버거 1개</div>
-                <div class="option2">기본 : 6,500원</div>
-                <div class="option2">옵션 : 패티 추가(+3000원)</div>
-                <div class="price fw-1 fs-normal">9,500원</div>
-            </div>
-        
-            <div class="line2"></div>
-        
-            <div class="order-list-card mb-5 mt-5">
-                <div class="menu-name fw-1 fs-normal">콜라 1개</div>
-                <div class="option2">기본 : 2,000원</div>
-                <div class="price fw-1 fs-normal">2,000원</div>
-            </div>
+            <div class="line"></div>
         </div>
-        </div>
+        <th:blcok th:if="${order != null}">
+            <!-- [중단]주문내역 리스트	 -->
+            <div class="scrollable-content">
+                <th:block th:if="${itemList != null and !itemList.isEmpty()}" th:each="item : ${itemList}">
+                    <div class="order-card">
+                        <div class="menu-name fw-1 fs-large" th:text="${item.name}"></div>
+                        <div class="order-item">
+                            <div class="option-title">기본 :</div>
+                            <span class="order-options"
+                                th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+                        </div>
+                        <div class="order-item">
+                            <div class="option-title">옵션 :</div>
+                            <ul class="option-list">
+                                <th:block th:each="option : ${item.optionList}">
+                                    <li>
+                                        <span class="order-options"
+                                            th:text="${option.name + '(+' + #numbers.formatInteger(option.price, 3, 'COMMA') + '원)'}"></span>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                        <div class="price fw-1 fs-large"
+                            th:text="${#numbers.formatInteger(item.amount , 3, 'COMMA') + '원'}"></div>
+                    </div>
+                </th:block>
+            </div>
 
-        <!-- [하단]총 금액 -->
-         <div class="total-card-fix">
-             <div class="total">TOTAL : </div>
-             <div class="total-list-price">18,000원</div>
-         </div>
+            <!-- [하단]총 금액 -->
+            <div class="total-card-fix">
+                <div class="total">TOTAL : </div>
+                <div class="total-list-price" th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA') + '원'}">
+                </div>
+            </div>
+        </th:blcok>
+        <th:block th:if="${order == null}">
+            <div class="empty-info pt-140">
+                <div class="info-icon">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                </div>
+                <span class="empty-title">주문 내역이 없습니다.</span>
+            </div>
+        </th:block>
     </div>
     </div>
 </body>
+
 </html>

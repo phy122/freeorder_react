@@ -33,26 +33,24 @@
               ,u.username
               ,password
               ,name
-              ,email
               ,enabled
               ,created_at
               ,updated_at
               ,auth
-        FROM user u LEFT OUTER JOIN user_auth auth ON u.username = auth.username
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.username = auth.username
         WHERE u.username = #{username}
     </select>
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO user ( id, username, password, name, email )
-        VALUES ( #{id}, #{username}, #{password}, #{name}, #{email} )
+        INSERT INTO users ( id, username, password, name )
+        VALUES ( #{id}, #{username}, #{password}, #{name})
     </insert>
 
     <!-- 회원 정보 수정 -->
     <update id="update">
-        UPDATE user
+        UPDATE users
            SET name = #{name}
-              ,email = #{email}
               ,updated_at = now()
         WHERE username = #{username}
     </update>

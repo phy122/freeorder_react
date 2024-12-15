@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
     <link rel="stylesheet" href="/css/pos/payment.css">
     <title>POS</title>
 </head>
+
 <body>
     <div class="ps-container">
         <!-- [상단]	닫기 버튼 -->
@@ -36,7 +37,7 @@
             </div>
         </div>
         <!-- [결제 수단]	결제 수단 선택 -->
-         <div class="ps-select-payment">
+        <div class="ps-select-payment">
             <label for="payment">결제 수단</label>
             <select name="payment" id="payment">
                 <option value="select">전체</option>
@@ -47,7 +48,7 @@
                 <option value="5">링크 결제</option>
                 <option value="6">기타 결제</option>
             </select>
-         </div>
+        </div>
         <!-- [취소]	취소 버튼 -->
         <!-- [적용]	적용 버튼 -->
         <div class="ps-main-btn">
@@ -56,4 +57,5 @@
         </div>
     </div>
 </body>
+
 </html>

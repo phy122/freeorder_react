@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/qr/qr_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/qr/qr_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/qr/cart.css">
     <title>QR오더</title>
 </head>
+
 <body layout:fragment="content">
     <div class="container cart-container">
 
         <!-- 상단 / 뒤로가기 -->
         <div class="header">
             <div class="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
-                <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
-                <span class="fs-normal black">장바구니</span>
-               </div>
-               <!-- 카테고리 -->
-               <div class="top">
-                   <div class="tab-menu-wrap">
-                       <ul class="tab-menu db-tab-menu">
-                           <li>
-                               <a href="/qr/cart" class="tab-menu-item">
-                                   <span class="active">장바구니</span>
-                               </a>
-                           </li>
-                           <li>
-                               <a href="/qr/order" class="tab-menu-item">
-                                   <span>주문내역</span>
-                               </a>
-                           </li>
-                       </ul>
-                   </div>
-                   <div class="line"></div>
-               </div>
+                <button onclick="location.href='/qr/list'" class="circle-btn bg-lightgray scale-normal dark"><img
+                        src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+                <span class="fs-large black">장바구니</span>
+            </div>
+            <!-- 카테고리 -->
+            <div class="top">
+                <div class="tab-menu-wrap">
+                    <ul class="tab-menu db-tab-menu">
+                        <li>
+                            <a href="/qr/cart" class="tab-menu-item">
+                                <span class="active">장바구니</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/qr/order" class="tab-menu-item">
+                                <span>주문내역</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+            </div>
         </div>
         <th:block th:if="${cartList.isEmpty()}">
-            <div class="comment pt-140">
-                장바구니가 비어있습니다.... 주문좀요
-                <!-- TODO:장바구니가 없었을때 디자인 추가 -->
+            <div class="empty-info pt-140">
+                <div class="info-icon">
+                    <span class="material-symbols-outlined">local_mall</span>
+                </div>
+                <span class="empty-title">장바구니가 비어있습니다.</span>
+                <a href="/qr/list" class="add-btn">
+                    <span class="material-symbols-outlined">add</span>
+                    <span>장바구니 담으러가기</span>
+                </a>
             </div>
         </th:block>
         <th:block th:if="${!cartList.isEmpty()}">
@@ -56,22 +62,23 @@
             -->
             <div class="scrollable-content">
                 <!-- 전체 삭제 버튼 -->
-            <div class="delete-all flex justify-content-center align-items-center mr-5 mt-1">
-                <button type="button" class="delete-all-btn color-main" onclick="deleteAllCartItems()">전체 삭제</button>
-            </div>
-    
-            <ul class="cart-list flex flex-column justify-content-start align-items-center gap-2">
-                <th:block th:each="cart : ${cartList}">
-                    <li class="c-card flex flex-column justify-content-center align-items-center">
-                        <div class="item-info flex">
-                            <div class="list-left">
-                                <div class="left-left">
-                                    <img th:src="|/pimg?id=${cart.productsId}|" alt="페퍼로니 피자" class="menu-image"/>
-                                </div>
-                                <div class="right-right mr-1">
-                                    <div class="menu-name" th:text="${cart.productName}"></div>
-                                    <div class="price-amount">
-                                    <div class="c-price" th:text="${#numbers.formatInteger(cart.price, 3, 'COMMA') + '원'}"></div>
+                <div class="delete-all flex justify-content-center align-items-center mr-5 mt-1">
+                    <button type="button" class="delete-all-btn color-main" onclick="deleteAllCartItems()">전체
+                        삭제</button>
+                </div>
+
+                <ul class="cart-list flex flex-column justify-content-start align-items-center gap-2">
+                    <th:block th:each="cart : ${cartList}">
+                        <li class="c-card flex flex-column justify-content-center align-items-center">
+                            <div class="item-info flex">
+                                <div class="list-left">
+                                    <div class="left-left">
+                                        <img th:src="|/pimg?id=${cart.productsId}|" alt="페퍼로니 피자" class="menu-image" />
+                                    </div>
+                                    <div class="right-right mr-1">
+                                        <div class="menu-name" th:text="${cart.productName}"></div>
+                                        <div class="price-amount">
+                                            <div class="c-price" th:text="${#numbers.formatInteger(cart.price, 3, 'COMMA') + '원'}"></div>
                                     <div class="amount" th:text="${'|' + ' ' + cart.amount + '개'}"></div>
                                     </div>
                                     <ul class="option-list">
@@ -100,7 +107,7 @@
             -->
             <div class="total-card-fix">
                 <th:block>
-                    <div class="total-card flex justify-content-start align-items-center">
+                    <div class="total-card flex justify-content-around align-items-center">
                         <div class="total">TOTAL : </div>
                         <div class="total-price" th:text="${#numbers.formatInteger(total, 3, 'COMMA') + '원'}"></div>
                         <a href="#" class="pay-btn white" onclick="validateCart(event)"><span class="square-button flex flex-column justify-content-center align-items-center mt-1">결제 하기</span></a>

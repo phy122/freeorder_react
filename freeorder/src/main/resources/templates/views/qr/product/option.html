@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/qr/qr_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/qr/qr_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR오더</title>
 </head>
+
 <body layout:fragment="content">
     <div class="container">
         <!-- [상단] 닫기
                     - 상품명
                     - 옵션 변경 
-        -->	
+        -->
         <div class="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
-            <button type="button" class="circle-btn bg-lightgray scale-normal dark" id="close-modal"><img src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
+            <button type="button" class="circle-btn bg-lightgray scale-normal dark" id="close-modal"><img
+                    src="/img/back.png" class="back-icon scale-small" alt="뒤로가기"></button>
             <span class="fs-normal black">불고기 버거</span>
         </div>
 
@@ -27,7 +27,7 @@
                     - 가격
                     - 수량
         -->
-        
+
         <th:block th:if="${option != null}">
             <input type="hidden" id="optionId" th:value="${option.id}">
             <div class="title mt-5 mb-5 ml-4 fs-normal">옵션 선택</div>
@@ -35,22 +35,23 @@
                 <th:block th:if="${productOptionList != null}" th:each="item: ${productOptionList}">
                     <div>
                         <label class="option-checkbox flex align-items-center mr-5 ml-5" th:for="${item.id}">
-                        <input type="checkbox" th:id="${item.id}" name="itemList" th:value="${item.id}">
-                                <span th:text="${item.name}"></span>
-                                <div class="read-option-price mr-5">
-                                    <span th:text="${'+' + item.price + '원'}"></span>
-                                </div>
+                            <input type="checkbox" th:id="${item.id}" name="itemList" th:value="${item.id}">
+                            <span th:text="${item.name}"></span>
+                            <div class="read-option-price mr-5">
+                                <span th:text="${'+' + item.price + '원'}"></span>
                             </div>
-                        </label>
                     </div>
-                </th:block>
+                    </label>
             </div>
         </th:block>
+    </div>
+    </th:block>
 
-        <!-- [하단] 변경하기 -->
-         <div class="change-btn-border">
-             <button onclick="" class="change-btn white">변경하기</button>
-         </div>
+    <!-- [하단] 변경하기 -->
+    <div class="change-btn-border">
+        <button onclick="" class="change-btn white">변경하기</button>
+    </div>
     </div>
 </body>
+
 </html>

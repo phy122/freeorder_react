@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,9 +101,50 @@ public class OptionController {
 
     @PutMapping()
     public ResponseEntity<?> update(Option option) {
+        // TODO:장바구니와 주문내역 결제내역이 기존 상품 목록을 참조 하지 않고 개별로 작동하게 바꿔야함 / 삭제되거나 수정되었을때 기존과 정보가 다를수있음
         log.info("옵션 수정");
         try {
             int result = optionService.update(option);
+            
+            // 옵션아이템 수정
+            String optionId = option.getId();
+            List<OptionItem> itemList = option.getItemList();
+
+            // [참고] - 기존 아이템을 전부 삭제하고 입력받은 옵션아이템리스트로 다시 작성함
+
+            // 기존 아이템 목록 불러오기
+            Option oldOption = optionService.read(optionId);
+            List<OptionItem> oldItemList = oldOption.getItemList();
+            // 존재 유무 판단
+            if (!oldItemList.isEmpty()) {
+                // 기존 아이템 목록 삭제
+                optionService.deleteItem(optionId);
+            }
+
+
+            // 아이템 목록이 비어 있는지 확인
+            if (itemList == null || itemList.isEmpty()) {
+                log.warn("옵션 아이템 목록이 비어있습니다.");
+            } else {
+                for (OptionItem optionItem : itemList) {
+                    optionItem.setOptionsId(optionId);
+
+                    // 로그 추가: 아이템 삽입 전 아이템 정보 확인
+                    log.info("아이템 ID: " + optionItem.getId());
+                    log.info("옵션 ID: " + optionId);
+
+                    // 옵션 아이템 삽입
+                    int itemResult = optionService.insertItem(optionItem);
+
+                    // 아이템 등록 실패 시 처리
+                    if (itemResult <= 0) {
+                        log.error("옵션 아이템 등록 중 에러 발생, 아이템: " + optionItem.toString());
+                        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
+                }
+
+            }
+
             if( result > 0 )
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             else{

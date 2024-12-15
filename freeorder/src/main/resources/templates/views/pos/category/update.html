@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/pos/pos_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/pos/pos_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/pos/category.css">
     <title>POS</title>
 </head>
+
 <body>
     <div class="container" layout:fragment="content">
         <!-- [상단]	닫기 버튼 -->
@@ -20,7 +19,7 @@
                 <input type="hidden" name="id" th:value="${category.id}">
                 <label for="category-name">카테고리 이름</label>
                 <input type="text" id="name" name="name" th:value="${category.name}" required />
-                
+
                 <!-- <label for="category-description">카테고리 설명</label>
                 <textarea id="category-description" name="category-description" rows="4">현재 카테고리 설명</textarea> -->
                 <div class="ud-btn">
@@ -28,9 +27,10 @@
                     <button type="button" class="update-btn" onclick="cateUpdate()">수정</button>
                     <!-- 카테고리 삭제 버튼 -->
                     <button type="button" class="delete-btn" onclick="cateDelete()">삭제</button>
-                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

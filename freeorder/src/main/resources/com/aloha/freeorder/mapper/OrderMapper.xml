@@ -21,36 +21,84 @@
         <collection property="itemList" resultMap="itemMap"></collection>
     </resultMap>
     <resultMap type="OrderItem" id="itemMap">
-        <result property="id" column="id" />
+        <result property="id" column="order_items_id" />
         <result property="ordersId" column="orders_id" />
         <result property="productsId" column="products_id" />
+        <result property="name" column="name" />
         <result property="quantity" column="quantity" />
         <result property="price" column="price" />
         <result property="amount" column="amount" />
+
+        <collection property="optionList" resultMap="optionMap"></collection>
+    </resultMap>
+
+    <resultMap type="OrderOption" id="optionMap">
+        <result property="id" column="order_options_id" />
+        <result property="optionItemsId" column="option_items_id" />
+        <result property="name" column="options_name" />
+        <result property="price" column="options_price" />
     </resultMap>
 
     <!-- 주문 목록 -->
     <select id="list" resultMap="orderMap">
         SELECT o.*
+              ,oi.id as order_items_id
               ,oi.products_id
+              ,oi.name
               ,oi.quantity
               ,oi.price
               ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
         FROM orders o
         LEFT OUTER JOIN order_items oi
-        ON o.id = oi.orders_id
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
     </select>
+
     <!-- 주문 조회 -->
     <select id="read" resultMap="orderMap">
         SELECT o.*
+              ,oi.id as order_items_id
               ,oi.products_id
+              ,oi.name
               ,oi.quantity
               ,oi.price
               ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
         FROM orders o
         LEFT OUTER JOIN order_items oi
-        ON o.id = oi.orders_id
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
         WHERE o.id = #{id}
+    </select>
+
+    <!-- 주문 조회 -->
+    <select id="readByUsersId" resultMap="orderMap">
+        SELECT o.*
+              ,oi.id as order_items_id
+              ,oi.products_id
+              ,oi.name
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
+        FROM orders o
+        LEFT OUTER JOIN order_items oi
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
+        WHERE o.users_id = #{usersId}
     </select>
 
     <!-- 주문 등록 -->
@@ -61,14 +109,14 @@
 
     <!-- 아이템 등록 -->
     <insert id="insertItem">
-        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTIONS_ID, QUANTITY, PRICE, AMOUNT  )
-        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionsId}, #{quantity}, #{price}, #{amount} )
+        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTIONS_ID, NAME, QUANTITY, PRICE, AMOUNT  )
+        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionsId}, #{name}, #{quantity}, #{price}, #{amount} )
     </insert>
 
     <!-- 옵션 등록 -->
     <insert id="insertOption">
-        INSERT INTO order_options ( ID, OPTION_ITEMS_ID, ORDER_ITEMS_ID, NAME )
-        VALUES ( #{id}, #{optionItemsId}, #{orderItemsId}, #{name} )
+        INSERT INTO order_options ( ID, OPTION_ITEMS_ID, ORDER_ITEMS_ID, NAME, PRICE )
+        VALUES ( #{id}, #{optionItemsId}, #{orderItemsId}, #{name}, #{price} )
     </insert>
 
 

@@ -55,7 +55,7 @@ public class SecurityConfig {
 
         // ✅ 인가 설정
         http.authorizeHttpRequests(auth -> auth
-                                            //    .requestMatchers("/pos/**").hasRole("ADMIN")
+                                               .requestMatchers("/pos/**").hasRole("ADMIN")
                                             //    .requestMatchers("/qr/**").permitAll()
                                             //    .requestMatchers("/**").permitAll()
                                                .anyRequest().permitAll()
@@ -63,7 +63,8 @@ public class SecurityConfig {
         
         http.csrf(csrf -> csrf.disable());
         // 🔐 폼 로그인 설정
-        http.formLogin(login -> login.loginPage("/login")
+        http.formLogin(login -> login
+                                     .loginPage("/login")
                                      .loginProcessingUrl("/login")
                                      .usernameParameter("id")
                                      .passwordParameter("pw")

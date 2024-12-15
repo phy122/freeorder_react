@@ -6,6 +6,25 @@
 /**
  * 상품목록
  */
+// 이벤트 모달 팝업 열기
+function eventModalOpen(noticesId) {
+  const modal = document.getElementById("event-modal")
+  const modalBody = document.getElementById("event-modal-body")
+  
+  let contentImg = document.createElement("img")
+  contentImg.src = `/img?id=${noticesId}`
+  modalBody.append(contentImg)
+  modal.style.display = "flex"
+}
+// 이벤트 모달 팝업 닫기
+function eventModalClose() {
+  const modal = document.getElementById("event-modal")
+  const modalBody = document.getElementById("event-modal-body")
+  modalBody.innerHTML = ""
+  modal.style.display = "none"
+}
+
+
 // 상품 수량 변경
 let count = 1;
 $(".quantity-plus").click(function () {
@@ -35,32 +54,32 @@ function cartInsert() {
 
   let id = $("#id").val()
   let quantity = $("#quantity").val()
-  let otpionId = $("#optionId").val()
+  let optionId = $("#optionId").val()
   let itemList = new Array();
-  $("input[name=itemList]").each(function(){
+  $("input[name=itemList]").each(function () {
     let checked = $(this).is(":checked")
     itemList.push({
-      "id":$(this).val(),
-      "checked" : checked
+      "id": $(this).val(),
+      "checked": checked
     })
   })
   let data = {
-    id : id,
-    quantity : quantity,
-    option : {
-      id : otpionId,
-      itemList : itemList
+    id: id,
+    quantity: quantity,
+    option: {
+      id: optionId,
+      itemList: itemList
     }
   }
   let sendData = JSON.stringify(data)
   console.log("장바구니 추가중..");
-  
+
   $.ajax({
-    url : "/qr/carts",
-    data : sendData,
-    contentType : "application/json",
-    type : "post",
-    success : function (response) {
+    url: "/qr/carts",
+    data: sendData,
+    contentType: "application/json",
+    type: "post",
+    success: function (response) {
       console.log("장바구니 추가완료.");
       console.log(response)
       if ($.trim(response) == "SUCCESS") {
@@ -80,18 +99,18 @@ function cartInsert() {
 function cartDelete(id) {
   let url = '/qr/carts'
   let data = {
-    id : id
+    id: id
   }
   if (confirm('삭제하시겠습니까?')) {
     $.ajax({
-      url : url,
-      data : data,
-      type : 'delete', 
-      success : function(response) {
+      url: url,
+      data: data,
+      type: 'delete',
+      success: function (response) {
         if ($.trim(response) == 'SUCCESS') {
           location.reload()
         }
-        
+
       }
     })
   }
@@ -100,26 +119,26 @@ function cartDelete(id) {
 // 장바구니 상품 전체 제거
 function deleteAllCartItems() {
   if (!confirm("장바구니의 모든 항목을 삭제하시겠습니까?")) {
-      return;
+    return;
   }
-  fetch('/qr/cart/delete-all', {
-      method: 'DELETE',
-      headers: {
-          'Content-Type': 'application/json'
-      }
+  fetch('/qr/carts/deleteAll', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
-  .then(response => {
+    .then(response => {
       if (response.ok) {
-          alert("장바구니가 비워졌습니다!");
-          location.reload();
+        alert("장바구니가 비워졌습니다!");
+        location.reload();
       } else {
-          alert("장바구니 삭제 중 오류가 발생했습니다.");
+        alert("장바구니 삭제 중 오류가 발생했습니다.");
       }
-  })
-  .catch(error => {
+    })
+    .catch(error => {
       console.error("Error:", error);
       alert("서버와 통신 중 문제가 발생했습니다.");
-  });
+    });
 }
 
 
@@ -128,10 +147,10 @@ function validateCart(event) {
   event.preventDefault();
   const cartItems = document.querySelectorAll(".cart-list .c-card");
   if (cartItems.length === 0) {
-      alert("장바구니가 비어있습니다!");
-      return false;
+    alert("장바구니가 비어있습니다!");
+    return false;
   } else {
-      location.href = "/pay/pay";
+    location.href = "/qr/pay/pay";
   }
 }
 
@@ -144,17 +163,17 @@ function openModal(productId) {
   const modal = document.getElementById('option-modal');
   modal.style.display = 'flex';
   fetch(`/qr/option/${productId}`)
-      .then(response => response.text())
-      .then(html => {
-          document.getElementById('modal-body').innerHTML = html;
-          closeModalMapping() 
-      })
-      .catch(error => console.error('Error loading modal content:', error));
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('modal-body').innerHTML = html;
+      closeModalMapping()
+    })
+    .catch(error => console.error('Error loading modal content:', error));
 }
 
 // 모달 닫기
 function closeModalMapping() {
-  document.getElementById('close-modal').addEventListener('click',()=>{
+  document.getElementById('close-modal').addEventListener('click', () => {
     const modal = document.getElementById('option-modal');
     modal.style.display = 'none';
   })

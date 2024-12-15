@@ -20,10 +20,7 @@ import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.domain.SystemStatus;
-import com.aloha.freeorder.service.CancellationService;
-import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.CategoryService;
-import com.aloha.freeorder.service.FileService;
 import com.aloha.freeorder.service.NoticeService;
 import com.aloha.freeorder.service.OptionService;
 import com.aloha.freeorder.service.OrderService;
@@ -56,12 +53,6 @@ public class PosController {
     private OptionService optionService;
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private CancellationService cancellationService;
-    @Autowired
-    private CartService cartService;
-    @Autowired
-    private FileService fileService;
     @Autowired
     private SystemStatusService statusService;
 

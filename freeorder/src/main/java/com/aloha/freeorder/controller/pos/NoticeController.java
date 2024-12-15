@@ -76,7 +76,7 @@ public class NoticeController {
                 String thumbPath = uploadPath + notice.getThumbFile().getName();
                 notice.setThumbnail(thumbPath);
                 Files thumbFiles = new Files();
-                thumbFiles.setFile(notice.getContentFile());
+                thumbFiles.setFile(notice.getThumbFile());
                 thumbFiles.setMain(false);
                 thumbFiles.setParentId(id);
                 thumbFiles.setParentTable("notice");

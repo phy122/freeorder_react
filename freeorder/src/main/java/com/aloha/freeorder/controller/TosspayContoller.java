@@ -39,15 +39,11 @@ import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-
-
 
 @Slf4j
 @Controller
 public class TosspayContoller {
-    
 
     @Autowired
     private PaymentService paymentService;
@@ -56,32 +52,30 @@ public class TosspayContoller {
     @Autowired
     private CartService cartService;
 
-
-    @GetMapping({"/pay/pay"})
-    public String payment(Model model, 
-                          HttpServletRequest request,
-                          @CookieValue(value = "id", defaultValue = "") String userId) throws Exception {
-        String orderId = UUID.randomUUID().toString();
-        HttpSession session = request.getSession();
-        String sessionUserId = (String) session.getAttribute("id");
-        log.info("장바구니 목록 출력!!");
-        log.info("유저 아이디 : " + sessionUserId);
-        List<Cart> cartList = cartService.listByUser(sessionUserId);
-        log.info( "장바구니 목록 : " + cartList.toString());
+    @GetMapping({ "/qr/pay/pay" })
+    public String payment(Model model,
+            HttpServletRequest request,
+            @CookieValue(value = "id", defaultValue = "") String usersId) throws Exception {
+        log.info("결제 창 출력!!");
+        log.info("유저 아이디 : " + usersId);
+        // 장바구니 정보 불러오기
+        List<Cart> cartList = cartService.listByUser(usersId);
         int total = 0;
+        
+        // 주문 ID 생성
+        String ordersId = UUID.randomUUID().toString();
 
         String title = "";
         Order order = Order.builder()
-                           .id(orderId)
-                           .usersId(userId)
-                           .totalPrice(total)
-                           .totalQuantity(cartList.size())
-                           .build();
+                .id(ordersId)
+                .usersId(usersId)
+                .totalPrice(total)
+                .totalQuantity(cartList.size())
+                .build();
         List<OrderItem> itemList = new ArrayList<>();
 
         for (Cart cart : cartList) {
             List<CartOption> optionList = cart.getOptionList();
-            log.info("옵션리스트 가격: " + optionList.toString());
             total += cart.getPrice() * cart.getAmount();
             for (CartOption cartOption : optionList) {
                 total += cartOption.getPrice();
@@ -91,49 +85,57 @@ public class TosspayContoller {
             }
             String orderItemId = UUID.randomUUID().toString();
             OrderItem orderItem = OrderItem.builder()
-                                           .id(orderItemId)
-                                           .ordersId(orderId)
-                                           .productsId(cart.getProductsId())
-                                           .optionsId(cart.getOptionsId())
-                                           .quantity(cart.getAmount())
-                                           .price(cart.getPrice())
-                                           .amount(cart.getAmount()*cart.getPrice())
-                                           .build();
-            
+                    .id(orderItemId)
+                    .ordersId(ordersId)
+                    .productsId(cart.getProductsId())
+                    .optionsId(cart.getOptionsId())
+                    .quantity(cart.getAmount())
+                    .name(cart.getProductName())
+                    .price(cart.getPrice())
+                    .amount(cart.getAmount() * cart.getPrice())
+                    .build();
+
             List<CartOption> cartOptionList = cart.getOptionList();
             List<OrderOption> orderOptionList = new ArrayList<>();
+
+            // 옵션
+            int optionAmount = 0;
             for (CartOption cartOption : cartOptionList) {
                 OrderOption orderOption = OrderOption.builder()
-                                                     .id(UUID.randomUUID().toString())
-                                                     .optionItemsId(cartOption.getOptionItemsId())
-                                                     .orderItemsId(orderItemId)
-                                                     .name(cartOption.getName())
-                                                     .build();
+                        .id(UUID.randomUUID().toString())
+                        .optionItemsId(cartOption.getOptionItemsId())
+                        .orderItemsId(orderItemId)
+                        .name(cartOption.getName())
+                        .price(cartOption.getPrice())
+                        .build();
                 orderOptionList.add(orderOption);
+                optionAmount += cartOption.getPrice();
             }
             orderItem.setOptionList(orderOptionList);
+            orderItem.setAmount(cart.getAmount() * cart.getPrice() + optionAmount);
             itemList.add(orderItem);
         }
-        
 
         order.setItemList(itemList);
-        title += title + "외" + (itemList.size() -1) + "건";
+        if (itemList.size() > 1) {
+            title += "외" + (itemList.size() - 1) + "건";
+        }
         order.setTitle(title);
-        order.setUsersId(userId);
+        order.setTotalPrice(total);
         log.info("order: " + order);
         int result = orderService.insert(order);
         if (result > 0) {
-            cartService.delete(userId);
+            cartService.delete(usersId);
             log.info("주문내역 생성 성공!!");
-        }else{
+        } else {
             log.info("주문내역 생성 실패!!");
         }
 
         log.info("타이틀: " + title);
-        log.info("오더아이디: " + orderId);
+        log.info("오더아이디: " + ordersId);
         log.info("총금액 : " + total);
         model.addAttribute("title", title);
-        model.addAttribute("orderId", orderId);
+        model.addAttribute("ordersId", ordersId);
         model.addAttribute("amount", total);
         return "checkout";
     }
@@ -143,20 +145,20 @@ public class TosspayContoller {
         log.info("결제성공 후 프로그램 DB에 연동 시도...");
         log.info(jsonBody);
         JSONParser parser = new JSONParser();
-        String orderId;
+        String ordersId;
         String amount;
         String paymentKey;
         try {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
             paymentKey = (String) requestData.get("paymentKey");
-            orderId = (String) requestData.get("orderId");
+            ordersId = (String) requestData.get("ordersId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
             throw new RuntimeException(e);
-        };
+        }
         JSONObject obj = new JSONObject();
-        obj.put("orderId", orderId);
+        obj.put("ordersId", ordersId);
         obj.put("amount", amount);
         obj.put("paymentKey", paymentKey);
 
@@ -186,37 +188,34 @@ public class TosspayContoller {
         // 결제 성공 및 실패 비즈니스 로직을 구현하세요.
         Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
-        
+
         responseStream.close();
         log.info("로그" + jsonObject.toJSONString());
 
         Payment payment = Payment.builder()
-                                 .id(UUID.randomUUID().toString())
-                                 .ordersId(orderId)
-                                 .paymentMethod("카드")
-                                 .build();
-        
+                .id(UUID.randomUUID().toString())
+                .ordersId(ordersId)
+                .paymentMethod("카드")
+                .build();
 
-        
         if (isSuccess) {
 
             JSONObject responseJson = new JSONObject();
             // 결제 성공 처리 로직
-            log.info("결제 성공: orderId={}, amount={}", orderId, amount);
-            
+            log.info("결제 성공: ordersId={}, amount={}", ordersId, amount);
+
             // 데이터베이스에 결제 상태 업데이트
             payment.setStatus("PAID");
             paymentService.insert(payment);
-            
+
             responseJson.put("status", "success");
             responseJson.put("message", "Payment confirmed successfully.");
             return ResponseEntity.ok(responseJson);
         } else {
-            
-            log.error("결제 실패: orderId={}, code={}, message={}", orderId, code, jsonObject.get("message"));
+
+            log.error("결제 실패: ordersId={}, code={}, message={}", ordersId, code, jsonObject.get("message"));
             JSONObject responseJson = new JSONObject();
             // 결제 실패 처리 로직
-            
 
             responseJson.put("status", "failure");
             responseJson.put("message", "Payment confirmation failed. Please try again.");
@@ -225,11 +224,10 @@ public class TosspayContoller {
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity paymentCancel(
-                                        @AuthenticationPrincipal Payment principal,
-                                        @RequestParam String paymentKey,
-                                        @RequestParam String reason
-    ){
+    public ResponseEntity<?> paymentCancel(
+            @AuthenticationPrincipal Payment principal,
+            @RequestParam String paymentKey,
+            @RequestParam String reason) {
         CancellationService.cancelPayment(principal.getOrdersId(), paymentKey, reason);
         return ResponseEntity.ok().body("cancel success");
     }

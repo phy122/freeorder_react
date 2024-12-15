@@ -64,7 +64,15 @@ SELECT * FROM option_items;
 SELECT * FROM products;
 SELECT * FROM carts;
 SELECT * FROM cart_options;
+SELECT * FROM orders;
+SELECT * FROM order_options;
+SELECT * FROM order_items;
 
+TRUNCATE TABLE orders;
+TRUNCATE TABLE order_options;
+TRUNCATE TABLE order_items;
+
+-- af0e4b32-53ec-47be-98c7-f8d771f61b56
 TRUNCATE TABLE carts;
 
 SELECT * FROM products;
@@ -89,3 +97,20 @@ WHERE `ID` = "3ba64cf4-8479-444d-804f-698761b76896";
 SELECT * FROM cart_options;
 
 TRUNCATE TABLE option_items;
+
+SELECT o.*
+        ,oi.id as order_items_id
+        ,oi.products_id
+        ,oi.name
+        ,oi.quantity
+        ,oi.price
+        ,oi.amount
+        ,op.id as order_options_id
+        ,op.option_items_id
+        ,op.name as options_name
+        ,op.price as options_price
+FROM orders o
+LEFT OUTER JOIN order_items oi
+    ON o.id = oi.orders_id
+LEFT OUTER JOIN order_options op
+    ON oi.id = op.order_items_id;
