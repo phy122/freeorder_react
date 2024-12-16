@@ -194,6 +194,9 @@ footer .more a{
 
 
 /* 사이드바 시작 */
+#alarm-sound {
+    display: none;
+}
 .sidebar{
     width: 100%;
     height: 100vh;

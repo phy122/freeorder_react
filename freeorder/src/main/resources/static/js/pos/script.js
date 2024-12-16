@@ -287,7 +287,7 @@ function categorySlide() {
 }
 
 // 상품 장바구니에 추가
-function cartInsert(id, optionId) {
+function cartInsert(id, optionsId) {
     let itemList = new Array();
     $("input[name=itemList]").each(function () {
         let checked = $(this).is(":checked")
@@ -300,7 +300,7 @@ function cartInsert(id, optionId) {
         id: id,
         quantity: 1,
         option: {
-            id: optionId,
+            id: optionsId,
             itemList: itemList
         }
     }
@@ -495,37 +495,71 @@ function removeOptionItem(button) {
     const item = button.closest(".opt-item");
     item.remove();
 }
-
-// 상품 클릭 시 옵션 모달 열기
-document.addEventListener('click', function (event) {
-    const productItem = event.target.closest('.product-item'); // 클릭된 요소가 .product-item인지 확인
-    if (productItem) {
-        // data 가져오기
-        const productId = productItem.getAttribute('data-id');
-        const productName = productItem.querySelector('.product-name').innerText;
-        const productPrice = productItem.querySelector('.product-price').innerText;
-
-        // 모달 데이터 업데이트
-        openModal(productId, productName, productPrice);
+function openOptionModal(id, optionsId) {
+    if (optionsId == null || optionsId == "") {
+        cartInsert(id, optionsId)
+        return false
     }
-});
+    // 모달 창 열기
+    document.getElementById('modalOverlay').style.display = 'block';
+    document.getElementById('optionModal').style.display = 'block';
+    const optionList = document.getElementById("modal-option-list")
+    // 옵션 데이터를 가져와서 모달 창에 표시
+    fetch('/pos/options/product/'+id) // 옵션 데이터를 가져오는 API 엔드포인트
+        .then(response => response.json())
+        .then(data => {
+            console.log("옵션그룹명 : " + data.name)
 
-// 옵션 모달 열기
-function openModal(productId, productName, productPrice) {
-    // 모달 내용 업데이트
-    document.getElementById('modalOptionName').innerText = productName;
-    document.getElementById('modalOptionPrice').innerText = productPrice;
-
-    // 모달 및 오버레이 표시
-    document.getElementById('optionModal').classList.add('show');
-    document.getElementById('modalOverlay').classList.add('show');
+            if (optionList) {
+                optionList.innerHTML = ''; // 기존 옵션 리스트 초기화
+                data.itemList.forEach((item) => {
+                    const optionDiv = document.createElement('li');
+                    optionDiv.innerHTML = `
+                        <label class="option-checkbox flex align-items-center mr-5 ml-5">
+                            <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                            <span>${item.name}</span>
+                            <div class="read-option-price mr-5">
+                                <span>${item.price}원</span>
+                            </div>
+                        </label>
+                    `;
+                    optionList.appendChild(optionDiv);
+                });
+            } else {
+                console.error('checkbox-container 요소를 찾을 수 없습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('옵션 데이터를 가져오는 중 오류 발생:', error);
+        });
 }
 
-// 옵션 모달 닫기
-function closeModal() {
-    document.getElementById('optionModal').classList.remove('show');
-    document.getElementById('modalOverlay').classList.remove('show');
+function closeModalMapping() {
+    // 모달 창 닫기
+    document.getElementById('modalOverlay').style.display = 'none';
+    document.getElementById('optionModal').style.display = 'none';
 }
 
-// 모달 외부 클릭 시 닫기
-document.getElementById('modalOverlay').addEventListener('click', closeModal);
+
+    container.innerHTML = ""; // 기존 내용 초기화
+
+    if (data && data.length > 0) {
+        console.log("Rendering options:", data); // 데이터 확인
+        data.forEach(item => {
+            const optionHTML = `
+                <div>
+                    <label class="option-checkbox flex align-items-center mr-5 ml-5" for="${item.id}">
+                        <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                        <span>${item.name}</span>
+                        <div class="read-option-price mr-5">
+                            <span>${item.price.toLocaleString()}원</span>
+                        </div>
+                    </label>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", optionHTML);
+        });
+    } else {
+        container.innerHTML = "<p>옵션이 없습니다.</p>";
+    }
+}

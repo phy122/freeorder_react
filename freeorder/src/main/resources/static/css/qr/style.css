@@ -415,6 +415,7 @@ img {
   color: #333;
 }
 /* read, option */
+
 .read-png {
   width: 100%;
   height: 300px;
@@ -447,6 +448,9 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.option-container {
 }
 
 .checkbox-container {
@@ -513,8 +517,7 @@ input[type="checkbox"]{
 .order-item .option-title {
   display: flex;
   align-items: center;
-  justify-content: end;
-  padding: 0 5px;
+  justify-content: start;
 }
 .order-card {
   display: flex;
@@ -537,6 +540,10 @@ input[type="checkbox"]{
   display: flex;
   justify-content: end;
   margin-top: 15px;
+}
+
+.menu-name {
+  margin-bottom: 10px;
 }
 
 /* pay/complete, fail */
@@ -685,7 +692,7 @@ input[type="checkbox"]{
 #modal-body {
   width: 100%;
   height: 100%;
-  background: #aaa;
+  background: #00ff0000;
 }
 
 /* .OK {
@@ -747,6 +754,9 @@ input[type="checkbox"]{
 .bg-white {
   background-color: white;
 }
+
+/* border */
+.border10 { border-radius: 40px;}
 
 /* flex */
   .allcenter {
@@ -829,6 +839,26 @@ input[type="checkbox"]{
 .color-sub { color: var(--sub-color); }
 .color-white { color: var(white);}
 
+/* 상품 조회 옵션 시작 */
+
+.des-box{
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.des-box .menu-des-left{
+  margin-right: 10px;
+}
+.menu-pop-des {
+  width: 280px;
+}
+.menu-pop-des p {
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+/* 상품 조회 옵션 끝 */
+
+
 /* 전체 주문 목록 시작 */
 .ord-complete {
   display: grid;
@@ -859,6 +889,9 @@ input[type="checkbox"]{
   font-size: 14px;
   color: #666;
   padding: 0 1%;
+}
+.detail-ord{
+  width: 25%;
 }
 .detail-ord a {
   display: block;

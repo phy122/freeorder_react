@@ -16,6 +16,7 @@
     <select id="allList" resultType="Product">
         SELECT 
             p.ID,
+            p.OPTIONS_ID,
             p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCTS_ID,
@@ -47,6 +48,7 @@
     <select id="listByCate" resultType="Product">
         SELECT 
             p.ID,
+            p.OPTIONS_ID,
             p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCTS_ID,
@@ -77,8 +79,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO products ( id, name, categories_id, options_id, price, product_img,seq )
-        VALUES ( #{id}, #{name}, #{categoriesId}, #{optionsId}, #{price}, #{productImg} , #{seq} )
+        INSERT INTO products ( id, name, categories_id, options_id, price, description, product_img,seq )
+        VALUES ( #{id}, #{name}, #{categoriesId}, #{optionsId}, #{price}, #{description}, #{productImg} , #{seq} )
     </insert>
         <!-- 추천메뉴 체크시 추천메뉴 등록 [reson 컬럼은 차후에]-->
         <insert id="insertRecommend">
@@ -96,6 +98,7 @@
            SET name = #{name}
               ,categories_id = #{categoriesId}
               ,price = #{price}
+              ,description = #{description}
               ,stock_check = #{stockCheck}
               ,product_img = #{productImg}
               ,seq = #{seq}
