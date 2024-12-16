@@ -1,6 +1,6 @@
 let stompClient = null;
-let userId = `[[${userId}]]`
-let orderId = `[[${orderId}]]`
+let userId = ``
+let orderId = ``
 
 // 주문수신 웹소켓 통신 연결
 function connect() {
@@ -52,8 +52,9 @@ function showOrders(message) {
     orderMessages.scrollTop = orderMessages.scrollHeight;
 }
 
-
-document.getElementById('order-send').addEventListener('click', sendOrder);
+function orderWebSocketBinding(params) {
+    document.getElementById('order-send').addEventListener('click', sendOrder);
+}
 connect();
 
 
@@ -83,4 +84,26 @@ function updateOrderCount() {
             document.getElementById("order-alarm").display = 'flex'
             document.getElementById('user-count').innerText = data.orderCount;
         });
+}
+
+// 영업시작 / 종료
+function systemStatus(status) {
+    const url = "/setting"
+    const data = {
+        status: status
+    }
+    fetch(url, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        }, body: JSON.stringify(data)
+    }).then(response => {
+            let data = response.json()
+            if (response.ok) {
+                data.then(data => {
+                    console.log(data.text)
+                    location.reload()
+                })
+            }
+        })
 }

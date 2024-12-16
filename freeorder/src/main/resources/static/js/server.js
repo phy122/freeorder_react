@@ -1,3 +1,4 @@
+
 const express = require("express");
 const got = require("got");
 
@@ -51,3 +52,4 @@ app.post("/confirm", function (req, res) {
 app.listen(4242, () =>
   console.log(`http://localhost:${4242} 으로 샘플 앱이 실행되었습니다.`)
 );
+

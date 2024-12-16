@@ -15,7 +15,7 @@
     <!-- 설정 상태 업데이트 -->
     <update id="updateSettingStatus">
         UPDATE SETTING
-        SET STATUS = #{settingStatus}
+        SET STATUS = #{status}
             ,STARTED_AT = #{startedAt}
             ,ENDED_AT = #{endedAt}
         WHERE ID = 'SETTING'
