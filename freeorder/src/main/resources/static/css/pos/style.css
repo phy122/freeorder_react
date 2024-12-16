@@ -30,7 +30,7 @@ body{
 header{
     width: 100%;
     min-height: 70px;
-    background-color: #5A6270;
+    background-color: #acacac;
     display: flex;
     text-align: center;
     align-items: center;
@@ -59,7 +59,7 @@ header .header-content{
     display: flex;
     flex-direction: row;
     text-align: center;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     gap: 5rem;
 }
@@ -67,28 +67,23 @@ header .open-btn{
     display: flex;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
 }
-header .open-btn .start{
-    background-color: var(--main-color);
+header .open-btn button {
     width: 80px;
     height: 30px;
     border-radius: 5px;
-    margin: 0 10px;
-}
-header .open-btn .start a{
-    color: white;
-    font-weight: bold;
-}
-header .open-btn .end{
     background-color: var(--main-color);
-    width: 80px;
-    height: 30px;
-    border-radius: 5px;
-}
-header .open-btn .end a{
     color: white;
     font-weight: bold;
+    display: none;
+    cursor: pointer;
+}
+header .open-btn button.end {
+    background-color: #da0202;
+}
+header .open-btn button.active {
+    display: block;
 }
 header .time a{
     color: white;
@@ -108,11 +103,21 @@ header .status .status-on{
     color: #00A870;
     margin-right: 10px;
 }
+header .status .status-off{
+    width: 10px;
+    height: 10px;
+    line-height: 10px;
+    font-size: 10px;
+    color: #da0202;
+    margin-right: 10px;
+}
 header .status .status-name{
     font-size: 12px;
     font-weight: bold;
     color: white;
 }
+#status-name.on {color: white;}
+#status-name.off {color: #000;}
 /* 헤더 끝 */
 
 
