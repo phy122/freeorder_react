@@ -47,7 +47,7 @@
                             <p th:text="${order.status}"></p>
                         </div>
                         <button class="detail-ord">
-                            <a th:href="@{/qr/order/read/{id}}">주문상세</a>
+                            <a th:href="@{/qr/order/read/{id}(id=${order.id})}">주문상세</a>
                         </button>
                     </div>
 

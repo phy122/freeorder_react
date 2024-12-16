@@ -1,5 +1,6 @@
 package com.aloha.freeorder.controller.qr;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -194,19 +195,26 @@ public class QrController {
   }
   
   @GetMapping("/order/read/{id}")
-  public String orderPayment(@PathVariable("id") String id ,Model model, HttpServletRequest request)
-      throws Exception {
-    log.info("주문 상세 조회 :  {}", id);
-    if (!id.equals("null")) {
-      Order order = orderService.read(id);
-      if (order != null) {
-        List<OrderItem> itemList = order.getItemList();
-        model.addAttribute("itemList", itemList);
+  public String orderDetails(@PathVariable("id") String id, Model model) {
+      log.info("주문 상세 조회: {}", id);
+      try {
+          // 주문 조회
+          Order order = orderService.read(id);
+          log.info("조회된 주문 데이터: {}", order);
+  
+          if (order != null) {
+              List<OrderItem> itemList = order.getItemList();
+              log.info("조회된 아이템 목록: {}", itemList);
+  
+              model.addAttribute("itemList", itemList);
+          } else {
+              log.warn("주문 ID '{}'에 해당하는 데이터가 없습니다.", id);
+          }
+          model.addAttribute("order", order);
+      } catch (Exception e) {
+          log.error("주문 상세 조회 중 에러 발생: {}", e.getMessage(), e);
       }
-      log.info("주문내역 : " + order);
-      model.addAttribute("order", order);
-    }
-    return "views/qr/order/read";
+      return "views/qr/order/read";
   }
 
   @GetMapping("/option/{id}")
@@ -222,16 +230,19 @@ public class QrController {
     List<CartOption> cartOptionList = cart.getOptionList();
 
     // 상품 옵션 리스트 - id
+    if (product.getOption() != null && product.getOption().getItemList() != null) {
     List<OptionItem> productOptionList = product.getOption().getItemList();
-
     for (OptionItem optionItem : productOptionList) {
-      for (CartOption cartOption : cartOptionList) {
-        if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
-          optionItem.setChecked(true);
+        for (CartOption cartOption : cartOptionList) {
+            if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+                optionItem.setChecked(true);
+            }
         }
-      }
     }
     model.addAttribute("productOptionList", productOptionList);
+} else {
+    model.addAttribute("productOptionList", Collections.emptyList());
+}
 
     return "views/qr/product/option";
   }
