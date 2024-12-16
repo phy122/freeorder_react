@@ -70,8 +70,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order readByUsersId(String usersId) throws Exception {
-        return orderMapper.readByUsersId(usersId);
+    public List<Order> listByUsersId(String usersId) throws Exception {
+        return orderMapper.listByUsersId(usersId);
     }
-    
 }
