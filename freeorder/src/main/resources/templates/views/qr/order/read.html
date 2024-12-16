@@ -52,7 +52,7 @@
                     <th:block th:each="item : ${itemList}">
                         <div class="order-card">
                             <!-- 상품명 -->
-                            <div class="menu-name" th:text="${item.name}"></div>
+                            <div class="menu-name fs-large fw-1" th:text="${item.name}"></div>
 
                             <!-- 기본 가격 -->
                             <div class="order-item">
@@ -78,7 +78,7 @@
                             <div class="order-quantity">
                                 <span th:text="'수량: ' + ${item.quantity} + '개'">수량</span>
                             </div>
-                            <div class="price"
+                            <div class="price fw-1"
                                 th:text="'합계: ' + ${#numbers.formatInteger(item.amount, 3, 'COMMA') + '원'}"></div>
                         </div>
                     </th:block>
