@@ -51,12 +51,7 @@ public class CartController {
     public ResponseEntity<?> getAll(@CookieValue(value = "usersId", defaultValue = "null") String usersId) {
         log.info("장바구니 목록 조회");
         try {
-            // List<Cart> cartList = cartService.list(usersId);
-            List<Cart> cartList = new ArrayList<>();
-            cartList.add(Cart.builder().productName("삼겹살").price(13000).build());
-            cartList.add(Cart.builder().productName("항정살").price(15000).build());
-            cartList.add(Cart.builder().productName("갈매기살").price(17000).build());
-            cartList.add(Cart.builder().productName("양념갈비").price(14000).build());
+            List<Cart> cartList = cartService.list(usersId);
             return new ResponseEntity<>(cartList,HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 목록 조회 중 에러...", e);

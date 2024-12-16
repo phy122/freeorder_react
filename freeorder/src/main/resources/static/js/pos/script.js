@@ -603,7 +603,3 @@ function renderOptions(data) {
         container.innerHTML = "<p>옵션이 없습니다.</p>";
     }
 }
-
-
-
-
