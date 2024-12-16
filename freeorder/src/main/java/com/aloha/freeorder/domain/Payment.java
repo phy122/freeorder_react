@@ -15,6 +15,7 @@ public class Payment {
 
     private String id;
     private String ordersId;
+    private String paymentKey;
     private String paymentMethod;
     private String status;
     private Date paidAt;

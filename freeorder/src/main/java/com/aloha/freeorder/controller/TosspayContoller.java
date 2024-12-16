@@ -5,7 +5,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -17,7 +21,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -61,7 +64,7 @@ public class TosspayContoller {
         // 장바구니 정보 불러오기
         List<Cart> cartList = cartService.listByUser(usersId);
         int total = 0;
-        
+
         // 주문 ID 생성
         String ordersId = UUID.randomUUID().toString();
 
@@ -152,13 +155,13 @@ public class TosspayContoller {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
             paymentKey = (String) requestData.get("paymentKey");
-            ordersId = (String) requestData.get("ordersId");
+            ordersId = (String) requestData.get("orderId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         JSONObject obj = new JSONObject();
-        obj.put("ordersId", ordersId);
+        obj.put("orderId", ordersId);
         obj.put("amount", amount);
         obj.put("paymentKey", paymentKey);
 
@@ -225,10 +228,19 @@ public class TosspayContoller {
 
     @PostMapping("/cancel")
     public ResponseEntity<?> paymentCancel(
-            @AuthenticationPrincipal Payment principal,
+            Order order,
             @RequestParam String paymentKey,
             @RequestParam String reason) {
-        CancellationService.cancelPayment(principal.getOrdersId(), paymentKey, reason);
+        // CancellationService.cancelPayment(order.getId(), paymentKey, reason);
+        // log.info(order.toString());
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create("https://api.tosspayments.com/v1/payments/orders/a4CWyWY5m89PNh7xJwhk1"))
+        //         .header("Authorization", "Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==")
+        //         .header("Content-Type", "application/json")
+        //         .method("POST", HttpRequest.BodyPublishers.noBody())
+        //         .build();
+        // HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        // System.out.println(response.body());
         return ResponseEntity.ok().body("cancel success");
     }
 
