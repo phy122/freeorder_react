@@ -46,6 +46,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE o.options_id = #{optionId} 
 </select>
 
+<select id="getOptionsByProductId" resultMap="optionMap">
+        SELECT o.ID,
+            o.NAME,
+            o.STOCK_CHECK,
+            o.STOCK,
+            o.ESSENTIAL,
+            o.SELECT_MIN,
+            o.SELECT_MAX,
+            oi.ID AS option_items_id,
+            oi.NAME AS option_items_name,
+            oi.PRICE,
+            oi.SEQ AS option_items_seq
+        FROM PRODUCTS p
+        LEFT JOIN OPTIONS o ON p.OPTIONS_ID = o.ID
+        LEFT JOIN OPTION_ITEMS oi ON o.ID = oi.OPTIONS_ID
+        WHERE p.ID = #{productId}
+        ORDER BY oi.SEQ ASC
+    </select>
+
 <select id="read" resultMap="optionMap">
     SELECT o.*,
            oi.id as option_items_id,

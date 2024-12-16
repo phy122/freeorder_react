@@ -287,7 +287,7 @@ function categorySlide() {
 }
 
 // 상품 장바구니에 추가
-function cartInsert(id, optionId) {
+function cartInsert(id, optionsId) {
     let itemList = new Array();
     $("input[name=itemList]").each(function () {
         let checked = $(this).is(":checked")
@@ -300,7 +300,7 @@ function cartInsert(id, optionId) {
         id: id,
         quantity: 1,
         option: {
-            id: optionId,
+            id: optionsId,
             itemList: itemList
         }
     }
@@ -495,114 +495,52 @@ function removeOptionItem(button) {
     const item = button.closest(".opt-item");
     item.remove();
 }
+function openOptionModal(id, optionsId) {
+    if (optionsId == null || optionsId == "") {
+        cartInsert(id, optionsId)
+        return false
+    }
+    // 모달 창 열기
+    document.getElementById('modalOverlay').style.display = 'block';
+    document.getElementById('optionModal').style.display = 'block';
+    const optionList = document.getElementById("modal-option-list")
+    // 옵션 데이터를 가져와서 모달 창에 표시
+    fetch('/pos/options/product/'+id) // 옵션 데이터를 가져오는 API 엔드포인트
+        .then(response => response.json())
+        .then(data => {
+            console.log("옵션그룹명 : " + data.name)
 
-// 모달 열기
-function openOptionModal(productId) {
-    console.log("openOptionModal called with productId:", productId); // 호출 여부 확인
-
-    // AJAX 요청으로 상품 ID에 해당하는 옵션 데이터 가져오기
-    $.ajax({
-        url: "/pos/options", 
-        type: "GET",
-        data: { productId: productId },
-        success: function(response) {
-            console.log("Option data fetched:", response);
-
-            // 모달 내용 채우기
-            if (response && response.length > 0) {
-                let checkboxContainer = $(".checkbox-container"); // 옵션 체크박스 컨테이너
-
-                // 기존 옵션 리스트 초기화
-                checkboxContainer.empty();
-
-                // 옵션 데이터로 체크박스 동적으로 추가
-                response.forEach(function(item) {
-                    let priceText = "가격 정보 없음"; // 가격이 없을 경우 기본 메시지
-
-                    // price가 유효한 값일 경우만 포맷팅
-                    if (item.price && !isNaN(item.price)) {
-                        priceText = item.price.toLocaleString() + "원"; // 숫자일 경우 포맷팅
-                    }
-
-                    let checkboxHtml = `
-                        <div>
-                            <label class="option-checkbox flex align-items-center mr-5 ml-5">
-                                <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
-                                <span>${item.name}</span>
-                                <div class="read-option-price mr-5">
-                                    <span>${priceText}</span>
-                                </div>
-                            </label>
-                        </div>
+            if (optionList) {
+                optionList.innerHTML = ''; // 기존 옵션 리스트 초기화
+                data.itemList.forEach((item) => {
+                    const optionDiv = document.createElement('li');
+                    optionDiv.innerHTML = `
+                        <label class="option-checkbox flex align-items-center mr-5 ml-5">
+                            <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                            <span>${item.name}</span>
+                            <div class="read-option-price mr-5">
+                                <span>${item.price}원</span>
+                            </div>
+                        </label>
                     `;
-                    checkboxContainer.append(checkboxHtml);
+                    optionList.appendChild(optionDiv);
                 });
-
-                // 모달 열기
-                const modal = document.getElementById("optionModal");
-                const overlay = document.getElementById("modalOverlay");
-                if (modal && overlay) {
-                    modal.style.display = "block";
-                    overlay.style.display = "block";
-                    console.log("Modal is now visible");
-                } else {
-                    console.error("Modal or Overlay not found");
-                }
             } else {
-                console.log("No options available for this product.");
+                console.error('checkbox-container 요소를 찾을 수 없습니다.');
             }
-        },
-        error: function(xhr, status, error) {
-            console.log("Error fetching option data:", error);
-            alert("옵션을 가져오는 데 실패했습니다. 다시 시도해주세요.");
-        }
-    });
-}
-
-
-
-
-// 모달 닫기
-function closeModalMapping() {
-    const modal = document.getElementById("optionModal");
-    const overlay = document.getElementById("modalOverlay");
-
-    if (modal && overlay) {
-        modal.style.display = "none";
-        overlay.style.display = "none";
-    }
-}
-
-// 옵션 데이터를 모달 내부에 렌더링
-function renderOptions(data) {
-    const container = document.querySelector(".checkbox-container");
-    if (!container) {
-        console.error("Checkbox container not found");
-        return;
-    }
-
-    container.innerHTML = ""; // 기존 내용 초기화
-
-    if (data && data.length > 0) {
-        console.log("Rendering options:", data); // 데이터 확인
-        data.forEach(item => {
-            const optionHTML = `
-                <div>
-                    <label class="option-checkbox flex align-items-center mr-5 ml-5" for="${item.id}">
-                        <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
-                        <span>${item.name}</span>
-                        <div class="read-option-price mr-5">
-                            <span>${item.price.toLocaleString()}원</span>
-                        </div>
-                    </label>
-                </div>
-            `;
-            container.insertAdjacentHTML("beforeend", optionHTML);
+        })
+        .catch(error => {
+            console.error('옵션 데이터를 가져오는 중 오류 발생:', error);
         });
-    } else {
-        container.innerHTML = "<p>옵션이 없습니다.</p>";
-    }
 }
+
+function closeModalMapping() {
+    // 모달 창 닫기
+    document.getElementById('modalOverlay').style.display = 'none';
+    document.getElementById('optionModal').style.display = 'none';
+}
+
+
 
 
 

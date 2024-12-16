@@ -404,7 +404,7 @@ public class PosController {
         return "views/pos/management/promotion/promotion_update";
     }
 
-    // 옵션 조회
+    // 옵션 목록 조회
     @GetMapping("/option")
     public String optionListPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
             Model model) throws Exception {

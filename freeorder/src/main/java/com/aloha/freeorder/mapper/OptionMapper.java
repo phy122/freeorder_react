@@ -25,7 +25,8 @@ public interface OptionMapper {
 
     public int deleteItem(String optionsId) throws Exception;
 
-    
+    public Option getOptionsByProductId(@Param("productId") String productId) throws Exception;
+
     // 새로운 메서드 추가
     public List<OptionItem> findItemsByOptionId(@Param("optionId") String optionId) throws Exception;
 }

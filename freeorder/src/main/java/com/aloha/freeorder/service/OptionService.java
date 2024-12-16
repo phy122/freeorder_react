@@ -13,6 +13,9 @@ public interface OptionService {
     // 조회
     public Option read(String id) throws Exception;
 
+    // 상품 아이디로 조회
+    public Option getOptionsByProductId(String productId) throws Exception;
+
     // 등록
     public int insert(Option option) throws Exception;
 
