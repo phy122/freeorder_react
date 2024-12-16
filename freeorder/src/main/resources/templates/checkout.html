@@ -54,7 +54,7 @@
       // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
       button.addEventListener("click", async function () {
         await widgets.requestPayment({
-          orderId: "[[${orderId}]]",
+          orderId: "[[${ordersId}]]",
           orderName: "[[${title}]]",
           successUrl: window.location.origin + "/page/success.html",
           failUrl: window.location.origin + "/page/fail.html",
