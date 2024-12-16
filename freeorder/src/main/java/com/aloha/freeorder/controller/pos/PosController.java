@@ -30,8 +30,6 @@ import com.aloha.freeorder.service.SystemStatusService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
 /**
  * 페이지 컨트롤러
  * 뷰페이지 매핑
@@ -60,21 +58,19 @@ public class PosController {
      * Product
      */
     // 상품 목록
-    @GetMapping({"/product", "/product/{id}"})
-    public String showProductPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                 ,Model model
-                                 ,@PathVariable(value = "id",required = false) String id
-                                 ,@RequestParam(value = "cate", required = false) String cate
-                                 ) throws Exception {
+    @GetMapping({ "/product", "/product/{id}" })
+    public String showProductPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable(value = "id", required = false) String id,
+            @RequestParam(value = "cate", required = false) String cate) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
-        
+
         List<Category> cateList = categoryService.list();
         log.info("cate : " + cate);
         // 상품 목록
@@ -93,17 +89,18 @@ public class PosController {
         log.info("상품 페이지");
         return "views/pos/product/products";
     }
-    
+
     // 상품 등록
     @GetMapping("/product/insert")
-    public String showProductInsertPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation, Model model) throws Exception {
+    public String showProductInsertPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
         log.info("상품 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
         // 상품 목록
         List<Product> productList = productService.allList();
@@ -117,14 +114,19 @@ public class PosController {
 
     // 상품 수정 목록
     @GetMapping("/product/update_list")
-    public String showProductUpdateList(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                ,Model model
-                                ,@PathVariable(value = "id",required = false) String id) throws Exception {
+    public String showProductUpdateList(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable(value = "id", required = false) String id) throws Exception {
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus);
+        // 공통객체 [끝]
         List<Product> productList = null;
         if (id != null) {
             productList = productService.listByCate(id);
-        }
-        else{
+        } else {
             productList = productService.allList();
         }
         log.info(productList.toString());
@@ -136,14 +138,19 @@ public class PosController {
 
     // 상품 위치 수정
     @GetMapping("/product/locate")
-    public String showProductLocate(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                ,Model model
-                                ,@PathVariable(value = "id",required = false) String id) throws Exception {
+    public String showProductLocate(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable(value = "id", required = false) String id) throws Exception {
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus);
+        // 공통객체 [끝]
         List<Product> productList = null;
         if (id != null) {
             productList = productService.listByCate(id);
-        }
-        else{
+        } else {
             productList = productService.allList();
         }
         log.info(productList.toString());
@@ -152,19 +159,19 @@ public class PosController {
         log.info("상품 위치 수정 페이지");
         return "views/pos/product/locate";
     }
-    
+
     // 상품 수정
     @GetMapping("/product/update/{id}")
     public String showProductUpdatePage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
-                                        Model model,
-                                        @PathVariable("id") String id ) throws Exception {
+            Model model,
+            @PathVariable("id") String id) throws Exception {
         log.info("상품 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
         // 상품 조회
         Product product = productService.select(id);
@@ -175,22 +182,23 @@ public class PosController {
 
         return "views/pos/product/update";
     }
-    
+
     /**
      * Category
      */
     // 카테고리 목록
     @GetMapping("/category")
-    public String showCategoryPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    public String showCategoryPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
-        
+
         // 카테고리 목록
         List<Category> cateList = categoryService.list();
         log.info("cateList: " + cateList);
@@ -199,16 +207,18 @@ public class PosController {
         log.info("카테고리 페이지");
         return "views/pos/category/category";
     }
+
     // 카테고리 등록
     @GetMapping("/category/insert")
-    public String showCategoryInsertPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    public String showCategoryInsertPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         log.info("카테고리 등록 페이지");
@@ -217,29 +227,36 @@ public class PosController {
 
     // 카테고리 수정
     @GetMapping("/category/update/{id}")
-    public String showCategoryUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                        ,Model model
-                                        ,@PathVariable("id") String id) throws Exception {
+    public String showCategoryUpdatePage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable("id") String id) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
-        
+
         Category category = categoryService.read(id);
         model.addAttribute("category", category);
-        
+
         log.info("카테고리 등록 페이지");
         return "views/pos/category/update";
     }
 
     // 카테고리 순서 변경
     @GetMapping("/category/seq_list")
-    public String showCategorySeqList(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
-        
+    public String showCategorySeqList(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus);
+        // 공통객체 [끝]
+
         // 카테고리 목록
         List<Category> cateList = categoryService.list();
         model.addAttribute("cateList", cateList);
@@ -253,16 +270,17 @@ public class PosController {
      */
     // 결제 내역 목록
     @GetMapping("/payment")
-    public String showPaymentPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    public String showPaymentPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
-        
+
         List<Payment> payList = paymentService.list();
         model.addAttribute("payList", payList);
 
@@ -271,20 +289,19 @@ public class PosController {
     }
 
     /**
-     * Management 
+     * Management
      */
     // 판매 관리
-    @GetMapping({"/management","/management/{date}"})
-    public String showManagementPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                    ,Model model
-                                    ,@PathVariable(value = "date", required = false ) Date month ) throws Exception {
+    @GetMapping({ "/management", "/management/{date}" })
+    public String showManagementPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable(value = "date", required = false) Date month) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         // 날짜 설정
@@ -296,7 +313,6 @@ public class PosController {
         model.addAttribute("today", today);
 
         // 해당 달의 판매 내역
-        
 
         // 해당 달의 환불 내역
         log.info("더보기 페이지");
@@ -305,39 +321,47 @@ public class PosController {
 
     // 판매 관리 상세 내역
     @GetMapping("/management/sales_detail")
-    public String showSalesDetailPage() {
+    public String showSalesDetailPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
+        // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
+        List<Order> orderList = orderService.list();
+        SystemStatus systemStatus = statusService.selectStatus();
+        model.addAttribute("operation", operation);
+        model.addAttribute("orderlist", orderList);
+        model.addAttribute("status", systemStatus);
+        // 공통객체 [끝]
         return "views/pos/management/sales/sales_detail";
     }
-    
 
     // 공지사항
     @GetMapping("/notice")
-    public String notice(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                        ,Model model) throws Exception {
+    public String notice(@CookieValue(value = "operation", defaultValue = "false") boolean operation, Model model)
+            throws Exception {
         log.info("공지사항 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         Notice notice = noticeService.read();
         model.addAttribute("notice", notice);
         return "views/pos/management/notice/notice";
     }
+
     // 프로모션 목록
-    @GetMapping({"/promotion","/promotion/list"})
-    public String promotionList(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                               ,Model model) throws Exception {
+    @GetMapping({ "/promotion", "/promotion/list" })
+    public String promotionList(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
         log.info("프로모션 목록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         // 프로모션 목록
@@ -345,50 +369,52 @@ public class PosController {
         model.addAttribute("proList", proList);
         return "views/pos/management/promotion/promotion";
     }
+
     // 프로모션 등록
     @GetMapping("/promotion/insert")
-    public String promotionInsert(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                 ,Model model) throws Exception {
+    public String promotionInsert(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
         log.info("프로모션 등록 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         return "views/pos/management/promotion/promotion_insert";
     }
+
     // 프로모션 수정
     @GetMapping("/promotion/update/{id}")
-    public String promotionUpdate(@PathVariable("id") String id
-                                 ,@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                 ,Model model) throws Exception {
+    public String promotionUpdate(@PathVariable("id") String id,
+            @CookieValue(value = "operation", defaultValue = "false") boolean operation, Model model) throws Exception {
         log.info("프로모션 수정 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         Notice notice = noticeService.select(id);
         model.addAttribute("notice", notice);
         return "views/pos/management/promotion/promotion_update";
     }
-    
+
     // 옵션 조회
     @GetMapping("/option")
-    public String optionListPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    public String optionListPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         // 옵션 목록
@@ -402,14 +428,15 @@ public class PosController {
 
     // 옵션 등록
     @GetMapping("/option/insert")
-    public String optionInsertPage(@CookieValue(value = "operation",defaultValue = "false") boolean operation , Model model) throws Exception {
+    public String optionInsertPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         Option option = new Option();
@@ -418,19 +445,18 @@ public class PosController {
         log.info("옵션 등록 페이지");
         return "views/pos/option/insert";
     }
-    
+
     // 옵션 수정
     @GetMapping("/option/update/{id}")
-    public String optionUpdatePage(@CookieValue(value = "operation",defaultValue = "false") boolean operation 
-                                   , Model model
-                                   , @PathVariable("id") String id) throws Exception {
+    public String optionUpdatePage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+            Model model, @PathVariable("id") String id) throws Exception {
 
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
         model.addAttribute("operation", operation);
         model.addAttribute("orderlist", orderList);
-        model.addAttribute("status", systemStatus.getStatus());
+        model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
         Option option = optionService.read(id);
