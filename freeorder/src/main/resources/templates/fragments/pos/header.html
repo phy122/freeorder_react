@@ -15,18 +15,18 @@
         <div class="header-content">
             <div class="open-btn">
                 <!-- 영업 시작 버튼 -->
-                <button type="button" class="start" th:appendClass="${stsus == 'END'? 'active':''}" onclick="systemStatus('END')">영업 시작</button>
+                <button type="button" class="start" th:classappend="${status.status == 'END'}? 'active':''" onclick="systemStatus('START')">영업 시작</button>
                 <!-- 영업 종료 버튼 -->
-                <button type="button" class="end" th:appendClass="${stsus == 'START'? 'active':''}" onclick="systemStatus('START')">영업 종료</button>
+                <button type="button" class="end" th:classappend="${status.status == 'START'}? 'active':''" onclick="systemStatus('END')">영업 종료</button>
             </div>
             <!-- 시간 -->
             <div class="time">
-                <a id="current-time" href="#"></a> <!-- 시간 표시 -->
+                <span id="current-time" th:text="${status.status == 'START'} ? ${status.startedAt} : ${status.endedAt}"></span> <!-- 시간 표시 -->
             </div>
             <!-- 영업 상태 -->
             <div class="status">
-                <p id="status-icon" class="status-off">●</p>
-                <p id="status-name">영업 종료</p>
+                <p id="status-icon" th:classappend="${status.status == 'START'} ? 'status-on' : 'status-off'" >●</p>
+                <p id="status-name" th:classappend="${status.status == 'START'} ? 'on' : 'off'" th:text="${status.status == 'START'} ? '영업중' : '영업 종료' "></p>
             </div>
         </div>
     </header>
