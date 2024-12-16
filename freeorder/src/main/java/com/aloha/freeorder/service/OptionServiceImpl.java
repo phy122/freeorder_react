@@ -10,6 +10,9 @@ import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.mapper.OptionMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class OptionServiceImpl implements OptionService{
 
@@ -67,6 +70,11 @@ public class OptionServiceImpl implements OptionService{
     @Override
     public int deleteItem(String optionsId) throws Exception {
         return optionMapper.deleteItem(optionsId);
+    }
+
+    @Override
+    public Option getOptionsByProductId(String productId) throws Exception {
+        return optionMapper.getOptionsByProductId(productId);
     }
 
     

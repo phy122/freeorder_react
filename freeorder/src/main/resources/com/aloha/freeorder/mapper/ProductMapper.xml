@@ -16,6 +16,7 @@
     <select id="allList" resultType="Product">
         SELECT 
             p.ID,
+            p.OPTIONS_ID,
             p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCTS_ID,
@@ -47,6 +48,7 @@
     <select id="listByCate" resultType="Product">
         SELECT 
             p.ID,
+            p.OPTIONS_ID,
             p.CATEGORIES_ID,
             c.NAME AS CATEGORY_NAME,
             p.ID AS PRODUCTS_ID,

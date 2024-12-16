@@ -90,7 +90,7 @@
               ,op.id as order_options_id
               ,op.option_items_id
               ,op.name as options_name
-              ,op.price as options_price
+              <!-- ,op.price as options_price -->
         FROM orders o
         LEFT OUTER JOIN order_items oi
             ON o.id = oi.orders_id

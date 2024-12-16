@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,19 @@ public class OptionController {
         } catch (Exception e) {
             log.error("옵션 목록 조회 중 에러 발생...", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getOptionsByProductId(@PathVariable("id") String productId) {
+        try {
+            log.info("상품 옵션 목록 출력 : " + productId);
+            Option option = optionService.getOptionsByProductId(productId); // 서비스 호출
+            log.info("옵션 목록 : " + option);
+            return new ResponseEntity<>(option, HttpStatus.OK);  // 성공적으로 응답
+        } catch (Exception e) {
+            log.error("옵션 조회 중 에러 발생", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 오류 응답
         }
     }
 
