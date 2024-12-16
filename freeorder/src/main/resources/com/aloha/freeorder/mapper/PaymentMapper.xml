@@ -33,8 +33,8 @@
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO payments ( id, orders_id, payment_method, status )
-        VALUES ( #{id}, #{ordersId}, #{paymentMethod}, #{status} )
+        INSERT INTO payments ( id, orders_id, payment_key, payment_method, status )
+        VALUES ( #{id}, #{ordersId}, #{paymentKey}, #{paymentMethod}, #{status} )
     </insert>
 
     <!-- 수정 -->
