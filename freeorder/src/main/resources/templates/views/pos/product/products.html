@@ -49,7 +49,7 @@
                     <div class="product-list">
                         <th:block th:if="${productList != null}" th:each="product : ${productList}">
                             <div class="product-item"
-                                th:onclick="cartInsert([[${product.id}]], [[${product.name}]], [[${product.price}]])">
+                                th:onclick="cartInsert([[${product.id}]], [[${product.name}]], [[${product.price}]]); openOptionModal([[${product.id}]])">
                                 <div class="product-image-placeholder">
                                     <img th:src="@{/pimg(id=${product.id})}" alt="" width="100%" height="100%">
                                 </div>
@@ -69,27 +69,32 @@
                     <div class="so-container">
                         <div class="so-option-title">
                             <h5>옵션 선택</h5>
-                            <a href="javascript:void(0)" onclick="closeModal()">
+                            <a href="javascript:void(0)"  id="close-modal" onclick="closeModalMapping()">
                                 <span class="material-symbols-outlined">
                                     close
                                 </span>
                             </a>
                         </div>
-                        <div class="so-option-all">
-                            <div class="so-sub-title">
-                                <h3 id="modalOptionName">옵션 이름</h3>
+                        <th:block th:if="${option != null}">
+                            <input type="hidden" id="optionId" th:value="${option.id}">
+                            <div class="title mt-5 mb-5 ml-4 fs-normal">옵션 선택</div>
+                            <div class="checkbox-container ml-5 mb-5">
+                                <th:block th:if="${itemList != null and not itemList.isEmpty()}"
+                                    th:each="item, iterStat : ${itemList}">
+                                    <div>
+                                        <label class="option-checkbox flex align-items-center mr-5 ml-5"
+                                            th:for="${item.id}">
+                                            <input type="checkbox" th:id="${item.id}" name="itemList"
+                                                th:value="${item.id}">
+                                            <span th:text="${item.name}"></span>
+                                            <div class="read-option-price mr-5">
+                                                <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </th:block>
                             </div>
-                            <div class="so-option-select">
-                                <div class="so-option-card">
-                                    <h4>옵션 선택</h4>
-                                    <h4 id="modalOptionPrice">111원</h4>
-                                </div>
-                                <div class="so-option-card">
-                                    <h4>옵션 선택</h4>
-                                    <h4>111원</h4>
-                                </div>
-                            </div>
-                        </div>
+                        </th:block>
                         <div class="option-btns">
                             <button type="button" class="select-btn">추가</button>
                         </div>

@@ -496,36 +496,114 @@ function removeOptionItem(button) {
     item.remove();
 }
 
-// 상품 클릭 시 옵션 모달 열기
-document.addEventListener('click', function (event) {
-    const productItem = event.target.closest('.product-item'); // 클릭된 요소가 .product-item인지 확인
-    if (productItem) {
-        // data 가져오기
-        const productId = productItem.getAttribute('data-id');
-        const productName = productItem.querySelector('.product-name').innerText;
-        const productPrice = productItem.querySelector('.product-price').innerText;
+// 모달 열기
+function openOptionModal(productId) {
+    console.log("openOptionModal called with productId:", productId); // 호출 여부 확인
 
-        // 모달 데이터 업데이트
-        openModal(productId, productName, productPrice);
+    // AJAX 요청으로 상품 ID에 해당하는 옵션 데이터 가져오기
+    $.ajax({
+        url: "/pos/options", 
+        type: "GET",
+        data: { productId: productId },
+        success: function(response) {
+            console.log("Option data fetched:", response);
+
+            // 모달 내용 채우기
+            if (response && response.length > 0) {
+                let checkboxContainer = $(".checkbox-container"); // 옵션 체크박스 컨테이너
+
+                // 기존 옵션 리스트 초기화
+                checkboxContainer.empty();
+
+                // 옵션 데이터로 체크박스 동적으로 추가
+                response.forEach(function(item) {
+                    let priceText = "가격 정보 없음"; // 가격이 없을 경우 기본 메시지
+
+                    // price가 유효한 값일 경우만 포맷팅
+                    if (item.price && !isNaN(item.price)) {
+                        priceText = item.price.toLocaleString() + "원"; // 숫자일 경우 포맷팅
+                    }
+
+                    let checkboxHtml = `
+                        <div>
+                            <label class="option-checkbox flex align-items-center mr-5 ml-5">
+                                <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                                <span>${item.name}</span>
+                                <div class="read-option-price mr-5">
+                                    <span>${priceText}</span>
+                                </div>
+                            </label>
+                        </div>
+                    `;
+                    checkboxContainer.append(checkboxHtml);
+                });
+
+                // 모달 열기
+                const modal = document.getElementById("optionModal");
+                const overlay = document.getElementById("modalOverlay");
+                if (modal && overlay) {
+                    modal.style.display = "block";
+                    overlay.style.display = "block";
+                    console.log("Modal is now visible");
+                } else {
+                    console.error("Modal or Overlay not found");
+                }
+            } else {
+                console.log("No options available for this product.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error fetching option data:", error);
+            alert("옵션을 가져오는 데 실패했습니다. 다시 시도해주세요.");
+        }
+    });
+}
+
+
+
+
+// 모달 닫기
+function closeModalMapping() {
+    const modal = document.getElementById("optionModal");
+    const overlay = document.getElementById("modalOverlay");
+
+    if (modal && overlay) {
+        modal.style.display = "none";
+        overlay.style.display = "none";
     }
-});
-
-// 옵션 모달 열기
-function openModal(productId, productName, productPrice) {
-    // 모달 내용 업데이트
-    document.getElementById('modalOptionName').innerText = productName;
-    document.getElementById('modalOptionPrice').innerText = productPrice;
-
-    // 모달 및 오버레이 표시
-    document.getElementById('optionModal').classList.add('show');
-    document.getElementById('modalOverlay').classList.add('show');
 }
 
-// 옵션 모달 닫기
-function closeModal() {
-    document.getElementById('optionModal').classList.remove('show');
-    document.getElementById('modalOverlay').classList.remove('show');
+// 옵션 데이터를 모달 내부에 렌더링
+function renderOptions(data) {
+    const container = document.querySelector(".checkbox-container");
+    if (!container) {
+        console.error("Checkbox container not found");
+        return;
+    }
+
+    container.innerHTML = ""; // 기존 내용 초기화
+
+    if (data && data.length > 0) {
+        console.log("Rendering options:", data); // 데이터 확인
+        data.forEach(item => {
+            const optionHTML = `
+                <div>
+                    <label class="option-checkbox flex align-items-center mr-5 ml-5" for="${item.id}">
+                        <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                        <span>${item.name}</span>
+                        <div class="read-option-price mr-5">
+                            <span>${item.price.toLocaleString()}원</span>
+                        </div>
+                    </label>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", optionHTML);
+        });
+    } else {
+        container.innerHTML = "<p>옵션이 없습니다.</p>";
+    }
 }
 
-// 모달 외부 클릭 시 닫기
-document.getElementById('modalOverlay').addEventListener('click', closeModal);
+
+
+
