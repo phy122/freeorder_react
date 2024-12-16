@@ -14,7 +14,9 @@
             <input type="hidden" th:field="${product.id}">
             <!-- [상단] 상품명,닫기버튼 -->
             <div class="back flex justify-content-between align-items-center gap-2 p-10 bg-white">
-                <span class="menu-pop-name fs-normal black ml-5" th:text="${product.description}"></span>
+
+                <span class="menu-pop-name fs-normal black ml-5" th:text="${product.name}"></span>
+
                 <button type="button" onclick="location.href='/qr/list'"
                     class="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png"
                         class="back-icon scale-small" alt="나가기"></button>
@@ -23,6 +25,7 @@
             <!-- [중단] 상품정보 - 이미지,설명,수량-->
             <div class="read-png-p p-30">
                 <img th:src="|/pimg?id=${product.id}|" class="read-png" th:alt="${product.name}" width="100px">
+                <span class="menu-pop-name fs-normal black ml-5" th:text="${product.price}"></span>
                 <div class="amount-select flex align-items-center justify-content-end mr-1 mt-3 white">
                     <button type="button" class="quantity-minus scale-small white">-</button>
                     <input type="number" class="quantity white" name="quantity" id="quantity" max="10" min="1" value="1"

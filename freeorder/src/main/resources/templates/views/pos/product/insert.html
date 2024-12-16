@@ -30,6 +30,12 @@
                     <input type="number" name="price" id="price" placeholder="가격을 입력하세요." required>
                 </div>
 
+                <!-- 상품 설명 입력창 -->
+                <div class="form-group">
+                    <label for="description">상품 설명</label>
+                    <textarea name="description" id="description" placeholder="상품 설명을 입력하세요."></textarea>
+                </div>
+
                 <!-- 카테고리 선택창 -->
                 <div class="form-group">
                     <label for="categoriesId">카테고리</label>
@@ -53,7 +59,7 @@
                     <div class="plus-box" onclick="selectOptions(this)"><a>+선택</a></div>
                     <ul id="optionList"></ul>
                     <input type="hidden" name="optionsId" id="optionsId">
-                    <button type="button" class="add-option-btn">옵션 추가</button>
+                    <button onclick="location='/pos/option'" class="add-option-btn">옵션 추가</button>
                 </div>
 
                 <!-- 버튼 그룹 -->

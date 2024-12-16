@@ -1,5 +1,8 @@
 /* 상품목록 products.html */
 /* 전체 레이아웃 */
+.container{
+    overflow: scroll;
+}
 .products-container {
     width: 100%;
     display: grid;
@@ -263,7 +266,7 @@ h2 {
     text-align: center;
 }
 .form-group .plus-box a{
-    font-size: 20px;
+    font-size: 18px;
     color: #007bff;
 }
 .form-group .plus-box:hover{
@@ -280,9 +283,18 @@ h2 {
     border-radius: 4px;
     box-sizing: border-box;
 }
+.form-group textarea{
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
 .form-group input:focus,
-.form-group select:focus{
+.form-group select:focus,
+.form-group textarea:focus{
     border-color: #007bff;
     outline: none;
 }
@@ -290,7 +302,7 @@ h2 {
 .button-group {
     display: flex;
     justify-content: space-between;
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 .button-group button {
@@ -319,7 +331,7 @@ h2 {
     background-color: #218838;
 }
 
-.add-option-btn {
+.form-group .add-option-btn {
     width: 100%;
     padding: 10px;
     border: none;
@@ -908,34 +920,31 @@ a {
     background-color: #218838;
 }
 
-.so-modal {
-    display: none;
+#optionModal,
+#modalOverlay {
+    display: none; /* 기본적으로 숨김 */
+}
+
+#optionModal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%; /* 소-container의 넓이와 일치하도록 100% */
-    max-width: 800px; /* 최대 넓이 설정 */
-    height: auto; /* 자동 높이 조정 */
-    background: white;
-    padding: 30px;
+    width: 400px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    padding: 20px;
     border-radius: 10px;
-    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 처리 */
-    z-index: 1000;
 }
 
-.so-modal-overlay {
-    display: none;
+#modalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1000;
 }
 
-.so-modal.show,
-.so-modal-overlay.show {
-    display: block;
-}
