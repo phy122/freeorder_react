@@ -34,18 +34,33 @@ public class HomeController {
     @Autowired
     private SystemStatusService systemStatusService;
 
+    /**
+     * 메인 페이지
+     * @return
+     */
     @GetMapping({"/", ""})
     public String home() {
         return "index";
     }
 
+    /**
+     * 로그인 페이지
+     * @param error
+     * @param model
+     * @return
+     */
     @GetMapping({"/login","/login/error"})
     public String login(@RequestParam(value = "error", required = false) String error, Model model) {
         model.addAttribute("error",error);
         return "login";
     }
     
-    
+    /**
+     * 영업 시작 / 시작 종료 [비동기]
+     * @param systemStatus
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/setting")
     public ResponseEntity<?> systemStatus(@RequestBody SystemStatus systemStatus) throws Exception{
         String id = UUID.randomUUID().toString();
@@ -85,4 +100,15 @@ public class HomeController {
         }
         
     }
+
+    /**
+     * 영업 종료시 보여줄 페이지
+     * @param param
+     * @return
+     */
+    @GetMapping("/closed")
+    public String closed() {
+        return "views/closed";
+    }
+    
 }

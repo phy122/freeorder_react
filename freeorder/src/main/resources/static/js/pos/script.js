@@ -541,7 +541,25 @@ function closeModalMapping() {
 }
 
 
+    container.innerHTML = ""; // 기존 내용 초기화
 
-
-
-
+    if (data && data.length > 0) {
+        console.log("Rendering options:", data); // 데이터 확인
+        data.forEach(item => {
+            const optionHTML = `
+                <div>
+                    <label class="option-checkbox flex align-items-center mr-5 ml-5" for="${item.id}">
+                        <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
+                        <span>${item.name}</span>
+                        <div class="read-option-price mr-5">
+                            <span>${item.price.toLocaleString()}원</span>
+                        </div>
+                    </label>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", optionHTML);
+        });
+    } else {
+        container.innerHTML = "<p>옵션이 없습니다.</p>";
+    }
+}
