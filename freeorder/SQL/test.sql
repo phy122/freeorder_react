@@ -79,38 +79,4 @@ SELECT * FROM products;
 SELECT * FROM options;
 SELECT * FROM option_items;
 
-INSERT INTO options(ID,NAME)
-VALUES("1","사리");
-INSERT INTO option_items(ID,`OPTIONS_ID`,`NAME`,`PRICE`,`SEQ`)
-VALUES("1","1","우동",2000,1),
-("2","1","라면",1000,2),
-("3","1","일면",1000,3),
-("4","1","이면",1000,4),
-("5","1","삼면",1000,5),
-("6","1","사면",1000,6),
-("7","1","오면",1000,7),
-("8","1","햄추가",5000,8);
-UPDATE products SET
-`OPTIONS_ID` = 1
-WHERE `ID` = "3ba64cf4-8479-444d-804f-698761b76896";
-
-SELECT * FROM cart_options;
-
-TRUNCATE TABLE option_items;
-
-SELECT o.*
-        ,oi.id as order_items_id
-        ,oi.products_id
-        ,oi.name
-        ,oi.quantity
-        ,oi.price
-        ,oi.amount
-        ,op.id as order_options_id
-        ,op.option_items_id
-        ,op.name as options_name
-        ,op.price as options_price
-FROM orders o
-LEFT OUTER JOIN order_items oi
-    ON o.id = oi.orders_id
-LEFT OUTER JOIN order_options op
-    ON oi.id = op.order_items_id;
+SELECT * FROM system_logs;
