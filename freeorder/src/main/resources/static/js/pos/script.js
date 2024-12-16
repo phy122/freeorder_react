@@ -526,6 +526,3 @@ function closeModal() {
     document.getElementById('optionModal').classList.remove('show');
     document.getElementById('modalOverlay').classList.remove('show');
 }
-
-// 모달 외부 클릭 시 닫기
-document.getElementById('modalOverlay').addEventListener('click', closeModal);
