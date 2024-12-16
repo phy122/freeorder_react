@@ -495,3 +495,37 @@ function removeOptionItem(button) {
     const item = button.closest(".opt-item");
     item.remove();
 }
+
+// 상품 클릭 시 옵션 모달 열기
+document.addEventListener('click', function (event) {
+    const productItem = event.target.closest('.product-item'); // 클릭된 요소가 .product-item인지 확인
+    if (productItem) {
+        // data 가져오기
+        const productId = productItem.getAttribute('data-id');
+        const productName = productItem.querySelector('.product-name').innerText;
+        const productPrice = productItem.querySelector('.product-price').innerText;
+
+        // 모달 데이터 업데이트
+        openModal(productId, productName, productPrice);
+    }
+});
+
+// 옵션 모달 열기
+function openModal(productId, productName, productPrice) {
+    // 모달 내용 업데이트
+    document.getElementById('modalOptionName').innerText = productName;
+    document.getElementById('modalOptionPrice').innerText = productPrice;
+
+    // 모달 및 오버레이 표시
+    document.getElementById('optionModal').classList.add('show');
+    document.getElementById('modalOverlay').classList.add('show');
+}
+
+// 옵션 모달 닫기
+function closeModal() {
+    document.getElementById('optionModal').classList.remove('show');
+    document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// 모달 외부 클릭 시 닫기
+document.getElementById('modalOverlay').addEventListener('click', closeModal);

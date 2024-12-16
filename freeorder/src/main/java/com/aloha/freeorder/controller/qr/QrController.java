@@ -175,13 +175,30 @@ public class QrController {
   }
 
   @GetMapping("/order")
-  public String orderPayment(Model model, HttpServletRequest request)
+  public String orderTotalList(Model model, HttpServletRequest request) {
+      log.info("주문 내역 목록 출력!!");
+      try {
+          // 세션에서 사용자 ID 가져오기
+          HttpSession session = request.getSession();
+          String usersId = (String) session.getAttribute("id");
+  
+          // 사용자의 주문 목록 가져오기
+          List<Order> orderList = orderService.listByUsersId(usersId); // 필요시 사용자 ID로 필터링
+  
+          // 모델에 주문 목록 추가
+          model.addAttribute("orderList", orderList);
+      } catch (Exception e) {
+          log.error("주문 목록 조회 중 오류 발생", e);
+      }
+      return "views/qr/order/list";
+  }
+  
+  @GetMapping("/order/read/{id}")
+  public String orderPayment(@PathVariable("id") String id ,Model model, HttpServletRequest request)
       throws Exception {
-    HttpSession session = request.getSession();
-    String usersId = (String) session.getAttribute("id");
-    log.info("Session 에 등록 된 사용자 아이디 : " + usersId);
-    if (!usersId.equals("null")) {
-      Order order = orderService.readByUsersId(usersId);
+    log.info("주문 상세 조회 :  {}", id);
+    if (!id.equals("null")) {
+      Order order = orderService.read(id);
       if (order != null) {
         List<OrderItem> itemList = order.getItemList();
         model.addAttribute("itemList", itemList);
@@ -189,7 +206,7 @@ public class QrController {
       log.info("주문내역 : " + order);
       model.addAttribute("order", order);
     }
-    return "views/qr/order/list";
+    return "views/qr/order/read";
   }
 
   @GetMapping("/option/{id}")

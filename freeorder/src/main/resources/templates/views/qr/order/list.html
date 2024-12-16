@@ -10,7 +10,6 @@
 
 <body>
     <div class="container" layout:fragment="content">
-
         <!-- [상단]	뒤로가기 -->
         <div class="header">
             <div class="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
@@ -35,51 +34,44 @@
                 </ul>
             </div>
             <div class="line"></div>
-        </div>
-        <th:blcok th:if="${order != null}">
-            <!-- [중단]주문내역 리스트	 -->
-            <div class="scrollable-content">
-                <th:block th:if="${itemList != null and !itemList.isEmpty()}" th:each="item : ${itemList}">
-                    <div class="order-card">
-                        <div class="menu-name fw-1 fs-large" th:text="${item.name}"></div>
-                        <div class="order-item">
-                            <div class="option-title">기본 :</div>
-                            <span class="order-options"
-                                th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+            <!-- [중단] 주문 목록 -->
+             <div th:if="${orderList != null and !orderList.isEmpty()}" class="order-list">
+                <div th:each="order : ${orderList}" class="ord-complete">
+                    <!-- 이미지 파일 -->
+                    <img src="#" alt="">
+                    <!-- 주문 정보 -->
+                    <div class="order-info">
+                        <div class="date-status">
+                            <p th:text="${#dates.format(order.orderedAt, 'yyyy.MM.dd(E)')}"></p>
+                            <p>·</p>
+                            <p th:text="${order.status}"></p>
                         </div>
-                        <div class="order-item">
-                            <div class="option-title">옵션 :</div>
-                            <ul class="option-list">
-                                <th:block th:each="option : ${item.optionList}">
-                                    <li>
-                                        <span class="order-options"
-                                            th:text="${option.name + '(+' + #numbers.formatInteger(option.price, 3, 'COMMA') + '원)'}"></span>
-                                    </li>
-                                </th:block>
-                            </ul>
-                        </div>
-                        <div class="price fw-1 fs-large"
-                            th:text="${#numbers.formatInteger(item.amount , 3, 'COMMA') + '원'}"></div>
+                        <button class="detail-ord">
+                            <a th:href="@{/qr/order/read/{id}}">주문상세</a>
+                        </button>
                     </div>
-                </th:block>
-            </div>
 
-            <!-- [하단]총 금액 -->
-            <div class="total-card-fix">
-                <div class="total">TOTAL : </div>
-                <div class="total-list-price" th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA') + '원'}">
+                     <!-- 메뉴 정보 -->
+                    <div class="ord-menu">
+                        <ul>
+                            <li class="ord-name"><a th:href="@{/qr/order/read(id=${order.id})}" th:text="${order.title}"></a></li>
+                            <li class="ord-price">
+                                <a href="#">총 가격 : </a>
+                                <a th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA') + '원'}"></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </th:blcok>
-        <th:block th:if="${order == null}">
-            <div class="empty-info pt-140">
+             </div>
+
+              <!-- 주문이 없을 때 -->
+            <div th:if="${orderList == null or orderList.isEmpty()}" class="empty-info pt-140">
                 <div class="info-icon">
                     <span class="material-symbols-outlined">receipt_long</span>
                 </div>
                 <span class="empty-title">주문 내역이 없습니다.</span>
             </div>
-        </th:block>
-    </div>
+        </div>
     </div>
 </body>
 

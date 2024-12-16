@@ -319,6 +319,20 @@ h2 {
     background-color: #218838;
 }
 
+.add-option-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: cornflowerblue;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-option-btn:hover{
+    background-color: rgb(78, 126, 214);
+}
 
 /* 상품 등록 페이지 끝 */
 
@@ -490,7 +504,7 @@ h2 {
     margin: 10% auto;
     padding: 20px;
     background: white;
-    width: 50%;
+    width: 80%;
     height: 70%;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -733,4 +747,195 @@ h2 {
     border-radius: 5px;
     text-decoration: none;
     font-style: normal;
+}
+
+/* 옵션 선택창*/
+.so-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px; /* Maximum width for better responsiveness */
+    height: auto; /* Auto height to adjust based on content */
+    align-items: center;
+    padding: 20px; /* Add some padding for spacing */
+}
+
+.so-option-title{
+    width: 100%; /* Ensure title width adjusts to container */
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+a {
+    text-decoration: none; 
+    color: inherit;       
+}
+
+.so-option-select {
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    gap: 20px;
+    padding: 10px;
+    justify-content: space-around;
+    width: 100%; /* Ensure it doesn't overflow */
+    margin: 0 auto;
+}
+
+.so-option-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 100%; /* Ensure card width is responsive */
+    height: 80px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+
+.so-sub-title {
+    margin-top: 20px; /* Reduced margin to fit content */
+    font-weight: bold;
+    text-align: left;
+}
+
+.so-option-title .material-symbols-outlined {
+    font-size: 36px; 
+    margin-top: 15px; 
+}
+
+.option-btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px; /* Adjusted margin */
+    width: 100%;
+}
+
+.select-btn {
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.select-btn:hover {
+    background-color: #218838;
+}
+
+.so-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px; /* 최대 넓이 설정 */
+    height: auto; /* 내용에 맞게 자동으로 높이 조정 */
+    align-items: center;
+    padding: 20px;
+}
+
+.so-option-title{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.so-option-select {
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    gap: 20px;
+    padding: 10px;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.so-option-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 100%; /* 100%로 설정하여 모달창에 맞춤 */
+    height: 80px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+
+.so-sub-title {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.so-option-title .material-symbols-outlined {
+    font-size: 36px;
+    margin-top: 15px;
+}
+
+.option-btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.select-btn {
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.select-btn:hover {
+    background-color: #218838;
+}
+
+.so-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* 소-container의 넓이와 일치하도록 100% */
+    max-width: 800px; /* 최대 넓이 설정 */
+    height: auto; /* 자동 높이 조정 */
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 처리 */
+    z-index: 1000;
+}
+
+.so-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.so-modal.show,
+.so-modal-overlay.show {
+    display: block;
 }
