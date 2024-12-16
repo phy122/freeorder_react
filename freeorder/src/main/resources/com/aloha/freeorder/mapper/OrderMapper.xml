@@ -51,7 +51,7 @@
               ,op.id as order_options_id
               ,op.option_items_id
               ,op.name as options_name
-              <!-- ,op.price as options_price -->
+              ,op.price as options_price
         FROM orders o
         LEFT OUTER JOIN order_items oi
             ON o.id = oi.orders_id
@@ -59,19 +59,6 @@
             ON oi.id = op.order_items_id
     </select>
 
-    <!-- 주문 조회 -->
-    <select id="read" resultMap="orderMap">
-        SELECT o.*
-              ,oi.id as order_items_id
-              ,oi.products_id
-              ,oi.name
-              ,oi.quantity
-              ,oi.price
-              ,oi.amount
-              ,op.id as order_options_id
-              ,op.option_items_id
-              ,op.name as options_name
-              <!-- ,op.price as options_price -->
     <!-- 사용자별 주문 목록 조회 -->
     <select id="listByUsersId" resultMap="orderMap">
         SELECT o.*,
@@ -104,7 +91,7 @@
               ,op.id as order_options_id
               ,op.option_items_id
               ,op.name as options_name
-              <!-- ,op.price as options_price -->
+              ,op.price as options_price
         FROM orders o
         LEFT OUTER JOIN order_items oi
             ON o.id = oi.orders_id

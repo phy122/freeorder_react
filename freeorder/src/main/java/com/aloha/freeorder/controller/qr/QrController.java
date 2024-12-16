@@ -1,5 +1,6 @@
 package com.aloha.freeorder.controller.qr;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -222,16 +223,19 @@ public class QrController {
     List<CartOption> cartOptionList = cart.getOptionList();
 
     // 상품 옵션 리스트 - id
+    if (product.getOption() != null && product.getOption().getItemList() != null) {
     List<OptionItem> productOptionList = product.getOption().getItemList();
-
     for (OptionItem optionItem : productOptionList) {
-      for (CartOption cartOption : cartOptionList) {
-        if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
-          optionItem.setChecked(true);
+        for (CartOption cartOption : cartOptionList) {
+            if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+                optionItem.setChecked(true);
+            }
         }
-      }
     }
     model.addAttribute("productOptionList", productOptionList);
+} else {
+    model.addAttribute("productOptionList", Collections.emptyList());
+}
 
     return "views/qr/product/option";
   }
