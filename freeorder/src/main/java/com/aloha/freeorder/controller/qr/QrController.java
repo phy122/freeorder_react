@@ -177,44 +177,44 @@ public class QrController {
 
   @GetMapping("/order")
   public String orderTotalList(Model model, HttpServletRequest request) {
-      log.info("주문 내역 목록 출력!!");
-      try {
-          // 세션에서 사용자 ID 가져오기
-          HttpSession session = request.getSession();
-          String usersId = (String) session.getAttribute("id");
-  
-          // 사용자의 주문 목록 가져오기
-          List<Order> orderList = orderService.listByUsersId(usersId); // 필요시 사용자 ID로 필터링
-  
-          // 모델에 주문 목록 추가
-          model.addAttribute("orderList", orderList);
-      } catch (Exception e) {
-          log.error("주문 목록 조회 중 오류 발생", e);
-      }
-      return "views/qr/order/list";
+    log.info("주문 내역 목록 출력!!");
+    try {
+      // 세션에서 사용자 ID 가져오기
+      HttpSession session = request.getSession();
+      String usersId = (String) session.getAttribute("id");
+
+      // 사용자의 주문 목록 가져오기
+      List<Order> orderList = orderService.listByUsersId(usersId); // 필요시 사용자 ID로 필터링
+
+      // 모델에 주문 목록 추가
+      model.addAttribute("orderList", orderList);
+    } catch (Exception e) {
+      log.error("주문 목록 조회 중 오류 발생", e);
+    }
+    return "views/qr/order/list";
   }
-  
+
   @GetMapping("/order/read/{id}")
   public String orderDetails(@PathVariable("id") String id, Model model) {
-      log.info("주문 상세 조회: {}", id);
-      try {
-          // 주문 조회
-          Order order = orderService.read(id);
-          log.info("조회된 주문 데이터: {}", order);
-  
-          if (order != null) {
-              List<OrderItem> itemList = order.getItemList();
-              log.info("조회된 아이템 목록: {}", itemList);
-  
-              model.addAttribute("itemList", itemList);
-          } else {
-              log.warn("주문 ID '{}'에 해당하는 데이터가 없습니다.", id);
-          }
-          model.addAttribute("order", order);
-      } catch (Exception e) {
-          log.error("주문 상세 조회 중 에러 발생: {}", e.getMessage(), e);
+    log.info("주문 상세 조회: {}", id);
+    try {
+      // 주문 조회
+      Order order = orderService.read(id);
+      log.info("조회된 주문 데이터: {}", order);
+
+      if (order != null) {
+        List<OrderItem> itemList = order.getItemList();
+        log.info("조회된 아이템 목록: {}", itemList);
+
+        model.addAttribute("itemList", itemList);
+      } else {
+        log.warn("주문 ID '{}'에 해당하는 데이터가 없습니다.", id);
       }
-      return "views/qr/order/read";
+      model.addAttribute("order", order);
+    } catch (Exception e) {
+      log.error("주문 상세 조회 중 에러 발생: {}", e.getMessage(), e);
+    }
+    return "views/qr/order/read";
   }
 
   @GetMapping("/option/{id}")
@@ -231,18 +231,18 @@ public class QrController {
 
     // 상품 옵션 리스트 - id
     if (product.getOption() != null && product.getOption().getItemList() != null) {
-    List<OptionItem> productOptionList = product.getOption().getItemList();
-    for (OptionItem optionItem : productOptionList) {
+      List<OptionItem> productOptionList = product.getOption().getItemList();
+      for (OptionItem optionItem : productOptionList) {
         for (CartOption cartOption : cartOptionList) {
-            if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
-                optionItem.setChecked(true);
-            }
+          if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+            optionItem.setChecked(true);
+          }
         }
+      }
+      model.addAttribute("productOptionList", productOptionList);
+    } else {
+      model.addAttribute("productOptionList", Collections.emptyList());
     }
-    model.addAttribute("productOptionList", productOptionList);
-} else {
-    model.addAttribute("productOptionList", Collections.emptyList());
-}
 
     return "views/qr/product/option";
   }

@@ -313,50 +313,129 @@ function cartInsert(id, optionsId) {
         },
         body: JSON.stringify(product)
     }).then(data => {
-        console.log(data)
         cartList()
     })
 }
 
 // 장바구니 목록 불러오기
-function cartList() {
+async function cartList() {
     let url = '/pos/carts'
     const cartList = document.getElementById("cart-list")
-    fetch(url, {
+    await fetch(url, {
         method: 'GET'
-    }).then(Response => Response.json())
+    })
+        .then(Response => Response.json())
         .then(data => {
             cartList.innerHTML = ""
             data.forEach(cart => {
                 let cartTag = document.createElement("li")
                 let cartItem = `
-                <button class="cancel">X</button>
-                <span class="cart-menu">${cart.productName}</span>
-                <div class="btn-box">
-                    <button class="quantity-minus">-</button>
-                    <input type="text" class="quantity" value="${cart.amount}">
-                    <button class="quantity-plus">+</button>
-                </div>
-                <input type="hidden" class="price" value="${cart.price}">
-                <span class="amount">${cart.price * cart.amount}</span>
-            `
+                    <button class="cart-item-del-btn" data='${cart.id}'>X</button>
+                    <span class="cart-menu">${cart.productName}</span>
+                    <div class="btn-box">
+                        <button class="quantity-minus">-</button>
+                        <input type="text" class="cart-quantity" value="${cart.amount}">
+                        <button class="quantity-plus">+</button>
+                    </div>
+                    <input type="hidden" class="cart-price" value="${cart.price}">
+                    <span class="amount">${cart.price}</span>
+                `
                 cartTag.innerHTML = cartItem
+                let optionListTag = document.createElement("ul")
+                if (cart.optionList != null) {
+                    cart.optionList.forEach(item => {
+                        let itemTag = document.createElement("li")
+                        let itemContent = `
+                            <span class="cart-option">ㄴ${item.name} : 
+                            <i class="cart-option-price">${item.price}</i>
+                            </span>
+                        `
+                        itemTag.innerHTML = itemContent
+                        optionListTag.appendChild(itemTag)
+                    })
+                }
+                cartTag.appendChild(optionListTag)
                 cartList.appendChild(cartTag)
             });
-
+            calcCartPrice()
+            document.querySelectorAll(".cart-item-del-btn").forEach((e) => {
+                const id = e.getAttribute("data")
+                e.addEventListener("click", () => {
+                    cartDelete(id)
+                })
+            })
             document.querySelectorAll(".btn-box").forEach((e) => {
-                let qunatityTag = e.querySelector(".quantity")
+                let qunatityTag = e.querySelector(".cart-quantity")
                 e.querySelector(".quantity-minus").addEventListener("click", () => {
                     let value = qunatityTag.value <= 1 ? 1 : Number(qunatityTag.value) - 1
                     qunatityTag.value = value
+                    calcCartPrice()
                 })
                 e.querySelector(".quantity-plus").addEventListener("click", () => {
-                    let value = qunatityTag.value > 9 ? 10 : Number(qunatityTag.value) + 1
+                    let value = qunatityTag.value > 99 ? 100 : Number(qunatityTag.value) + 1
                     qunatityTag.value = value
+                    calcCartPrice()
                 })
             })
 
         })
+}
+// 장바구니 총 금액 변경
+function calcCartPrice() {
+    const carts = document.querySelectorAll("#cart-list>li")
+    let totalPrice = 0;
+    carts.forEach((cart) => {
+        let amount = Number(cart?.querySelector(".cart-quantity")?.value)
+        let productPrice = Number(cart?.querySelector(".cart-price").value)
+        console.log(productPrice)
+        const itemList = cart?.querySelectorAll(".cart-option-price")
+        itemList.forEach((optionPrice) => {
+            productPrice += Number(optionPrice.innerText)
+        })
+        totalPrice += productPrice * amount
+    })
+    document.getElementById("cart-total-price").innerHTML = totalPrice
+}
+
+// 장바구니에서 상품 제거
+function cartDelete(id) {
+    let url = '/pos/carts/' + id
+    if (confirm('삭제하시겠습니까?')) {
+        $.ajax({
+            url: url,
+            type: 'delete',
+            success: function (response) {
+                if ($.trim(response) == 'SUCCESS') {
+                    location.reload()
+                }
+            }
+        })
+    }
+}
+
+// 장바구니 상품 전체 제거
+function clearCart() {
+    if (!confirm("장바구니의 모든 항목을 삭제하시겠습니까?")) {
+        return;
+    }
+    fetch('/pos/carts/deleteAll', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("장바구니가 비워졌습니다!");
+                location.reload();
+            } else {
+                alert("장바구니 삭제 중 오류가 발생했습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("서버와 통신 중 문제가 발생했습니다.");
+        });
 }
 
 // 옵션 CRUD
@@ -366,7 +445,7 @@ function selectOptions(target) {
     const optionsIdSet = document.getElementById("optionsId")
     const url = `/pos/options`
     target.style.display = "none"
-        
+
 
     itemListTag.innerHTML = "" //옵션 리스트 불러오기전 초기화
     fetch(url, {
@@ -397,7 +476,7 @@ function selectOptions(target) {
             // 추가된 옵션리스트 호출
             const options = document.querySelectorAll(".opt-list")
             options.forEach(element => {
-                element.addEventListener("click",()=>{
+                element.addEventListener("click", () => {
                     // 기존에 active 클래스를 참조
                     let activeTarget = document.querySelector(".opt-list.active")
                     // 이미 active 클래스가 존재할경우 제거
@@ -506,7 +585,7 @@ function openOptionModal(id, optionsId) {
     document.getElementById('optionModal').style.display = 'block';
     const optionList = document.getElementById("modal-option-list")
     // 옵션 데이터를 가져와서 모달 창에 표시
-    fetch('/pos/options/product/'+id) // 옵션 데이터를 가져오는 API 엔드포인트
+    fetch('/pos/options/product/' + id) // 옵션 데이터를 가져오는 API 엔드포인트
         .then(response => response.json())
         .then(data => {
             console.log("옵션그룹명 : " + data.name)
@@ -525,7 +604,10 @@ function openOptionModal(id, optionsId) {
                         </label>
                     `;
                     optionList.appendChild(optionDiv);
+                    document.getElementById("option-modal-product-id").value = id
+                    document.getElementById("option-modal-options-id").value = optionsId
                 });
+
             } else {
                 console.error('checkbox-container 요소를 찾을 수 없습니다.');
             }
@@ -533,6 +615,12 @@ function openOptionModal(id, optionsId) {
         .catch(error => {
             console.error('옵션 데이터를 가져오는 중 오류 발생:', error);
         });
+}
+function addCartWithOption() {
+    const id = document.getElementById("option-modal-product-id").value
+    const optionsId = document.getElementById("option-modal-options-id").value
+    cartInsert(id, optionsId)
+    closeModalMapping()
 }
 
 // 모달 창 닫기
