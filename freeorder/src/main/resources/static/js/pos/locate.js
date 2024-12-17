@@ -42,12 +42,6 @@ function locateFunction() {
     });
 }
 
-function bindingLocate(params) {
-    // DOMContentLoaded 이벤트 발생 시 실행
-    document.addEventListener('DOMContentLoaded', locateFunction);
-}
-
-
 // 드롭 방지 함수 (이미지나 l-product-list 외에는 드롭을 막음)
 function preventDrop(e) {
     e.preventDefault();

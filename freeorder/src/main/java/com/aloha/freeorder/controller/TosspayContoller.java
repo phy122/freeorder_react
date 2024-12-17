@@ -5,11 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -36,7 +32,6 @@ import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.OrderOption;
 import com.aloha.freeorder.domain.Payment;
-import com.aloha.freeorder.service.CancellationService;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
@@ -199,6 +194,7 @@ public class TosspayContoller {
                 .id(UUID.randomUUID().toString())
                 .ordersId(ordersId)
                 .paymentMethod("카드")
+                .paymentKey(paymentKey)
                 .build();
 
         if (isSuccess) {

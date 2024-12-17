@@ -17,6 +17,7 @@ import com.aloha.freeorder.domain.Category;
 import com.aloha.freeorder.domain.Notice;
 import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.Order;
+import com.aloha.freeorder.domain.PaySearch;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.domain.SystemStatus;
@@ -270,9 +271,11 @@ public class PosController {
      */
     // 결제 내역 목록
     @GetMapping("/payment")
-    public String showPaymentPage(@CookieValue(value = "operation", defaultValue = "false") boolean operation,
+    public String showPaymentPage(
+            PaySearch paySearch,
+            @CookieValue(value = "operation", defaultValue = "false") boolean operation,
             Model model) throws Exception {
-
+        log.info("결제내역 페이지");
         // 공통 모델 등록 객체들 [Modal로 띄워주는 비동기페이지는 이거 필요없음]
         List<Order> orderList = orderService.list();
         SystemStatus systemStatus = statusService.selectStatus();
@@ -281,10 +284,14 @@ public class PosController {
         model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
 
-        List<Payment> payList = paymentService.list();
-        model.addAttribute("payList", payList);
+        // 검색 값이 없을경우 기본값 세팅
+        paySearch.setStartDay(new Date());
+        paySearch.setEndDay(new Date());
+        // TODO:날짜 기본세팅 시작날 : 1주일전 , 종료일자 : 오늘
+        List<Payment> payList = paymentService.listByOption(paySearch);
 
-        log.info("결제내역 페이지");
+        log.info("결제 리스트 : " + payList.toString());
+        model.addAttribute("payList", payList);
         return "views/pos/payment/list";
     }
 
