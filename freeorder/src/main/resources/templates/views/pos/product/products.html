@@ -63,24 +63,6 @@
                         </th:block>
                     </div>
                 </div>
-                <!-- Modal Structure -->
-                <div class="so-modal-overlay" id="modalOverlay"></div>
-                <div class="so-modal" id="optionModal">
-                    <div class="so-container">
-                        <div class="so-option-title">
-                            <h5>옵션 선택</h5>
-                            <a href="javascript:void(0)" id="close-modal" onclick="closeModalMapping()">
-                                <span class="material-symbols-outlined">close</span>
-                            </a>
-                        </div>
-                        <input type="hidden" id="option-modal-product-id">
-                        <input type="hidden" id="option-modal-options-id">
-                        <ul id="modal-option-list"></ul>
-                        <div class="option-btns">
-                            <button type="button" class="select-btn" onclick="addCartWithOption()">추가</button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- 우측: 선택된 상품 영역 -->
@@ -98,7 +80,25 @@
                 <div id="total-price">총 가격: <span id="cart-total-price"></span>원</div>
             </div>
         </div>
-
+        <!-- 옵션용 모달 -->
+        <div class="so-modal-overlay" id="option-modal">
+            <div class="so-modal" id="option-modal-body">
+                <div class="so-container">
+                    <div class="so-option-title">
+                        <h5>옵션 선택</h5>
+                        <a href="javascript:void(0)" id="option-modal-close" onclick="closeModalMapping()">
+                            <span class="material-symbols-outlined">close</span>
+                        </a>
+                    </div>
+                    <input type="hidden" id="option-modal-product-id">
+                    <input type="hidden" id="option-modal-options-id">
+                    <ul id="modal-option-list"></ul>
+                    <div class="option-btns">
+                        <button type="button" class="select-btn" onclick="addCartWithOption()">추가</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- 모달 창 -->
         <div id="modal" class="modal">
             <div class="modal-container">
