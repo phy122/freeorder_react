@@ -330,15 +330,17 @@ async function cartList() {
             data.forEach(cart => {
                 let cartTag = document.createElement("li")
                 let cartItem = `
-                    <button class="cart-item-del-btn" data='${cart.id}'>X</button>
-                    <span class="cart-menu">${cart.productName}</span>
-                    <div class="btn-box">
-                        <button class="quantity-minus">-</button>
-                        <input type="text" class="cart-quantity" value="${cart.amount}">
-                        <button class="quantity-plus">+</button>
+                    <div class="cart-top">
+                        <button class="cart-item-del-btn" data='${cart.id}'>X</button>
+                        <span class="cart-menu">${cart.productName}</span>
+                        <div class="btn-box">
+                            <button class="quantity-minus">-</button>
+                            <input type="text" class="cart-quantity" value="${cart.amount}">
+                            <button class="quantity-plus">+</button>
+                        </div>
+                        <input type="hidden" class="cart-price" value="${cart.price}">
+                        <span class="amount">${cart.price}원</span>
                     </div>
-                    <input type="hidden" class="cart-price" value="${cart.price}">
-                    <span class="amount">${cart.price}</span>
                 `
                 cartTag.innerHTML = cartItem
                 let optionListTag = document.createElement("ul")
@@ -347,7 +349,7 @@ async function cartList() {
                         let itemTag = document.createElement("li")
                         let itemContent = `
                             <span class="cart-option">ㄴ${item.name} : 
-                            <i class="cart-option-price">${item.price}</i>
+                                <i class="cart-option-price">${item.price}원</i>
                             </span>
                         `
                         itemTag.innerHTML = itemContent
@@ -382,7 +384,7 @@ async function cartList() {
 }
 // 장바구니 총 금액 변경
 function calcCartPrice() {
-    const carts = document.querySelectorAll("#cart-list>li")
+    const carts = document.querySelectorAll("#cart-list>li>div")
     let totalPrice = 0;
     carts.forEach((cart) => {
         let amount = Number(cart?.querySelector(".cart-quantity")?.value)
