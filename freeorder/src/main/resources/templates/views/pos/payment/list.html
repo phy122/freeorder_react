@@ -35,93 +35,34 @@
                 </div>
             </div>
 
-            <div class="ls-list-part">
-                <div class="ls-time">
-                    <p>금요일</p>
-                    <p>2024.11.29</p>
-                </div>
-                <a href="" class="ls-detail-link">
-                    <div class="ls-payment">
-                        <p>카드</p>
-                    </div>
-                    <div class="ls-simple">
-                        <h3>52,000원</h3>
-                        <h5>김치찌개 외 2건</h5>
-                    </div>
-                    <div class="ls-table">
-                        <h5>11:04</h5>
-                        <h6>테이블 1</h6>
-                    </div>
-                </a>
-                <div class="ls-time">
-                    <p>금요일</p>
-                    <p>2024.11.29</p>
-                </div>
-                <a href="" class="ls-detail-link">
-                    <div class="ls-payment">
-                        <p>카드</p>
-                    </div>
-                    <div class="ls-simple">
-                        <h3>52,000원</h3>
-                        <h5>김치찌개 외 2건</h5>
-                    </div>
-                    <div class="ls-table">
-                        <h5>11:04</h5>
-                        <h6>테이블 1</h6>
-                    </div>
-                </a>
-                <div class="ls-time">
-                    <p>금요일</p>
-                    <p>2024.11.29</p>
-                </div>
-                <a href="" class="ls-detail-link">
-                    <div class="ls-payment">
-                        <p>카드</p>
-                    </div>
-                    <div class="ls-simple">
-                        <h3>52,000원</h3>
-                        <h5>김치찌개 외 2건</h5>
-                    </div>
-                    <div class="ls-table">
-                        <h5>11:04</h5>
-                        <h6>테이블 1</h6>
-                    </div>
-                </a>
-                <div class="ls-time">
-                    <p>금요일</p>
-                    <p>2024.11.29</p>
-                </div>
-                <a href="" class="ls-detail-link">
-                    <div class="ls-payment">
-                        <p>카드</p>
-                    </div>
-                    <div class="ls-simple">
-                        <h3>52,000원</h3>
-                        <h5>김치찌개 외 2건</h5>
-                    </div>
-                    <div class="ls-table">
-                        <h5>11:04</h5>
-                        <h6>테이블 1</h6>
-                    </div>
-                </a>
-                <div class="ls-time">
-                    <p>금요일</p>
-                    <p>2024.11.29</p>
-                </div>
-                <a href="" class="ls-detail-link">
-                    <div class="ls-payment">
-                        <p>카드</p>
-                    </div>
-                    <div class="ls-simple">
-                        <h3>52,000원</h3>
-                        <h5>김치찌개 외 2건</h5>
-                    </div>
-                    <div class="ls-table">
-                        <h5>11:04</h5>
-                        <h6>테이블 1</h6>
-                    </div>
-                </a>
-            </div>
+            <ul class="ls-list-part">
+                <th:block th:if="${payList != null and not payList.isEmpty()}" th:each="payment : ${payList}">
+                    <li>
+                        <div class="ls-time">
+                            <p th:text="${#dates.format(payment.paidAt,'EEEE')}">금요일</p>
+                            <p th:text="${#dates.format(payment.paidAt,'yyyy-MM-dd')}">2024.11.29</p>
+                        </div>
+                        <a href="" class="ls-detail-link">
+                            <div class="ls-payment">
+                                <p th:text="${payment.paymentMethod}">카드</p>
+                            </div>
+                            <div class="ls-simple">
+                                <h3 th:text="${#numbers.formatInteger(payment.order.totalPrice, 3, 'COMMA') + '원'}">52,000원</h3>
+                                <h5 th:text="${payment.order.title}">김치찌개 외 2건</h5>
+                            </div>
+                            <div class="ls-table">
+                                <h5 th:text="${#dates.format(payment.paidAt,'hh:mm')}">11:04</h5>
+                                <h6>테이블 1</h6>
+                            </div>
+                        </a>
+                    </li>
+                </th:block>
+                <th:block th:if="${payList == null or payList.isEmpty()}">
+                    <li>
+                        <span>결제 내역이 없습니다.</span>
+                    </li>
+                </th:block>
+            </ul>
 
         </div>
         <div class="ls-right-container">
@@ -165,14 +106,14 @@
                         <h3>52,000원</h3>
                     </div>
                 </div>
-                <div class="ls-reward">
+                <!-- <div class="ls-reward">
                     <h4>고객 정보 / 적립</h4>
                     <button type="button" class="ls-reward-btn">적립</button>
                 </div>
                 <div class="ls-add">
                     <h4>메모</h4>
                     <button type="button" class="ls-add-btn">추가</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

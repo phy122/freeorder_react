@@ -339,7 +339,7 @@ async function cartList() {
                             <button class="quantity-plus">+</button>
                         </div>
                         <input type="hidden" class="cart-price" value="${cart.price}">
-                        <span class="amount">${cart.price}원</span>
+                        <span class="amount">${Number(cart.price).toLocaleString("ko-KR")}원</span>
                     </div>
                 `
                 cartTag.innerHTML = cartItem
@@ -349,7 +349,7 @@ async function cartList() {
                         let itemTag = document.createElement("li")
                         let itemContent = `
                             <span class="cart-option">ㄴ${item.name} : 
-                                <i class="cart-option-price">${item.price}원</i>
+                                <i class="cart-option-price">${Number(item.price).toLocaleString("ko-KR")}원</i>
                             </span>
                         `
                         itemTag.innerHTML = itemContent
@@ -396,7 +396,7 @@ function calcCartPrice() {
         })
         totalPrice += productPrice * amount
     })
-    document.getElementById("cart-total-price").innerHTML = totalPrice
+    document.getElementById("cart-total-price").innerHTML = Number(totalPrice).toLocaleString("ko-KR")
 }
 
 // 장바구니에서 상품 제거

@@ -15,22 +15,23 @@
         <result property="paidAt" column="PAID_AT" />
         <result property="createdAt" column="CREATED_AT" />
         <result property="updatedAt" column="UPDATED_AT" />
+
+        <association property="order" javaType="Order">
+            <result property="id" column="orders_id" />
+            <result property="usersId" column="users_id" />
+            <result property="title" column="title" />
+            <result property="totalQuantity" column="total_quantity" />
+            <result property="totalCount" column="total_count" />
+            <result property="totalPrice" column="total_price" />
+            <result property="status" column="status" />
+            <result property="orderedAt" column="ordered_at" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+            
+            <collection property="itemList" resultMap="itemMap"></collection>
+        </association>
     </resultMap>
 
-    <resultMap type="Order" id="orderMap">
-        <result property="id" column="orders_id" />
-        <result property="usersId" column="users_id" />
-        <result property="title" column="title" />
-        <result property="totalQuantity" column="total_quantity" />
-        <result property="totalCount" column="total_count" />
-        <result property="totalPrice" column="total_price" />
-        <result property="status" column="status" />
-        <result property="orderedAt" column="ordered_at" />
-        <result property="createdAt" column="created_at" />
-        <result property="updatedAt" column="updated_at" />
-        
-        <collection property="itemList" resultMap="itemMap"></collection>
-    </resultMap>
     <resultMap type="OrderItem" id="itemMap">
         <result property="id" column="order_items_id" />
         <result property="ordersId" column="orders_id" />
@@ -107,21 +108,22 @@
 
     <!-- 목록 조회 -->
     <select id="listByOption" resultMap="paymentMap">
-        SELECT p.*
-              ,o.TOTAL_PRICE
-              ,o.TITLE
-              ,o.ORDER_NUMBER
-              ,o.STATUS
-              ,oi.id as order_items_id
-              ,oi.products_id
-              ,oi.name
-              ,oi.quantity
-              ,oi.price
-              ,oi.amount
-              ,op.id as order_options_id
-              ,op.option_items_id
-              ,op.name as options_name
-              ,op.price as options_price
+        SELECT 
+            p.*
+            , o.TOTAL_PRICE
+            , o.TITLE
+            , o.ORDER_NUMBER
+            , o.STATUS
+            , oi.id as order_items_id
+            , oi.products_id
+            , oi.name
+            , oi.quantity
+            , oi.price
+            , oi.amount
+            , op.id as order_options_id
+            , op.option_items_id
+            , op.name as options_name
+            , op.price as options_price
         FROM payments p 
         LEFT JOIN orders o
             ON p.orders_id = o.id
@@ -129,10 +131,20 @@
             ON o.id = oi.orders_id
         LEFT OUTER JOIN order_options op
             ON oi.id = op.order_items_id
-        WHERE p.paid_at between (#{startDay} AND #{endDay})
-          AND p.payment_method = #{paymentMethod}
-          AND o.TOTAL_PRICE >= #{price}
-        ORDER BY p.created_at desc
+        WHERE p.paid_at BETWEEN #{filter.startDay} AND #{filter.endDay}
+        <if test="filter.paymentMethods != null and !filter.paymentMethods.isEmpty()">
+            AND p.payment_method IN 
+            <foreach item="method" collection="filter.paymentMethods" open="(" separator="," close=")">
+                #{method}
+            </foreach>
+        </if>
+        <if test="filter.minPrice != null">
+            AND o.TOTAL_PRICE >= #{filter.minPrice}
+        </if>
+        <if test="filter.maxPrice != null">
+            AND #{filter.maxPrice} >= o.TOTAL_PRICE  
+        </if>
+        ORDER BY p.created_at DESC
     </select>
 
     <!-- 등록 -->

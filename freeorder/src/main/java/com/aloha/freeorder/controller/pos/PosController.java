@@ -1,6 +1,7 @@
 package com.aloha.freeorder.controller.pos;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -285,9 +286,15 @@ public class PosController {
         // 공통객체 [끝]
 
         // 검색 값이 없을경우 기본값 세팅
-        paySearch.setStartDay(new Date());
-        paySearch.setEndDay(new Date());
-        // TODO:날짜 기본세팅 시작날 : 1주일전 , 종료일자 : 오늘
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // TODO:결제내역 뷰페이지 수정 / 최소 최대 금액 입력시 처리 내용 / 카드,현금 선택시 처리 내용
+        Calendar c = Calendar.getInstance();
+        String stDate = sdf.format(c.getTime());
+        paySearch.setEndDay(stDate);
+        c.add(Calendar.DATE, -7);
+        String endDate = sdf.format(c.getTime());
+        paySearch.setStartDay(endDate);
+        log.info(paySearch.toString());
         List<Payment> payList = paymentService.listByOption(paySearch);
 
         log.info("결제 리스트 : " + payList.toString());

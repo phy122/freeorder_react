@@ -36,12 +36,11 @@
                             <td>
                                 <img th:src="|/timg?id=${pro.id}|" alt="" width="100px">
                             </td>
-                            <td th:text="${pro.createdAt}">2024-12-06</td>
-                            <td th:text="${pro.updatedAt}">2024-12-06</td>
+                            <td th:text="${#dates.format(pro.createdAt, 'yyyy-MM-dd')}">2024-12-06</td>
+                            <td th:text="${#dates.format(pro.updatedAt, 'yyyy-MM-dd')}">2024-12-06</td>
                             <td>
                                 <a class="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
-                                <button type="submit" class="delete-btn"
-                                    th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
+                                <button type="submit" class="delete-btn" th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
                             </td>
                         </tr>
                     </th:block>
