@@ -516,13 +516,13 @@ function openOptionModal(id, optionsId) {
                 data.itemList.forEach((item) => {
                     const optionDiv = document.createElement('li');
                     optionDiv.innerHTML = `
-                        <label class="option-checkbox flex align-items-center mr-5 ml-5">
+                        <div class="option-checkbox flex align-items-center mr-5 ml-5">
                             <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
                             <span>${item.name}</span>
                             <div class="read-option-price mr-5">
                                 <span>${item.price}원</span>
                             </div>
-                        </label>
+                        </div>
                     `;
                     optionList.appendChild(optionDiv);
                 });

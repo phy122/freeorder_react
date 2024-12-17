@@ -524,9 +524,6 @@ h2 {
 
 /* 닫기 버튼 */
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
@@ -761,111 +758,49 @@ h2 {
     font-style: normal;
 }
 
-/* 옵션 선택창*/
+/* 옵션 선택창 시작 */
 .so-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 800px; /* Maximum width for better responsiveness */
-    height: auto; /* Auto height to adjust based on content */
+    max-width: 800px;
+    height: auto;
     align-items: center;
-    padding: 20px; /* Add some padding for spacing */
+    padding: 20px;
+    background-color: #f4f6f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.so-option-title{
-    width: 100%; /* Ensure title width adjusts to container */
+.so-option-title {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
-}
-a {
-    text-decoration: none; 
-    color: inherit;       
-}
-
-.so-option-select {
-    display: grid;
-    grid-template-columns: repeat(2, 320px);
-    gap: 20px;
-    padding: 10px;
-    justify-content: space-around;
-    width: 100%; /* Ensure it doesn't overflow */
-    margin: 0 auto;
-}
-
-.so-option-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-    gap: 10px;
-    padding: 10px;
-    background-color: white;
-    width: 100%; /* Ensure card width is responsive */
-    height: 80px;
-    border: 1px solid rgba(128, 128, 128, 0.3);
-    border-radius: 10px;
-}
-
-.so-sub-title {
-    margin-top: 20px; /* Reduced margin to fit content */
+    font-size: 18px;
     font-weight: bold;
-    text-align: left;
+    color: #333;
 }
 
 .so-option-title .material-symbols-outlined {
-    font-size: 36px; 
-    margin-top: 15px; 
-}
-
-.option-btns {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px; /* Adjusted margin */
-    width: 100%;
-}
-
-.select-btn {
-    width: 100%;
-    height: 50px;
-    background-color: cornflowerblue;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 36px;
     cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
-.select-btn:hover {
-    background-color: #218838;
-}
-
-.so-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 800px; /* 최대 넓이 설정 */
-    height: auto; /* 내용에 맞게 자동으로 높이 조정 */
-    align-items: center;
-    padding: 20px;
-}
-
-.so-option-title{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+.so-option-title .material-symbols-outlined:hover {
+    transform: rotate(90deg);
+    color: #d9534f;
 }
 
 .so-option-select {
     display: grid;
-    grid-template-columns: repeat(2, 320px);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
-    padding: 10px;
-    justify-content: space-around;
+    padding: 20px;
+    justify-content: space-between;
     width: 100%;
     margin: 0 auto;
 }
@@ -874,25 +809,91 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: left;
-    gap: 10px;
-    padding: 10px;
+    padding: 15px;
     background-color: white;
-    width: 100%; /* 100%로 설정하여 모달창에 맞춤 */
-    height: 80px;
-    border: 1px solid rgba(128, 128, 128, 0.3);
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.so-option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.so-option-card input[type="checkbox"] {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    accent-color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.so-option-card input[type="checkbox"]:hover {
+    transform: scale(1.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.so-option-card span {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+.read-option-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: right;
+}
+
+.read-option-price:hover {
+    background: rgba(0, 123, 255, 0.2);
+    color: #0056b3;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.option-checkbox{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#modal-option-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#modal-option-list li:first-child{
+    margin-top: 20%;
+}
+
+#modal-option-list li{
+    width: auto;
+    display: flex;
+    margin-top: 10%;
+    justify-content: center;
+    align-items: center;
 }
 
 .so-sub-title {
     margin-top: 20px;
     font-weight: bold;
     text-align: left;
-}
-
-.so-option-title .material-symbols-outlined {
-    font-size: 36px;
-    margin-top: 15px;
+    font-size: 18px;
+    color: #444;
 }
 
 .option-btns {
@@ -900,31 +901,30 @@ a {
     justify-content: center;
     margin-top: 30px;
     width: 100%;
+    padding: 10px;
 }
 
 .select-btn {
     width: 100%;
     height: 50px;
-    background-color: cornflowerblue;
+    background: linear-gradient(90deg, #007bff, #0056b3);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 25px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .select-btn:hover {
-    background-color: #218838;
+    background: linear-gradient(90deg, #0056b3, #003c7d);
+    transform: translateY(-3px);
 }
 
-#optionModal,
-#modalOverlay {
-    display: none; /* 기본적으로 숨김 */
-}
-
+/* 모달 스타일 */
 #optionModal {
     position: fixed;
     top: 50%;
@@ -932,10 +932,22 @@ a {
     transform: translate(-50%, -50%);
     width: 400px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1001;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
+    animation: fadeIn 0.3s ease-out; /* 모달 등장 애니메이션 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 #modalOverlay {
@@ -948,3 +960,130 @@ a {
     z-index: 1000;
 }
 
+.so-option-select::-webkit-scrollbar {
+    width: 6px;
+}
+
+.so-option-select::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.5);
+    border-radius: 3px;
+}
+
+.so-option-select::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.8);
+}
+/* 옵션 선택창 끝 */
+
+
+/* 모달 창 시작 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-container {
+    background: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    position: relative;
+}
+
+.close-btn {
+    font-size: 30px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.modal-header h5 {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+    font-weight: bold;
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #0078ff;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    border-bottom: 2px solid #0078ff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 48%;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #eef7ff;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* 모달 창 끝 */
