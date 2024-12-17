@@ -304,6 +304,7 @@ function cartInsert(id, optionsId) {
             itemList: itemList
         }
     }
+    console.log(product)
     let url = '/pos/carts'
     fetch(url, {
         method: 'POST',
@@ -478,8 +479,7 @@ function addOptionItem() {
     const id = crypto.randomUUID(); // 브라우저에서 UUID 생성
 
     div.className = "opt-item";
-    div.innerHTML = `z
-    
+    div.innerHTML = `
         <input type="hidden" name="itemList[${itemIndex}].id" value="${id}">
         <input type="text" name="itemList[${itemIndex}].name" placeholder="옵션명" required>
         <input type="number" name="itemList[${itemIndex}].price" placeholder="금액" required>
@@ -495,6 +495,7 @@ function removeOptionItem(button) {
     const item = button.closest(".opt-item");
     item.remove();
 }
+// 옵션 목록 열기
 function openOptionModal(id, optionsId) {
     if (optionsId == null || optionsId == "") {
         cartInsert(id, optionsId)
@@ -534,32 +535,8 @@ function openOptionModal(id, optionsId) {
         });
 }
 
+// 모달 창 닫기
 function closeModalMapping() {
-    // 모달 창 닫기
     document.getElementById('modalOverlay').style.display = 'none';
     document.getElementById('optionModal').style.display = 'none';
-}
-
-
-    container.innerHTML = ""; // 기존 내용 초기화
-
-    if (data && data.length > 0) {
-        console.log("Rendering options:", data); // 데이터 확인
-        data.forEach(item => {
-            const optionHTML = `
-                <div>
-                    <label class="option-checkbox flex align-items-center mr-5 ml-5" for="${item.id}">
-                        <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
-                        <span>${item.name}</span>
-                        <div class="read-option-price mr-5">
-                            <span>${item.price.toLocaleString()}원</span>
-                        </div>
-                    </label>
-                </div>
-            `;
-            container.insertAdjacentHTML("beforeend", optionHTML);
-        });
-    } else {
-        container.innerHTML = "<p>옵션이 없습니다.</p>";
-    }
 }
