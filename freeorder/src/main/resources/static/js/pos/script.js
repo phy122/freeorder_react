@@ -581,8 +581,7 @@ function openOptionModal(id, optionsId) {
         return false
     }
     // 모달 창 열기
-    document.getElementById('modalOverlay').style.display = 'block';
-    document.getElementById('optionModal').style.display = 'block';
+    document.getElementById('option-modal').style.display = 'flex';
     const optionList = document.getElementById("modal-option-list")
     // 옵션 데이터를 가져와서 모달 창에 표시
     fetch('/pos/options/product/' + id) // 옵션 데이터를 가져오는 API 엔드포인트
@@ -595,13 +594,13 @@ function openOptionModal(id, optionsId) {
                 data.itemList.forEach((item) => {
                     const optionDiv = document.createElement('li');
                     optionDiv.innerHTML = `
-                        <div class="option-checkbox flex align-items-center mr-5 ml-5">
+                        <label class="option-checkbox flex align-items-center mr-5 ml-5">
                             <input type="checkbox" id="${item.id}" name="itemList" value="${item.id}">
                             <span>${item.name}</span>
                             <div class="read-option-price mr-5">
                                 <span>${item.price}원</span>
                             </div>
-                        </div>
+                        </label>
                     `;
                     optionList.appendChild(optionDiv);
                     document.getElementById("option-modal-product-id").value = id
@@ -625,6 +624,5 @@ function addCartWithOption() {
 
 // 모달 창 닫기
 function closeModalMapping() {
-    document.getElementById('modalOverlay').style.display = 'none';
-    document.getElementById('optionModal').style.display = 'none';
+    document.getElementById('option-modal').style.display = 'none';
 }
