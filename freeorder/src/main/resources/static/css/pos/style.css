@@ -80,7 +80,7 @@ header .open-btn button {
     cursor: pointer;
 }
 header .open-btn button.end {
-    background-color: #da0202;
+    background-color: #ff6868;
 }
 header .open-btn button.active {
     display: block;
