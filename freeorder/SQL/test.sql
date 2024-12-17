@@ -80,3 +80,29 @@ SELECT * FROM options;
 SELECT * FROM option_items;
 
 SELECT * FROM system_logs;
+
+SELECT * FROM payments;
+
+SELECT p.*
+              ,o.TOTAL_PRICE
+              ,o.TITLE
+              ,o.ORDER_NUMBER
+              ,o.STATUS
+              ,oi.id as order_items_id
+              ,oi.products_id
+              ,oi.name
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
+        FROM payments p 
+        LEFT JOIN orders o
+            ON p.orders_id = o.id
+        LEFT OUTER JOIN order_items oi
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
+        ORDER BY p.created_at desc;

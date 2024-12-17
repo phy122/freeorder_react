@@ -22,4 +22,5 @@ public class Payment {
     private Date createdAt;
     private Date updatedAt;
 
+    private Order order;
 }

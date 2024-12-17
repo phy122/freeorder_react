@@ -4,31 +4,135 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.aloha.freeorder.mapper.PaymentMapper">
+    <resultMap type="Payment" id="paymentMap">
+        <id property="id" column="id" />
+
+        <result property="id" column="id" />
+        <result property="ordersId" column="ORDERS_ID" />
+        <result property="paymentKey" column="PAYMENT_KEY" />
+        <result property="paymentMethod" column="PAYMENT_METHOD" />
+        <result property="status" column="STATUS" />
+        <result property="paidAt" column="PAID_AT" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+    </resultMap>
+
+    <resultMap type="Order" id="orderMap">
+        <result property="id" column="orders_id" />
+        <result property="usersId" column="users_id" />
+        <result property="title" column="title" />
+        <result property="totalQuantity" column="total_quantity" />
+        <result property="totalCount" column="total_count" />
+        <result property="totalPrice" column="total_price" />
+        <result property="status" column="status" />
+        <result property="orderedAt" column="ordered_at" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+        
+        <collection property="itemList" resultMap="itemMap"></collection>
+    </resultMap>
+    <resultMap type="OrderItem" id="itemMap">
+        <result property="id" column="order_items_id" />
+        <result property="ordersId" column="orders_id" />
+        <result property="productsId" column="products_id" />
+        <result property="name" column="name" />
+        <result property="quantity" column="quantity" />
+        <result property="price" column="price" />
+        <result property="amount" column="amount" />
+
+        <collection property="optionList" resultMap="optionMap"></collection>
+    </resultMap>
+
+    <resultMap type="OrderOption" id="optionMap">
+        <result property="id" column="order_options_id" />
+        <result property="optionItemsId" column="option_items_id" />
+        <result property="name" column="options_name" />
+        <result property="price" column="options_price" />
+    </resultMap>
+
 
     <!-- 조회 - id -->
-    <select id="select" resultType="Payment">
-        SELECT *
-        FROM payments
-        WHERE id = #{id}
-    </select>
-
-    <!-- 목록 조회 -->
-    <select id="list" resultType="Payment">
-        SELECT *
-        FROM payments
-        ORDER BY created_at desc
-    </select>
-
-    <!-- 목록 조회 -->
-    <select id="listByOption" resultType="Payment">
-        SELECT *
+    <select id="select" resultMap="paymentMap">
+        SELECT p.*
+              ,o.TOTAL_PRICE
+              ,o.TITLE
+              ,o.ORDER_NUMBER
+              ,o.STATUS
+              ,oi.id as order_items_id
+              ,oi.products_id
+              ,oi.name
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
         FROM payments p 
         LEFT JOIN orders o
-        ON p.orders_id = o.id
-        WHERE created_at between (#{startDay} AND #{endDay})
-          AND payment_method = #{paymentMethod}
-          AND price >= #{price}
-        ORDER BY created_at desc
+            ON p.orders_id = o.id
+        LEFT OUTER JOIN order_items oi
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
+        WHERE p.id = #{id}
+    </select>
+
+    <!-- 목록 조회 -->
+    <select id="list" resultMap="paymentMap">
+        SELECT p.*
+              ,o.TOTAL_PRICE
+              ,o.TITLE
+              ,o.ORDER_NUMBER
+              ,o.STATUS
+              ,oi.id as order_items_id
+              ,oi.products_id
+              ,oi.name
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
+        FROM payments p 
+        LEFT JOIN orders o
+            ON p.orders_id = o.id
+        LEFT OUTER JOIN order_items oi
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
+        ORDER BY p.created_at desc
+    </select>
+
+    <!-- 목록 조회 -->
+    <select id="listByOption" resultMap="paymentMap">
+        SELECT p.*
+              ,o.TOTAL_PRICE
+              ,o.TITLE
+              ,o.ORDER_NUMBER
+              ,o.STATUS
+              ,oi.id as order_items_id
+              ,oi.products_id
+              ,oi.name
+              ,oi.quantity
+              ,oi.price
+              ,oi.amount
+              ,op.id as order_options_id
+              ,op.option_items_id
+              ,op.name as options_name
+              ,op.price as options_price
+        FROM payments p 
+        LEFT JOIN orders o
+            ON p.orders_id = o.id
+        LEFT OUTER JOIN order_items oi
+            ON o.id = oi.orders_id
+        LEFT OUTER JOIN order_options op
+            ON oi.id = op.order_items_id
+        WHERE p.paid_at between (#{startDay} AND #{endDay})
+          AND p.payment_method = #{paymentMethod}
+          AND o.TOTAL_PRICE >= #{price}
+        ORDER BY p.created_at desc
     </select>
 
     <!-- 등록 -->

@@ -26,6 +26,7 @@
             p.PRODUCT_IMG,
             p.STOCK_CHECK,
             p.STOCK,
+            p.seq,
             IF(oc.ORDER_COUNT >= 100, TRUE, FALSE) AS IS_POPULAR,
             IF(p.CREATED_AT >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS IS_NEW,
             IF(rp.PRODUCTS_ID IS NOT NULL, TRUE, FALSE) AS IS_RECOMMENDED
@@ -58,6 +59,7 @@
             p.PRODUCT_IMG,
             p.STOCK_CHECK,
             p.STOCK,
+            p.seq,
             IF(oc.ORDER_COUNT >= 100, TRUE, FALSE) AS IS_POPULAR,
             IF(p.CREATED_AT >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS IS_NEW,
             IF(rp.PRODUCTS_ID IS NOT NULL, TRUE, FALSE) AS IS_RECOMMENDED
