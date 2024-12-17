@@ -99,6 +99,7 @@
         UPDATE products
            SET name = #{name}
               ,categories_id = #{categoriesId}
+              ,options_id = #{optionsId}
               ,price = #{price}
               ,description = #{description}
               ,stock_check = #{stockCheck}

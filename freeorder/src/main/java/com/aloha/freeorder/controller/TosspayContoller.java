@@ -139,7 +139,9 @@ public class TosspayContoller {
     }
 
     @RequestMapping(value = "/confirm")
-    public ResponseEntity<JSONObject> confirmPayment(@RequestBody String jsonBody) throws Exception {
+    public ResponseEntity<JSONObject> confirmPayment(
+    @CookieValue(value = "id",defaultValue = "") String usersId,
+    @RequestBody String jsonBody) throws Exception {
         log.info("결제성공 후 프로그램 DB에 연동 시도...");
         log.info(jsonBody);
         JSONParser parser = new JSONParser();
@@ -206,6 +208,7 @@ public class TosspayContoller {
             // 데이터베이스에 결제 상태 업데이트
             payment.setStatus("PAID");
             paymentService.insert(payment);
+            cartService.allDeleteByUserId(usersId);
 
             responseJson.put("status", "success");
             responseJson.put("message", "Payment confirmed successfully.");

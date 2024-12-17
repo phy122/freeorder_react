@@ -27,7 +27,7 @@
                 <img th:src="|/pimg?id=${product.id}|" class="read-png" th:alt="${product.name}" width="100px">
                 <div class="des-box">
                     <div class="menu-des-left"><p>설명 : </p></div>
-                    <div class="menu-pop-des"><p>리동궉입니다asasasasasasasasasasasasasasaaasasasasaasasazzzzzzzzzzzzzzzzzzsasa.</p></div>
+                    <div class="menu-pop-des"><p th:text="${product.description}"></p></div>
                 </div>
                 <div class="flex align-items-center">
                     <span class="menu-pop-price fs-large black ml-1 mt-3" th:text="${product.price} + '원'"></span>
