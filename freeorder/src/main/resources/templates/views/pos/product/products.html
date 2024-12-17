@@ -73,9 +73,11 @@
                                 <span class="material-symbols-outlined">close</span>
                             </a>
                         </div>
+                        <input type="hidden" id="option-modal-product-id">
+                        <input type="hidden" id="option-modal-options-id">
                         <ul id="modal-option-list"></ul>
                         <div class="option-btns">
-                            <button type="button" class="select-btn">추가</button>
+                            <button type="button" class="select-btn" onclick="addCartWithOption()">추가</button>
                         </div>
                     </div>
                 </div>
@@ -93,8 +95,7 @@
 
                     </ul>
                 </div>
-                <div id="cart-container"></div>
-                <div id="total-price">총 가격: 0원</div>
+                <div id="total-price">총 가격: <span id="cart-total-price"></span>원</div>
             </div>
         </div>
 

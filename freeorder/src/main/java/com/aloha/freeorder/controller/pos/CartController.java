@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,10 +49,14 @@ public class CartController {
     private ProductService productService;
     
     @GetMapping()
-    public ResponseEntity<?> getAll(@CookieValue(value = "usersId", defaultValue = "null") String usersId) {
+    public ResponseEntity<?> getAll(Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Users user = customUser.getUser();
+        String usersId = user.getId();
         log.info("장바구니 목록 조회");
         try {
-            List<Cart> cartList = cartService.list(usersId);
+            List<Cart> cartList = cartService.listByUser(usersId);
+            log.info(cartList.toString());
             return new ResponseEntity<>(cartList,HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 목록 조회 중 에러...", e);
@@ -72,20 +77,21 @@ public class CartController {
     }
     
     @PostMapping()
-    public ResponseEntity<?> create(Product product
+    public ResponseEntity<?> create(@RequestBody Product product
                                    ,Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Users user = customUser.getUser();
         String usersId = user.getId();
+        log.info("상품 정보 출력 : " + product);
         log.info("장바구니 목록 추가");
         try {
-            log.info(product.toString());
             Product infoProduct = productService.select(product.getId());
             log.info("infoProdsuct : " + infoProduct);
 
             String id = UUID.randomUUID().toString();
             Cart cart = new Cart();
             cart.setId(id);
+            cart.setProductName(infoProduct.getName());
             cart.setProductsId(product.getId());
             log.info("product : " + product);
             Option option = product.getOption();
@@ -100,6 +106,7 @@ public class CartController {
                                                           .id(UUID.randomUUID().toString())
                                                           .cartsId(id)
                                                           .usersId(usersId)
+                                                          .name(optionItem.getName())
                                                           .optionItemsId(optionItem.getId())
                                                           .build();
                         optionList.add(cartOption);
@@ -181,4 +188,24 @@ public class CartController {
         }
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> destroyAll(Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Users user = customUser.getUser();
+        String usersId = user.getId();
+        log.info("장바구니 목록 전체 삭제");
+        try {
+            int result = cartService.allDeleteByUserId(usersId);
+            if ( result > 0 ) {
+                cartService.allDeleteOptionByUserId(usersId);
+                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("장바구니 삭제 중 에러 발생", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
