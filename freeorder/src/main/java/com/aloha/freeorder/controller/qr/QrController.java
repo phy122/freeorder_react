@@ -224,24 +224,27 @@ public class QrController {
     Cart cart = cartService.select(id);
     model.addAttribute("cart", cart);
     Product product = productService.select(cart.getProductsId());
-    // model.addAttribute("optionList", product.getOption().getItemList());
-
+    model.addAttribute("product", product);
+    log.info("상품 정보 : "+product);
     // 장바구니 옵션 리스트 - optionItemsId
     List<CartOption> cartOptionList = cart.getOptionList();
-
+    log.info("장바구니 옵션 리스트 : " + cartOptionList);
     // 상품 옵션 리스트 - id
     if (product.getOption() != null && product.getOption().getItemList() != null) {
-      List<OptionItem> productOptionList = product.getOption().getItemList();
-      for (OptionItem optionItem : productOptionList) {
-        for (CartOption cartOption : cartOptionList) {
-          if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
-            optionItem.setChecked(true);
+      List<OptionItem> optionList = product.getOption().getItemList();
+      for (OptionItem optionItem : optionList) {
+        if (cartOptionList != null) {
+          for (CartOption cartOption : cartOptionList) {
+            if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+              optionItem.setChecked(true);
+            }
           }
         }
       }
-      model.addAttribute("productOptionList", productOptionList);
+      log.info(optionList.toString());
+      model.addAttribute("optionList", optionList);
     } else {
-      model.addAttribute("productOptionList", Collections.emptyList());
+      model.addAttribute("optionList", Collections.emptyList());
     }
 
     return "views/qr/product/option";

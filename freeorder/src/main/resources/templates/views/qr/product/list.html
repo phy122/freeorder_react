@@ -40,15 +40,17 @@
 
         <!-- 카드 -->
         <div class="scrollable-content">
-            <div class="event">
-                <ul id="event-list">
-                    <th:block th:if="${noticeList != null && !noticeList.isEmpty()}" th:each="notice : ${noticeList}">
-                        <li th:onclick="eventModalOpen([[${notice.id}]])">
-                            <img th:src="|/timg?id=${notice.id}|" alt="이벤트카드">
-                        </li>
-                    </th:block>
-                </ul>
-            </div>
+            <th:block th:if="${noticeList != null && !noticeList.isEmpty()}">
+                <div class="event">
+                    <ul id="event-list">
+                        <th:block th:if="${noticeList != null && !noticeList.isEmpty()}" th:each="notice : ${noticeList}">
+                            <li th:onclick="eventModalOpen([[${notice.id}]])">
+                                <img th:src="|/timg?id=${notice.id}|" alt="이벤트카드">
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </th:block>
             <th:block th:if="${productList != null}" th:each="product : ${productList}">
                 <a th:href="|/qr/read/${product.id}|">
                     <div class="card flex justify-content-start align-items-center mt-3">

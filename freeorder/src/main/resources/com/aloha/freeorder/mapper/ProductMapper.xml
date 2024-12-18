@@ -4,12 +4,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.aloha.freeorder.mapper.ProductMapper">
+    <resultMap type="Product" id="productMap">
+        <id property="id" column="id" />
+
+        <result property="id" column="id" />
+        <result property="optionsId" column="OPTIONS_ID" />
+        <result property="name" column="NAME" />
+        <result property="categoriesId" column="CATEGORIES_ID" />
+        <result property="productImg" column="PRODUCT_IMG" />
+        <result property="description" column="DESCRIPTION" />
+        <result property="content" column="CONTENT" />
+        <result property="price" column="PRICE" />
+        <result property="stockCheck" column="STOCK_CHECK" />
+        <result property="stock" column="STOCK" />
+        <result property="seq" column="SEQ" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+
+        <association property="option" javaType="Option">
+            <result property="id" column="OPTIONS_ID" />
+            <result property="name" column="options_name" />
+            <result property="stockCheck" column="stock_check" />
+            <result property="stock" column="stock" />
+            <result property="essential" column="essential" />
+            <result property="selectMin" column="select_min" />
+            <result property="selectMax" column="select_max" />
+            <collection property="itemList" resultMap="itemMap"></collection>
+        </association>
+    </resultMap>
+
+    <resultMap type="OptionItem" id="itemMap">
+        <result property="id" column="option_items_id" />
+        <result property="optionsId" column="options_id" />
+        <result property="name" column="option_items_name" />
+        <result property="price" column="option_items_price" />
+        <result property="seq" column="option_items_seq" />
+    </resultMap>
 
     <!-- 조회 -->
-    <select id="select" resultType="Product">
-        SELECT *
-        FROM products
-        WHERE id = #{id}
+    <select id="select" resultMap="productMap">
+        SELECT p.*
+              ,o.id as options_id
+              ,o.name as options_name
+              ,o.stock_check
+              ,o.stock
+              ,o.essential
+              ,o.select_min
+              ,o.select_max
+              ,oi.id as option_items_id
+              ,oi.name as option_items_name
+              ,oi.price as option_items_price
+              ,oi.seq as option_items_seq
+        FROM products p
+        LEFT JOIN options o
+            ON p.options_id = o.id
+        LEFT OUTER JOIN option_items oi
+            ON o.id = oi.options_id
+        WHERE p.id = #{id}
+        ORDER BY oi.seq ASC
     </select>
 
     <!-- 목록 조회 -->
