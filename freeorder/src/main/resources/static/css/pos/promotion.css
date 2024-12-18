@@ -1,4 +1,13 @@
 /* 프로모션 등록 promotion_insert.html */
+.container{
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+}
+
 .promotion-register-page,
 .promotion-edit-page {
     width: 100%;
@@ -14,10 +23,10 @@
 .promotion-insert-page h1,
 .promotion-edit-page h1,
 .promotion-page h1 {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.8rem;
+    color: #333333;
     margin-bottom: 20px;
-    color: var(--main-color);
+    text-align: center;
 }
 
 .promotion-form {
@@ -110,8 +119,7 @@
 }
 
 .insert-btn {
-    width: 400px;
-    padding: 8px 100px;
+    padding: 1% 3%;
     background-color: #4880FF;
     color: white;
     cursor: pointer;

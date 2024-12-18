@@ -40,9 +40,8 @@
         <th:block th:if="${order != null}">
             <!-- 주문 정보 -->
             <div class="order-summary">
-                <h3 class="order-title" th:text="${order.title}">주문 제목</h3>
-                <p class="order-date" th:text="'주문 날짜: ' + ${#dates.format(order.orderedAt, 'yyyy.MM.dd HH:mm')}">
-                    주문 날짜</p>
+                <h3 class="order-title" th:text="${order.title}"></h3>
+                <p class="order-date" th:text="'주문 날짜: ' + ${#dates.format(order.orderedAt, 'yyyy.MM.dd HH:mm')}">주문 날짜</p>
                 <p class="order-status" th:text="'상태: ' + ${order.status}">주문 상태</p>
             </div>
 
@@ -79,7 +78,7 @@
                                 <span th:text="'수량: ' + ${item.quantity} + '개'">수량</span>
                             </div>
                             <div class="price fw-1"
-                                th:text="'합계: ' + ${#numbers.formatInteger(item.amount, 3, 'COMMA') + '원'}"></div>
+                                th:text="'합계 : ' + ${#numbers.formatInteger(item.amount, 3, 'COMMA') + '원'}"></div>
                         </div>
                     </th:block>
                 </div>
