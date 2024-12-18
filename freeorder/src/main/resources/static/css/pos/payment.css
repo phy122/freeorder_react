@@ -36,11 +36,11 @@ a {
 }
 .ls-payment-title{
     display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
     gap: 20px;
 }
 .ls-payment-title .material-symbols-outlined{
-    padding-top: 15px;
     font-size: 30px;
 }
 .ls-filter-part{
@@ -263,7 +263,6 @@ a {
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
 }
 .ps-filter-title .material-symbols-outlined{
-    padding-top: 20px;
     font-size: 30px;
 }
 .ps-container {
@@ -385,9 +384,9 @@ a {
     margin-left: auto;
 }
 
-.material-symbols-outlined {
+.ls-payment-title a .material-symbols-outlined {
     font-size: 36px;
-    margin-top: 15px; 
+    padding-top: 5px;
 }
 .can-cancel-card input[type="checkbox"] {
     transform: scale(1.5);

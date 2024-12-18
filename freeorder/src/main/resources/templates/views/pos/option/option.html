@@ -29,11 +29,13 @@
                             </div>
 
                             <!-- 옵션 아이템 출력 -->
-                            <th:block th:if="${option.itemList != null and not #lists.isEmpty(option.itemList)}">
-                                <div class="opt-item" th:each="item : ${option.itemList}">
-                                    <a th:text="${item.name}" href="javascript:void(0)"></a>
-                                </div>
-                            </th:block>
+                            <div class="opt-i-list">
+                                <th:block th:if="${option.itemList != null and not #lists.isEmpty(option.itemList)}">
+                                    <div class="opt-item" th:each="item : ${option.itemList}">
+                                        <a th:text="${item.name}" href="javascript:void(0)"></a>
+                                    </div>
+                                </th:block>
+                            </div>
 
                             <!-- 아이템이 없을 경우 -->
                             <th:block th:if="${option.itemList == null or #lists.isEmpty(option.itemList)}">
