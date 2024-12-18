@@ -8,6 +8,13 @@
     --large-text-size : 20px;
     --footer-font-color : #7C8694;
 }
+*{
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+*:-webkit-scrollbar {
+    display: none;
+}
 /* 글씨 색상 */
 .white {color: #fff;}
 .dark {color: #333;}
@@ -51,6 +58,9 @@ header .logo .logo-img{
     width: 60px;
     height: 60px;
     margin-right: 10px;
+}
+header .logo .logo-img:hover{
+    cursor: pointer;
 }
 header .logo a{
     color: white;
