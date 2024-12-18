@@ -23,6 +23,7 @@ import com.aloha.freeorder.domain.Option;
 import com.aloha.freeorder.domain.OptionItem;
 import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.CartService;
+import com.aloha.freeorder.service.OptionService;
 import com.aloha.freeorder.service.ProductService;
 import com.aloha.freeorder.util.OptionComparator;
 
@@ -37,12 +38,14 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/qr/carts")
 public class QrCartController {
-    
+
     @Autowired
     private CartService cartService;
     @Autowired
     private ProductService productService;
-    
+    @Autowired
+    private OptionService optionService;
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
         log.info("장바구니 조회");
@@ -54,9 +57,10 @@ public class QrCartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @PostMapping()
-    public ResponseEntity<?> create(@CookieValue(value = "id",defaultValue = "null") String usersId ,@RequestBody Product product) throws Exception {
+    public ResponseEntity<?> create(@CookieValue(value = "id", defaultValue = "null") String usersId,
+            @RequestBody Product product) throws Exception {
         log.info("장바구니 목록 추가");
         try {
             log.info(product.toString());
@@ -66,6 +70,7 @@ public class QrCartController {
             String id = UUID.randomUUID().toString();
             Cart cart = new Cart();
             cart.setId(id);
+            cart.setProductName(infoProduct.getName());
             cart.setProductsId(product.getId());
             log.info("product : " + product);
             Option option = product.getOption();
@@ -75,13 +80,14 @@ public class QrCartController {
                 // log.info(getOpList.toString());
                 List<CartOption> optionList = new ArrayList<>();
                 for (OptionItem optionItem : getOpList) {
-                    if ( optionItem.isChecked() ) {
+                    if (optionItem.isChecked()) {
                         CartOption cartOption = CartOption.builder()
-                                                          .id(UUID.randomUUID().toString())
-                                                          .cartsId(id)
-                                                          .usersId(usersId)
-                                                          .optionItemsId(optionItem.getId())
-                                                          .build();
+                                .id(UUID.randomUUID().toString())
+                                .cartsId(id)
+                                .usersId(usersId)
+                                .name(optionItem.getName())
+                                .optionItemsId(optionItem.getId())
+                                .build();
                         optionList.add(cartOption);
                     }
                 }
@@ -94,26 +100,26 @@ public class QrCartController {
             // log.info(cart.toString());
             List<Cart> existCartList = cartService.ListByUsersIdAndProductsId(usersId, product.getId());
             // log.info("existCartList : " + existCartList);
-            if( existCartList != null)
-            for (Cart existCart : existCartList) {
-                
-                if( existCart == null || cart == null )
-                    continue;
-                
-                List<CartOption> existCartOptionList =  existCart.getOptionList();
-                List<CartOption> cartOptionList = cart.getOptionList();
+            if (existCartList != null)
+                for (Cart existCart : existCartList) {
 
-                log.info("existCartOptionList : " + existCartOptionList);
+                    if (existCart == null || cart == null)
+                        continue;
 
-                if( existCartOptionList == null || cartOptionList == null )
-                    continue;
+                    List<CartOption> existCartOptionList = existCart.getOptionList();
+                    List<CartOption> cartOptionList = cart.getOptionList();
 
-                if (OptionComparator.areOptionListsEqual(existCartOptionList, cartOptionList)) {
-                    existCart.setAmount(existCart.getAmount() + cart.getAmount());
-                    cartService.updateAmount(existCart);
-                    return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+                    log.info("existCartOptionList : " + existCartOptionList);
+
+                    if (existCartOptionList == null || cartOptionList == null)
+                        continue;
+
+                    if (OptionComparator.areOptionListsEqual(existCartOptionList, cartOptionList)) {
+                        existCart.setAmount(existCart.getAmount() + cart.getAmount());
+                        cartService.updateAmount(existCart);
+                        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+                    }
                 }
-            }
             if (option != null) {
                 for (CartOption cartOption : cart.getOptionList()) {
                     cartService.insertOption(cartOption);
@@ -124,38 +130,49 @@ public class QrCartController {
         } catch (Exception e) {
             log.error("장바구니 추가 중 에러 발생", e);
             e.printStackTrace();
-            return new ResponseEntity<>("추가중 에러발생",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("추가중 에러발생", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Cart cart) {
+    public ResponseEntity<?> update(
+            @CookieValue(value = "id") String usersId, @RequestBody Cart cart) {
         log.info("장바구니 목록 수정");
+        log.info("장바구니 정보" + cart);
+        // 장바구니 옵션 설정
         try {
-            int result = cartService.update(cart);
-            if ( result > 0 ) {
-                return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            List<CartOption> optionList = cart.getOptionList();
+            cartService.allDeleteOptionByUserId(usersId);
+            log.info("옵션 목록 : " + optionList);
+            if (optionList != null) {
+                for (CartOption cartOption : optionList) {
+                    // OptionItem itemInfo = optionService.readItem(cartOption.getOptionItemsId());
+                    cartOption.setId(UUID.randomUUID().toString());
+                    // cartOption.setName(itemInfo.getName());
+                    cartOption.setCartsId(cart.getId());
+                    // cartOption.setPrice(itemInfo.getPrice());
+                    cartOption.setUsersId(usersId);
+                    cartService.insertOption(cartOption);
+                    log.info("장바구니 옵션 변경!");
+                }
             }
-            else {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 수정 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @DeleteMapping()
     public ResponseEntity<?> destroy(Cart cart) {
         log.info("장바구니 목록 삭제");
         String id = cart.getId();
         try {
             int result = cartService.delete(id);
-            if ( result > 0 ) {
+            if (result > 0) {
                 cartService.deleteOption(id);
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            }
-            else {
+            } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
@@ -165,15 +182,15 @@ public class QrCartController {
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<?> destroyAll(@CookieValue(value = "id",defaultValue = "",required = false) String usersId) {
+    public ResponseEntity<?> destroyAll(
+            @CookieValue(value = "id", defaultValue = "", required = false) String usersId) {
         log.info("장바구니 목록 전체 삭제");
         try {
             int result = cartService.allDeleteByUserId(usersId);
-            if ( result > 0 ) {
+            if (result > 0) {
                 cartService.allDeleteOptionByUserId(usersId);
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            }
-            else {
+            } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {

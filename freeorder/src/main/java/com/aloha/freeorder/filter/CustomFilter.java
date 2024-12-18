@@ -3,6 +3,7 @@ package com.aloha.freeorder.filter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,6 +15,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Component
 public class CustomFilter extends OncePerRequestFilter {
@@ -26,6 +28,12 @@ public class CustomFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain)
             throws ServletException, IOException {
+        // 세션
+        HttpSession session = request.getSession();
+        String usersId = (String) session.getAttribute("id");
+        if (usersId.equals("") || usersId == null) {
+            response.sendRedirect("/qr/main");
+        }
         // 현재경로
         String requestURI = request.getRequestURI();
         if (requestURI.contains("/qr")) { // /qr 경로에만 적용

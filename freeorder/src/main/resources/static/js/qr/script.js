@@ -54,7 +54,7 @@ function cartInsert() {
 
   let id = $("#id").val()
   let quantity = $("#quantity").val()
-  let optionId = $("#optionId").val()
+  let optionsId = $("#optionsId").val()
   let itemList = new Array();
   $("input[name=itemList]").each(function () {
     let checked = $(this).is(":checked")
@@ -67,7 +67,7 @@ function cartInsert() {
     id: id,
     quantity: quantity,
     option: {
-      id: optionId,
+      id: optionsId,
       itemList: itemList
     }
   }
@@ -85,6 +85,49 @@ function cartInsert() {
       if ($.trim(response) == "SUCCESS") {
         alert("추가 완료")
         location.href = "/qr/list"
+      }
+    },
+    error: function (data, status, err) {
+      console.log("에러");
+      console.log(data);
+      console.log(status);
+      console.log(err);
+    }
+  })
+}
+// 장바구니 옵션 변경
+function editCart() {
+  let id = $("#id").val()
+  let optionsId = $("#optionsId").val()
+  let productsId = $("#productsId").val()
+  let itemList = new Array();
+  $("input[name=itemList]").each(function () {
+    let checked = $(this).is(":checked")
+    if (checked) {
+      itemList.push({
+        "optionItemsId": $(this).val(),
+      })
+    }
+  })
+  let data = {
+    id: id,
+    productsId: productsId,
+    optionList : itemList
+  }
+  let sendData = JSON.stringify(data)
+  console.log("장바구니 옵션 수정중..");
+  console.log(sendData)
+  $.ajax({
+    url: "/qr/carts",
+    data: sendData,
+    contentType: "application/json",
+    type: "put",
+    success: function (response) {
+      console.log(response)
+      if ($.trim(response) == "SUCCESS") {
+        console.log("장바구니 옵션 수정완료.");
+        alert("수정 완료")
+        location.reload()
       }
     },
     error: function (data, status, err) {
@@ -159,10 +202,10 @@ function validateCart(event) {
  */
 
 // 모달 열기
-function openModal(productId) {
+function openModal(productsId) {
   const modal = document.getElementById('option-modal');
   modal.style.display = 'flex';
-  fetch(`/qr/option/${productId}`)
+  fetch(`/qr/option/${productsId}`)
     .then(response => response.text())
     .then(html => {
       document.getElementById('modal-body').innerHTML = html;

@@ -10,8 +10,11 @@ public interface OptionService {
     // 목록
     public List<Option> list() throws Exception;
     
-    // 조회
+    // 옵션 정보
     public Option read(String id) throws Exception;
+    
+    // 옵션 아이템 정보
+    public OptionItem readItem(String id) throws Exception;
 
     // 상품 아이디로 조회
     public Option getOptionsByProductId(String productId) throws Exception;

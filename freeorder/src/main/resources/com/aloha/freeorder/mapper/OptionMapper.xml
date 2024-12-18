@@ -76,6 +76,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY seq ASC
 </select>
 
+<select id="readItem" resultMap="itemMap">
+    SELECT 
+            oi.ID AS option_items_id,
+            oi.options_id
+            oi.NAME AS option_items_name,
+            oi.PRICE,
+            oi.SEQ AS option_items_seq
+    FROM option_items oi
+    WHERE id = #{id}
+</select>
+
 <insert id="insert">
     INSERT INTO options( ID, NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
     VALUES ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )

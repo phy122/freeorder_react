@@ -41,7 +41,7 @@ public class OrderController {
     public ResponseEntity<?> getAll() {
         log.info("주문 목록 조회");
         try {
-            List<Order> orderList = orderService.list();
+            List<Order> orderList = orderService.listByStatus("PAID");
             return new ResponseEntity<>(orderList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
