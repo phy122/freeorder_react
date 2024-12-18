@@ -29,12 +29,15 @@
 /* 좌측 영역 */
 .left-side {
     width: 100%;
-    height: 100%; /* 부모 요소 기준으로 높이를 설정합니다 */
+    height: 100%;
     background-color: #f8f8f8;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* 세로 스크롤 활성화 */
-    overflow-x: hidden; /* 가로 스크롤 숨김 (필요에 따라 조정 가능) */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.left-side::-webkit-scrollbar{
+    display: none;
 }
 
 /* 카테고리 목록 */
@@ -354,10 +357,14 @@ h2 {
 .l-container {
     width: 100%;
     height: 100%;
+    max-height: 85vh;
+    overflow: scroll;
     padding: 20px;
-    border-radius: 8px;
     background-color: rgba(128, 128, 128, 0.3);
 }
+.l-container::-webkit-scrollbar {
+    display: none;
+  }
 .l-product-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -543,6 +550,9 @@ h2 {
     max-height: 76vh;
     overflow: scroll;
 }
+.ul-container-son::-webkit-scrollbar{
+    display: none;
+}
 .ul-product-list {
     display: flex;
     gap: 80px;
@@ -713,27 +723,40 @@ h2 {
     border-radius: 5px;
 }
 
-/* 상품 등록/수정 공통 옵션 리스트 */
+/* 옵션 선택 리스트 시작 */
 #optionList {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding: 5px;
 }
+
 .opt-list {
     display: flex;
     align-items: center;
     justify-content: start;
     width: 100%;
     height: 50px;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     cursor: pointer;
     gap: 10px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
 }
+
+.opt-list:hover {
+    background-color: #f0f8ff;
+    border-color: #b0c4de;
+}
+
 .opt-list.active {
-    background-color: cornflowerblue;
-    border-color: cornflowerblue;
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+    color: white;
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 .opt-list .opt-title {
     padding: 5px;
     width: 100px;
@@ -742,22 +765,38 @@ h2 {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    background-color: #aaa;
+    background-color: #ddd;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
 }
+
 .opt-list.active .opt-title {
-    background-color: #fff;
+    color: #333333;
+    background-color: #ffffff;
+    font-weight: bold;
 }
+
 .opt-list .text-icon {
     padding: 5px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    background-color: #aaa;
+    background-color: #ddd;
     border-radius: 5px;
     text-decoration: none;
     font-style: normal;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.opt-list.active .text-icon {
+    color: #333333;
+    background-color: #ffffff;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+/* 옵션 선택창 끝 */
 
 /* 옵션 선택창 시작 */
 .so-container {
@@ -942,7 +981,6 @@ h2 {
 #option-modal-body {
     width: 300px;
 }
-/* 옵션 선택창 끝 */
 
 
 /* 모달 창 시작 */
