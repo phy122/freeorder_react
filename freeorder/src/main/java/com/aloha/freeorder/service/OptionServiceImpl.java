@@ -77,6 +77,11 @@ public class OptionServiceImpl implements OptionService{
         return optionMapper.getOptionsByProductId(productId);
     }
 
+    @Override
+    public OptionItem readItem(String id) throws Exception {
+        return optionMapper.readItem(id);
+    }
+
     
 
 }

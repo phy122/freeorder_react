@@ -25,8 +25,44 @@ $(function () {
  */
 
 // 리스트갱신
+orderListReload()
+function orderListReload() {
+    const url = '/pos/orders'
+    const method = 'get'
+    const listTag = document.getElementById("side-order-list")
 
+    fetch(url, {
+        method: method
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            data.forEach((order) => {
+                const orderItem = document.createElement("div")
+                orderItem.innerHTML = `
+                    <div class="sidebar-list">
+                        <ul class="order-list">
+                            <div class="order-container">
+                                <li class="order-title"><a href="#"></a></li>
+                                <li class="order-icon"><a href="#">주</a></li>
+                            </div>
+                            <div class="order-container">
+                                <li class="order-menu"><a href="#">${order.title}</a></li>
+                                <li class="order-price"><a href="#">${order.totalPrice}원</a></li>
+                            </div>
+                            <button class="complete-btn" onclick="orderComplete(this,${order.id})" >주문</button>
+                        </ul>
+                    </div>
+                    `
+                listTag.appendChild(orderItem)
+            })
+        })
+}
 // 주문수락
+function orderComplete(e,id) {
+    const url = '/pos/orders'
+    e.classList.add('complete')
+}
 
 /**
  *  MODAL

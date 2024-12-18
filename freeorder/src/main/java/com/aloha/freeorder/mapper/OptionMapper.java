@@ -12,8 +12,10 @@ import com.aloha.freeorder.domain.OptionItem;
 public interface OptionMapper {
 
     public List<Option> list() throws Exception;
-    
+    // 옵션 정보
     public Option read(String id) throws Exception;
+    // 옵션 아이템 정보
+    public OptionItem readItem(String id) throws Exception;
 
     public int insert(Option option) throws Exception;
     

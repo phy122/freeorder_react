@@ -9,8 +9,10 @@ public interface OrderService {
         
     // 주문 목록
     public List<Order> list() throws Exception;
+    // 주문 목록(상태)
+    public List<Order> listByStatus(String status) throws Exception;
     // 주문 목록(유저아이디)
-    List<Order> listByUsersId(String usersId) throws Exception;
+    public List<Order> listByUsersId(String usersId) throws Exception;
     // 주문 조회
     public Order read(String id) throws Exception;
     // 주문 등록

@@ -208,6 +208,8 @@ public class TosspayContoller {
             // 데이터베이스에 결제 상태 업데이트
             payment.setStatus("PAID");
             paymentService.insert(payment);
+            Order order = Order.builder().id(ordersId).status("PAID").build();
+            orderService.update(order);
             cartService.allDeleteByUserId(usersId);
 
             responseJson.put("status", "success");

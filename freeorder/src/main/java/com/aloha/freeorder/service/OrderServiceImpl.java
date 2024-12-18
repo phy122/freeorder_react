@@ -73,4 +73,9 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> listByUsersId(String usersId) throws Exception {
         return orderMapper.listByUsersId(usersId);
     }
+    
+    @Override
+    public List<Order> listByStatus(String status) throws Exception {
+        return orderMapper.listByStatus(status);
+    }
 }

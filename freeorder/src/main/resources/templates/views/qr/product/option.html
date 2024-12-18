@@ -30,7 +30,8 @@
             <form onsubmit="return false" id="cart-update">
                 <input type="hidden" th:field="${cart.id}">
                 <th:block th:if="${product.option != null}">
-                    <input type="hidden" id="optionId" th:value="${product.option.id}">
+                    <input type="hidden" id="optionsId" th:value="${product.option.id}">
+                    <input type="hidden" id="productsId" th:value="${product.id}">
                     <div class="title mt-5 mb-5 ml-4 fs-normal">옵션 선택</div>
                     <div class="checkbox-container ml-5 mb-5">
                         <th:block th:if="${optionList != null and not optionList.isEmpty()}"
@@ -50,7 +51,7 @@
 
         <!-- [하단] 변경하기 -->
         <div class="change-btn-border">
-            <button onclick="" class="change-btn white">변경하기</button>
+            <button class="change-btn white" onclick="editCart()">변경하기</button>
         </div>
     </div>
 </body>
