@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.aloha.freeorder.domain.SystemStatus;
@@ -21,7 +22,9 @@ public class CustomFilter extends OncePerRequestFilter {
     private SystemStatusService statusService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
         // 현재경로
         String requestURI = request.getRequestURI();
