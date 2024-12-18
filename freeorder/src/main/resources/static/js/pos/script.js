@@ -44,7 +44,7 @@ function orderListReload() {
                         <ul class="order-list">
                             <div class="order-container">
                                 <li class="order-title"><a href="#"></a></li>
-                                <li class="order-icon"><a href="#">주</a></li>
+                                <li class="order-icon"><a href="#">${order.orderNumber}</a></li>
                             </div>
                             <div class="order-container">
                                 <li class="order-menu"><a href="#">${order.title}</a></li>

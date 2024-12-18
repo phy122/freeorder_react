@@ -8,6 +8,7 @@
         <id property="id" column="id" />
         
         <result property="id" column="id" />
+        <result property="orderNumber" column="order_number" />
         <result property="usersId" column="users_id" />
         <result property="title" column="title" />
         <result property="totalQuantity" column="total_quantity" />
@@ -122,8 +123,8 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
-        VALUES ( #{id}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
+        INSERT INTO orders ( ID, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
+        VALUES ( #{id}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
     </insert>
 
     <!-- 아이템 등록 -->
@@ -168,9 +169,6 @@
             AND MONTH(o.ORDERED_AT) = MONTH(#{day})
     </select>
 
-    <!-- TODO:월매출,일매출 -->
-
-
     <!-- 해당 날짜의 총액 불러오기 [판매/환불]-->
     <select id="totalDay" resultType="SalesReport">
         SELECT 
@@ -186,6 +184,13 @@
             AND DAY(o.ORDERED_AT) = DAY(#{day})
         GROUP BY 
             pm.payment_method
+    </select>
+
+    <!-- 해당 시간 이후부터 주문수 조회  (주문번호 부여) -->
+    <select id="countOrders" type="int">
+        SELECT COUNT(o.id)
+        FROM orders o
+        WHERE o.PAID_AT >= (SELECT STARTED_AT FROM SETTING)
     </select>
 
 </mapper>

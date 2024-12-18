@@ -25,5 +25,7 @@ public interface OrderService {
     public SalesReport totalMonth(String status, String day) throws Exception;
     // 일별 매출 조회
     public SalesReport totalDay(String status, String day) throws Exception;
+    // 주문수 조회(주문번호 부여)
+    public int countOrders() throws Exception;
 
 }
