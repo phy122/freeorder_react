@@ -42,7 +42,7 @@
                             <p th:text="${#dates.format(payment.paidAt,'EEEE')}">금요일</p>
                             <p th:text="${#dates.format(payment.paidAt,'yyyy-MM-dd')}">2024.11.29</p>
                         </div>
-                        <a href="" class="ls-detail-link">
+                        <a class="ls-detail-link" th:onclick="paymentRead([[${payment.id}]])">
                             <div class="ls-payment">
                                 <p th:text="${payment.paymentMethod}">카드</p>
                             </div>

@@ -44,7 +44,7 @@
                         <div class="date-status">
                             <p th:text="${#dates.format(order.orderedAt, 'yyyy.MM.dd(E)')}"></p>
                             <p>·</p>
-                            <p th:text="${order.status}"></p>
+                            <p th:text="${order.status=='PAID' ? '결제완료' : '주문완료'}"></p>
                         </div>
                         <button class="detail-ord">
                             <a th:href="@{/qr/order/read/{id}(id=${order.id})}">주문상세</a>
