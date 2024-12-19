@@ -187,10 +187,10 @@
     </select>
 
     <!-- 해당 시간 이후부터 주문수 조회  (주문번호 부여) -->
-    <select id="countOrders" type="int">
-        SELECT COUNT(o.id)
+    <select id="countOrders" resultType="int">
+        SELECT COUNT(o.id) as cnt
         FROM orders o
-        WHERE o.PAID_AT >= (SELECT STARTED_AT FROM SETTING)
+        WHERE o.ORDERED_AT >= (SELECT STARTED_AT FROM SETTING)
     </select>
 
 </mapper>
