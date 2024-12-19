@@ -203,7 +203,9 @@ footer .more a{
 /* 푸터 끝 */
 
 
-/* 사이드바 시작 */
+/*
+    사이드바 시작
+*/
 #alarm-sound {
     display: none;
 }
@@ -301,7 +303,9 @@ footer .more a{
     font-size: 14px;
     font-weight: bold;
 }
-/* 사이드바 끝 */
+/*
+    사이드바 끝
+*/
 
 /* 더보기 왼쪽 사이드바 시작 */
 .more-layout{
