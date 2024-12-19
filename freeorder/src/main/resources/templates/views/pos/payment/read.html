@@ -1,0 +1,54 @@
+<div class="ls-detail-part">
+    <div class="ls-pay-compl">
+        <th:block th:if="${payment.status =='PAID'}">
+            <h3>결제 완료</h3>
+        </th:block>
+        <th:block th:if="${payment.status =='CANCELD'}">
+            <h3>환불</h3>
+        </th:block>
+        <h4>결제 시간 : 2024.11.29 (금) 11:04</h4>
+    </div>
+    <div class="ls-total-pay">
+        <h5>총 결제 금액</h5>
+        <h1>52,000원</h1>
+        <h4>테이블 1</h4>
+    </div>
+    <div class="ls-total-price">
+        <h4>합계</h4>
+        <h4>52,000원</h4>
+    </div>
+    <th:block th:if="${payment.status =='PAID'}">
+        <div class="ls-cancel-price">
+            <h4>환불 가능 금액</h4>
+            <h4>52,000원</h4>
+        </div>
+    </th:block>
+    <th:block th:if="${payment.status =='CANCELD'}">
+        <div class="ls-cancel-total">
+            <h4>환불된 금액</h4>
+            <h4>0원</h4>
+        </div>
+    </th:block>
+    <div class="ls-btns">
+        <th:block th:if="${payment.status =='PAID'}">
+            <button type="button" class="ls-save-btn" id="cancel-order-btn">환불</button>
+        </th:block>
+        <th:block th:if="${payment.status =='CANCELD'}">
+            <button type="submit" class="ls-delete-btn" id="del-order-btn">삭제</button>
+        </th:block>
+    </div>
+    <div>
+        <button type="button" class="ls-re-btn" id="re-order-btn">주문 다시 담기</button>
+    </div>
+    <div class="ls-detail-pay">
+        <h4>결제 수단</h4>
+        <h3 th:text="${payment.paymentMethod}">카드</h3>
+    </div>
+    <div class="ls-pay-list">
+        <h4>결제 내역</h4>
+        <div class="ls-list-detail">
+            <h3 th:text="${payment.title}">김치찌개 X4</h3>
+            <h3 th:text="${payment.order.totalPrice}">52,000원</h3>
+        </div>
+    </div>
+</div>

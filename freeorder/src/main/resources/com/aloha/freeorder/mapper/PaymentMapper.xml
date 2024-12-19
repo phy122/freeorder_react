@@ -18,6 +18,7 @@
 
         <association property="order" javaType="Order">
             <result property="id" column="orders_id" />
+            <result property="orderNumber" column="order_number" />
             <result property="usersId" column="users_id" />
             <result property="title" column="title" />
             <result property="totalQuantity" column="total_quantity" />
