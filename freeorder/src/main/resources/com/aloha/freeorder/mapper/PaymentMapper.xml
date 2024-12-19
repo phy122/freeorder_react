@@ -134,10 +134,7 @@
             ON oi.id = op.order_items_id
         WHERE p.paid_at BETWEEN #{filter.startDay} AND #{filter.endDay}
         <if test="filter.paymentMethods != null and !filter.paymentMethods.isEmpty()">
-            AND p.payment_method IN 
-            <foreach item="method" collection="filter.paymentMethods" open="(" separator="," close=")">
-                #{method}
-            </foreach>
+            AND p.payment_method = #{filter.paymentMethods}
         </if>
         <if test="filter.minPrice != null">
             AND o.TOTAL_PRICE >= #{filter.minPrice}

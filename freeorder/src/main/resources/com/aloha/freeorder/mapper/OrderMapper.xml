@@ -124,8 +124,8 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE )
-        VALUES ( #{id}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice} )
+        INSERT INTO orders ( ID, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE, STATUS )
+        VALUES ( #{id}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice}, #{status} )
     </insert>
 
     <!-- 아이템 등록 -->

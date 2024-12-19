@@ -22,18 +22,27 @@
                     <h3>결제 내역</h3>
                 </div>
             </div>
-
-            <div class="ls-filter-part">
-                <div>
-                    <button type="button" class="ls-filter-btn">1주</button>
-                    <button type="button" class="ls-filter-btn">결제수단</button>
-                    <button type="button" class="ls-filter-btn">채널</button>
+            <form action="" method="get">
+                <div class="ls-filter-part">
+                    <div>
+                        <select name="date">
+                            <option value="1" th:selected="${paySearch.date == 1}">오늘</option>
+                            <option value="7" th:selected="${paySearch.date == 7}">1주</option>
+                            <option value="30" th:selected="${paySearch.date == 30}">1달</option>
+                            <option value="365" th:selected="${paySearch.date == 365}">1년</option>
+                        </select>
+                        <select name="paymentMethods">
+                            <option value="현금" th:selected="|${paySearch.paymentMethods == '현금'}|">현금</option>
+                            <option value="카드" th:selected="|${paySearch.paymentMethods == '카드'}|">카드</option>
+                        </select>
+                    </div>
+                    <div class="ls-input-filter">
+                        <input type="text" name="minPrice" th:value="${paySearch.minPrice != null ? paySearch.minPrice : ''}" placeholder="최소금액">
+                        <input type="text" name="maxPrice" th:value="${paySearch.maxPrice != null ? paySearch.maxPrice : ''}" placeholder="최대금액">
+                        <button type="submit" class="ls-read-btn" id="search-payment-btn">조회</button>
+                    </div>
                 </div>
-                <div class="ls-input-filter">
-                    <input type="text" name="card-num" id="card-num" placeholder="카드번호 앞 6자리/금액">
-                    <button type="button" class="ls-read-btn">조회</button>
-                </div>
-            </div>
+            </form>
 
             <ul class="ls-list-part">
                 <th:block th:if="${payList != null and not payList.isEmpty()}" th:each="payment : ${payList}">
