@@ -40,20 +40,21 @@ function orderListReload() {
             data.forEach((order) => {
                 const orderItem = document.createElement("div")
                 orderItem.innerHTML = `
-                    <div class="sidebar-list">
-                        <ul class="order-list">
-                            <div class="order-container">
-                                <li class="order-title"><a href="#"></a></li>
-                                <li class="order-icon"><a href="#">${order.orderNumber}</a></li>
-                            </div>
-                            <div class="order-container">
-                                <li class="order-menu"><a href="#">${order.title}</a></li>
-                                <li class="order-price"><a href="#">${order.totalPrice}원</a></li>
-                            </div>
-                            <button class="complete-btn" onclick="orderComplete(this,${order.id})" >주문</button>
-                        </ul>
+                    <div class="order-list">
+                        <span class="order-icon"><a href="#">${order.orderNumber}</a></span>
+                        <div class="title-price">
+                            <span class="order-title"><a href="#">${order.title}</a></span>
+                            <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
+                        </div>
                     </div>
+                    
+                    <button class="complete-btn" onclick="orderComplete(this,${order.id})" >주문접수</button>
+                    <button class="done-btn">접수완료</button>
                     `
+                orderItem.classList.add("sidebar-list")
+                if (order.status == "COMPLETE") {
+                    orderItem.classList.add("done")
+                }
                 listTag.appendChild(orderItem)
             })
         })

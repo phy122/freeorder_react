@@ -78,7 +78,8 @@
             ON o.id = oi.orders_id
         LEFT OUTER JOIN order_options op
             ON oi.id = op.order_items_id
-        WHERE status = #{status}
+        WHERE status = #{status} 
+          OR status = 'COMPLETE'
     </select>
 
     <!-- 사용자별 주문 목록 조회 -->
