@@ -43,6 +43,7 @@ public class OrderServiceImpl implements OrderService{
             }
         }
         log.info("주문내역 등록");
+        order.setOrderNumber(countOrders() + 1); // 주문 번호 설정 - 영업 시작 시간 부터 수량만큼 증가
         int result = orderMapper.insert(order);
         return result;
     }
@@ -77,5 +78,10 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> listByStatus(String status) throws Exception {
         return orderMapper.listByStatus(status);
+    }
+
+    @Override
+    public int countOrders() throws Exception {
+        return orderMapper.countOrders();
     }
 }
