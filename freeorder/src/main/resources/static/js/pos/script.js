@@ -29,7 +29,7 @@ orderListReload()
 function orderListReload() {
     const url = '/pos/orders'
     const method = 'get'
-    const listTag = document.getElementById("side-order-list")
+        const listTag = document.getElementById("side-order-list")
 
     fetch(url, {
         method: method

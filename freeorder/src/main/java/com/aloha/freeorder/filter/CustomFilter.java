@@ -26,6 +26,7 @@ public class CustomFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain)
             throws ServletException, IOException {
+        
         // 현재경로
         String requestURI = request.getRequestURI();
         if (requestURI.contains("/qr")) { // /qr 경로에만 적용
