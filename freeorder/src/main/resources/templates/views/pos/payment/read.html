@@ -6,17 +6,18 @@
         <th:block th:if="${payment.status =='CANCELD'}">
             <h3>환불</h3>
         </th:block>
-        <h4>결제 시간 : 2024.11.29 (금) 11:04</h4>
+        <h4>결제 시간 : <span th:text="${#dates.format(payment.paidAt,'yyyy-MM-dd (EE) hh:mm')}">2024.11.29 (금) 11:04</span>
+        </h4>
     </div>
     <div class="ls-total-pay">
         <h5>총 결제 금액</h5>
-        <h1>52,000원</h1>
-        <h4>테이블 1</h4>
+        <h1 th:text="${payment.order.totalPrice}">52,000원</h1>
+        <h4 th:text="|주문번호 : ${payment.order.orderNumber}|">테이블 1</h4>
     </div>
-    <div class="ls-total-price">
+    <!-- <div class="ls-total-price">
         <h4>합계</h4>
-        <h4>52,000원</h4>
-    </div>
+        <h4 th:text="${payment.order.totalPrice}">52,000원</h4>
+    </div> -->
     <th:block th:if="${payment.status =='PAID'}">
         <div class="ls-cancel-price">
             <h4>환불 가능 금액</h4>
@@ -37,18 +38,31 @@
             <button type="submit" class="ls-delete-btn" id="del-order-btn">삭제</button>
         </th:block>
     </div>
-    <div>
+    <!-- <div>
         <button type="button" class="ls-re-btn" id="re-order-btn">주문 다시 담기</button>
-    </div>
+    </div> -->
     <div class="ls-detail-pay">
         <h4>결제 수단</h4>
         <h3 th:text="${payment.paymentMethod}">카드</h3>
     </div>
     <div class="ls-pay-list">
         <h4>결제 내역</h4>
-        <div class="ls-list-detail">
-            <h3 th:text="${payment.title}">김치찌개 X4</h3>
-            <h3 th:text="${payment.order.totalPrice}">52,000원</h3>
-        </div>
+        <th:block th:if="${payment.order.itemList != null && !payment.order.itemList.isEmpty()}"
+            th:each="item : ${payment.order.itemList}">
+            <div class="ls-list-detail">
+                <div class="main">
+                    <h3 th:text="|${item.name} X ${item.quantity} |">김치찌개 X4</h3>
+                    <h3 th:text="${item.amount}">52,000원</h3>
+                </div>
+                <div class="options">
+                    <th:block 
+                        th:if="${item.optionList != null && !item.optionList.isEmpty()}"
+                        th:each="option : ${item.optionList}"
+                        >
+                        <span th:text="|ㄴ${option.name}(${#numbers.formatInteger(option.price,3,'COMMA')}원)|"></span>
+                    </th:block>
+                </div>
+            </div>
+        </th:block>
     </div>
 </div>

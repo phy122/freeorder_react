@@ -302,6 +302,14 @@ public class PosController {
         return "views/pos/payment/list";
     }
 
+    @GetMapping("/payment/{id}")
+    public String getMethodName(@PathVariable("id") String paymentsId,Model model) throws Exception {
+        Payment payment = paymentService.select(paymentsId);
+        model.addAttribute("payment", payment);
+        return "views/pos/payment/read";
+    }
+    
+
     /**
      * Management
      */
