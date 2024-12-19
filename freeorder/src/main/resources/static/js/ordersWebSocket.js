@@ -22,24 +22,45 @@ function connect() {
 
 function showOrders(order) {
     const orderMessages = document.getElementById('side-order-list');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('msg-box');
-    messageElement.innerHTML = `
-    <div class="sidebar-list">
-        <ul class="order-list">
-            <div class="order-container">
-                <li class="order-title"><a href="#"></a></li>
-                <li class="order-icon"><a href="#">${order.orderNumber}</a></li>
-            </div>
-            <div class="order-container">
-                <li class="order-menu"><a href="#">${order.title}</a></li>
-                <li class="order-price"><a href="#">${order.totalPrice}원</a></li>
-            </div>
-            <button class="complete-btn"><a href="#">주문</a></button>
-        </ul>
-    </div>
-    `
-    orderMessages.appendChild(messageElement);
+    const orderItem = document.createElement("div")
+    orderItem.innerHTML = `
+                        <span class="order-icon"><a href="#">${order.orderNumber}</a></span>
+                        <div class="title-price">
+                            <span class="order-title"><a href="#">${order.title}</a></span>
+                            <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
+                        </div>
+                    `
+    orderItem.classList.add("order-list")
+    const comBtn = document.createElement("button")
+    comBtn.classList.add("complete-btn")
+    comBtn.innerText = "주문접수"
+    comBtn.addEventListener("click", () => {
+        let data = {
+            id: order.id,
+            status: "COMPLETE"
+        }
+        fetch("/pos/orders", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                orderListReload()
+            }
+        })
+    })
+    const doneBtn = document.createElement("button")
+    doneBtn.classList.add("done-btn")
+    doneBtn.innerText = "접수완료"
+    orderItem.appendChild(comBtn)
+    orderItem.appendChild(doneBtn)
+    orderItem.classList.add("sidebar-list")
+    if (order.status == "COMPLETE") {
+        orderItem.classList.add("done")
+    }
+    orderMessages.appendChild(orderItem);
     orderMessages.scrollTop = orderMessages.scrollHeight;
     playAlarm();
 }
@@ -53,10 +74,10 @@ connect();
 function sendMessage(ordersId) {
     console.log("주문 전송 : " + ordersId)
     let data = {
-        id : ordersId
+        id: ordersId
     }
     if (stompClient) {
-        stompClient.send("/app/order.addorder/" + ordersId,{},JSON.stringify(data));
+        stompClient.send("/app/order.addorder/" + ordersId, {}, JSON.stringify(data));
     }
 }
 
