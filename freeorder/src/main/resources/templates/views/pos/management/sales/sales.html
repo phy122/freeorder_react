@@ -12,18 +12,19 @@
 <body onload="salesFunctions()">
     <div class="container" layout:fragment="content">
         <div class="sales">
-            <!-- [상단]	날짜 -->
-            <a href="#" class="today-date">2024.12.06</a>
-            <!-- [중단]	현재 날짜 달력   -->
+            <!-- [상단] 날짜 -->
+            <a href="#" class="today-date" id="selectedDate">2024.12.06</a>
+
+            <!-- [중단] 현재 날짜 달력 -->
             <div class="sales-sr">
                 <div class="sr-sr">
                     <div class="sr-sales">
                         <a href="#" class="sr-title">이번 달 실 매출</a>
-                        <a href="#" class="sales-price">86,708원</a>
+                        <a href="#" class="sales-price" id="totalSales">로딩 중...</a> <!-- 여기 수정 -->
                     </div>
                     <div class="sr-refund">
                         <a href="#" class="sr-title">이번 달 총 환불</a>
-                        <a href="#" class="refund-price">0원</a>
+                        <a href="#" class="refund-price" id="totalRefund">로딩 중...</a> <!-- 여기 수정 -->
                     </div>
                 </div>
                 <div class="calendar">
@@ -44,6 +45,8 @@
                     <div id="calendarDates"></div>
                 </div>
             </div>
+
+            <div id="dailySales"></div>
         </div>
     </div>
 </body>

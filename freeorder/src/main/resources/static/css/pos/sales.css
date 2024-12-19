@@ -49,17 +49,20 @@
     font-weight: bold;
 }
 
+/* 달력 컨테이너 */
 .calendar {
     margin-top: 20px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     width: 100%;
     max-width: 800px;
+    background-color: #fff;
 }
 
+/* 달력 헤더 */
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -71,12 +74,19 @@
     font-weight: bold;
 }
 
+/* 이전/다음 버튼 */
 #prevMonth,
 #nextMonth{
     width: 30px;
     height: 30px;
+    font-size: 18px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
+/* 달력 요일 부분 */
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -87,30 +97,30 @@
     padding: 5px 0;
 }
 
-.calendar-days div {
-    padding: 10px;
-    color: #555;
-}
-
+/* 날짜 영역 */
 #calendarDates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
-    width: 100%; /* 달력 너비 */
+    width: 100%;
 }
 
-#calendarDates div {
-    padding: 20px;
-    text-align: center;
-    vertical-align: top;
+/* 날짜 및 매출 정보 영역 */
+.calendar-day-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 1px solid #e0e0e0;
     font-size: 16px;
     cursor: pointer;
-    position: relative;
-    transition: background-color 0.2s ease, color 0.2s ease; /* 애니메이션 */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 8px;
+    border-radius: 8px;
 }
 
+/* 날짜 선택 시 스타일 */
 #calendarDates div:hover {
     background-color: #e7f3ff;
 }
@@ -119,8 +129,113 @@
     background-color: var(--main-color);
     color: white;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
 }
+
+/* 매출 정보 스타일 */
+.sales-info {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.sales-info {
+    font-size: 12px;
+    color: #444;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* 날짜 글씨 크기 조정 */
+.calendar-day {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 각 요일의 스타일 (예: 월, 화, 수 등) */
+.calendar-days div {
+    padding: 10px;
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* 날짜끼리 구분선 추가 */
+#calendarDates div {
+    border-right: 1px solid #ddd; /* 세로선 */
+    border-bottom: 1px solid #ddd; /* 가로선 */
+}
+
+#calendarDates div:nth-child(7n) {
+    border-right: none; /* 일요일은 오른쪽 경계선 제거 */
+}
+
+#calendarDates div:nth-last-child(-n+7) {
+    border-bottom: none; /* 마지막 주의 마지막 행은 아래 경계선 제거 */
+}
+
+/* sales.css */
+
+/* 모달 배경 */
+.sales-modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경을 반투명 */
+}
+
+/* 모달 내용 */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* 닫기 버튼 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 달력 날짜 스타일 */
+.calendar-date {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+}
+
+.calendar-date:hover {
+    background-color: #dcdcdc;
+}
+
+
+
+
+
 /* 매출관리 css 끝 */
 
 
