@@ -161,3 +161,8 @@ SELECT p.*
           AND ( p.payment_method = '카드' OR p.`PAYMENT_METHOD` = '현금' )
           AND o.TOTAL_PRICE >= 0
         ORDER BY p.created_at desc;
+
+
+SELECT COUNT(o.id) as cnt
+        FROM orders o
+        WHERE o.ORDERED_AT >= (SELECT STARTED_AT FROM SETTING);
