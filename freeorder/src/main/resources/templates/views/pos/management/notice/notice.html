@@ -19,12 +19,14 @@
                 <input type="text" id="notice-title" name="title" th:value="${notice != null?notice.title:''}"
                     placeholder="제목을 입력하세요">
             </div>
-            <div class="notice-radio">
-                <div class="radio-wrap">
-                    <input type="checkbox" role="switch" name="enabled" id="enabled" th:checked="${notice.enabled}">
-                    <label for="enabled">활성화</label>
+            <th:blcok th:if="${notice != null}">
+                <div class="notice-radio">
+                    <div class="radio-wrap">
+                        <input type="checkbox" role="switch" name="enabled" id="enabled" th:checked="${notice.enabled}">
+                        <label for="enabled">활성화</label>
+                    </div>
                 </div>
-            </div>
+            </th:blcok>
             <div class="notice-content">
                 <a href="#">내용</a>
                 <textarea name="content" id="notice-content" th:text="${notice != null?notice.content:''}"
