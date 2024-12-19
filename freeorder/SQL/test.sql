@@ -166,3 +166,31 @@ SELECT p.*
 SELECT COUNT(o.id) as cnt
         FROM orders o
         WHERE o.ORDERED_AT >= (SELECT STARTED_AT FROM SETTING);
+
+SELECT 
+            AVG(o.TOTAL_PRICE) AS AVG_SALES,
+            SUM(o.TOTAL_PRICE) AS TOTAL_SALES,
+            COUNT(o.ID) as total_count
+        FROM 
+            ORDERS o LEFT JOIN payments pm
+            ON pm.`ORDERS_ID` = o.`ID`
+        WHERE 
+            o.STATUS = 'PAID'
+            AND YEAR(o.ORDERED_AT) = YEAR("2024-12-01")
+            AND MONTH(o.ORDERED_AT) = MONTH("2024-12-01")
+            AND DAY(o.ORDERED_AT) = DAY("2024-12-01")
+        GROUP BY 
+            pm.payment_method;
+
+
+SELECT 
+    AVG(o.TOTAL_PRICE) AS avg_sales,
+    SUM(o.TOTAL_PRICE) AS total_sales,
+    COUNT(o.ID) as sales_count
+FROM ORDERS o 
+LEFT JOIN payments pm
+    ON pm.orders_id = o.id
+WHERE 
+    DATE_FORMAT(o.ORDERED_AT, '%Y-%m-%d') = '2024-12-19'
+GROUP BY 
+    pm.payment_method;
