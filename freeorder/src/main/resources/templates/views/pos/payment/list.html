@@ -52,7 +52,7 @@
                             </div>
                             <div class="ls-table">
                                 <h5 th:text="${#dates.format(payment.paidAt,'hh:mm')}">11:04</h5>
-                                <h6>테이블 1</h6>
+                                <h6 th:text="|주문번호 : ${payment.order.orderNumber}|">주문번호 1</h6>
                             </div>
                         </a>
                     </li>
@@ -65,56 +65,8 @@
             </ul>
 
         </div>
-        <div class="ls-right-container">
-            <div class="ls-detail-part">
-                <div class="ls-pay-compl">
-                    <h3>결제 완료</h3>
-                    <h4>결제 시간 : 2024.11.29 (금) 11:04</h4>
-                </div>
-                <div class="ls-total-pay">
-                    <h5>총 결제 금액</h5>
-                    <h1>52,000원</h1>
-                    <h4>테이블 1</h4>
-                </div>
-                <div class="ls-total-price">
-                    <h4>합계</h4>
-                    <h4>52,000원</h4>
-                </div>
-                <div class="ls-cancel-price">
-                    <h4>환불 가능 금액</h4>
-                    <h4>52,000원</h4>
-                </div>
-                <div class="ls-cancel-total">
-                    <h4>환불된 금액</h4>
-                    <h4>0원</h4>
-                </div>
-                <div class="ls-btns">
-                    <button type="button" class="ls-save-btn">저장</button>
-                    <button type="submit" class="ls-delete-btn">삭제</button>
-                </div>
-                <div>
-                    <button type="button" class="ls-re-btn">주문 다시 담기</button>
-                </div>
-                <div class="ls-detail-pay">
-                    <h4>결제 수단</h4>
-                    <h3>카드</h3>
-                </div>
-                <div class="ls-pay-list">
-                    <h4>결제 내역</h4>
-                    <div class="ls-list-detail">
-                        <h3>김치찌개 X4</h3>
-                        <h3>52,000원</h3>
-                    </div>
-                </div>
-                <!-- <div class="ls-reward">
-                    <h4>고객 정보 / 적립</h4>
-                    <button type="button" class="ls-reward-btn">적립</button>
-                </div>
-                <div class="ls-add">
-                    <h4>메모</h4>
-                    <button type="button" class="ls-add-btn">추가</button>
-                </div> -->
-            </div>
+        <div class="ls-right-container" id="right-payment-info">
+            
         </div>
     </div>
 </body>
