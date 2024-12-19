@@ -265,7 +265,10 @@ footer .more a{
     text-decoration: none;
     font-weight: bold;
 }
-
+#side-order-list{
+    overflow-y: auto;
+    height: calc( 100vh - 130px );
+}
 .sidebar .sidebar-list {
     display: flex;
     justify-content: space-between;

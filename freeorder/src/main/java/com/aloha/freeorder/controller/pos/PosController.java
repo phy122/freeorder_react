@@ -285,6 +285,9 @@ public class PosController {
         model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
         log.info(" 서치 옵션 : " + paySearch);
+        if (paySearch == null) {
+            paySearch = PaySearch.builder().date(1).build();
+        }
         // 검색 값이 없을경우 기본값 세팅
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         // TODO:결제내역 뷰페이지 수정 / 최소 최대 금액 입력시 처리 내용 / 카드,현금 선택시 처리 내용

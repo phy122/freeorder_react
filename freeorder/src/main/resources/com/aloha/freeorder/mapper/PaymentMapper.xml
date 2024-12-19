@@ -132,14 +132,17 @@
             ON o.id = oi.orders_id
         LEFT OUTER JOIN order_options op
             ON oi.id = op.order_items_id
-        WHERE p.paid_at BETWEEN #{filter.startDay} AND #{filter.endDay}
+        WHERE 1
+        <!-- <if test="filter.startDay != null and filter.endDay != null">
+            AND p.created_at BETWEEN #{filter.startDay} AND #{filter.endDay}
+        </if> -->
         <if test="filter.paymentMethods != null and !filter.paymentMethods.isEmpty()">
             AND p.payment_method = #{filter.paymentMethods}
         </if>
-        <if test="filter.minPrice != null">
+        <if test="filter.minPrice != null and !filter.minPrice.isEmpty()">
             AND o.TOTAL_PRICE >= #{filter.minPrice}
         </if>
-        <if test="filter.maxPrice != null">
+        <if test="filter.maxPrice != null and !filter.maxPrice.isEmpty()">
             AND #{filter.maxPrice} >= o.TOTAL_PRICE  
         </if>
         ORDER BY p.created_at DESC

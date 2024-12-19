@@ -6,6 +6,9 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     text-align: center;
+    display: grid;
+    grid-template-rows: 50px 50px 180px;
+    gap: 20px;
 }
 
 .notice {
@@ -24,7 +27,6 @@
 
 /* 라디오박스 */
 .notice-radio {
-    width: 80%;
     padding: 0 15px;
     height: 50px;
     display: grid;
@@ -32,6 +34,7 @@
 }
 
 .radio-wrap {
+    width: 500px;
     display: flex;
     justify-content: start;
     align-items: center;
