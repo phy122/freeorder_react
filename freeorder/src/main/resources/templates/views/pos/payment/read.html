@@ -31,9 +31,9 @@
         </div>
     </th:block>
     <div class="ls-btns">
-        <th:block th:if="${payment.status =='PAID'}">
+        <!-- <th:block th:if="${payment.status =='PAID'}">
             <button type="button" class="ls-save-btn" id="cancel-order-btn">환불</button>
-        </th:block>
+        </th:block> -->
         <th:block th:if="${payment.status =='CANCELD'}">
             <button type="submit" class="ls-delete-btn" id="del-order-btn">삭제</button>
         </th:block>
