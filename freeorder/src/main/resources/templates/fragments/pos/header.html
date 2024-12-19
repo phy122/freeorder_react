@@ -21,7 +21,7 @@
             </div>
             <!-- 시간 -->
             <div class="time">
-                <span id="current-time" th:text="${status.status == 'START'} ? ${status.startedAt} : ${status.endedAt}"></span> <!-- 시간 표시 -->
+                <span id="current-time" th:text="${status.status == 'START'} ? ${#dates.format( status.startedAt ,'yyyy-MM-dd hh:mm') } : ${#dates.format( status.endedAt ,'yyyy-MM-dd hh:mm')}"></span> <!-- 시간 표시 -->
             </div>
             <!-- 영업 상태 -->
             <div class="status">
