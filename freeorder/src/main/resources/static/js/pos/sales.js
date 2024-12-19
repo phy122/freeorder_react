@@ -9,7 +9,7 @@ function salesFunctions() {
     let currentDate = new Date();
 
     async function fetchTotalMonthSales() {
-        const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-01`;
+        const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
         try {
             const response = await fetch(`/sales/totalMonthSales?day=${formattedDate}`);
             if (!response.ok) throw new Error("서버 응답 오류");

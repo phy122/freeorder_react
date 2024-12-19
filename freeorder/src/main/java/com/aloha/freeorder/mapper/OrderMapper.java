@@ -41,10 +41,10 @@ public interface OrderMapper {
     public int delete(String id) throws Exception;
     
     // 월별 매출 조회
-    public SalesReport totalMonth(@Param("status") String status, @Param("day") String day);
+    public SalesReport totalMonth(@Param("status") String status, @Param("day") String day) throws Exception;
     
     // 일별 매출 조회
-    public SalesReport totalDay(@Param("status") String status, @Param("day") String day);
+    public SalesReport totalDay(@Param("status") String status, @Param("day") String day) throws Exception;
     
     // 주문수 조회(주문번호 부여)
     public int countOrders() throws Exception;
