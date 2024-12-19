@@ -472,3 +472,27 @@ input[type="checkbox"] {
 [type="checkbox"]:enabled:hover {
     box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
 }
+
+/* 
+    커스텀 셀렉트 박스
+*/
+.custom-select {
+    position: relative;
+}
+.custom-select ul {
+    top: -48px;
+    width: auto;
+    height: 40px;
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+.custom-select ul li {
+    padding: 9px;
+    height: 40px;
+    min-width: 70px;
+    border-radius: 7px;
+    background-color: #aaa;
+}

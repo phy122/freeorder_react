@@ -284,20 +284,22 @@ public class PosController {
         model.addAttribute("orderlist", orderList);
         model.addAttribute("status", systemStatus);
         // 공통객체 [끝]
-
+        log.info(" 서치 옵션 : " + paySearch);
         // 검색 값이 없을경우 기본값 세팅
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         // TODO:결제내역 뷰페이지 수정 / 최소 최대 금액 입력시 처리 내용 / 카드,현금 선택시 처리 내용
+        
         Calendar c = Calendar.getInstance();
         String stDate = sdf.format(c.getTime());
         paySearch.setEndDay(stDate);
-        c.add(Calendar.DATE, -7);
+        c.add(Calendar.DATE, -paySearch.getDate());
         String endDate = sdf.format(c.getTime());
         paySearch.setStartDay(endDate);
         log.info(paySearch.toString());
         List<Payment> payList = paymentService.listByOption(paySearch);
 
         log.info("결제 리스트 : " + payList.toString());
+        model.addAttribute("paySearch", paySearch);
         model.addAttribute("payList", payList);
         return "views/pos/payment/list";
     }

@@ -1,3 +1,4 @@
+
 // 설정 모달
 $(function () {
     $(".settings-btn").on("click", function () {
@@ -26,12 +27,12 @@ $(function () {
 
 // 리스트갱신
 orderListReload()
-function orderListReload() {
+async function orderListReload() {
     const url = '/pos/orders'
     const method = 'get'
-        const listTag = document.getElementById("side-order-list")
-
-    fetch(url, {
+    const listTag = document.getElementById("side-order-list")
+    listTag.innerHTML = ""
+    await fetch(url, {
         method: method
     })
         .then(response => response.json())
@@ -40,17 +41,38 @@ function orderListReload() {
             data.forEach((order) => {
                 const orderItem = document.createElement("div")
                 orderItem.innerHTML = `
-                    <div class="order-list">
                         <span class="order-icon"><a href="#">${order.orderNumber}</a></span>
                         <div class="title-price">
                             <span class="order-title"><a href="#">${order.title}</a></span>
                             <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
                         </div>
-                    </div>
-                    
-                    <button class="complete-btn" onclick="orderComplete(this,${order.id})" >주문접수</button>
-                    <button class="done-btn">접수완료</button>
                     `
+                orderItem.classList.add("order-list")
+                const comBtn = document.createElement("button")
+                comBtn.classList.add("complete-btn")
+                comBtn.innerText = "주문접수"
+                comBtn.addEventListener("click",()=>{
+                    let data = {
+                        id : order.id,
+                        status : "COMPLETE"
+                    }
+                    fetch("/pos/orders",{
+                        method : "PUT",
+                        headers : {
+                            "Content-Type" : "application/json"
+                        },
+                        body : JSON.stringify(data)
+                    }).then(response => {
+                        if (response.ok) {
+                            orderListReload()
+                        }
+                    })
+                })  
+                const doneBtn = document.createElement("button")
+                doneBtn.classList.add("done-btn")
+                doneBtn.innerText ="접수완료"
+                orderItem.appendChild(comBtn)
+                orderItem.appendChild(doneBtn)
                 orderItem.classList.add("sidebar-list")
                 if (order.status == "COMPLETE") {
                     orderItem.classList.add("done")
@@ -58,12 +80,9 @@ function orderListReload() {
                 listTag.appendChild(orderItem)
             })
         })
+
 }
-// 주문수락
-function orderComplete(e,id) {
-    const url = '/pos/orders'
-    e.classList.add('complete')
-}
+
 
 /**
  *  MODAL
@@ -72,6 +91,19 @@ function orderComplete(e,id) {
 // 모달 열기
 
 // 모달 닫기
+
+
+// 결제내역 조회
+function paymentRead(id) {
+    const infoTag = document.getElementById("right-payment-info")
+    $.ajax({
+        url: "/pos/payment/" + id,
+        type: "get",
+        success: (data) => {
+            infoTag.innerHTML = data
+        }
+    })
+}
 
 // 매출관리 달력
 function salesFunctions() {
@@ -259,6 +291,35 @@ function proDelete() {
     })
 }
 
+/**
+ * 
+ * 결제하기
+ */
+function sendPayment(paymentMethod) {
+    const selectCartList = document.querySelectorAll("#cart-list>li")
+    if (selectCartList.length < 1) {
+        alert("장바구니가 비어있습니다.")
+        return false;
+    }
+    let data = {
+        paymentMethod : paymentMethod
+    }
+    fetch("/pos/payments",{
+        method:"post",
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(data)
+    }).then(response=>{
+        if (response.ok) {
+            cartList()
+            orderListReload()
+        }
+    })
+}
+
+
+
 // 공지사항 등록
 function noticeInsert() {
     let formData = new FormData($("#notice-insert")[0])
@@ -350,6 +411,8 @@ function cartInsert(id, optionsId) {
         },
         body: JSON.stringify(product)
     }).then(data => {
+        const optionModal = document.getElementById("modal-option-list")
+        optionModal.innerHTML = ""
         cartList()
     })
 }
@@ -386,6 +449,7 @@ async function cartList() {
                         let itemTag = document.createElement("li")
                         let itemContent = `
                             <span class="cart-option">ㄴ${item.name} : 
+                                <input type="hidden" class="price" value="${item.price}" />
                                 <i class="cart-option-price">${Number(item.price).toLocaleString("ko-KR")}원</i>
                             </span>
                         `
@@ -421,15 +485,14 @@ async function cartList() {
 }
 // 장바구니 총 금액 변경
 function calcCartPrice() {
-    const carts = document.querySelectorAll("#cart-list>li>div")
+    const carts = document.querySelectorAll("#cart-list>li")
     let totalPrice = 0;
     carts.forEach((cart) => {
         let amount = Number(cart?.querySelector(".cart-quantity")?.value)
         let productPrice = Number(cart?.querySelector(".cart-price").value)
-        console.log(productPrice)
-        const itemList = cart?.querySelectorAll(".cart-option-price")
+        const itemList = cart?.querySelectorAll("ul>li>span>.price")
         itemList.forEach((optionPrice) => {
-            productPrice += Number(optionPrice.innerText)
+            productPrice += Number(optionPrice.value)
         })
         totalPrice += productPrice * amount
     })
