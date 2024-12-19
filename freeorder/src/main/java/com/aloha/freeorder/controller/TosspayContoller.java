@@ -69,6 +69,7 @@ public class TosspayContoller {
                 .usersId(usersId)
                 .totalPrice(total)
                 .totalQuantity(cartList.size())
+                .status("PENDING")
                 .build();
         List<OrderItem> itemList = new ArrayList<>();
 
