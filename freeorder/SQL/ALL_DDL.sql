@@ -1,244 +1,242 @@
-DROP TABLE IF EXISTS `USERS`;
+drop table if exists `users`;
 
-CREATE TABLE `USERS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `USERNAME` VARCHAR(100) NOT NULL,
-    `PASSWORD` VARCHAR(100) NOT NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `ENABLED` INT NOT NULL DEFAULT 1
+create table `users` (
+    `id` char(50) primary key not null,
+    `username` varchar(100) not null,
+    `password` varchar(100) not null,
+    `name` varchar(100) not null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp,
+    `enabled` int not null default 1
 );
 
-DROP TABLE IF EXISTS `USER_AUTH`;
+drop table if exists `user_auth`;
 
-CREATE TABLE `USER_AUTH` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `USERNAME` VARCHAR(100) NOT NULL,
-    `AUTH` VARCHAR(100) NOT NULL
+create table `user_auth` (
+    `id` char(50) primary key not null,
+    `username` varchar(100) not null,
+    `auth` varchar(100) not null
 );
 
-DROP TABLE IF EXISTS `PRODUCTS`;
+drop table if exists `products`;
 
-CREATE TABLE `PRODUCTS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `OPTIONS_ID` CHAR(50) NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `CATEGORIES_ID` CHAR(50) NOT NULL,
-    `PRODUCT_IMG` VARCHAR(255) NULL,
-    `DESCRIPTION` VARCHAR(200) NULL,
-    `CONTENT` TEXT NULL,
-    `PRICE` INT NOT NULL,
-    `STOCK_CHECK` BOOLEAN NOT NULL DEFAULT FALSE,
-    `STOCK` INT NULL DEFAULT 0,
-    `SEQ` INT NOT NULL DEFAULT 0,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `products` (
+    `id` char(50) primary key not null,
+    `options_id` char(50) null,
+    `name` varchar(100) not null,
+    `categories_id` char(50) not null,
+    `product_img` varchar(255) null,
+    `description` varchar(200) null,
+    `content` text null,
+    `price` int not null,
+    `stock_check` boolean not null default false,
+    `stock` int null default 0,
+    `seq` int not null default 0,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `CARTS`;
+drop table if exists `carts`;
 
-CREATE TABLE `CARTS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `PRODUCTS_ID` CHAR(50) NOT NULL,
-    `OPTIONS_ID` CHAR(50) NULL,
-    `USERS_ID` CHAR(50) NOT NULL,
-    `AMOUNT` INT NOT NULL DEFAULT 1,
-    `PRICE` INT NOT NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `carts` (
+    `id` char(50) primary key not null,
+    `products_id` char(50) not null,
+    `options_id` char(50) null,
+    `users_id` char(50) not null,
+    `amount` int not null default 1,
+    `price` int not null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `CART_OPTIONS`;
+drop table if exists `cart_options`;
 
-CREATE TABLE `CART_OPTIONS` (
-    `ID` CHAR(50) NOT NULL,
-    `USERS_ID` CHAR(50) NOT NULL,
-    `CARTS_ID` CHAR(50) NOT NULL,
-    `OPTION_ITEMS_ID` CHAR(50) NOT NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `cart_options` (
+    `id` char(50) not null,
+    `users_id` char(50) not null,
+    `carts_id` char(50) not null,
+    `option_items_id` char(50) not null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `ORDERS`;
+drop table if exists `orders`;
 
-CREATE TABLE `ORDERS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `TYPE` ENUM('HERE','TOGO') NOT NULL DEFAULT 'HERE',
-    `USERS_ID` CHAR(50) NOT NULL,
-    `ORDER_NUMBER` INT NOT NULL DEFAULT 1,
-    `TITLE` VARCHAR(100) NOT NULL,
-    `TOTAL_QUANTITY` INT NOT NULL DEFAULT 1,
-    `TOTAL_COUNT` INT NOT NULL DEFAULT 1,
-    `TOTAL_PRICE` INT NOT NULL DEFAULT 0,
-    `STATUS` ENUM(
+create table `orders` (
+    `id` char(50) primary key not null,
+    `type` enum('HERE','TOGO') not null default 'HERE',
+    `users_id` char(50) not null,
+    `order_number` int not null default 1,
+    `title` varchar(100) not null,
+    `total_quantity` int not null default 1,
+    `total_count` int not null default 1,
+    `total_price` int not null default 0,
+    `status` enum(
         'PENDING',
         'PAID',
         'COMPLETE',
         'CANCELLED'
-    ) NOT NULL DEFAULT 'PENDING' COMMENT '결제대기, 결제완료, 접수완료, 주문취소',
-    `ORDERED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) not null default 'PENDING' comment '결제대기, 결제완료, 접수완료, 주문취소',
+    `ordered_at` timestamp not null default current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `ORDER_ITEMS`;
+drop table if exists `order_items`;
 
-CREATE TABLE `ORDER_ITEMS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `ORDERS_ID` CHAR(50) NOT NULL,
-    `PRODUCTS_ID` CHAR(50) NOT NULL,
-    `OPTIONS_ID` CHAR(50) NULL,
-    `NAME` CHAR(100) NOT NULL,
-    `QUANTITY` INT NOT NULL DEFAULT 1,
-    `PRICE` INT NOT NULL DEFAULT 0,
-    `AMOUNT` INT NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `order_items` (
+    `id` char(50) primary key not null,
+    `orders_id` char(50) not null,
+    `products_id` char(50) not null,
+    `options_id` char(50) null,
+    `name` char(100) not null,
+    `quantity` int not null default 1,
+    `price` int not null default 0,
+    `amount` int null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `ORDER_OPTIONS`;
+drop table if exists `order_options`;
 
-CREATE TABLE `ORDER_OPTIONS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `ORDER_ITEMS_ID` CHAR(50) NOT NULL,
-    `OPTION_ITEMS_ID` CHAR(50) NOT NULL,
-    `NAME` CHAR(100) NOT NULL,
-    `PRICE` INT NOT NULL DEFAULT 0,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `order_options` (
+    `id` char(50) primary key not null,
+    `order_items_id` char(50) not null,
+    `option_items_id` char(50) not null,
+    `name` char(100) not null,
+    `price` int not null default 0,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `PAYMENTS`;
+drop table if exists `payments`;
 
-CREATE TABLE `PAYMENTS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `ORDERS_ID` CHAR(50) NOT NULL,
-    `PAYMENT_KEY`	VARCHAR(100)	NOT NULL,
-    `PAYMENT_METHOD` VARCHAR(100) NULL,
-    `STATUS` ENUM('PENDING', 'PAID', 'REFUND') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기, 결제완료, 환불',
-    `PAID_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `payments` (
+    `id` char(50) primary key not null,
+    `orders_id` char(50) not null,
+    `payment_key`	varchar(100)	not null,
+    `payment_method` varchar(100) null,
+    `status` enum('PENDING', 'PAID', 'REFUND') not null default 'PENDING' comment '결제대기, 결제완료, 환불',
+    `paid_at` timestamp not null default current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `CANCELLATIONS`;
+drop table if exists `cancellations`;
 
-CREATE TABLE `CANCELLATIONS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `ORDERS_ID` CHAR(50) NOT NULL,
-    `TYPE` ENUM(
-        'cancel',
-        'return',
-        'exchange'
-    ) NOT NULL DEFAULT 'cancel' COMMENT '주문취소,반품,교환',
-    `STATUS` ENUM('pending', 'complete') NULL DEFAULT 'pending' COMMENT '취소요청(대기), 처리완료',
-    `REASON` TEXT NULL,
-    `REFUNDED_AMOUNT` INT NOT NULL DEFAULT 0,
-    `IS_CONFIRMED` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '0: 미승인, 1: 승인',
-    `IS_REFUND` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '0: 대기, 1: 처리완료',
-    `ACCOUNT_NUMBER` VARCHAR(100) NULL,
-    `BANK_NAME` VARCHAR(100) NULL,
-    `DEPOSITOR` VARCHAR(100) NULL,
-    `CANCELED_AT` TIMESTAMP NULL,
-    `COMPLETED_AT` TIMESTAMP NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `cancellations` (
+    `id` char(50) primary key not null,
+    `orders_id` char(50) not null,
+    `type` enum(
+        'CANCEL',
+        'RETURN',
+        'EXCHANGE'
+    ) not null default 'cancel' comment '주문취소,반품,교환',
+    `status` enum('PENDING', 'COMPLETE') null default 'PENDING' comment '취소요청(대기), 처리완료',
+    `reason` text null,
+    `refunded_amount` int not null default 0,
+    `is_confirmed` tinyint(1) not null default 0 comment '0: 미승인, 1: 승인',
+    `is_refund` tinyint(1) not null default 0 comment '0: 대기, 1: 처리완료',
+    `account_number` varchar(100) null,
+    `bank_name` varchar(100) null,
+    `depositor` varchar(100) null,
+    `canceled_at` timestamp null,
+    `completed_at` timestamp null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `CATEGORIES`;
+drop table if exists `categories`;
 
-CREATE TABLE `CATEGORIES` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `SEQ` INT NOT NULL DEFAULT 0,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `categories` (
+    `id` char(50) primary key not null,
+    `name` varchar(100) not null,
+    `seq` int not null default 0,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `FILES`;
+drop table if exists `files`;
 
-CREATE TABLE `FILES` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `PARENT_TABLE` VARCHAR(100) NOT NULL,
-    `PARENT_ID` CHAR(50) NOT NULL,
-    `NAME` TEXT NOT NULL,
-    `ORIGIN_NAME` TEXT NOT NULL,
-    `PATH` TEXT NOT NULL,
-    `SIZE` INT NOT NULL DEFAULT 0,
-    `IS_MAIN` BOOLEAN NOT NULL DEFAULT FALSE,
-    `SEQ` INT NOT NULL DEFAULT 0,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `files` (
+    `id` char(50) primary key not null,
+    `parent_table` varchar(100) not null,
+    `parent_id` char(50) not null,
+    `name` text not null,
+    `origin_name` text not null,
+    `path` text not null,
+    `size` int not null default 0,
+    `is_main` boolean not null default false,
+    `seq` int not null default 0,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `OPTIONS`;
+drop table if exists `options`;
 
-CREATE TABLE `OPTIONS` (
-    `ID` CHAR(50) NOT NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `STOCK_CHECK` BOOLEAN NOT NULL DEFAULT FALSE,
-    `STOCK` INT NULL DEFAULT 0,
-    `ESSENTIAL` BOOLEAN NOT NULL DEFAULT FALSE,
-    `SELECT_MIN` INT NULL,
-    `SELECT_MAX` INT NULL,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `options` (
+    `id` char(50) not null,
+    `name` varchar(100) not null,
+    `stock_check` boolean not null default false,
+    `stock` int null default 0,
+    `essential` boolean not null default false,
+    `select_min` int null,
+    `select_max` int null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `OPTION_ITEMS`;
+drop table if exists `option_items`;
 
-CREATE TABLE `OPTION_ITEMS` (
-    `ID` CHAR(50) NOT NULL,
-    `OPTIONS_ID` CHAR(50) NOT NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `PRICE` INT NOT NULL DEFAULT 0,
-    `SEQ` INT NOT NULL DEFAULT 0,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table `option_items` (
+    `id` char(50) not null,
+    `options_id` char(50) not null,
+    `name` varchar(100) not null,
+    `price` int not null default 0,
+    `seq` int not null default 0,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp
 );
 
-DROP TABLE IF EXISTS `NOTICES`;
+drop table if exists `notices`;
 
-CREATE TABLE `NOTICES` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `thumbnail` VARCHAR(255) NULL COMMENT '이벤트 섬네일파일경로',
-    `TYPE` VARCHAR(30) NOT NULL COMMENT '타입(notice, promotion)',
-    `TITLE` VARCHAR(100) NULL COMMENT '공지사항 제목',
-    `CONTENT` VARCHAR(1000) NULL COMMENT '공지사항 내용',
-    `ENABLED` BOOLEAN NOT NULL DEFAULT FALSE,
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자',
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자'
+create table `notices` (
+    `id` char(50) primary key not null,
+    `thumbnail` varchar(255) null comment '이벤트 섬네일파일경로',
+    `type` varchar(30) not null comment '타입(notice, promotion)',
+    `title` varchar(100) null comment '공지사항 제목',
+    `content` varchar(1000) null comment '공지사항 내용',
+    `enabled` boolean not null default false,
+    `created_at` timestamp not null default current_timestamp comment '등록일자',
+    `updated_at` timestamp not null default current_timestamp comment '수정일자'
 );
 
-DROP TABLE IF EXISTS `RECOMMENDED_PRODUCTS`
+drop table if exists `recommended_products`;
 
-CREATE TABLE `RECOMMENDED_PRODUCTS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL COMMENT '추천메뉴 ID',
-    `PRODUCTS_ID` CHAR(50) NOT NULL COMMENT '추천할 상품 ID',
-    `REASON` VARCHAR(255) NULL COMMENT '추천 이유',
-    `CREATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '추천 등록일자',
-    `UPDATED_AT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '추천 수정일자'
+create table `recommended_products` (
+    `id` char(50) primary key not null comment '추천메뉴 id',
+    `products_id` char(50) not null comment '추천할 상품 id',
+    `reason` varchar(255) null comment '추천 이유',
+    `created_at` timestamp not null default current_timestamp comment '추천 등록일자',
+    `updated_at` timestamp not null default current_timestamp comment '추천 수정일자'
 );
 
-DROP TABLE IF EXISTS `SYSTEM_LOGS`;
+drop table if exists `system_logs`;
 
-CREATE TABLE `SYSTEM_LOGS` (
-    `ID` CHAR(50) PRIMARY KEY NOT NULL,
-    `STATUS` ENUM('START', 'END') NULL,
-    `STARTED_AT` TIMESTAMP NULL,
-    `ENDED_AT` TIMESTAMP NULL
+create table `system_logs` (
+    `id` char(50) primary key not null,
+    `status` enum('START', 'END') null,
+    `started_at` timestamp null,
+    `ended_at` timestamp null
 );
 
-DROP TABLE IF EXISTS `SETTING`;
+drop table if exists `setting`;
 
-CREATE TABLE `SETTING` (
-    `STATUS` ENUM('START', 'END') NOT NULL,
-    `STARTED_AT` TIMESTAMP NULL,
-    `ENDED_AT` TIMESTAMP NULL,
-    `ID` CHAR(50) NOT NULL
+create table `setting` (
+    `status` enum('START', 'END') not null,
+    `started_at` timestamp null,
+    `ended_at` timestamp null,
+    `id` char(50) not null
 );
 
-INSERT INTO setting (`STATUS`, `ID`) VALUES ('END', 'SETTING');
-
-SELECT * FROM setting;
+insert into `setting` (`status`, `id`) values ('END', 'SETTING');

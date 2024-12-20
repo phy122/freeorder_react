@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="read" resultType="Category">
     SELECT *
     FROM categories
-    WHERE ID = #{id}
+    WHERE id = #{id}
 </select>
 
 <insert id="insert">
@@ -26,12 +26,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     UPDATE categories
         SET NAME = #{name}
             ,UPDATED_AT = now()
-    WHERE ID = #{id}
+    WHERE id = #{id}
 </update>
 
 <delete id="delete">
     DELETE FROM categories
-    WHERE ID = #{id}
+    WHERE id = #{id}
 </delete>
 
 <update id="updateCategoryOrder" parameterType="map">

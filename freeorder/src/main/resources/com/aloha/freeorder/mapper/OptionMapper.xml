@@ -47,22 +47,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getOptionsByProductId" resultMap="optionMap">
-        SELECT o.ID,
-            o.NAME,
-            o.STOCK_CHECK,
-            o.STOCK,
-            o.ESSENTIAL,
-            o.SELECT_MIN,
-            o.SELECT_MAX,
-            oi.ID AS option_items_id,
-            oi.NAME AS option_items_name,
-            oi.PRICE,
-            oi.SEQ AS option_items_seq
-        FROM PRODUCTS p
-        LEFT JOIN OPTIONS o ON p.OPTIONS_ID = o.ID
-        LEFT JOIN OPTION_ITEMS oi ON o.ID = oi.OPTIONS_ID
-        WHERE p.ID = #{productId}
-        ORDER BY oi.SEQ ASC
+        SELECT o.id,
+            o.name,
+            o.stock_check,
+            o.stock,
+            o.essential,
+            o.select_min,
+            o.select_max,
+            oi.id as option_items_id,
+            oi.name as option_items_name,
+            oi.price,
+            oi.seq as option_items_seq
+        FROM products p
+        LEFT JOIN options o on p.options_id = o.id
+        LEFT JOIN option_items oi on o.id = oi.options_id
+        WHERE p.id = #{productId}
+        ORDER by oi.seq asc
     </select>
 
 <select id="read" resultMap="optionMap">
@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="readItem" resultMap="itemMap">
     SELECT 
-            oi.ID AS option_items_id,
+            oi.id AS option_items_id,
             oi.options_id
             oi.NAME AS option_items_name,
             oi.PRICE,
@@ -88,29 +88,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO options( ID, NAME, STOCK_CHECK, STOCK, ESSENTIAL, SELECT_MIN, SELECT_MAX )
-    VALUES ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
+    insert into options( id, name, stock_check, stock, essential, select_min, select_max )
+    values ( #{id}, #{name}, #{stockCheck}, #{stock}, #{essential}, #{selectMin},#{selectMax} )
 </insert>
 <insert id="insertItem">
-    INSERT INTO option_items( ID, OPTIONS_ID, NAME, PRICE, SEQ )
-    VALUES ( #{id}, #{optionsId}, #{name}, #{price}, #{seq} )
+    insert into option_items( id, options_id, name, price, seq )
+    values ( #{id}, #{optionsId}, #{name}, #{price}, #{seq} )
 </insert>
 
 <update id="update">
     UPDATE options
-        SET NAME = #{name}
-            ,STOCK_CHECK = #{stockCheck}
-            ,STOCK = #{stock}
-            ,ESSENTIAL = #{essential}
-            ,SELECT_MIN = #{selectMin}
-            ,SELECT_MAX = #{selectMax}
-            ,UPDATED_AT = now()
-    WHERE ID = #{id}
+        SET name = #{name}
+            ,stock_check = #{stockCheck}
+            ,stock = #{stock}
+            ,essential = #{essential}
+            ,select_min = #{selectMin}
+            ,select_max = #{selectMax}
+            ,updated_at = now()
+    WHERE id = #{id}
 </update>
 
 <delete id="delete">
     DELETE FROM options
-    WHERE ID = #{id}
+    WHERE id = #{id}
 </delete>
 
 <delete id="deleteItem">

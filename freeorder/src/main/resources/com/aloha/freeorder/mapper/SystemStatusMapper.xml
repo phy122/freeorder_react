@@ -6,25 +6,25 @@
 <mapper namespace="com.aloha.freeorder.mapper.SystemStatusMapper">
 
      <select id="selectStatus" resultType="SystemStatus">
-        SELECT ID, STATUS, STARTED_AT, ENDED_AT
-        FROM SETTING
-        WHERE ID = 'SETTING'
+        SELECT id, status, started_at, ended_at
+        FROM setting
+        WHERE id = 'SETTING'
         LIMIT 1
     </select>
 
     <!-- 설정 상태 업데이트 -->
     <update id="updateSettingStatus">
-        UPDATE SETTING
-        SET STATUS = #{status}
-            ,STARTED_AT = #{startedAt}
-            ,ENDED_AT = #{endedAt}
-        WHERE ID = 'SETTING'
+        UPDATE setting
+        SET status = #{status}
+            ,started_at = #{startedAt}
+            ,ended_at = #{endedAt}
+        WHERE id = 'SETTING'
     </update>
 
     <!-- 로그 추가 -->
     <insert id="insertLog">
-        INSERT INTO SYSTEM_LOGS (ID, STATUS, STARTED_AT, ENDED_AT)
-        VALUES (#{id}, #{status}, #{startedAt}, #{endedAt})
+        insert into system_logs (id, status, started_at, ended_at)
+        values (#{id}, #{status}, #{startedAt}, #{endedAt})
     </insert>
 
 
