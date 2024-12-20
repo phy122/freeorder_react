@@ -56,7 +56,7 @@
                                 <p th:text="${payment.paymentMethod}">카드</p>
                             </div>
                             <div class="ls-simple">
-                                <h3 th:text="${#numbers.formatInteger(payment.order.totalPrice, 3, 'COMMA') + '원'}">52,000원</h3>
+                                <h3 th:text="${#numbers.formatInteger(payment.order.totalPrice, 3, 'COMMA') + '원'}"></h3>
                                 <h5 th:text="${payment.order.title}">김치찌개 외 2건</h5>
                             </div>
                             <div class="ls-table">
