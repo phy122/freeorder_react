@@ -10,20 +10,22 @@
         </h4>
     </div>
     <div class="ls-total-pay">
-        <h5>총 결제 금액</h5>
-        <h1 th:text="${payment.order.totalPrice}">52,000원</h1>
-        <h4 th:text="|주문번호 : ${payment.order.orderNumber}|">테이블 1</h4>
+        <span th:text="|주문번호 : ${payment.order.orderNumber}|" class="order-number">테이블 1</span>
+        <div class="total-box">
+            <span class="t-price-name">총 결제 금액</span>
+            <span class="t-price" th:text="${#numbers.formatInteger(payment.order.totalPrice, 3, 'COMMA') + '원'}"></span>
+        </div>
     </div>
     <!-- <div class="ls-total-price">
         <h4>합계</h4>
         <h4 th:text="${payment.order.totalPrice}">52,000원</h4>
     </div> -->
-    <th:block th:if="${payment.status =='PAID'}">
+    <!-- <th:block th:if="${payment.status =='PAID'}">
         <div class="ls-cancel-price">
             <h4>환불 가능 금액</h4>
             <h4>52,000원</h4>
         </div>
-    </th:block>
+    </th:block> -->
     <th:block th:if="${payment.status =='CANCELD'}">
         <div class="ls-cancel-total">
             <h4>환불된 금액</h4>
@@ -51,15 +53,14 @@
             th:each="item : ${payment.order.itemList}">
             <div class="ls-list-detail">
                 <div class="main">
-                    <h3 th:text="|${item.name} X ${item.quantity} |">김치찌개 X4</h3>
-                    <h3 th:text="${item.amount}">52,000원</h3>
-                </div>
-                <div class="options">
+                    <div class="main-top">
+                        <span th:text="|${item.name} X ${item.quantity} |"></span>
+                        <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+                    </div>
                     <th:block 
                         th:if="${item.optionList != null && !item.optionList.isEmpty()}"
-                        th:each="option : ${item.optionList}"
-                        >
-                        <span th:text="|ㄴ${option.name}(${#numbers.formatInteger(option.price,3,'COMMA')}원)|"></span>
+                        th:each="option : ${item.optionList}">
+                        <span th:text="|ㄴ${option.name}(${#numbers.formatInteger(option.price,3,'COMMA')}원)|" class="opt-price"></span>
                     </th:block>
                 </div>
             </div>
