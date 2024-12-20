@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,7 +75,9 @@ public class PaymentController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(Authentication authentication, @RequestBody Payment payment) {
+    public ResponseEntity<?> create(Authentication authentication, 
+        @RequestBody Payment payment,
+        @CookieValue(value = "orderType",defaultValue = "") String orderType) {
         log.info("결제내역 등록");
         log.info("결제 정보 : " + payment.getPaymentMethod());
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -102,7 +105,7 @@ public class PaymentController {
                 List<CartOption> optionList = cart.getOptionList();
                 total += cart.getPrice() * cart.getAmount();
                 for (CartOption cartOption : optionList) {
-                    total += cartOption.getPrice();
+                    total += cartOption.getPrice() * cart.getAmount();
                 }
                 if (title.equals("")) {
                     title = cart.getProductName();
@@ -146,6 +149,7 @@ public class PaymentController {
             }
             order.setTitle(title);
             order.setTotalPrice(total);
+            order.setType("HERE");
             log.info("order: " + order);
             orderService.insert(order);
 

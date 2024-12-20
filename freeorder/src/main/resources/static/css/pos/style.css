@@ -270,8 +270,9 @@ footer .more a{
     height: calc( 100vh - 130px );
 }
 .sidebar .sidebar-list {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 50px 60px auto 80px;
+    gap: 15px;
     align-items: center;
     width: 400px;
     height: 100px;
@@ -280,6 +281,19 @@ footer .more a{
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.sidebar .sidebar-list .order-type.here i {background-color: var(--main-color);}
+.sidebar .sidebar-list .order-type.togo i {background-color: #2fc561;}
+.sidebar .sidebar-list .order-type i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 35px;
+    border-radius: 6px;
+    font-style: normal;
+    color: #ffffff;
+}
+
 .sidebar .sidebar-list.done * {
     filter: grayscale();
 }
@@ -360,7 +374,7 @@ footer .more a{
     font-size: 14px;
     font-weight: bold;
     border: none;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .sidebar .sidebar-list .complete-btn:hover {

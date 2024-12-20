@@ -23,14 +23,27 @@ function connect() {
 function showOrders(order) {
     const orderMessages = document.getElementById('side-order-list');
     const orderItem = document.createElement("div")
-    orderItem.innerHTML = `
-                        <span class="order-icon"><a href="#">${order.orderNumber}</a></span>
-                        <div class="title-price">
-                            <span class="order-title"><a href="#">${order.title}</a></span>
-                            <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
-                        </div>
-                    `
     orderItem.classList.add("order-list")
+    orderItem.innerHTML = `<span class="order-icon"><a href="#">${order.orderNumber}</a></span>`
+
+    const orderType = document.createElement("div")
+    orderType.classList.add("order-type")
+    if (order.type == 'HERE') {
+        orderType.classList.add("here")
+        orderType.innerHTML = `<i>매장</i>`
+    }
+    else {
+        orderType.classList.add("togo")
+        orderType.innerHTML = `<i>포장</i>`
+    }
+    orderItem.appendChild(orderType)
+    const orderTitle = document.createElement("div")
+    orderTitle.classList.add("title-price")
+    orderTitle.innerHTML = `
+        <span class="order-title"><a href="#">${order.title}</a></span>
+        <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
+    `
+    orderItem.appendChild(orderTitle)
     const comBtn = document.createElement("button")
     comBtn.classList.add("complete-btn")
     comBtn.innerText = "주문접수"

@@ -8,6 +8,7 @@
         <id property="id" column="id" />
         
         <result property="id" column="id" />
+        <result property="type" column="type" />
         <result property="orderNumber" column="order_number" />
         <result property="usersId" column="users_id" />
         <result property="title" column="title" />
@@ -125,8 +126,8 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE, STATUS )
-        VALUES ( #{id}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice}, #{status} )
+        INSERT INTO orders ( ID, TYPE, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE, STATUS )
+        VALUES ( #{id}, #{type}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice}, #{status} )
     </insert>
 
     <!-- 아이템 등록 -->

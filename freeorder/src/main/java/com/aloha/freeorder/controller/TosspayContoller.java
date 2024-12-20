@@ -53,7 +53,8 @@ public class TosspayContoller {
     @GetMapping({ "/qr/pay/pay" })
     public String payment(Model model,
             HttpServletRequest request,
-            @CookieValue(value = "id", defaultValue = "") String usersId) throws Exception {
+            @CookieValue(value = "id", defaultValue = "") String usersId,
+            @CookieValue(value = "orderType", defaultValue = "") String orderType) throws Exception {
         log.info("결제 창 출력!!");
         log.info("유저 아이디 : " + usersId);
         // 장바구니 정보 불러오기
@@ -121,6 +122,7 @@ public class TosspayContoller {
         }
         order.setTitle(title);
         order.setTotalPrice(total);
+        order.setType(orderType);
         log.info("order: " + order);
         int result = orderService.insert(order);
         if (result > 0) {
@@ -141,7 +143,6 @@ public class TosspayContoller {
 
     @RequestMapping(value = "/confirm")
     public ResponseEntity<JSONObject> confirmPayment(
-    @CookieValue(value = "id",defaultValue = "") String usersId,
     @RequestBody String jsonBody) throws Exception {
         log.info("결제성공 후 프로그램 DB에 연동 시도...");
         log.info(jsonBody);
@@ -211,6 +212,9 @@ public class TosspayContoller {
             paymentService.insert(payment);
             Order order = Order.builder().id(ordersId).status("PAID").build();
             orderService.update(order);
+            Order userOrder = orderService.read(ordersId);
+            String usersId = userOrder.getUsersId();
+            log.info(" 결제 성공 이후 장바구니 삭제할 유저아이디 : " + usersId);
             cartService.allDeleteByUserId(usersId);
 
             responseJson.put("status", "success");

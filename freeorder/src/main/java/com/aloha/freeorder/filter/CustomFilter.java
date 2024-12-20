@@ -30,18 +30,23 @@ public class CustomFilter extends OncePerRequestFilter {
         // 현재경로
         String requestURI = request.getRequestURI();
         if (requestURI.contains("/qr")) { // /qr 경로에만 적용
-            // 세션
-            HttpSession session = request.getSession();
-            String usersId = (String) session.getAttribute("id");
-            if (usersId == null || usersId.equals("")) {
-                response.sendRedirect("/qr/main");
-            }
+            
             // statusService 에서 서버 상태 불러오기
             SystemStatus systemStatus = statusService.selectStatus();
             String status = systemStatus.getStatus();
             if (status.equals("END")) {
                 response.sendRedirect("/closed");
+                filterChain.doFilter(request, response);
             }
+
+            // 세션
+            HttpSession session = request.getSession();
+            String usersId = (String) session.getAttribute("id");
+            if (usersId == null || usersId.equals("")) {
+                response.sendRedirect("/qr/main");
+                filterChain.doFilter(request, response);
+            }
+            
         }
 
         filterChain.doFilter(request, response);

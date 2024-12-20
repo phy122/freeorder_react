@@ -16,6 +16,7 @@ public class Order {
     
     private String id;
     private int orderNumber;
+    private String type;
     private String usersId;
     private String title;
     private int totalQuantity;

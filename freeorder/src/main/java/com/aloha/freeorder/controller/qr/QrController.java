@@ -79,6 +79,9 @@ public class QrController {
       cookie.setMaxAge(60 * 60 * 24 * 1);
       response.addCookie(cookie);
     }
+
+    
+
     session.setAttribute("id", id);
     log.info("쿠키 아이디 : " + cookieId);
     log.info("접속시 부여된 아이디 : " + id);
@@ -97,8 +100,19 @@ public class QrController {
   @GetMapping("/list")
   public String productList(@RequestParam(value = "type", required = false) String type,
       @RequestParam(value = "cate", required = false) String cate,
-      Model model) throws Exception {
+      Model model,
+      @CookieValue(value = "orderType", defaultValue = "null") String orderType,
+      HttpServletResponse response) throws Exception {
     log.info("카테고리별 상품 목록 출력!!");
+    
+    // 매장/포장 정보 쿠키에 저장
+    if (orderType.equals("null")) {
+      log.info("매장/포장 정보 쿠키에 저장");
+      Cookie cookie = new Cookie("orderType", type);
+      cookie.setMaxAge(60 * 60 * 24 * 1);
+      response.addCookie(cookie);
+    }
+
     List<Category> cateList = categoryService.list();
     List<Product> productList = null;
     if (cate == null)
