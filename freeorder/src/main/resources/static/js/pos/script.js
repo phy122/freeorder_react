@@ -40,37 +40,50 @@ async function orderListReload() {
             console.log(data)
             data.forEach((order) => {
                 const orderItem = document.createElement("div")
-                orderItem.innerHTML = `
-                        <span class="order-icon"><a href="#">${order.orderNumber}</a></span>
-                        <div class="title-price">
-                            <span class="order-title"><a href="#">${order.title}</a></span>
-                            <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
-                        </div>
-                    `
                 orderItem.classList.add("order-list")
+                orderItem.innerHTML = `<span class="order-icon"><a href="#">${order.orderNumber}</a></span>`
+                console.log(order.type)
+                const orderType = document.createElement("div")
+                orderType.classList.add("order-type")
+                if (order.type == 'HERE') {
+                    orderType.classList.add("here")
+                    orderType.innerHTML = `<i>매장</i>`
+                }
+                else {
+                    orderType.classList.add("togo")
+                    orderType.innerHTML = `<i>포장</i>`
+                }
+                orderItem.appendChild(orderType)
+                const orderTitle = document.createElement("div")
+                orderTitle.classList.add("title-price")
+                orderTitle.innerHTML = `
+                    <span class="order-title"><a href="#">${order.title}</a></span>
+                    <span class="order-price"><a href="#">${Number(order.totalPrice).toLocaleString("ko-KR")}원</a></span>
+                `
+                orderItem.appendChild(orderTitle)
                 const comBtn = document.createElement("button")
                 comBtn.classList.add("complete-btn")
                 comBtn.innerText = "주문접수"
-                comBtn.addEventListener("click",()=>{
+                comBtn.addEventListener("click", () => {
                     let data = {
-                        id : order.id,
-                        status : "COMPLETE"
+                        id: order.id,
+                        status: "COMPLETE"
                     }
-                    fetch("/pos/orders",{
-                        method : "PUT",
-                        headers : {
-                            "Content-Type" : "application/json"
+                    fetch("/pos/orders", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
                         },
-                        body : JSON.stringify(data)
+                        body: JSON.stringify(data)
                     }).then(response => {
                         if (response.ok) {
                             orderListReload()
                         }
                     })
-                })  
+                })
                 const doneBtn = document.createElement("button")
                 doneBtn.classList.add("done-btn")
-                doneBtn.innerText ="접수완료"
+                doneBtn.innerText = "접수완료"
                 orderItem.appendChild(comBtn)
                 orderItem.appendChild(doneBtn)
                 orderItem.classList.add("sidebar-list")
@@ -302,15 +315,15 @@ function sendPayment(paymentMethod) {
         return false;
     }
     let data = {
-        paymentMethod : paymentMethod
+        paymentMethod: paymentMethod
     }
-    fetch("/pos/payments",{
-        method:"post",
-        headers : {
-            "Content-Type" : "application/json"
+    fetch("/pos/payments", {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
         },
-        body : JSON.stringify(data)
-    }).then(response=>{
+        body: JSON.stringify(data)
+    }).then(response => {
         if (response.ok) {
             cartList()
             orderListReload()
@@ -430,12 +443,12 @@ async function cartList() {
             data.forEach(cart => {
                 let cartTag = document.createElement("li")
                 let cartItem = `
-                    <div class="cart-top">
+                    <div class="cart-top">                        
                         <button class="cart-item-del-btn" data='${cart.id}'>X</button>
                         <span class="cart-menu">${cart.productName}</span>
                         <div class="btn-box">
                             <button class="quantity-minus">-</button>
-                            <input type="text" class="cart-quantity" value="${cart.amount}">
+                            <input type="text" class="cart-quantity" value="${cart.amount}" data="${cart.id}">
                             <button class="quantity-plus">+</button>
                         </div>
                         <input type="hidden" class="cart-price" value="${cart.price}">
@@ -469,15 +482,28 @@ async function cartList() {
             })
             document.querySelectorAll(".btn-box").forEach((e) => {
                 let qunatityTag = e.querySelector(".cart-quantity")
+                const cartsId = qunatityTag.getAttribute("data")
                 e.querySelector(".quantity-minus").addEventListener("click", () => {
                     let value = qunatityTag.value <= 1 ? 1 : Number(qunatityTag.value) - 1
-                    qunatityTag.value = value
-                    calcCartPrice()
+                    fetch("/pos/carts/minus/"+cartsId,{
+                        method : "put"
+                    }).then(response => {
+                        if (response.ok) {
+                            qunatityTag.value = value
+                            calcCartPrice()
+                        }
+                    })
                 })
                 e.querySelector(".quantity-plus").addEventListener("click", () => {
                     let value = qunatityTag.value > 99 ? 100 : Number(qunatityTag.value) + 1
-                    qunatityTag.value = value
-                    calcCartPrice()
+                    fetch("/pos/carts/plus/"+cartsId,{
+                        method : "put"
+                    }).then(response => {
+                        if (response.ok) {
+                            qunatityTag.value = value
+                            calcCartPrice()
+                        }
+                    })
                 })
             })
 

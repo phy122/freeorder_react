@@ -169,6 +169,28 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/plus/{id}")
+    public void quantitiyPlus(@PathVariable("id") String id) throws Exception {
+        log.info(id + " 해당 장바구니 수량 증가 ( +1 ) ");
+        Cart oldCart = cartService.select(id);
+        int amount = oldCart.getAmount();
+        if (amount < 100) {
+            oldCart.setAmount( amount + 1 );
+        }
+        cartService.updateAmount(oldCart);
+    }
+    
+    @PutMapping("/minus/{id}")
+    public void quantitiyMinus(@PathVariable("id") String id) throws Exception {
+        log.info(id + " 해당 장바구니 수량 감소 ( -1 ) ");
+        Cart oldCart = cartService.select(id);
+        int amount = oldCart.getAmount();
+        if (amount > 1) {
+            oldCart.setAmount( amount - 1 );
+        }
+        cartService.updateAmount(oldCart);
+    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable("id") String id) {

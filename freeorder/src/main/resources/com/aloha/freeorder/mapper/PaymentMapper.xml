@@ -18,6 +18,7 @@
 
         <association property="order" javaType="Order">
             <result property="id" column="orders_id" />
+            <result property="type" column="order_type" />
             <result property="orderNumber" column="order_number" />
             <result property="usersId" column="users_id" />
             <result property="title" column="title" />
@@ -57,6 +58,7 @@
     <select id="select" resultMap="paymentMap">
         SELECT p.*
               ,o.TOTAL_PRICE
+              ,o.TYPE as order_type
               ,o.TITLE
               ,o.ORDER_NUMBER
               ,o.STATUS

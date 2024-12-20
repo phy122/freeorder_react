@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/qr/qr_layout}">
 
 <head>
   <meta charset="utf-8" />
@@ -10,17 +9,38 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
   <script src="/js/ordersWebSocket.js"></script>
+  <style>
+    .btn-box {
+      margin-top: 15px;
+      display: grid;
+      grid-template-rows: 50px 50px;
+      padding: 20px;
+      gap: 25px;
+    }
+    button {
+      height: 50px;
+      font-size: 1.1em;
+      border-radius: 10px;
+    }
+    #payment-button{
+      background-color: var(--main-color);
+      color: #fff;
+    }
+  </style>
 </head>
 
-<body>
+<body layout:fragment="content">
+  
   <!-- 결제 UI -->
   <div id="payment-method" style="display: flex"></div>
   <!-- 이용약관 UI -->
   <div id="agreement"></div>
-  <!-- 결제하기 버튼 -->
-  <button class="button" id="payment-button" style="margin-top: 30px">결제하기</button>
-  <!-- 결제 취소 버튼 -->
-  <button class="button" id="cart-button" style="margin-top: 30px" onclick="location.href='/qr/cart'">결제취소</button>
+  <div class="btn-box">
+    <!-- 결제하기 버튼 -->
+    <button class="button" id="payment-button" >결제하기</button>
+    <!-- 결제 취소 버튼 -->
+    <button class="button" id="cart-button" onclick="location.href='/qr/cart'">결제취소</button>
+  </div>
 
   <!-- <button id="sendMessage-btn" th:onclick="sendMessage([[${ordersId}]])">주문전송</button> -->
   <script>

@@ -43,8 +43,6 @@ public class QrCartController {
     private CartService cartService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private OptionService optionService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
