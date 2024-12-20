@@ -40,7 +40,7 @@
                             <td th:text="${#dates.format(pro.updatedAt, 'yyyy-MM-dd')}">2024-12-06</td>
                             <td>
                                 <a class="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
-                                <button type="submit" class="delete-btn" th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
+                                <button type="button" class="delete-btn" th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
                             </td>
                         </tr>
                     </th:block>

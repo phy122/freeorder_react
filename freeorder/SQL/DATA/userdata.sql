@@ -1,12 +1,12 @@
-TRUNCATE TABLE users;
+TRUNCATE TABLE `users`;
 
-TRUNCATE Table `USER_AUTH`;
+TRUNCATE Table `user_auth`;
 -- 기본 데이터
 
 -- BCryptPasswordEncoder - 암호화 시
 -- 사용자
 INSERT INTO
-    users (id, username, password, name)
+    `users` (id, username, password, name)
 VALUES (
         UUID(),
         'user',
@@ -16,7 +16,7 @@ VALUES (
 
 -- 관리자
 INSERT INTO
-    users (id, username, password, name)
+    `users` (id, username, password, name)
 VALUES (
         UUID(),
         'admin',
@@ -25,7 +25,7 @@ VALUES (
     );
 
 INSERT INTO
-    users (id, username, password, name)
+    `users` (id, username, password, name)
 VALUES (
         UUID(),
         'test',
@@ -37,19 +37,19 @@ VALUES (
 -- 사용자
 -- * 권한 : ROLE_USER
 INSERT INTO
-    `USER_AUTH` (id, username, auth)
+    `user_auth` (id, username, auth)
 VALUES (UUID(), 'user', 'ROLE_USER');
 
 INSERT INTO
-    `USER_AUTH` (id, username, auth)
+    `user_auth` (id, username, auth)
 VALUES (UUID(), 'test', 'ROLE_USER');
 
 -- 관리자
 -- * 권한 : ROLE_USER, ROLE_ADMIN
 INSERT INTO
-    `USER_AUTH` (id, username, auth)
+    `user_auth` (id, username, auth)
 VALUES (UUID(), 'admin', 'ROLE_USER');
 
 INSERT INTO
-    `USER_AUTH` (id, username, auth)
+    `user_auth` (id, username, auth)
 VALUES (UUID(), 'admin', 'ROLE_ADMIN');

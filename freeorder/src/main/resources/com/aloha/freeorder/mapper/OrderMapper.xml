@@ -126,20 +126,20 @@
 
     <!-- 주문 등록 -->
     <insert id="insert">
-        INSERT INTO orders ( ID, TYPE, ORDER_NUMBER, USERS_ID, TITLE, TOTAL_QUANTITY, TOTAL_COUNT, TOTAL_PRICE, STATUS )
-        VALUES ( #{id}, #{type}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice}, #{status} )
+        insert into orders ( id, type, order_number, users_id, title, total_quantity, total_count, total_price, status )
+        values ( #{id}, #{type}, #{orderNumber}, #{usersId}, #{title}, #{totalQuantity}, #{totalCount}, #{totalPrice}, #{status} )
     </insert>
 
     <!-- 아이템 등록 -->
     <insert id="insertItem">
-        INSERT INTO order_items ( ID, ORDERS_ID, PRODUCTS_ID, OPTIONS_ID, NAME, QUANTITY, PRICE, AMOUNT  )
-        VALUES ( #{id}, #{ordersId}, #{productsId}, #{optionsId}, #{name}, #{quantity}, #{price}, #{amount} )
+        insert into order_items ( id, orders_id, products_id, options_id, name, quantity, price, amount  )
+        values ( #{id}, #{ordersId}, #{productsId}, #{optionsId}, #{name}, #{quantity}, #{price}, #{amount} )
     </insert>
 
     <!-- 옵션 등록 -->
     <insert id="insertOption">
-        INSERT INTO order_options ( ID, OPTION_ITEMS_ID, ORDER_ITEMS_ID, NAME, PRICE )
-        VALUES ( #{id}, #{optionItemsId}, #{orderItemsId}, #{name}, #{price} )
+        insert into order_options ( id, option_items_id, order_items_id, name, price )
+        values ( #{id}, #{optionItemsId}, #{orderItemsId}, #{name}, #{price} )
     </insert>
 
 
@@ -147,8 +147,8 @@
     <!-- 주문 수정 -->
     <update id="update">
         UPDATE orders
-           SET STATUS = #{status}
-              ,UPDATED_AT = now()
+           SET status = #{status}
+              ,updated_at = now()
         WHERE ID = #{id}
     </update>
 
@@ -166,35 +166,35 @@
 
     <!-- 해당 달의 판매 총액 불러오기 -->
     <select id="totalMonth" resultMap="salesMap">
-        SELECT 
-            AVG(o.TOTAL_PRICE) AS avg_sales,
-            SUM(o.TOTAL_PRICE) AS total_sales,
-            COUNT(o.ID) as sales_count
-        FROM ORDERS o 
-        LEFT JOIN payments pm
-            ON pm.orders_id = o.id
+        select 
+            avg(o.total_price) as avg_sales,
+            sum(o.total_price) as total_sales,
+            count(o.id) as sales_count
+        from orders o 
+        left join payments pm
+            on pm.orders_id = o.id
         WHERE o.status = 'COMPLETE'
-          AND DATE_FORMAT(o.ORDERED_AT, '%Y-%m') = #{day}
+          AND DATE_FORMAT(o.ordered_at, '%Y-%m') = #{day}
     </select>
 
     <!-- 해당 날짜의 총액 불러오기 [판매/환불]-->
     <select id="totalDay" resultMap="salesMap">
-        SELECT 
-            AVG(o.TOTAL_PRICE) AS avg_sales,
-            SUM(o.TOTAL_PRICE) AS total_sales,
-            COUNT(o.ID) as sales_count
-        FROM ORDERS o 
-        LEFT JOIN payments pm
-            ON pm.orders_id = o.id
-        WHERE o.status = 'COMPLETE'
-          AND DATE_FORMAT(o.ORDERED_AT, '%Y-%m-%d') = #{day}
+        select 
+            avg(o.total_price) as avg_sales,
+            sum(o.total_price) as total_sales,
+            count(o.id) as sales_count
+        from orders o 
+        left join payments pm
+            on pm.orders_id = o.id
+        where o.status = 'COMPLETE'
+          AND DATE_FORMAT(o.ordered_at, '%Y-%m-%d') = #{day}
     </select>
 
     <!-- 해당 시간 이후부터 주문수 조회  (주문번호 부여) -->
     <select id="countOrders" resultType="int">
         SELECT COUNT(o.id) as cnt
         FROM orders o
-        WHERE o.ORDERED_AT >= (SELECT STARTED_AT FROM SETTING)
+        WHERE o.ordered_at >= (SELECT started_at FROM setting)
     </select>
 
 </mapper>

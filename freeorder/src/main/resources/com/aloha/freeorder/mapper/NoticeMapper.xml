@@ -25,14 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insert">
-    INSERT INTO notices ( id, ENABLED, thumbnail, TYPE, TITLE, CONTENT )
+    INSERT INTO notices ( id, enabled, thumbnail, TYPE, TITLE, CONTENT )
     VALUES ( #{id}, #{enabled}, #{thumbnail}, #{type}, #{title}, #{content} )
 </insert>
 
 <update id="update">
     UPDATE notices
         SET thumbnail = #{thumbnail}
-            ,ENABLED = #{enabled}
+            ,enabled = #{enabled}
             ,TITLE = #{title}
             ,CONTENT = #{content}
             ,UPDATED_AT = now()

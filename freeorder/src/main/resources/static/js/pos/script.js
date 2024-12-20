@@ -683,11 +683,10 @@ let itemIndex = 0; // 전역 변수로 인덱스 관리
 function addOptionItem() {
     const list = document.getElementById("opt-item-list");
     const div = document.createElement("div");
-    const id = crypto.randomUUID(); // 브라우저에서 UUID 생성
-
+    // const id = crypto.randomUUID(); // 브라우저에서 UUID 생성
+    // <input type="hidden" name="itemList[${itemIndex}].id" value="${id}"> // 웹호스팅에서 안됨
     div.className = "opt-item";
     div.innerHTML = `
-        <input type="hidden" name="itemList[${itemIndex}].id" value="${id}">
         <input type="text" name="itemList[${itemIndex}].name" placeholder="옵션명" required>
         <input type="number" name="itemList[${itemIndex}].price" placeholder="금액" required>
         <button type="button" class="remove-btn" onclick="removeOptionItem(this)">삭제</button>
