@@ -1,7 +1,6 @@
 # 🛒 **QR 오더 및 POS 시스템**  
 
-![프로젝트 배너 이미지](https://via.placeholder.com/1200x400)  
-
+![프리오더](https://github.com/user-attachments/assets/3c76453a-77bb-4d89-ad5e-8a9339c8d042)
 ---
 
 ## 📋 **프로젝트 소개**  
