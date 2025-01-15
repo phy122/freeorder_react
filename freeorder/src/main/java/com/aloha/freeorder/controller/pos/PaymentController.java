@@ -1,6 +1,5 @@
 package com.aloha.freeorder.controller.pos;
 
-import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/pos/payments")
+@CrossOrigin("*")
 public class PaymentController {
 
     @Autowired
