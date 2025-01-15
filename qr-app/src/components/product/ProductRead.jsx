@@ -12,7 +12,7 @@ const ProductRead = () => {
 
                 <span className="menu-pop-name fs-large black ml-5" th:text="${product.name}"></span>
 
-                <button type="button" onclick="location.href='/qr/list'"
+                <button type="button" onClick="location.href='/qr/list'"
                     className="circle-btn bg-lightgray scale-normal dark"><img src="/img/exit.png"
                     className="back-icon scale-small" alt="나가기"/></button>
             </div>
@@ -58,7 +58,7 @@ const ProductRead = () => {
         {/* <!-- [하단] 장바구니 추가 버튼 --> */}
         <Link to="/qr/products/list">
         <div className="change-btn-border">
-            <button type="button" onclick="cartInsert()" className="change-btn white">장바구니에 담기</button>
+            <button type="button" onClick="cartInsert()" className="change-btn white">장바구니에 담기</button>
         </div>
         </Link>
     </div>

@@ -9,7 +9,7 @@ const ProductList = () => {
         <div className="header">
             <div className="back">
                 <Link to="/">
-                <button onclick="location.href='/qr/main'" className="circle-btn bg-lightgray scale-normal dark"><img
+                <button onClick="location.href='/qr/main'" className="circle-btn bg-lightgray scale-normal dark"><img
                         src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
                 </Link>
                 <span className="fs-large black">메뉴</span>
@@ -41,7 +41,7 @@ const ProductList = () => {
                 <div className="event">
                     <ul id="event-list">
                         <th:block th:if="${noticeList != null && !noticeList.isEmpty()}" th:each="notice : ${noticeList}">
-                            <li th:onclick="eventModalOpen([[${notice.id}]])">
+                            <li th:onClick="eventModalOpen([[${notice.id}]])">
                                 <img th:src="|/timg?id=${notice.id}|" alt="이벤트카드"/>
                             </li>
                         </th:block>
@@ -85,7 +85,7 @@ const ProductList = () => {
         {/* <!-- 하단 / 아이콘 --> */}
         <div className="c-icon-fix">
             <Link to="/qr/products/cart">
-            <button type="button" className="c-icon" onclick="location.href='/qr/products/cart'">
+            <button type="button" className="c-icon" onClick="location.href='/qr/products/cart'">
                 <img src="/img/cart.png" alt="장바구니" className="c-icon"/>
             </button>
             </Link>
@@ -95,7 +95,7 @@ const ProductList = () => {
 )
     {/* <!-- 이벤트 모달 팝업(전체화면) --> */}
     <div id="event-modal">
-        <button id="event-modal-close" type="button" onclick="eventModalClose()">
+        <button id="event-modal-close" type="button" onClick="eventModalClose()">
             <span className="material-symbols-outlined">close</span>
         </button>
         <div id="event-modal-body"></div>

@@ -58,7 +58,7 @@ const ProductCart = () => {
             <div className="scrollable-content">
                 {/* <!-- 전체 삭제 버튼 --> */}
                 <div className="delete-all flex justify-content-center align-items-center mr-5 mt-1">
-                    <button type="button" className="delete-all-btn white" onclick="deleteAllCartItems()">전체삭제</button>
+                    <button type="button" className="delete-all-btn white" onClick="deleteAllCartItems()">전체삭제</button>
                 </div>
 
                 <ul className="cart-list flex flex-column justify-content-start align-items-center gap-2">
@@ -87,9 +87,9 @@ const ProductCart = () => {
                             </div>
                             <div className="list-right">
                                 <th:block th:if="${cart.optionsId != null}">
-                                    <button type="button" th:onclick="openModal([[${cart.id}]])" className="option">옵션변경</button>
+                                    <button type="button" th:onClick="openModal([[${cart.id}]])" className="option">옵션변경</button>
                                 </th:block>
-                                <button type="button" className="cancel color-main" th:onclick="cartDelete([[${cart.id}]])">삭제</button>
+                                <button type="button" className="cancel color-main" th:onClick="cartDelete([[${cart.id}]])">삭제</button>
                             </div>
                         </div>
                     </li>
@@ -106,7 +106,7 @@ const ProductCart = () => {
                     <div className="total-card flex justify-content-around align-items-center">
                         <div className="total">TOTAL : </div>
                         <div className="total-price" th:text="${#numbers.formatInteger(total, 3, 'COMMA') + '원'}"></div>
-                        <a href="#" className="pay-btn" onclick="validateCart(event)">
+                        <a href="#" className="pay-btn" onClick="validateCart(event)">
                             <span className="square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</span>
                         </a>
                     </div>

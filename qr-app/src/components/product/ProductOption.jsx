@@ -44,7 +44,7 @@ const ProductOption = () => {
 
         {/* <!-- [하단] 변경하기 --> */}
         <div className="change-btn-border">
-            <button className="change-btn white" onclick="editCart()">변경하기</button>
+            <button className="change-btn white" onClick="editCart()">변경하기</button>
         </div>
     </div>
   )
