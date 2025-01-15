@@ -14,4 +14,7 @@ npm i @mui/material @emotion/react @emotion/styled
 npm i js-cookie --save
 
 # sweetalert2
-npm i sweetalert2
+npm i sweetalert2 sweetalert2-react-content
+
+# one
+npm install react-router-dom axios js-cookie sweetalert2 sweetalert2-react-content
