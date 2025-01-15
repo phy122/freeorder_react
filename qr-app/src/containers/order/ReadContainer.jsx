@@ -1,13 +1,13 @@
 import React from 'react'
-import ReadContainer from '../../containers/order/ReadContainer'
+import OrderRead from '../../components/order/OrderRead'
 
-const Read = () => {
+const ReadContainer = () => {
 
   return (
     <>
-      <ReadContainer />
+    <OrderRead orderRead = {orderRead} />
     </>
   )
 }
 
-export default Read
+export default ReadContainer

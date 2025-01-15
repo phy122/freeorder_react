@@ -106,9 +106,9 @@ const ProductCart = () => {
                     <div className="total-card flex justify-content-around align-items-center">
                         <div className="total">TOTAL : </div>
                         <div className="total-price" th:text="${#numbers.formatInteger(total, 3, 'COMMA') + '원'}"></div>
-                        <a href="#" className="pay-btn" onClick="validateCart(event)">
+                        <Link to="#" className="pay-btn" onClick="validateCart(event)">
                             <span className="square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</span>
-                        </a>
+                        </Link>
                     </div>
                 </th:block>
             </div>

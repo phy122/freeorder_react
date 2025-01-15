@@ -9,8 +9,8 @@ const ProductList = () => {
         <div className="header">
             <div className="back">
                 <Link to="/">
-                <button onClick="location.href='/qr/main'" className="circle-btn bg-lightgray scale-normal dark"><img
-                        src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
+                <button onClick="location.href='/qr/main'" className="circle-btn bg-lightgray scale-normal dark">
+                <img src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
                 </Link>
                 <span className="fs-large black">메뉴</span>
             </div>
@@ -19,9 +19,9 @@ const ProductList = () => {
             <div className="tab-menu-wrap">
                 <ul className="tab-menu">
                     <li>
-                        <a href="/qr/list" className="tab-menu-item">
+                        <Link to="/qr/products/list" className="tab-menu-item">
                             <span th:cslassappend="${cateId == null ? 'active': ''}">전체</span>
-                        </a>
+                        </Link>
                     </li>
                     <th:block th:if="${cateList != null}" th:each="cate : ${cateList}">
                         <li><a th:href="|/qr/list?cate=${cate.id}|" className="tab-menu-item">
@@ -33,7 +33,6 @@ const ProductList = () => {
             </div>
             <div className="line"></div>
         </div>
-
 
         {/* <!-- 카드 --> */}
         <div className="scrollable-content">

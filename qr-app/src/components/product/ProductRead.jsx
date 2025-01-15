@@ -7,7 +7,7 @@ const ProductRead = () => {
         <form id="cart-insert">
             <input type="hidden" th:field="${product.id}"/>
             {/* <!-- [상단] 상품명,닫기버튼 --> */}
-            <Link to="/qr/order/list">
+            <Link to="/qr/products/list">
             <div className="back flex justify-content-between align-items-center gap-2 p-10 bg-white">
 
                 <span className="menu-pop-name fs-large black ml-5" th:text="${product.name}"></span>

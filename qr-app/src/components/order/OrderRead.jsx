@@ -11,8 +11,8 @@ const OrderRead = () => {
             <Link to="/qr/products/list">
                 <button onClick="location.href='/qr/list'" className="circle-btn bg-lightgray scale-normal dark"><img
                         src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
-                <span className="fs-large black">주문 내역</span>
             </Link>
+                <span className="fs-large black">주문 내역</span>
             </div>
 
             {/* <!-- [상단]	카테고리 --> */}
