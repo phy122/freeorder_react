@@ -1,15 +1,15 @@
 import React from 'react'
-import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
+import Header from '../../components/header/Header'
 import Sidebar from '../../components/sidebar/Sidebar'
-import PaymentContainer from '../../containers/payment/PaymentContainer'
+import ProductInsertContainer from '../../containers/product/ProductInsertContainer'
 
-const Payment = () => {
+const ProductInsert = () => {
   return (
     <>
       <div className="layout">
         <Header />
-        <PaymentContainer />
+        <ProductInsertContainer />
         <Footer />
       </div>
       <Sidebar />
@@ -17,4 +17,4 @@ const Payment = () => {
   )
 }
 
-export default Payment
+export default ProductInsert

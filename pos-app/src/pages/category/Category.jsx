@@ -2,14 +2,14 @@ import React from 'react'
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
 import Sidebar from '../../components/sidebar/Sidebar'
-import PaymentContainer from '../../containers/payment/PaymentContainer'
+import CategoryContainer from '../../containers/category/CategoryContainer'
 
-const Payment = () => {
+const Category = () => {
   return (
     <>
       <div className="layout">
         <Header />
-        <PaymentContainer />
+        <CategoryContainer />
         <Footer />
       </div>
       <Sidebar />
@@ -17,4 +17,4 @@ const Payment = () => {
   )
 }
 
-export default Payment
+export default Category
