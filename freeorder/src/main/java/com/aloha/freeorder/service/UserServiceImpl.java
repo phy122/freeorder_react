@@ -1,28 +1,19 @@
 package com.aloha.freeorder.service;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.aloha.freeorder.domain.UserAuth;
 import com.aloha.freeorder.domain.Users;
 import com.aloha.freeorder.mapper.UserMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-
+    
     @Autowired
     private UserMapper userMapper;
 
@@ -31,73 +22,50 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    
 
     @Override
-    public boolean login(Users user, HttpServletRequest request) throws Exception {
-        // // 💍 토큰 생성
-        String username = user.getUsername();    // 아이디
-        String password = user.getPassword();    // 암호화되지 않은 비밀번호
-        UsernamePasswordAuthenticationToken token 
-            = new UsernamePasswordAuthenticationToken(username, password);
-        
-        // 토큰을 이용하여 인증
-        Authentication authentication = authenticationManager.authenticate(token);
-
-        // 인증 여부 확인
-        boolean result = authentication.isAuthenticated();
-        if( result ){
-            // 시큐리티 컨텍스트에 등록
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            // 세션에 등록
-            HttpSession session = request.getSession(true);
-            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-        }
-        else {
-            log.error("로그인시 에러...");
-        }
-
-        return result;
-    }
-    @Override
-    public Users select(String username) throws Exception {
-        Users user = userMapper.select(username);
-        return user;
-    }
-    
-    @Override
-    @Transactional      // 트랜젝션 처리를 설정(회원정보, 회원권한)
-    public int join(Users user) throws Exception {
-        String username = user.getUsername();
+    public boolean insert(Users user) throws Exception {
+        // 비밀번호 암호화
         String password = user.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
-        user.setId(UUID.randomUUID().toString());
 
         // 회원 등록
         int result = userMapper.join(user);
 
+        // 권한 등록
         if( result > 0 ) {
-            // 회원 기본 권한 등록
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUsername(username);
-            userAuth.setAuth("ROLE_USER");
-            result = userMapper.insertAuth(userAuth);
+            UserAuth userAuth = UserAuth.builder()
+                                        .username(user.getUsername())
+                                        .auth("ROLE_USER")
+                                        .build();
+            result += userMapper.insertAuth(userAuth);
         }
-        return result;
+        return result > 0;
     }
 
     @Override
-    public int update(Users user) throws Exception {
+    public Users select(String username) throws Exception {
+        return userMapper.select(username);
+    }
+
+    @Override
+    public void login(Users user, HttpServletRequest request) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'login'");
+    }
+
+    @Override
+    public boolean update(Users user) throws Exception {
         int result = userMapper.update(user);
-        return result;
+        return result > 0;
     }
 
     @Override
-    public int insertAuth(UserAuth userAuth) throws Exception {
-        int result = userMapper.insertAuth(userAuth);
-        return result;
+    public boolean delete(String username) throws Exception {
+        return userMapper.delete(username) > 0;
     }
+
+
     
 }
