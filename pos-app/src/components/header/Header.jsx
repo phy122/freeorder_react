@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo" onClick={onClickGoHome} >
-        <img src={`/img/header/pos.png`} alt="logo" className="logo-img" />
+        <img src={`/img/header/pos.png`} alt="logo" className="logo-img"          />
         <a href="#">FreeOrder</a>
       </div>
       <div className="header-content">

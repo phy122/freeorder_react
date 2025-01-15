@@ -2,14 +2,16 @@ import React from 'react'
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
 import Sidebar from '../../components/sidebar/Sidebar'
-import PaymentContainer from '../../containers/payment/PaymentContainer'
+import SaleContainer from '../../containers/sale/SaleContainer'
+import LeftMenu from '../../components/leftmenu/LeftMenu'
 
-const Payment = () => {
+const Sale = () => {
   return (
     <>
       <div className="layout">
         <Header />
-        <PaymentContainer />
+        <LeftMenu />
+        <SaleContainer />
         <Footer />
       </div>
       <Sidebar />
@@ -17,4 +19,4 @@ const Payment = () => {
   )
 }
 
-export default Payment
+export default Sale
