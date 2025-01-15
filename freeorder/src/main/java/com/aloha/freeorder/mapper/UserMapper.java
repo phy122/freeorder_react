@@ -5,8 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.aloha.freeorder.domain.UserAuth;
 import com.aloha.freeorder.domain.Users;
 
-
-
 @Mapper
 public interface UserMapper {
 
@@ -21,5 +19,8 @@ public interface UserMapper {
 
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
+
+    // 회원 삭제
+    public int delete(String username) throws Exception;
 
 }
