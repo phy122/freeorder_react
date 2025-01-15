@@ -1,33 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import Sidebar from './components/sidebar/Sidebar';
+import Product from './pages/product/Product';
+import Payment from './pages/payment/Payment';
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
+const App = () => {
+  return(
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <>
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Product/>}></Route>
+            <Route path="/product/insert"></Route>
+            <Route path="/product/update"></Route>
+            <Route path="/category" ></Route>
+            <Route path="/category/insert"></Route>
+            <Route path="/category/update"></Route>
+            <Route path="/option"></Route>
+            <Route path="/option/insert"></Route>
+            <Route path="/option/update"></Route>
+            <Route path="/payment" element={<Payment/>} ></Route>
+            <Route path="/management"></Route>
+            <Route path="/notice"></Route>
+            <Route path="/promotion"></Route>
+            <Route path="/promotion/insert"></Route>
+            <Route path="/promotion/update"></Route>
+          </Routes>
+        </BrowserRouter>
+        <Footer />
+      </>
+      <Sidebar />
     </>
   )
 }
