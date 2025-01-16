@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aloha.freeorder.domain.Payment;
 import com.aloha.freeorder.service.PaymentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * REST 형식 컨트롤러
  * CRUD 비동기 처리
  * 
  */
+@Slf4j
 @RestController
 @RequestMapping("/qr/payments")
+@CrossOrigin("*")
 public class QrPaymentController {
     
     @Autowired

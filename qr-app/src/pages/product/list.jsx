@@ -1,7 +1,7 @@
 import React from 'react'
 import ListContainer from '../../containers/product/ListContainer'
 
-const list = () => {
+const List = () => {
   return (
     <>
       <ListContainer />
@@ -9,4 +9,4 @@ const list = () => {
   )
 }
 
-export default list
+export default List
