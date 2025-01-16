@@ -7,7 +7,7 @@ const CategoryList = () => {
         <div className="category-page">
             <div className="category-header">
                 <h1>카테고리</h1>
-                <a className="add-category-btn" href="/pos/category/insert">+ 추가</a>
+                <a className="add-category-btn" href="/category/insert">+ 추가</a>
             </div>
             <div className="category-list">
                 <th:block th:if="${ cateList != null }" th:each="cate : ${cateList}">

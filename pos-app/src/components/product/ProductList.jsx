@@ -34,7 +34,7 @@ const ProductList = () => {
                 <div className="product-page">
                     <div className="product-header">
                         <h1>상품 목록</h1>
-                        <a className="add-product-btn" href="/pos/product/insert">+ 상품 추가</a>
+                        <a className="add-product-btn" href="/product/insert">+ 상품 추가</a>
                     </div>
                     <div className="product-list">
                         <th:block th:if="${productList != null}" th:each="product : ${productList}">

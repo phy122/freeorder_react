@@ -1,15 +1,19 @@
 import React from 'react'
 import './Option.css'
+import { Link } from 'react-router-dom'
 
 const OptionList = () => {
     return (
         <div className="i-container">
             <div className="opt-header">
                 <h2>옵션 관리</h2>
-                <button onclick="location.href='/pos/option/insert'">
+                <Link to='/option/insert'>
+                
+                <button>
                     <a className="material-symbols-outlined">add_circle</a>
                     <a href="#">추가</a>
                 </button>
+                </Link>
             </div>
             <div className="opt-item-list">
                 <th:block th:if="${optionList != null}" th:each="option : ${optionList}">

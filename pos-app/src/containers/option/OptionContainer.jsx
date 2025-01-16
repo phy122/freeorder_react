@@ -3,7 +3,9 @@ import OptionList from '../../components/option/OptionList'
 
 const OptionContainer = () => {
   return (
+    <>
     <OptionList />
+    </>
   )
 }
 

@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@RequestMapping("/pos")
+@RequestMapping("/")
 @CrossOrigin("*")
 public class PosController {
 
