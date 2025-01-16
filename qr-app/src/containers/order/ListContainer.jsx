@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import ProductList from '../../components/order/ProductList'
+import OrderList from '../../components/order/OrderList'
 
 const ListContainer = () => {
-  const [productList, setProductList] = useState([])
+  const [orderList, setOrderList] = useState([])
   return (
     <>
-      <ProductList productList = {productList} />
+      <OrderList orderList = {orderList} />
     </>
   )
 }

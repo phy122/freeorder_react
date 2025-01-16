@@ -45,14 +45,6 @@ background-color: #ff8c4a;
 transform: translateY(-5px);
 }
 
-.main-container {
-width: 100vw;
-height: 100vh;
-min-height: 100vh;
-position: relative;
-/* overflow: hidden; */
-}
-
 /* list, cart 상단 탭메뉴 */
 .header {
 position: fixed;
@@ -206,6 +198,7 @@ justify-content: center;
 height: 100%;
 width: 8rem;
 font-weight: bold;
+text-decoration-line: none;
 }
 
 .active {
@@ -235,11 +228,9 @@ justify-content: center;
 
 .container {
 width: 100vw;
-/* height: 100vh; */
 min-height: 100vh;
 border: 1px dashed var(--main-color);
 position: relative;
-/* overflow: hidden; */
 }
 
 .main-container {
@@ -248,21 +239,8 @@ height: 100vh;
 min-height: 100vh;
 border: 1px dashed var(--main-color);
 position: relative;
-/* overflow: hidden; */
 }
 
-/* .container.cart-container {
-display: grid;
-grid-template-rows: 90px 52px auto 110px;
-} */
-
-.cart-list {
-overflow-y: auto;
-}
-.container.cart-container {
-display: grid;
-grid-template-rows: 90px 52px auto 110px;
-}
 .cart-list {
 padding: 1.25rem 0;
 overflow-y: auto;
@@ -339,16 +317,19 @@ background-color: white;
 display: flex;
 align-items: center;
 justify-content: space-around;
+margin-bottom: 50px;
 }
 
 .container.cart-container {
 display: grid;
 grid-template-rows: 90px 52px auto 110px;
 }
+
 .total-card {
-width: 100%;
+width: 100vw;
 height: 100%;
 }
+
 .total {
 bottom: 3rem;
 left: 5rem;
@@ -365,6 +346,8 @@ font-size: larger;
 .c-icon {
 width: 80px;
 background: none;
+background-color: transparent;
+border: none;
 }
 
 .c-icon-fix {
@@ -440,6 +423,7 @@ bottom: 1.5rem;
 position: fixed;
 font-size: var(--large-text-size);
 cursor: pointer;
+border: none;
 }
 
 .change-btn:hover {
@@ -484,7 +468,7 @@ margin-left: auto;
 }
 
 .amount-select {
-width: 115px;
+width: 105px;
 padding: 5px 10px;
 margin-left: auto;
 border-radius: 30px;
@@ -505,6 +489,7 @@ font-size: larger;
 background-color: #ffa069;
 cursor: pointer;
 margin-right: 10px;
+border: none;
 }
 
 .quantity-plus {
@@ -512,6 +497,7 @@ border-radius: 50%;
 font-size: larger;
 background-color: #ffa069;
 cursor: pointer;
+border: none;
 }
 
 /* 주문 내역 시작 */
@@ -729,16 +715,19 @@ font-size: medium;
 .scale-large{
 width: 80px;
 height: 80px;
+border: none;
 }
 
 .scale-normal{
 width: 70px;
 height: 70px;
+border: none;
 }
 
 .scale-small{
 width: 30px;
 height: 30px;
+border: none;
 }
 
 /* 모달 디자인 */
@@ -983,6 +972,7 @@ padding: 0 1%;
 }
 .detail-ord{
 width: 25%;
+border: none;
 }
 .detail-ord a {
 display: block;
