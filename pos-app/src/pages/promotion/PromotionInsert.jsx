@@ -3,15 +3,15 @@ import Header from '../../components/header/Header'
 import LeftMenu from '../../components/leftmenu/LeftMenu'
 import Footer from '../../components/footer/Footer'
 import Sidebar from '../../components/sidebar/Sidebar'
-import PromotionContainer from '../../containers/promotion/PromotionContainer'
+import PromotionInsertContainer from '../../containers/promotion/PromotionInsertContainer'
 
-const Promotion = () => {
+const PromotionInsert = () => {
   return (
     <>
       <div className="layout">
         <Header />
         <LeftMenu />
-        <PromotionContainer />
+        <PromotionInsertContainer />
         <Footer />
       </div>
       <Sidebar />
@@ -19,4 +19,4 @@ const Promotion = () => {
   )
 }
 
-export default Promotion
+export default PromotionInsert

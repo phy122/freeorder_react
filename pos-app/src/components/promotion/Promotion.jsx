@@ -1,54 +1,81 @@
-import React from 'react'
-import './Promotion.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Promotion = () => {
+const Promotion = ({ proList }) => {
     return (
         <div>
             <div className="promotion-page">
                 <h1>프로모션</h1>
-                <a href="/pos/promotion/insert" className="insert-btn">프로모션 등록</a>
+                <Link to='/promotion/insert'>
+                <a href="/promotion/insert" className="insert-btn">
+                    프로모션 등록
+                </a>
+                </Link>
             </div>
-            <table className="promotion-list">
-                <th:block th:if="${proList != null and !proList.isEmpty()}">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>프로모션명</th>
-                            <th>썸네일</th>
-                            <th>등록일자</th>
-                            <th>수정일자</th>
-                            <th>관리</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <th:block th:each="pro, stat : ${proList}">
-                            <tr>
-                                <td th:text="${stat.index + 1}">1</td>
-                                <td th:text="${pro.title}">프로모션 이름</td>
-                                <td>
-                                    <img th:src="|/timg?id=${pro.id}|" alt="" width="100px" />
-                                </td>
-                                <td th:text="${#dates.format(pro.createdAt, 'yyyy-MM-dd')}">2024-12-06</td>
-                                <td th:text="${#dates.format(pro.updatedAt, 'yyyy-MM-dd')}">2024-12-06</td>
-                                <td>
-                                    <a className="update-btn" th:href="@{/pos/promotion/update/{id}(id=${pro.id})}">수정</a>
-                                    <button type="button" className="delete-btn" th:onclick="promotionDelete([[${pro.id}]])">삭제</button>
-                                </td>
-                            </tr>
-                        </th:block>
-                    </tbody>
-                </th:block>
 
-                <th:block th:if="${proList == null or proList.isEmpty()}">
+            <table className="promotion-list">
+                {proList && proList.length > 0 ? (
+                    <>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>프로모션명</th>
+                                <th>썸네일</th>
+                                <th>등록일자</th>
+                                <th>수정일자</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {proList.map((pro, index) => (
+                                <tr key={pro.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{pro.title}</td>
+                                    <td>
+                                        <img
+                                            src={`/timg?id=${pro.id}`}
+                                            alt={`${pro.title} 썸네일`}
+                                            width="100px"
+                                        />
+                                    </td>
+                                    <td>{new Date(pro.createdAt).toLocaleDateString()}</td>
+                                    <td>{new Date(pro.updatedAt).toLocaleDateString()}</td>
+                                    <td>
+                                        <a
+                                            className="update-btn"
+                                            href={`/promotion/update/${pro.id}`}
+                                        >
+                                            수정
+                                        </a>
+                                        <button
+                                            type="button"
+                                            className="delete-btn"
+                                            onClick={() => promotionDelete(pro.id)}
+                                        >
+                                            삭제
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </>
+                ) : (
                     <tbody>
                         <tr>
-                            <td colspan="6" style="text-align: center;">등록된 프로모션이 없습니다.</td>
+                            <td colSpan="6" style={{ textAlign: 'center' }}>
+                                등록된 프로모션이 없습니다.
+                            </td>
                         </tr>
                     </tbody>
-                </th:block>
+                )}
             </table>
         </div>
-    )
-}
+    );
+};
 
-export default Promotion
+// 삭제 함수 (예시)
+const promotionDelete = (id) => {
+    console.log(`프로모션 삭제: ${id}`);
+};
+
+export default Promotion;
