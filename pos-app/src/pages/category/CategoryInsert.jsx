@@ -1,19 +1,15 @@
 import React from 'react'
 import Header from '../../components/header/Header'
+import CategoryInsertContainer from '../../containers/category/CategoryInsertContainer'
 import Footer from '../../components/footer/Footer'
 import Sidebar from '../../components/sidebar/Sidebar'
-import SaleContainer from '../../containers/sale/SaleContainer'
-import LeftMenu from '../../components/leftmenu/LeftMenu'
 
-const Sale = () => {
+const CategoryInsert = () => {
   return (
     <>
       <div className="layout">
         <Header />
-        <div class="more-layout">
-          <LeftMenu />
-          <SaleContainer />
-        </div>
+        <CategoryInsertContainer />
         <Footer />
       </div>
       <Sidebar />
@@ -21,4 +17,4 @@ const Sale = () => {
   )
 }
 
-export default Sale
+export default CategoryInsert

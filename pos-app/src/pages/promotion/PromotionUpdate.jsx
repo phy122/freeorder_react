@@ -1,18 +1,18 @@
 import React from 'react'
+import PromotionUpdateContainer from '../../containers/promotion/PromotionUpdateContainer'
 import Header from '../../components/header/Header'
+import LeftMenu from '../../components/leftmenu/LeftMenu'
 import Footer from '../../components/footer/Footer'
 import Sidebar from '../../components/sidebar/Sidebar'
-import SaleContainer from '../../containers/sale/SaleContainer'
-import LeftMenu from '../../components/leftmenu/LeftMenu'
 
-const Sale = () => {
+const PromotionUpdate = () => {
   return (
     <>
       <div className="layout">
         <Header />
         <div class="more-layout">
           <LeftMenu />
-          <SaleContainer />
+          <PromotionUpdateContainer />
         </div>
         <Footer />
       </div>
@@ -21,4 +21,4 @@ const Sale = () => {
   )
 }
 
-export default Sale
+export default PromotionUpdate

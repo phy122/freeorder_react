@@ -1,20 +1,21 @@
 import React from 'react'
-import './Payment.css'
+import styles from './Payment.module.css'
 
 const PaymentList = () => {
   return (
     <>
-      <div className="ls-left-container">
-        <div className="ls-back-title">
-          <div className="ls-payment-title">
+    <div className={styles['ls-container']}>
+      <div className={styles['ls-left-container']}>
+        <div className={styles['ls-back-title']}>
+          <div className={styles['ls-payment-title']}>
             <a href="">
-              <span className="material-symbols-outlined">close</span>
+              <span className={styles['material-symbols-outlined']}>close</span>
             </a>
             <h3>결제 내역</h3>
           </div>
         </div>
         <form action="" method="get">
-          <div className="ls-filter-part">
+          <div className={styles['ls-filter-part']}>
             <div>
               <select name="date">
                 <option value="1" th:selected="${paySearch.date == 1}">오늘</option>
@@ -27,30 +28,30 @@ const PaymentList = () => {
                 <option value="카드" th:selected="|${paySearch.paymentMethods == '카드'}|">카드</option>
               </select>
             </div>
-            <div className="ls-input-filter">
+            <div className={styles['ls-input-filter']}>
               <input type="text" name="minPrice" th:value="${paySearch.minPrice != null ? paySearch.minPrice : ''}" placeholder="최소금액" />
-                <input type="text" name="maxPrice" th:value="${paySearch.maxPrice != null ? paySearch.maxPrice : ''}" placeholder="최대금액" />
-                  <button type="submit" className="ls-read-btn" id="search-payment-btn">조회</button>
-                </div>
+              <input type="text" name="maxPrice" th:value="${paySearch.maxPrice != null ? paySearch.maxPrice : ''}" placeholder="최대금액" />
+              <button type="submit" className={styles['ls-read-btn']} id="search-payment-btn">조회</button>
             </div>
+          </div>
         </form>
 
-        <ul className="ls-list-part">
+        <ul className={styles['ls-list-part']}>
           <th:block th:if="${payList != null and not payList.isEmpty()}" th:each="payment : ${payList}">
             <li>
-              <div className="ls-time">
+              <div className={styles['ls-time']}>
                 <p th:text="${#dates.format(payment.paidAt,'EEEE')}">금요일</p>
                 <p th:text="${#dates.format(payment.paidAt,'yyyy-MM-dd')}">2024.11.29</p>
               </div>
-              <a className="ls-detail-link" th:onclick="paymentRead([[${payment.id}]])">
-                <div className="ls-payment">
+              <a className={styles['ls-detail-link']} th:onclick="paymentRead([[${payment.id}]])">
+                <div className={styles['ls-payment']}>
                   <p th:text="${payment.paymentMethod}">카드</p>
                 </div>
-                <div className="ls-simple">
+                <div className={styles['ls-simple']}>
                   <h3 th:text="${#numbers.formatInteger(payment.order.totalPrice, 3, 'COMMA') + '원'}"></h3>
                   <h5 th:text="${payment.order.title}"></h5>
                 </div>
-                <div className="ls-table">
+                <div className={styles['ls-table']}>
                   <h5 th:text="${#dates.format(payment.paidAt,'hh:mm')}">11:04</h5>
                   <h6 th:text="|주문번호 : ${payment.order.orderNumber}|">주문번호 1</h6>
                 </div>
@@ -65,9 +66,10 @@ const PaymentList = () => {
         </ul>
 
       </div>
-      <div className="ls-right-container" id="right-payment-info">
+      <div className={styles['ls-right-container']} id="right-payment-info">
 
       </div>
+    </div>
     </>
   )
 }

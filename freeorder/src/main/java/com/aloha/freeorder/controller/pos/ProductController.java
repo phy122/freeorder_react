@@ -27,6 +27,7 @@ import com.aloha.freeorder.domain.Product;
 import com.aloha.freeorder.service.FileService;
 import com.aloha.freeorder.service.ProductService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -52,10 +53,17 @@ public class ProductController {
     private String uploadPath;
 
     @GetMapping()
-    public ResponseEntity<?> getAll() throws Exception{
+    public ResponseEntity<?> getAll(HttpServletRequest request) throws Exception{
         log.info("상품 목록 조회");
+        String cateId = request.getParameter("cate");
+        List<Product> productList = null;
         try {
-            List<Product> productList = productService.allList();
+            if (cateId == null || cateId.isEmpty()) {
+                productList = productService.allList();
+            }
+            else {
+                productList = productService.listByCate(cateId);
+            }
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             log.error("상품 목록 조회 중 에러 발생...", e);

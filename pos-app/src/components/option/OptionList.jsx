@@ -1,27 +1,31 @@
 import React from 'react'
-import './Option.css'
+import styles from './Option.module.css'
+import { Link } from 'react-router-dom'
 
 const OptionList = () => {
     return (
-        <div className="i-container">
-            <div className="opt-header">
+        <div className={styles['i-container']}>
+            <div className={styles['opt-header']}>
                 <h2>옵션 관리</h2>
-                <button onclick="location.href='/pos/option/insert'">
-                    <a className="material-symbols-outlined">add_circle</a>
+                <Link to='/option/insert'>
+                
+                <button>
+                    <a className={styles['material-symbols-outlined']}>add_circle</a>
                     <a href="#">추가</a>
                 </button>
+                </Link>
             </div>
-            <div className="opt-item-list">
+            <div className={styles['opt-item-list']}>
                 <th:block th:if="${optionList != null}" th:each="option : ${optionList}">
-                    <div className="opt-list">
-                        <div className="opt-list-left">
-                            <div className="opt-title">
+                    <div className={styles['opt-list']}>
+                        <div className={styles['opt-list-left']}>
+                            <div className={styles['opt-title']}>
                                 <a th:text="${option.name}" th:href="|/pos/option/update/${option.id}|"></a>
                             </div>
 
-                            <div className="opt-i-list">
+                            <div className={styles['opt-i-list']}>
                                 <th:block th:if="${option.itemList != null and not #lists.isEmpty(option.itemList)}">
-                                    <div className="opt-item" th:each="item : ${option.itemList}">
+                                    <div className={styles['opt-item']} th:each="item : ${option.itemList}">
                                         <a th:text="${item.name}" href="javascript:void(0)"></a>
                                     </div>
                                 </th:block>
@@ -32,8 +36,8 @@ const OptionList = () => {
                             </th:block>
                         </div>
 
-                        <div className="opt-list-right">
-                            <a className="material-symbols-outlined" th:href="|/pos/option/update/${option.id}|">edit</a>
+                        <div className={styles['opt-list-right']}>
+                            <a className={styles['material-symbols-outlined']} th:href="|/pos/option/update/${option.id}|">edit</a>
                         </div>
                     </div>
                 </th:block>

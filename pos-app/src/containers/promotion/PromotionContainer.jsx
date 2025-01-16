@@ -4,7 +4,7 @@ import Promotion from '../../components/promotion/Promotion'
 const PromotionContainer = () => {
   return (
     <>
-    <Promotion />
+    <Promotion/>
     </>
   )
 }
