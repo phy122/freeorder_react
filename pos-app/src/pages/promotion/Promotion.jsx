@@ -10,8 +10,10 @@ const Promotion = () => {
     <>
       <div className="layout">
         <Header />
-        <LeftMenu />
-        <PromotionContainer />
+        <div class="more-layout">
+          <LeftMenu />
+          <PromotionContainer />
+        </div>
         <Footer />
       </div>
       <Sidebar />

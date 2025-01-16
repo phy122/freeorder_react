@@ -10,8 +10,10 @@ const Notice = () => {
     <>
       <div className="layout">
         <Header />
-        <LeftMenu />
-        <NoticeContainer />
+        <div class="more-layout">
+          <LeftMenu />
+          <NoticeContainer />
+        </div>
         <Footer />
       </div>
       <Sidebar />

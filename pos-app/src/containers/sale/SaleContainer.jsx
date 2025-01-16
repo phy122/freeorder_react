@@ -4,7 +4,7 @@ import Sale from '../../components/sale/Sale'
 const SaleContainer = () => {
   return (
     <>
-    <Sale />
+        <Sale />
     </>
   )
 }

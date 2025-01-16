@@ -17,7 +17,7 @@ const LeftMenu = () => {
 
   return (
     <div className="left-side">
-		<div className="left-title">
+		<div className="left-title">``
 			<ul className="list-container">
 				<li onClick={ onClickGoSale }><a href="#" className="left-item">매출관리</a></li>
 				<li onClick={ onClickGoNotice }><a href="#" className="left-item">공지사항</a></li>
