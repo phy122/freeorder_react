@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Promotion.module.css'
 
 const PromotionUpdate = () => {
     const promotionUpdate = () => {
@@ -6,10 +7,10 @@ const PromotionUpdate = () => {
     };
 
     return (
-        <div className="container" layout-fragment="content">
-            <div className="promotion-edit-page">
+        <div className={styles['container']} layout-fragment="content">
+            <div className={styles['promotion-edit-page']}>
                 <h1>프로모션 수정</h1>
-                <form className="promotion-form" id="pro-update">
+                <form className={styles['promotion-form']} id="pro-update">
                     <input type="hidden" name="type" value="promotion" />
                     <input type="hidden" name="id" value="12345" />
                     
@@ -48,7 +49,7 @@ const PromotionUpdate = () => {
 
                     <button 
                         type="button" 
-                        className="promotion-update-btn" 
+                        className={styles['promotion-update-btn']} 
                         onClick={promotionUpdate}
                     >
                         수정

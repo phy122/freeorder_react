@@ -10,8 +10,10 @@ const PromotionInsert = () => {
     <>
       <div className="layout">
         <Header />
-        <LeftMenu />
-        <PromotionInsertContainer />
+        <div class="more-layout">
+          <LeftMenu />
+          <PromotionInsertContainer />
+        </div>
         <Footer />
       </div>
       <Sidebar />

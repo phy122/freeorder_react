@@ -10,8 +10,10 @@ const Sale = () => {
     <>
       <div className="layout">
         <Header />
-        <LeftMenu />
-        <SaleContainer />
+        <div class="more-layout">
+          <LeftMenu />
+          <SaleContainer />
+        </div>
         <Footer />
       </div>
       <Sidebar />

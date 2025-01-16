@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Promotion.module.css'
 
 const PromotionInsert = () => {
     const promotionInsert = () => {
@@ -6,11 +7,11 @@ const PromotionInsert = () => {
     };
 
     return (
-        <div className="container">
-            <div className="promotion-insert-page">
+        <div className={styles['container']}>
+            <div className={styles['promotion-insert-page']}>
                 <h1>프로모션 등록</h1>
                 <form 
-                    className="promotion-form" 
+                    className={styles['promotion-form']} 
                     id="promotion-insert" 
                     onSubmit={(e) => e.preventDefault()} // 폼 제출 방지
                 >
@@ -43,7 +44,7 @@ const PromotionInsert = () => {
                     
                     <button 
                         type="button" 
-                        className="promotion-insert-btn" 
+                        className={styles['promotion-insert-btn']} 
                         onClick={promotionInsert} // 버튼 클릭 이벤트
                     >
                         등록

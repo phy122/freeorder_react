@@ -10,8 +10,10 @@ const PromotionUpdate = () => {
     <>
       <div className="layout">
         <Header />
-        <LeftMenu />
-        <PromotionUpdateContainer />
+        <div class="more-layout">
+          <LeftMenu />
+          <PromotionUpdateContainer />
+        </div>
         <Footer />
       </div>
       <Sidebar />
