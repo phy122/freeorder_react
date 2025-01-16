@@ -1,10 +1,7 @@
-import axios from 'axios';
-
-// 기본 URL 설정
-axios.defaults.baseURL = "/api"
+import api from './api';
 
 // 목록
-export const list = () => axios.get(`/qr/products`)
+export const list = () => api.get(`/qr/products`)
 
 // 조회
-export const select = (id) => axios.get(`/qr/products/${id}`)
+export const select = (id) => api.get(`/qr/products/${id}`)
