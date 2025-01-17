@@ -3,7 +3,7 @@ import styles from './Category.module.css'
 
 const CategoryInsert = ({ cateInsert }) => {
 
-  const [cateName, setCateName] = useState()
+  const [cateName, setCateName] = useState('')
 
   // 입력값 변경 핸들러
   const cateHandler = (e) => {
@@ -43,7 +43,7 @@ const CategoryInsert = ({ cateInsert }) => {
         <div className={styles['category-register-page']}>
             <h1>카테고리 등록</h1>
             <form className={styles['category-form']} id="cate-insert" onSubmit={handleFormSubmit}>
-                <label for="category-name">카테고리 이름</label>
+                <label htmlFor="category-name">카테고리 이름</label>
                 <input type="text" id="name" name="name" placeholder="카테고리 이름을 입력하세요" value={cateName} onChange={cateHandler} required />
                 <button type="submit" className={styles['submit-btn']}>등록</button>
             </form>

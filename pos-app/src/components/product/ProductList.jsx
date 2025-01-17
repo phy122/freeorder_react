@@ -3,7 +3,6 @@ import styles from './Product.module.css'
 
 const ProductList = ({ cateList, proList, onCategoryChange  }) => {
 
-
   return (
     <div className={styles['container']} layout:fragment="content">
       <div className={styles['main-container']}>
@@ -83,7 +82,7 @@ const ProductList = ({ cateList, proList, onCategoryChange  }) => {
           <div id="total-price">총 가격: <span id="cart-total-price"></span>원</div>
         </div>
       </div>
-      <div className={styles['so-modal-overlay']} id="option-modal">
+      {/* <div className={styles['so-modal-overlay']} id="option-modal">
         <div className={styles['so-modal']} id="option-modal-body">
           <div className={styles['so-container']}>
             <div className={styles['so-option-title']}>
@@ -100,7 +99,7 @@ const ProductList = ({ cateList, proList, onCategoryChange  }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div id="modal" className={styles['modal']}>
         <div className={styles['modal-container']}>
           <div className={styles['modal-header']}>
