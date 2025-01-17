@@ -1,7 +1,7 @@
 import React from 'react'
 import FailContainer from '../../containers/payment/fail'
 
-const fail = () => {
+const FailPage = () => {
   return (
     <>
     <FailContainer/>
@@ -9,4 +9,4 @@ const fail = () => {
   )
 }
 
-export default fail
+export default FailPage

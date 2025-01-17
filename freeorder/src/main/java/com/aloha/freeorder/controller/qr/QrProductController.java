@@ -43,10 +43,12 @@ public class QrProductController {
     log.info( "cateId : " + cateId);
     List<Product> productList = null;
     try {
-      if (cateId == null || cateId.isEmpty()) {
+      if (cateId == null || cateId.isEmpty() || cateId.equals("undefined")) {
+        log.info("전체 카테고리 조회");
         productList = productService.allList();
       }
       else {
+        log.info("해당 카테고리만 조회");
         productList = productService.listByCate(cateId);
       }
       return new ResponseEntity<>(productList, HttpStatus.OK);

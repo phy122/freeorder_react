@@ -1,7 +1,7 @@
 import React from 'react'
 import ListContainer from '../../containers/order/ListContainer'
 
-const list = () => {
+const OrderListPage = () => {
   return (
     <>
       <ListContainer />
@@ -9,4 +9,4 @@ const list = () => {
   )
 }
 
-export default list
+export default OrderListPage

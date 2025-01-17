@@ -1,7 +1,7 @@
 import React from 'react'
 import PayContainer from '../../containers/PayContainer'
 
-const pay = () => {
+const PaymentPage = () => {
   return (
     <>
     <PayContainer />
@@ -9,4 +9,4 @@ const pay = () => {
   )
 }
 
-export default pay
+export default PaymentPage
