@@ -1,56 +1,131 @@
-import React from 'react'
-import styles from './Product.module.css'
+import React, { useState } from 'react';
+import styles from './Product.module.css';
 
-const ProductInsert = () => {
-    return (
-        <div className={styles['i-container']}>
-            <form className={styles['insert-form']} enctype="multipart/form-data" id="pro-insert" onsubmit="return false">
-                <h2>상품 정보</h2>
+const ProductInsert = ({ proInsert, cateList }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    description: '',
+    categoriesId: '',
+  });
 
-                <div className={styles['form-group']}>
-                    <label for="name">상품명</label>
-                    <input type="text" name="name" id="name" placeholder="상품명을 입력하세요." required />
-                </div>
+  const [file, setFile] = useState(null);
 
-                <div className={styles['form-group']}>
-                    <label for="price">가격</label>
-                    <input type="number" name="price" id="price" placeholder="가격을 입력하세요." required />
-                </div>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-                <div className={styles['form-group']}>
-                    <label for="description">상품 설명</label>
-                    <textarea name="description" id="description" placeholder="상품 설명을 입력하세요."></textarea>
-                </div>
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-                <div className={styles['form-group']}>
-                    <label for="categoriesId">카테고리</label>
-                    <select name="categoriesId" id="categoriesId" required>
-                        <option value="">카테고리 선택</option>
-                        <th:block th:each="cate : ${cateList}">
-                            <option th:value="${cate.id}" th:text="${cate.name}"></option>
-                        </th:block>
-                    </select>
-                </div>
+  const handleSubmit = async () => {
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('price', formData.price);
+    data.append('description', formData.description);
+    data.append('categoriesId', formData.categoriesId);
+    if (file) {
+      data.append('productFile', file);
+    }
 
-                <div className={styles['form-group']}>
-                    <label for="productFile">상품 이미지</label>
-                    <input type="file" name="productFile" id="productFile" />
-                </div>
+    await proInsert(data);
+  };
 
-                <div className={styles['form-group']}>
-                    <label for="optionId">옵션</label>
-                    <div className={styles['plus-box']} onclick="selectOptions(this)"><a>+선택</a></div>
-                    <ul id="optionList"></ul>
-                    <input type="hidden" name="optionsId" id="optionsId" />
-                </div>
+  return (
+    <div className={styles['i-container']}>
+      <form className={styles['insert-form']} encType="multipart/form-data">
+        <h2>상품 정보</h2>
 
-                <div className={styles['button-group']}>
-                    <button type="button" onclick="location='/pos/product'" className={styles['cancel-btn']}>취소</button>
-                    <button type="button" onclick="proInsert()" className={styles['submit-btn']}>등록</button>
-                </div>
-            </form>
+        <div className={styles['form-group']}>
+          <label htmlFor="name">상품명</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="상품명을 입력하세요."
+            required
+            value={formData.name}
+            onChange={handleChange}
+          />
         </div>
-    )
-}
 
-export default ProductInsert
+        <div className={styles['form-group']}>
+          <label htmlFor="price">가격</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="가격을 입력하세요."
+            required
+            value={formData.price}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles['form-group']}>
+          <label htmlFor="description">상품 설명</label>
+          <textarea
+            name="description"
+            id="description"
+            placeholder="상품 설명을 입력하세요."
+            value={formData.description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+
+        <div className={styles['form-group']}>
+          <label htmlFor="categoriesId">카테고리</label>
+          <select
+            name="categoriesId"
+            id="categoriesId"
+            required
+            value={formData.categoriesId}
+            onChange={handleChange}
+          >
+            <option value="">카테고리 선택</option>
+            {cateList.map((cate) => (
+              <option key={cate.id} value={cate.id}>
+                {cate.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles['form-group']}>
+          <label htmlFor="productFile">상품 이미지</label>
+          <input
+            type="file"
+            name="productFile"
+            id="productFile"
+            onChange={handleFileChange}
+          />
+        </div>
+
+        {/* 임시 옵션 UI */}
+        <div className={styles['form-group']}>
+          <label htmlFor="optionId">옵션</label>
+          <div className={styles['plus-box']} onClick={() => alert('옵션 추가')}>
+            <a>+선택</a>
+          </div>
+        </div>
+
+        <div className={styles['button-group']}>
+          <button
+            type="button"
+            onClick={() => (window.location.href = '/')}
+            className={styles['cancel-btn']}
+          >
+            취소
+          </button>
+          <button type="button" onClick={handleSubmit} className={styles['submit-btn']}>
+            등록
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default ProductInsert;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Product.module.css'
 
-const ProductList = ({ cateList, proList }) => {
+const ProductList = ({ cateList, proList, onCategoryChange  }) => {
 
 
   return (
@@ -12,18 +12,19 @@ const ProductList = ({ cateList, proList }) => {
             <div className={styles['cate-wrap']}>
               <div className={styles['tab-menu-container']}>
                 <ul className={styles['tab-menu']} id="cate-tab-menu">
-                  <li><a href="/pos/product" className={styles['tab-menu-item']}>
+                  <li><a href="/" className={styles['tab-menu-item']}>
                     <span>전체</span>
                   </a></li>
-                  {
-                    cateList.map((cate) => (
-                      <li key={cate.id}>
-                        <a className={styles['tab-menu-item']}>
-                          <span>{cate.name}</span>
-                        </a>
-                      </li>
-                    ))
-                  }
+                  {cateList.map((cate) => (
+                    <li key={cate.id}>
+                      <a
+                        className={styles['tab-menu-item']}
+                        onClick={() => onCategoryChange(cate.id)}
+                      >
+                        <span>{cate.name}</span>
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className={styles['cate-btn']}>
@@ -31,32 +32,30 @@ const ProductList = ({ cateList, proList }) => {
                 <button type="button" className={styles['btn-right']} id="cate-right-btn">▶</button>
               </div>
             </div>
-            <th:block th:if="${ cateList.isEmpty()}">
-              카테고리가 없습니다.
-            </th:block>
           </div>
 
           <div className={styles['product-page']}>
             <div className={styles['product-header']}>
               <h1>상품 목록</h1>
-              <a className={styles['add-product-btn']} href="/product/insert">+ 상품 추가</a>
+              <a className={styles['add-product-btn']} href="/products/insert">+ 상품 추가</a>
             </div>
             <div className={styles['product-list']}>
               {
-                proList != null ?
+                proList && proList.length > 0 ? (
                   proList.map((product) => (
-                    <div className={styles['product-item']}>
+                    <div className={styles['product-item']} key={product.id}>
                       <div className={styles['product-image-placeholder']}>
                         <img src={`/api/pimg?id=${product.id}`} alt="" width="100%" height="100%" />
                       </div>
-                      <span className={styles['product-name']} >{product.name}</span>
-                      <span className={styles['product-price']} >{product.price}원</span>
+                      <span className={styles['product-name']}>{product.name}</span>
+                      <span className={styles['product-price']}>{product.price}원</span>
                     </div>
                   ))
-
-                  :
+                ) : (
                   `상품이 없습니다.`
+                )
               }
+
             </div>
           </div>
         </div>

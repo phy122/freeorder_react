@@ -7,6 +7,7 @@ const ProductContainer = () => {
 
   const [cateList, setCateList] = useState([])
   const [proList, setProList] = useState([])
+  const [filteredProList, setFilteredProList] = useState([]) // 필터링된 상품 목록
 
   // 카테고리 목록 불러오기
   const cateLoad = async () => {
@@ -14,7 +15,7 @@ const ProductContainer = () => {
       const response = await categories.list()
       const data = response.data
       const status = response.status
-      if (status == 200) {
+      if (status === 200) {
         setCateList(data)
       }
     } catch (error) {
@@ -22,32 +23,50 @@ const ProductContainer = () => {
     }
   }
 
-  // 상품 목록 불러오기
-  const listLoad = async (cateId) => {
+  // 상품 목록 불러오기 (카테고리별로 필터링 없이 전체 상품 불러오기)
+  const listLoad = async () => {
     try {
-      const response = await products.list(cateId)
+      const response = await products.list()
       const data = response.data
       const status = response.status
-      if (status == 200) {
+  
+      if (status === 200 && data.length > 0) {
         setProList(data)
+        setFilteredProList(data)  // 전체 상품 목록을 필터링된 목록에 저장
+      } else {
+        console.log('상품 목록이 없습니다.')
+        setProList([])
+        setFilteredProList([])  // 빈 배열로 설정
       }
     } catch (error) {
-      console.error(error)
+      console.error('상품 목록 로드 오류:', error)
+    }
+  }
+  
+  // 카테고리 변경 시 필터링된 상품 목록 업데이트
+  const handleCategoryChange = (cateId) => {
+    if (cateId) {
+      // 선택된 카테고리로 필터링
+      const filtered = proList.filter(product => product.categoriesId === cateId)
+      setFilteredProList(filtered)
+    } else {
+      // "전체" 선택 시 전체 목록으로 복원
+      setFilteredProList(proList)
     }
   }
 
+  // 컴포넌트가 처음 렌더링될 때 카테고리 목록과 상품 목록 불러오기
   useEffect(() => {
     cateLoad()
     listLoad()
-    return () => {}
   }, [])
-  
 
   return (
     <>
       <ProductList 
         cateList={cateList}
-        proList={proList}
+        proList={filteredProList}  // 필터링된 상품 목록 전달
+        onCategoryChange={handleCategoryChange}  // 카테고리 변경 시 핸들러
       />
     </>
   )

@@ -1,7 +1,7 @@
 import api from './api';
 
 // 목록
-export const list = (cateId) => api.get(`/pos/products?cate=${cateId}`)
+export const list = (cateId) => api.get(`/pos/products`)
 
 // 등록
 export const insert = (formData, headers) => api.post("/pos/products", formData, headers)
