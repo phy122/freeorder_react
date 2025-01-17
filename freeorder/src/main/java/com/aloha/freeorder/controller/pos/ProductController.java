@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,8 +30,6 @@ import com.aloha.freeorder.service.ProductService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-
-
 
 /**
  * REST 형식 컨트롤러
@@ -49,19 +48,18 @@ public class ProductController {
     @Autowired
     private FileService fileService;
 
-    @Value("${upload.dir}")        // application.properties 에서 지정한 업로드 경로 가져옴
+    @Value("${upload.dir}") // application.properties 에서 지정한 업로드 경로 가져옴
     private String uploadPath;
 
     @GetMapping()
-    public ResponseEntity<?> getAll(HttpServletRequest request) throws Exception{
+    public ResponseEntity<?> getAll(HttpServletRequest request) throws Exception {
         log.info("상품 목록 조회");
         String cateId = request.getParameter("cate");
         List<Product> productList = null;
         try {
             if (cateId == null || cateId.isEmpty()) {
                 productList = productService.allList();
-            }
-            else {
+            } else {
                 productList = productService.listByCate(cateId);
             }
             return new ResponseEntity<>(productList, HttpStatus.OK);
@@ -70,9 +68,9 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") String id) throws Exception{
+    public ResponseEntity<?> getOne(@PathVariable("id") String id) throws Exception {
         log.info("상품 조회");
         try {
             Product product = productService.select(id);
@@ -82,32 +80,32 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @PostMapping()
     public ResponseEntity<?> create(Product product) throws Exception {
         log.info("상품 등록");
         log.info(product.toString());
         int result = 0;
-    
+
         // 아이디 생성
         String id = UUID.randomUUID().toString();
         product.setId(id);
-    
+
         try {
-                String productPath = uploadPath + product.getProductFile().getName();
-                product.setProductImg(productPath);
-                Files productFiles = new Files();
-                productFiles.setFile(product.getProductFile());
-                productFiles.setMain(false);
-                productFiles.setParentId(id);
-                productFiles.setParentTable("product");
-                upload(productFiles);
-    
-                // 상품 등록
-                result = productService.insert(product);
-                if( result > 0 )
+            String productPath = uploadPath + product.getProductFile().getName();
+            product.setProductImg(productPath);
+            Files productFiles = new Files();
+            productFiles.setFile(product.getProductFile());
+            productFiles.setMain(false);
+            productFiles.setParentId(id);
+            productFiles.setParentTable("product");
+            upload(productFiles);
+
+            // 상품 등록
+            result = productService.insert(product);
+            if (result > 0)
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            else{
+            else {
                 log.info("공지사항/프로모션 DB에 등록 중 에러 발생...");
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -117,33 +115,31 @@ public class ProductController {
         }
     }
 
-
-
-    @PutMapping()
-    public ResponseEntity<?> update(Product product) throws Exception{
+    @PutMapping
+    public ResponseEntity<?> update(Product product) throws Exception {
         log.info("상품 수정");
         log.info(product.toString());
         int result = 0;
-    
+
         // 아이디 생성
         String id = product.getId();
         fileDelete(id, "product");
-    
+
         try {
-                String productPath = uploadPath + product.getProductFile().getName();
-                product.setProductImg(productPath);
-                Files productFiles = new Files();
-                productFiles.setFile(product.getProductFile());
-                productFiles.setMain(false);
-                productFiles.setParentId(id);
-                productFiles.setParentTable("product");
-                upload(productFiles);
-    
-                // 상품 등록
-                result = productService.update(product);
-                if( result > 0 )
+            String productPath = uploadPath + product.getProductFile().getName();
+            product.setProductImg(productPath);
+            Files productFiles = new Files();
+            productFiles.setFile(product.getProductFile());
+            productFiles.setMain(false);
+            productFiles.setParentId(id);
+            productFiles.setParentTable("product");
+            upload(productFiles);
+
+            // 상품 수정
+            result = productService.update(product);
+            if (result > 0) {
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            else{
+            } else {
                 log.info("공지사항/프로모션 DB에 등록 중 에러 발생...");
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -152,17 +148,17 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception{
+    public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception {
         log.info("상품 삭제");
         try {
             int result = productService.delete(id);
-            if( result > 0 )
+            if (result > 0)
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-            else{
+            else {
                 log.info("상품 DB에서 삭제 중 에러 발생...");
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);    
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
             log.error("상품 삭제 중 에러 발생...", e);
@@ -176,19 +172,19 @@ public class ProductController {
         try {
             // 로그 추가
             System.out.println("Received product list: " + productList);
-            
+
             productService.updateProductOrder(productList);
             response.put("status", "SUCCESS");
             response.put("message", "순서가 성공적으로 업데이트 되었습니다.");
-            return ResponseEntity.ok(response);  // 200 OK 응답
+            return ResponseEntity.ok(response); // 200 OK 응답
         } catch (Exception e) {
             e.printStackTrace();
             response.put("status", "FAIL");
             response.put("message", "순서 업데이트에 실패했습니다.");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);  // 500 Internal Server Error 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); // 500 Internal Server Error
+                                                                                           // 응답
         }
     }
-
 
     public boolean upload(Files file) throws Exception {
         log.info("file : " + file);
@@ -213,8 +209,8 @@ public class ProductController {
         File uploadFile = new File(uploadPath, fileName);
         // 파일 경로 : C:/upload/UID_강아지.png
         // FileCopyUtils.copy(파일데이터, 파일객체);
-        FileCopyUtils.copy(fileData, uploadFile);        // 파일 업로드
-        
+        FileCopyUtils.copy(fileData, uploadFile); // 파일 업로드
+
         // DB 등록
         file.setName(fileName);
         file.setOriginName(origninName);
@@ -225,7 +221,7 @@ public class ProductController {
         return true;
     }
 
-    public boolean fileDelete(String id, String table) throws Exception{
+    public boolean fileDelete(String id, String table) throws Exception {
         List<Files> fileList = fileService.list(id, table);
         for (Files files : fileList) {
             File file = new File(files.getPath());
@@ -236,8 +232,7 @@ public class ProductController {
         int result = fileService.allDelete(id, table);
         if (result > 0) {
             return true;
-        }
-        else
+        } else
             return false;
     }
 
