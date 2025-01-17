@@ -10,7 +10,6 @@ export const read = (id) => api.get(`/pos/options/${id}`)
 // 등록
 export const insert = (formData, headers) => api.post("/pos/options", formData, headers)
 
-
 // 수정
 export const update = (formData, headers) => api.put("/pos/options", formData, headers)
 
