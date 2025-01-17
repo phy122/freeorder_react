@@ -1,7 +1,7 @@
 import React from 'react'
 import ReadContainer from '../../containers/order/ReadContainer'
 
-const Read = () => {
+const OrderReadPage = () => {
 
   return (
     <>
@@ -10,4 +10,4 @@ const Read = () => {
   )
 }
 
-export default Read
+export default OrderReadPage

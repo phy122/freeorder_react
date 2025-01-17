@@ -41,7 +41,7 @@ const ProductList = ({ cateList, proList, noticeList }) => {
         {/* <!-- 카드 --> */}
         <div className="scrollable-content">
           {
-            noticeList != null ??
+            noticeList != null ?
             (<div className="event">
               <ul id="event-list">
                 {
@@ -54,6 +54,8 @@ const ProductList = ({ cateList, proList, noticeList }) => {
               </ul>
             </div>
             )
+            :
+            ''
           }
           {
             proList.map((product) => (
@@ -66,20 +68,27 @@ const ProductList = ({ cateList, proList, noticeList }) => {
                         <span className="menu-name">{product.name}</span>
                         <span className="menu-price">{product.price}</span>
                       </div>
-                      {/* <!-- TODO:Product 객체 Files 객체 포함하고 xml java 매퍼 파일 수정 --> */}
                       <div className="bot-area">
                         <span className="menu-info p-10 ml-1">{product.description}</span>
-                        {/* <!-- 아이콘: 신메뉴/추천메뉴/인기메뉴 --> */}
                         <div className="btn-box">
-                          <th:blcok th:if="${favorite}">
+                          {
+                            product?.favorite ? 
                             <i className="product-icon bg-blue">인기</i>
-                          </th:blcok>
-                          <th:blcok th:if="${recommend}">
+                            :
+                            ''
+                          }
+                          {
+                            product?.recommend ? 
                             <i className="product-icon bg-red">추천</i>
-                          </th:blcok>
-                          <th:blcok th:if="${newmenu}">
+                            :
+                            ''
+                          }
+                          {
+                            product?.newmenu ? 
                             <i className="product-icon bg-yellow">NEW</i>
-                          </th:blcok>
+                            :
+                            ''
+                          }
                         </div>
                       </div>
                     </div>
@@ -93,7 +102,7 @@ const ProductList = ({ cateList, proList, noticeList }) => {
 
         {/* <!-- 하단 / 아이콘 --> */}
         <div className="c-icon-fix">
-          <Link to="/qr/products/cart">
+          <Link to="/cart">
             <button type="button" className="c-icon" onClick="location.href='/qr/products/cart'">
               <img src="/img/cart.png" alt="장바구니" className="c-icon" />
             </button>

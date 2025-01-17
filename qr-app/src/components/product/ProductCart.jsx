@@ -8,7 +8,7 @@ const ProductCart = () => {
         {/* <!-- 상단 / 뒤로가기 --> */}
         <div className="header">
             <div className="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
-                <Link to="/qr/products/list">
+                <Link to="/list">
                 <button className="circle-btn bg-lightgray scale-normal dark"><img
                         src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
                 </Link>
@@ -19,12 +19,12 @@ const ProductCart = () => {
                 <div className="tab-menu-wrap">
                     <ul className="tab-menu db-tab-menu">
                         <li>
-                            <Link to="/qr/products/cart" className="tab-menu-item">
+                            <Link to="/cart" className="tab-menu-item">
                                 <span className="active">장바구니</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/qr/order/list" className="tab-menu-item">
+                            <Link to="/order/list" className="tab-menu-item">
                                 <span>주문내역</span>
                             </Link>
                         </li>
@@ -39,7 +39,7 @@ const ProductCart = () => {
                     <span className="material-symbols-outlined">local_mall</span>
                 </div>
                 <span className="empty-title">장바구니가 비어있습니다.</span>
-                <Link to="/qr/products/list" className="add-btn">
+                <Link to="/list" className="add-btn">
                     <span className="material-symbols-outlined">add</span>
                     <span>장바구니 담으러가기</span>
                 </Link>

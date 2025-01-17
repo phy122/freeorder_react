@@ -1,7 +1,7 @@
 import React from 'react'
 import CompleteContainer from '../../containers/payment/CompleteContainer'
 
-const complete = () => {
+const CompletePage = () => {
   return (
     <>
      <CompleteContainer />
@@ -9,4 +9,4 @@ const complete = () => {
   )
 }
 
-export default complete
+export default CompletePage
