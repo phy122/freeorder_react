@@ -13,8 +13,8 @@ const Footer = () => {
     <footer>
 		<ul className="footer-list">
 			<li className="product"><a href="/">상품</a></li>
-			<li className="category"><a href="/category">카테고리</a></li>
-			<li className="option"><a href="/option">옵션</a></li>
+			<li className="category"><a href="/categories">카테고리</a></li>
+			<li className="option"><a href="/options">옵션</a></li>
 			<li className="payment"><a href="/payment">결제내역</a></li>
 		</ul>
     {/* onClick */}

@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> insertPro(Category category) throws Exception {
+    public ResponseEntity<?> insertPro(@RequestBody Category category) throws Exception {
         log.info("카테고리 등록");
         log.info(category.toString());
         int result = categoryService.insert(category);
