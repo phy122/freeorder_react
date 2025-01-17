@@ -7,7 +7,7 @@ const OptionList = ({ optionList }) => {
     <div className={styles['i-container']}>
       <div className={styles['opt-header']}>
         <h2>옵션 관리</h2>
-        <Link to='/option/insert'>
+        <Link to='/options/insert'>
           <button>
             <span className={styles['material-symbols-outlined']}>add_circle</span>
             <span>추가</span>
@@ -19,7 +19,7 @@ const OptionList = ({ optionList }) => {
           optionList.map((option) => (
             <div key={option.id} className={styles['opt-item-container']}>
               <div className={styles['opt-title']}>
-                <a href={`/pos/option/update/${option.id}`}>{option.name}</a>
+                <a href={`/options/update/${option.id}`}>{option.name}</a>
               </div>
               <div className={styles['opt-i-list']}>
                 {option.itemList && option.itemList.length > 0 ? (
@@ -35,7 +35,7 @@ const OptionList = ({ optionList }) => {
               <div className={styles['opt-list-right']}>
                 <a
                   className={styles['material-symbols-outlined']}
-                  href={`/pos/option/update/${option.id}`}
+                  href={`/options/update/${option.id}`}
                 >
                   edit
                 </a>
