@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './css/styles.css'
 
-const ProductList = ({ cateList, proList, noticeList }) => {
+const ProductList = ({ cateList, proList, noticeList, infoModalPopup }) => {
+
   return (
     <>
       <div className="container">
@@ -11,7 +12,8 @@ const ProductList = ({ cateList, proList, noticeList }) => {
           <div className="back">
             <Link to="/">
               <button className="circle-btn bg-lightgray scale-normal dark">
-                <img src="/img/back.png" className="back-icon scale-small" alt="뒤로가기" /></button>
+                <img src="/img/back.png" className="back-icon scale-small" alt="뒤로가기" />
+              </button>
             </Link>
             <span className="fs-large black">메뉴</span>
           </div>
@@ -27,9 +29,9 @@ const ProductList = ({ cateList, proList, noticeList }) => {
               {
                 cateList?.map((cate) => (
                   <li key={cate.id}>
-                    <a className="tab-menu-item">
+                    <Link to={`/list?cate=${cate.id}`} className="tab-menu-item">
                       <span>{cate.name}</span>
-                    </a>
+                    </Link>
                   </li>
                 ))
               }
@@ -59,40 +61,42 @@ const ProductList = ({ cateList, proList, noticeList }) => {
           }
           {
             proList.map((product) => (
-              <a key={product.id}>
-                <div className="card flex justify-content-start align-items-center mt-3">
-                  <img src={`/api/pimg?id=${product.id}`} alt={product.name} className="menu-image ml-1" />
-                  <div className="info-box">
-                    <div className="top-area p-10 mb-1 ml-1">
-                      <span className="menu-name">{product.name}</span>
-                      <span className="menu-price">{product.price}</span>
-                    </div>
-                    <div className="bot-area">
-                      <span className="menu-info p-10 ml-1">{product.description}</span>
-                      <div className="btn-box">
-                        {
-                          product?.favorite ?
-                            <i className="product-icon bg-blue">인기</i>
-                            :
-                            ''
-                        }
-                        {
-                          product?.recommend ?
-                            <i className="product-icon bg-red">추천</i>
-                            :
-                            ''
-                        }
-                        {
-                          product?.newmenu ?
-                            <i className="product-icon bg-yellow">NEW</i>
-                            :
-                            ''
-                        }
-                      </div>
+              <div
+                className="card flex justify-content-start align-items-center mt-3"
+                key={product.id}
+                onClick={() => infoModalPopup(product.id)}
+              >
+                <img src={`/api/pimg?id=${product.id}`} alt={product.name} className="menu-image ml-1" />
+                <div className="info-box">
+                  <div className="top-area p-10 mb-1 ml-1">
+                    <span className="menu-name">{product.name}</span>
+                    <span className="menu-price">{product.price}</span>
+                  </div>
+                  <div className="bot-area">
+                    <span className="menu-info p-10 ml-1">{product.description}</span>
+                    <div className="btn-box">
+                      {
+                        product?.favorite ?
+                          <i className="product-icon bg-blue">인기</i>
+                          :
+                          ''
+                      }
+                      {
+                        product?.recommend ?
+                          <i className="product-icon bg-red">추천</i>
+                          :
+                          ''
+                      }
+                      {
+                        product?.newmenu ?
+                          <i className="product-icon bg-yellow">NEW</i>
+                          :
+                          ''
+                      }
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             ))
           }
 
@@ -106,13 +110,6 @@ const ProductList = ({ cateList, proList, noticeList }) => {
             </button>
           </Link>
         </div>
-      </div>
-      {/* <!-- 이벤트 모달 팝업(전체화면) --> */}
-      <div id="event-modal">
-        <button id="event-modal-close" type="button" onClick="eventModalClose()">
-          <span className="material-symbols-outlined">close</span>
-        </button>
-        <div id="event-modal-body"></div>
       </div>
     </>
   )
