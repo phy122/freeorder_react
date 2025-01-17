@@ -11,7 +11,7 @@ const StatusContextProvider = ({children}) => {
     const response = await servers.statusGet()
     const data = response.data
     const status = response.status
-    console.dir(data)
+    // console.dir(data)
     if(status == 200){
       setSystemStatus(data)
     }

@@ -153,11 +153,10 @@ public class ProductController {
         }
     }
     
-    @DeleteMapping()
-    public ResponseEntity<?> delete(Product product) throws Exception{
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") String id) throws Exception{
         log.info("상품 삭제");
         try {
-            String id = product.getId();
             int result = productService.delete(id);
             if( result > 0 )
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
