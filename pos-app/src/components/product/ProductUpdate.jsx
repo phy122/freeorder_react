@@ -1,20 +1,43 @@
 import React from 'react';
 import styles from './Product.module.css';
 
-const ProductUpdate = ({ product, cateList, setProduct, handleDelete }) => {
+const ProductUpdate = ({ product, cateList, setProduct, handleUpdate, handleDelete }) => {
   // 파일 선택 시 상태 업데이트
   const handleFileChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file) {
-      setProduct({ ...product, productFile: file })
+      setProduct({ ...product, productFile: file });
     }
-  }
+  };
 
   // 폼 제출 시 실행되는 함수
   const onSubmit = (e) => {
-    e.preventDefault();  // 폼 제출 기본 동작 방지
-    // 수정 처리 로직은 다른 함수로 처리됨
-  }
+    e.preventDefault(); // 폼 제출 기본 동작 방지
+
+    // FormData 객체 생성
+    const formData = new FormData();
+    formData.append('id', product.id);
+    formData.append('name', product.name);
+    formData.append('price', product.price);
+    formData.append('description', product.description);
+    formData.append('categoriesId', product.categoriesId);
+    formData.append('optionsId', product.optionsId || '');
+
+    // 파일 추가
+    if (product.productFile) {
+      formData.append('productFile', product.productFile);
+    }
+
+    const headers = {
+      'Content-Type' : 'multipart/form-data'
+    };
+
+    console.log('폼데이터 : ');
+    console.log(formData);
+    
+    // 수정 처리 함수 호출
+    handleUpdate(formData, headers);
+  };
 
   return (
     <div className={styles['i-container']} layout:fragment="content">
