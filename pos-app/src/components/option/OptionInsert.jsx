@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Option.module.css'
 
 const OptionInsert = () => {
+
+    const [optionName, setOptionName] = useState('')
   return (
     <div className={styles['container']} layout:fragment="content">
         <div className={styles['i-container']}>
