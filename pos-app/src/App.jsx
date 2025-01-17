@@ -20,6 +20,7 @@ import CategoryUpdate from './pages/category/CategoryUpdate';
 import PromotionInsert from './pages/promotion/PromotionInsert';
 import PromotionUpdate from './pages/promotion/PromotionUpdate';
 import Promotion from './pages/promotion/Promotion';
+import OptionUpdate from './pages/option/OptionUpdate';
 
 
 const App = () => {
@@ -39,7 +40,7 @@ const App = () => {
           <Route path="/categories/update" element={<CategoryUpdate />}></Route>
           <Route path="/options" element={<Option />}></Route>
           <Route path="/options/insert" element={<OptionInsert />}></Route>
-          <Route path="/options/update"></Route>
+          <Route path="/options/update/:id" element={<OptionUpdate />}></Route>
           <Route path="/payment" element={<Payment />} ></Route>
           <Route path="/sale" element={<Sale />}></Route>
           <Route path="/notice" element={<Notice />}></Route>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Option.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const OptionList = ({ optionList }) => {
   return (
@@ -33,12 +33,12 @@ const OptionList = ({ optionList }) => {
                 )}
               </div>
               <div className={styles['opt-list-right']}>
-                <a
-                  className={styles['material-symbols-outlined']}
-                  href={`/options/update/${option.id}`}
-                >
-                  edit
-                </a>
+              <Link
+                to={`/options/update/${option.id}`}
+                className={styles['material-symbols-outlined']}
+              >
+                edit
+            </Link>
               </div>
             </div>
           ))
