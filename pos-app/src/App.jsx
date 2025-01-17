@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/products/setting" element={<ProductSetting />}></Route>
           <Route path="/categories" element={<Category />}></Route>
           <Route path="/categories/insert" element={<CategoryInsert />}></Route>
-          <Route path="/categories/update" element={<CategoryUpdate />}></Route>
+          <Route path="/categories/update/:id" element={<CategoryUpdate />}></Route>
           <Route path="/options" element={<Option />}></Route>
           <Route path="/options/insert" element={<OptionInsert />}></Route>
           <Route path="/options/update"></Route>
