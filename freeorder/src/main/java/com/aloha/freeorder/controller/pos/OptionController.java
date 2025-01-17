@@ -1,7 +1,9 @@
 package com.aloha.freeorder.controller.pos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,20 @@ public class OptionController {
             return new ResponseEntity<>(optionList, HttpStatus.OK);
         } catch (Exception e) {
             log.error("옵션 목록 조회 중 에러 발생...", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+     @GetMapping("/{id}")
+    public ResponseEntity<?> getOneOption(
+        @PathVariable("id") String id
+    ) {
+        try {
+            Option option = optionService.read(id);
+            Map<String, Object> response = new HashMap<>();
+            response.put("option", option);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -173,7 +189,7 @@ public class OptionController {
         }
     }
 
-    @DeleteMapping()
+    @DeleteMapping("{id}")
     public ResponseEntity<?> destroy(Option option) {
         log.info("상품 삭제");
         try {
