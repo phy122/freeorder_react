@@ -8,8 +8,8 @@ const OrderRead = () => {
         {/* <!-- [상단]	뒤로가기 --> */}
         <div className="header">
             <div className="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
-            <Link to="/qr/products/list">
-                <button onClick="location.href='/qr/list'" className="circle-btn bg-lightgray scale-normal dark"><img
+            <Link to="/list">
+                <button className="circle-btn bg-lightgray scale-normal dark"><img
                         src="/img/back.png" className="back-icon scale-small" alt="뒤로가기"/></button>
             </Link>
                 <span className="fs-large black">주문 내역</span>
