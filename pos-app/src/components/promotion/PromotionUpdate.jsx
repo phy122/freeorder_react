@@ -1,11 +1,52 @@
-import React from 'react';
-import styles from './Promotion.module.css'
+import React, { useState } from 'react';
+import styles from './Promotion.module.css';
 
-const PromotionUpdate = () => {
+const PromotionUpdate = ({proList, proUpdate, proDelete, thumbFile, contentFile}) => {
+
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [type, setType] = useState('promotion')
+    // const [thumbFile, setThumbFile] = useState()
+    // const [contentFile, setContentFile] = useState()
+
+    const changeTitle = (e) => { setTitle( e.target.value )}
+
+    // 섬네일 변경 이벤트
+    const changeThumbFile = (e) => { setThumbFile(e.target.thumbFile)}
+    const changeContentFile = (e) => { setContentFile(e.target.ContentFile)}
+
     const promotionUpdate = () => {
-        console.log("프로모션 수정 버튼 클릭됨");
-    };
+        const formData = new FormData()
+        // 공지사항 정보 세팅
+        formData.append("title", title)
+        formData.append("content", content)
+        formData.append("type", type)
+        
 
+        // 파일 데이터 세팅
+        if( thumbFile ) {
+            formData.append('thumbFile', thumbFile)
+        }
+        if ( contentFile ) {
+            formData.append('contentFile', contentFile)
+        }
+        // 헤더
+        const headers = {
+            'Constent-type' : 'multipart/form-data'
+        }
+        proUpdate(formData, headers)
+    }
+
+    useEffect(() => {
+      if (proList) {
+        setTitle(proList.title)
+        setContent(proList.content)
+        setType(proList.type)
+        // setThumbFile(proList.thumbFile)
+        // setContentFile(proList.contentFile)
+      }
+    }, [proList])
+    
     return (
         <div className={styles['container']} layout-fragment="content">
             <div className={styles['promotion-edit-page']}>
@@ -17,9 +58,9 @@ const PromotionUpdate = () => {
                     <label htmlFor="title">프로모션 이름</label>
                     <input 
                         type="text" 
-                        id="title" 
-                        name="title" 
-                        defaultValue="프로모션 제목" 
+                        defaultValue={title}
+                        onChange={changeTitle}
+                        className={styles['form-input']}
                         required 
                     />
                     
@@ -36,15 +77,17 @@ const PromotionUpdate = () => {
                     <label htmlFor="thumbFile">썸네일</label>
                     <input 
                         type="file" 
-                        name="thumbFile" 
-                        id="thumbFile" 
+                        defaultValue={thumbFile}
+                        onChange={changeThumbFile}
+                        className={styles['form-input']} 
                     />
 
                     <label htmlFor="contentFile">프로모션 내용</label>
                     <input 
                         type="file" 
-                        name="contentFile" 
-                        id="contentFile" 
+                        defaultValue={contentFile}
+                        onChange={changeContentFile}
+                        className={styles['form-input']} 
                     />
 
                     <button 
