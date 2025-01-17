@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class Category {
     private String id;
-    private String code;
     private String name;
+    private String code;
     private int seq;
     private Date createdAt;
     private Date updatedAt;

@@ -28,18 +28,18 @@ const App = () => {
       <StatusContextProvider>
         <Routes>
           <Route path="/" element={<Product />}></Route>
-          <Route path="/product/insert" element={<ProductInsert />}></Route>
-          <Route path="/product/update" element={<ProductUpdate />}></Route>
-          <Route path="/product/updateList" element={<ProductUpdateList />}></Route>
-          <Route path="/product/locate" element={<Productlocate />}></Route>
-          <Route path="/product/selectOption" element={<ProductSelectOption />}></Route>
-          <Route path="/product/setting" element={<ProductSetting />}></Route>
-          <Route path="/category" element={<Category />}></Route>
-          <Route path="/category/insert" element={<CategoryInsert />}></Route>
-          <Route path="/category/update" element={<CategoryUpdate />}></Route>
-          <Route path="/option" element={<Option />}></Route>
-          <Route path="/option/insert" element={<OptionInsert />}></Route>
-          <Route path="/option/update"></Route>
+          <Route path="/products/insert" element={<ProductInsert />}></Route>
+          <Route path="/products/update" element={<ProductUpdate />}></Route>
+          <Route path="/products/updateList" element={<ProductUpdateList />}></Route>
+          <Route path="/products/locate" element={<Productlocate />}></Route>
+          <Route path="/products/selectOption" element={<ProductSelectOption />}></Route>
+          <Route path="/products/setting" element={<ProductSetting />}></Route>
+          <Route path="/categories" element={<Category />}></Route>
+          <Route path="/categories/insert" element={<CategoryInsert />}></Route>
+          <Route path="/categories/update" element={<CategoryUpdate />}></Route>
+          <Route path="/options" element={<Option />}></Route>
+          <Route path="/options/insert" element={<OptionInsert />}></Route>
+          <Route path="/options/update"></Route>
           <Route path="/payment" element={<Payment />} ></Route>
           <Route path="/sale" element={<Sale />}></Route>
           <Route path="/notice" element={<Notice />}></Route>
