@@ -10,7 +10,7 @@ const ProductList = ({ cateList, proList, noticeList }) => {
         <div className="header">
           <div className="back">
             <Link to="/">
-              <button onClick="location.href='/qr/main'" className="circle-btn bg-lightgray scale-normal dark">
+              <button className="circle-btn bg-lightgray scale-normal dark">
                 <img src="/img/back.png" className="back-icon scale-small" alt="뒤로가기" /></button>
             </Link>
             <span className="fs-large black">메뉴</span>
@@ -20,7 +20,7 @@ const ProductList = ({ cateList, proList, noticeList }) => {
           <div className="tab-menu-wrap">
             <ul className="tab-menu">
               <li>
-                <Link to="/qr/products/list" className="tab-menu-item">
+                <Link to="/list" className="tab-menu-item">
                   <span>전체</span>
                 </Link>
               </li>
@@ -42,59 +42,57 @@ const ProductList = ({ cateList, proList, noticeList }) => {
         <div className="scrollable-content">
           {
             noticeList != null ?
-            (<div className="event">
-              <ul id="event-list">
-                {
-                  noticeList.map((notice)=>(
-                    <li key={notice.id}>
-                      <img src={`/api/timg?id=${notice.id}`} alt="이벤트카드" />
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-            )
-            :
-            ''
+              (<div className="event">
+                <ul id="event-list">
+                  {
+                    noticeList.map((notice) => (
+                      <li key={notice.id}>
+                        <img src={`/api/timg?id=${notice.id}`} alt="이벤트카드" />
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+              )
+              :
+              ''
           }
           {
             proList.map((product) => (
-              <Link to={`/products/read/${product.id}`} key={product.id}>
-                <a >
-                  <div className="card flex justify-content-start align-items-center mt-3">
-                    <img src={`/api/pimg?id=${product.id}`} alt={product.name} className="menu-image ml-1" />
-                    <div className="info-box">
-                      <div className="top-area p-10 mb-1 ml-1">
-                        <span className="menu-name">{product.name}</span>
-                        <span className="menu-price">{product.price}</span>
-                      </div>
-                      <div className="bot-area">
-                        <span className="menu-info p-10 ml-1">{product.description}</span>
-                        <div className="btn-box">
-                          {
-                            product?.favorite ? 
+              <a key={product.id}>
+                <div className="card flex justify-content-start align-items-center mt-3">
+                  <img src={`/api/pimg?id=${product.id}`} alt={product.name} className="menu-image ml-1" />
+                  <div className="info-box">
+                    <div className="top-area p-10 mb-1 ml-1">
+                      <span className="menu-name">{product.name}</span>
+                      <span className="menu-price">{product.price}</span>
+                    </div>
+                    <div className="bot-area">
+                      <span className="menu-info p-10 ml-1">{product.description}</span>
+                      <div className="btn-box">
+                        {
+                          product?.favorite ?
                             <i className="product-icon bg-blue">인기</i>
                             :
                             ''
-                          }
-                          {
-                            product?.recommend ? 
+                        }
+                        {
+                          product?.recommend ?
                             <i className="product-icon bg-red">추천</i>
                             :
                             ''
-                          }
-                          {
-                            product?.newmenu ? 
+                        }
+                        {
+                          product?.newmenu ?
                             <i className="product-icon bg-yellow">NEW</i>
                             :
                             ''
-                          }
-                        </div>
+                        }
                       </div>
                     </div>
                   </div>
-                </a>
-              </Link>
+                </div>
+              </a>
             ))
           }
 
@@ -103,7 +101,7 @@ const ProductList = ({ cateList, proList, noticeList }) => {
         {/* <!-- 하단 / 아이콘 --> */}
         <div className="c-icon-fix">
           <Link to="/cart">
-            <button type="button" className="c-icon" onClick="location.href='/qr/products/cart'">
+            <button type="button" className="c-icon">
               <img src="/img/cart.png" alt="장바구니" className="c-icon" />
             </button>
           </Link>
