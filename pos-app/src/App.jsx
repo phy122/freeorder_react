@@ -21,6 +21,7 @@ import PromotionInsert from './pages/promotion/PromotionInsert';
 import PromotionUpdate from './pages/promotion/PromotionUpdate';
 import Promotion from './pages/promotion/Promotion';
 import OptionUpdate from './pages/option/OptionUpdate';
+import CategorySeqList from './pages/category/CategorySeqList';
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/categories" element={<Category />}></Route>
           <Route path="/categories/insert" element={<CategoryInsert />}></Route>
           <Route path="/categories/update/:id" element={<CategoryUpdate />}></Route>
+          <Route path="/categories/seqList" element={<CategorySeqList />}></Route>
           <Route path="/options" element={<Option />}></Route>
           <Route path="/options/insert" element={<OptionInsert />}></Route>
           <Route path="/options/update/:id" element={<OptionUpdate />}></Route>

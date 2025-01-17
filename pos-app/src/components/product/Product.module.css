@@ -995,6 +995,10 @@ h2 {
     z-index: 1000;
 }
 
+.modal.show {
+    display: block; /* ModalOpen 상태에서 표시 */
+}
+
 .modal-container {
     background: #fff;
     margin: 5% auto;

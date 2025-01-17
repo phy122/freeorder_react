@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Product.module.css'
 
 const ProductList = ({ cateList, proList, onCategoryChange  }) => {
+
+  const [ModalOpen, setModalOpen] = useState(false)
+
+  // 모달 열기 함수
+  const openModal = () => {
+    console.log("asd")
+    setModalOpen(true)
+  }
+
+  // 모달 닫기 함수
+  const closeModal = () => {
+    setModalOpen(false)
+  }
 
   return (
     <div className={styles['container']} layout:fragment="content">
@@ -61,8 +74,13 @@ const ProductList = ({ cateList, proList, onCategoryChange  }) => {
 
         <div className={styles['right-side']}>
           <div className={styles['right-header']}>
-            <a href="#" className={styles['settings-btn']}>⚙️</a>
-            <button className={styles['delete-all-btn']} onclick="clearCart()">전체 삭제</button>
+            {/* 세팅 버튼 */}
+            <button className={styles['settings-btn']} onClick={openModal}>
+              ⚙️
+            </button>
+            <button className={styles['delete-all-btn']} onClick={() => console.log('Cart cleared')}>
+              전체 삭제
+            </button>
           </div>
           <div id="selected-products" className={styles['selected-products']}>
             <ul className={styles['cart-list']} id="cart-list">
@@ -82,7 +100,60 @@ const ProductList = ({ cateList, proList, onCategoryChange  }) => {
           <div id="total-price">총 가격: <span id="cart-total-price"></span>원</div>
         </div>
       </div>
-      {/* <div className={styles['so-modal-overlay']} id="option-modal">
+      {ModalOpen && (
+        <div className={  ModalOpen ? `${styles.show} ${styles['modal']}` : ``} >
+          <div className={styles['modal-container']} onClick={(e) => e.stopPropagation()}>
+            <div className={styles['modal-header']}>
+              <h5>상품 설정</h5>
+              <span className={styles['close-btn']} onClick={closeModal}>
+                &times;
+              </span>
+            </div>
+
+            <div className={styles['modal-section']}>
+              <h3 className={styles['section-title']}>상품</h3>
+              <div className={styles['card-container']}>
+                <a href="/products/insert" className={styles['card']}>
+                  <img src="/img/상품 정보 수정.png" alt="상품 등록" />
+                  <h4>상품 등록</h4>
+                </a>
+                <a href="/products/updateList" className={styles['card']}>
+                  <img src="/img/상품 정보 수정.png" alt="상품 정보 수정" />
+                  <h4>상품 정보 수정</h4>
+                </a>
+                <a href="/products/locate" className={styles['card']}>
+                  <img src="/img/상품 배치 수정.png" alt="상품 배치 수정" />
+                  <h4>상품 배치 수정</h4>
+                </a>
+              </div>
+            </div>
+
+            <div className={styles['modal-section']}>
+              <h3 className={styles['section-title']}>카테고리</h3>
+              <div className={styles['card-container']}>
+                <a href="/categories" className={styles['card']}>
+                  <img src="/img/카테고리 정보수정.png" alt="카테고리 정보 수정" />
+                  <h4>카테고리 정보 수정</h4>
+                </a>
+                <a href="/categories/seqList" className={styles['card']}>
+                  <img src="/img/카테고리 순서변경.png" alt="카테고리 순서 변경" />
+                  <h4>카테고리 순서 변경</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
+    </div>
+  )
+}
+
+export default ProductList
+
+{/* <div className={styles['so-modal-overlay']} id="option-modal">
         <div className={styles['so-modal']} id="option-modal-body">
           <div className={styles['so-container']}>
             <div className={styles['so-option-title']}>
@@ -100,52 +171,3 @@ const ProductList = ({ cateList, proList, onCategoryChange  }) => {
           </div>
         </div>
       </div> */}
-      <div id="modal" className={styles['modal']}>
-        <div className={styles['modal-container']}>
-          <div className={styles['modal-header']}>
-            <div className={styles['modal-header']}>
-              <h5>상품 설정</h5>
-              <span className={styles['close-btn']}>&times;</span>
-            </div>
-          </div>
-
-          <div className={styles['modal-section']}>
-            <h3 className={styles['section-title']}>상품</h3>
-            <div className={styles['card-container']}>
-              <a href="/pos/product/insert" className={styles['card']}>
-                <img src="/img/상품 정보 수정.png" alt="상품 등록" />
-                <h4>상품 등록</h4>
-              </a>
-              <a href="/pos/product/update_list" className={styles['card']}>
-                <img src="/img/상품 정보 수정.png" alt="상품 정보 수정" />
-                <h4>상품 정보 수정</h4>
-              </a>
-              <a href="/pos/product/locate" className={styles['card']}>
-                <img src="/img/상품 배치 수정.png" alt="상품 배치 수정" />
-                <h4>상품 배치 수정</h4>
-              </a>
-            </div>
-          </div>
-
-          <div className={styles['modal-section']}>
-            <h3 className={styles['section-title']}>카테고리</h3>
-            <div className={styles['card-container']}>
-              <a href="/pos/category" className={styles['card']}>
-                <img src="/img/카테고리 정보수정.png" alt="카테고리 정보 수정" />
-                <h4>카테고리 정보 수정</h4>
-              </a>
-              <a href="/pos/category/seq_list" className={styles['card']}>
-                <img src="/img/카테고리 순서변경.png" alt="카테고리 순서 변경" />
-                <h4>카테고리 순서 변경</h4>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  )
-}
-
-export default ProductList
