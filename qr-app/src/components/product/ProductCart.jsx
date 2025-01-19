@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-const ProductCart = ({ totalPrice, cartList, openModal, closeModal }) => {
+import './css/cart.css'
+import * as Swal from '../../apis/alert'
+const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCartItems, cartDelete, menuPayment }) => {
+  const onPayment = () => {
+    Swal.confirm(`결제 하시겠습니까?` , `총 결제 금액 : ${ totalPrice} `,``,()=>{
+      menuPayment()
+    })
+  }
   return (
     <div className="container cart-container">
       {/* <!-- 상단 / 뒤로가기 --> */}
@@ -33,7 +39,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal }) => {
         </div>
       </div>
       {
-        cartList == null ?
+        (cartList == null || cartList.length == 0) ?
           <div className="empty-info pt-140">
             <div className="info-icon">
               <span className="material-symbols-outlined">local_mall</span>
@@ -48,7 +54,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal }) => {
           <div className="scrollable-content">
             {/* <!-- 전체 삭제 버튼 --> */}
             <div className="delete-all flex justify-content-center align-items-center mr-5 mt-1">
-              <button type="button" className="delete-all-btn white" onClick="deleteAllCartItems()">전체삭제</button>
+              <button type="button" className="delete-all-btn white" onClick={deleteAllCartItems}>전체삭제</button>
             </div>
 
             <ul className="cart-list flex flex-column justify-content-start align-items-center gap-2">
@@ -80,32 +86,31 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal }) => {
                       </div>
                       <div className="list-right">
                         {
-                          cart.option != null ?
-                            <button type="button" onClick={()=>openModal(cart.id)} className="option">옵션변경</button>
+                          cart?.optionsId != null ?
+                            <button type="button" onClick={() => openModal(cart.id)} className="option">옵션변경</button>
                             :
                             ''
                         }
-                        <button type="button" className="cancel color-main" onClick="cartDelete([[${cart.id}]])">삭제</button>
+                        <button type="button" className="cancel color-main" onClick={() => cartDelete(cart.id)}>삭제</button>
                       </div>
                     </div>
                   </li>
                 ))
               }
             </ul>
-          </div>
-      }
-
-      {/* <!-- [하단] 	
+            {/* <!-- [하단] 	
             - 총 금액
             - 결제하기 
             --> */}
-      <div className="total-card-fix">
-        <div className="total-card flex justify-content-around align-items-center">
-          <div className="total">TOTAL : </div>
-          <div className="total-price" >{totalPrice}원</div>
-          <button className="pay-btn square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</button>
-        </div>
-      </div>
+            <div className="total-card-fix">
+              <div className="total-card flex justify-content-around align-items-center">
+                <div className="total">TOTAL : </div>
+                <div className="total-price" >{totalPrice}원</div>
+                <button onClick={onPayment} className="pay-btn square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</button>
+              </div>
+            </div>
+          </div>
+      }
       {/* <!-- 옵션변경 모달 --> */}
       <div id="option-modal">
         <button type="button" onClick={closeModal} className="circle-btn bg-lightgray scale-normal dark" id="close-modal">X</button>

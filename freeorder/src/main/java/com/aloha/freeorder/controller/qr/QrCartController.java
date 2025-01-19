@@ -26,6 +26,7 @@ import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.ProductService;
 import com.aloha.freeorder.util.OptionComparator;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -43,7 +44,7 @@ public class QrCartController {
     private CartService cartService;
     @Autowired
     private ProductService productService;
-
+    
     @GetMapping("/all/{id}")
     public ResponseEntity<?> getAllByUsersId(@PathVariable("id") String usersId) {
         log.info("장바구니 목록 조회 by UsersId");
@@ -173,17 +174,18 @@ public class QrCartController {
         }
     }
 
-    @DeleteMapping()
-    public ResponseEntity<?> destroy(Cart cart) {
-        log.info("장바구니 목록 삭제");
-        String id = cart.getId();
+    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> destroy( @PathVariable("id") String cartsId) {
+        log.info("장바구니 메뉴 삭제");
         try {
-            int result = cartService.delete(id);
+            int result = cartService.delete(cartsId);
             if (result > 0) {
-                cartService.deleteOption(id);
+                cartService.deleteOption(cartsId);
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("FAIL",HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             log.error("장바구니 삭제 중 에러 발생", e);
@@ -191,7 +193,7 @@ public class QrCartController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/all/{id}")
     public ResponseEntity<?> destroyAll(
             @PathVariable(value = "id", required = false) String usersId) {
         log.info("장바구니 목록 전체 삭제");

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import * as format from '../../utils/format'
 
 const OrderList = ({ orderList }) => {
   return (
-    <div className="container" layout:fragment="content">
+    <div className="container">
       {/* <!-- [상단]	뒤로가기 --> */}
       <div className="header">
         <div className="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
@@ -34,15 +35,15 @@ const OrderList = ({ orderList }) => {
         {
           orderList.id != null ?
             orderList.map((order) => (
-              <div each="order : ${orderList}" className="ord-complete">
+              <div className="ord-complete">
                 {/* <!-- 이미지 파일 --> */}
                 <img src="#" alt="" />
                 {/* <!-- 주문 정보 --> */}
                 <div className="order-info">
                   <div className="date-status">
-                    <p text="${#dates.format(order.orderedAt, 'yyyy.MM.dd(E)')}"></p>
+                    <p>{format.formatDate(order.orderedAt)}</p>
                     <p>·</p>
-                    <p text="${order.status=='PAID' ? '결제완료' : '주문완료'}"></p>
+                    <p>{order.status == 'PAID' ? '결제완료' : '주문완료'}</p>
                   </div>
                   <Link to={`/order/read/${order.id}`}>
                     <button className="detail-ord">
@@ -68,13 +69,12 @@ const OrderList = ({ orderList }) => {
               </div>
             ))
             :
-            <>
+            <div className="empty-info">
               <div className="info-icon">
                 <span className="material-symbols-outlined">receipt_long</span>
               </div>
               <span className="empty-title">주문 내역이 없습니다.</span>
-            </>
-
+            </div>
         }
       </div>
     </div>

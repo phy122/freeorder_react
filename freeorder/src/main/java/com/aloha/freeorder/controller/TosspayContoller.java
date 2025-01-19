@@ -9,22 +9,24 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.aloha.freeorder.domain.Cart;
 import com.aloha.freeorder.domain.CartOption;
@@ -36,11 +38,11 @@ import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.OrderService;
 import com.aloha.freeorder.service.PaymentService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
+@RestController
+@RequestMapping("/payments")
 public class TosspayContoller {
 
     @Autowired
@@ -50,16 +52,17 @@ public class TosspayContoller {
     @Autowired
     private CartService cartService;
 
-    @GetMapping({ "/qr/pay/pay" })
-    public String payment(Model model,
-            HttpServletRequest request,
-            @CookieValue(value = "id", defaultValue = "") String usersId,
-            @CookieValue(value = "orderType", defaultValue = "") String orderType) throws Exception {
+    @GetMapping("/{id}/{orderType}")
+    public ResponseEntity<?> payment(
+        @PathVariable("id") String usersId,
+        @PathVariable("orderType") String orderType
+
+    ) throws Exception {
         log.info("결제 창 출력!!");
         log.info("유저 아이디 : " + usersId);
         // 장바구니 정보 불러오기
         List<Cart> cartList = cartService.listByUser(usersId);
-        int total = 0;
+        Integer total = 0;
 
         // 주문 ID 생성
         String ordersId = UUID.randomUUID().toString();
@@ -135,10 +138,13 @@ public class TosspayContoller {
         log.info("타이틀: " + title);
         log.info("오더아이디: " + ordersId);
         log.info("총금액 : " + total);
-        model.addAttribute("title", title);
-        model.addAttribute("ordersId", ordersId);
-        model.addAttribute("amount", total);
-        return "checkout";
+
+        Map<String, String> response = new HashMap<String, String>();
+        response.put("title", title);
+        response.put("ordersId", ordersId);
+        response.put("total", total.toString());
+        
+        return new ResponseEntity<>( response, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/confirm")

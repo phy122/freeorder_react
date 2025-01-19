@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as orders from '../../apis/order'
-import OrderList from '../../components/order/OrderList'
+import OrderList from '../../components/Order/OrderList'
 
 
 const ListContainer = () => {

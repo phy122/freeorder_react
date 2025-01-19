@@ -1,12 +1,12 @@
 import React from 'react'
-import PaymentPay from '../../components/payment/paymentPay'
+import PaymentPaid from "../../components/Payment/PaymentPaid"
 
-const payContainer = () => {
+const PayContainer = () => {
   return (
     <>
-    <PaymentPay paymentPay = {paymentPay}/>
+      <PaymentPaid/>
     </>
   )
 }
 
-export default payContainer
+export default PayContainer

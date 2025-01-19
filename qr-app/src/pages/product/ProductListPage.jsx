@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as products from '../../apis/product'
 import * as carts from '../../apis/cart'
-import ListContainer from '../../containers/product/ListContainer'
-import ProductInfoModal from '../../components/modals/ProductInfoModal'
+import ProductInfoModal from '../../components/Modals/ProductInfoModal'
 import { LoginContext } from '../../contexts/LoginContextProvider'
+import * as Swal from '../../apis/alert'
+import ListContainer from '../../containers/product/ListContainer'
 
 const ProductListPage = () => {
 
@@ -86,7 +87,7 @@ const ProductListPage = () => {
     const data = response.data
     const status = response.status
     if (status == 200) {
-      console.log(`장바구니에 추가완료`)
+      Swal.alert(`장바구니에 추가완료`,`장바구니에 메뉴가 추가되었습니다.`,"success")
       setIsVisible(false)
     }
   }
@@ -97,7 +98,7 @@ const ProductListPage = () => {
     productLoad()
     noticeLoad()
     return () => {}
-  }, [])
+  }, [cate])
 
   // isVisible 변경시 설정
   useEffect(() => {

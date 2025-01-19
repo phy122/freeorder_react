@@ -14,7 +14,7 @@ export const insert = (formData, usersId) => api.post(`/qr/carts/${usersId}`, fo
 export const update = (formData) => api.put("/qr/carts", formData)
 
 // 삭제
-export const remove = (cart) => api.delete(`/qr/carts`,cart)
+export const remove = (id) => api.delete(`/qr/carts/${id}`)
 
 // 전체 삭제
-export const allRemove = (id) => api.delete(`/qr/carts/${id}`)
+export const allRemove = (id) => api.delete(`/qr/carts/all/${id}`)

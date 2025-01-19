@@ -1,5 +1,5 @@
 import React from 'react'
-import ListContainer from '../../containers/order/ListContainer'
+import ListContainer from '../../containers/Order/ListContainer'
 
 const OrderListPage = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import OrderRead from '../../components/order/OrderRead'
+import OrderRead from '../../components/Order/OrderRead'
 
 const ReadContainer = () => {
 
