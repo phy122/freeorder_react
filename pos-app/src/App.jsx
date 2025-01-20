@@ -48,7 +48,7 @@ const App = () => {
           <Route path="/notice" element={<Notice />}></Route>
           <Route path="/promotion" element={<Promotion />}></Route>
           <Route path="/promotion/insert" element={<PromotionInsert />}></Route>
-          <Route path="/promotion/update" element={<PromotionUpdate />}></Route>
+          <Route path="/promotion/update/:id" element={<PromotionUpdate />}></Route>
         </Routes>
       </StatusContextProvider>
     </BrowserRouter>
