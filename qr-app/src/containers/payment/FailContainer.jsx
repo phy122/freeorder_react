@@ -3,9 +3,7 @@ import PaymentFail from '../../components/payment/PaymentFail'
 
 const FailContainer = () => {
   return (
-    <>
-      <PaymentFail paymentFail = {paymentFail}/>
-    </>
+    <PaymentFail/>
   )
 }
 

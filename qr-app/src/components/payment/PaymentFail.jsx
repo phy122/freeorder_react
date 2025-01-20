@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import './css/payments.css'
 
 const PaymentFail = () => {
   return (
@@ -14,9 +16,9 @@ const PaymentFail = () => {
 
                 {/* <!-- 장바구니로 이동 --> */}
                 <div className="ok-btn-border flex flex-column align-items-center justify-content-center">
-                    <a href="/qr/cart" className="go-cart white mb-5"><span
+                    <Link href="/cart" className="go-cart white mb-5"><span
                             className="ok-button-text white flex flex-column justify-content-center align-items-center mt-2">장바구니로
-                            이동</span></a>
+                            이동</span></Link>
                 </div>
             </div>
         </div>

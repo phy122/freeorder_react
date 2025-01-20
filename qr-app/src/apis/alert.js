@@ -27,6 +27,10 @@ export const confirm = (title, text, icon, callback) => {
       confirmButtonText: '확인',
       animation: false
   })
-  .then( callback )
+  .then((result)=>{
+    if (result.isConfirmed) {
+      return callback()
+    }
+  }  )
   
 }

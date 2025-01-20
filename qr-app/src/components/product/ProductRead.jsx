@@ -58,7 +58,7 @@ const ProductRead = ({ productInfo, addCart, eventModalClose, quantity, quantity
             <div className="menu-pop-des"><p>{productInfo?.description}</p></div>
           </div>
           <div className="flex align-items-center">
-            <span className="menu-pop-price fs-large black ml-1 mt-3">{productInfo?.price}원</span>
+            <span className="menu-pop-price fs-large black ml-1 mt-3">{productInfo?.price.toLocaleString()}원</span>
             <div className="amount-select flex align-items-center justify-content-end mr-1 mt-3 white">
               <button type="button"
                 onClick={() => quantityCount(quantity == 1 ? false : (-1))}
@@ -86,7 +86,7 @@ const ProductRead = ({ productInfo, addCart, eventModalClose, quantity, quantity
                         <input type="checkbox" id={item.id} onChange={()=>handleCheckboxChange(item.id)} name="itemList" value={item.id} />
                         <span>{item.name}</span>
                         <div className="read-option-price mr-5">
-                          <span>{item.price}원</span>
+                          <span>{item.price.toLocaleString()}원</span>
                         </div>
                       </label>
                     </div>
