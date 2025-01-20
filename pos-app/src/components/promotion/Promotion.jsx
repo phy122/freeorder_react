@@ -52,12 +52,12 @@ const Promotion = ({ proList, promotionDelete }) => {
                     <td>{new Date(pro.createdAt).toLocaleDateString()}</td>
                     <td>{new Date(pro.updatedAt).toLocaleDateString()}</td>
                     <td>
-                      <a
+                    <Link
                         className={styles['update-btn']}
-                        href={`/promotion/update/${pro.id}`}
-                      >
+                        to={`/promotion/update/${pro.id}`}
+                        >
                         수정
-                      </a>
+                    </Link>
                       <button
                         type="button"
                         className={styles['delete-btn']}

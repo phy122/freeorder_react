@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as notice from '../../apis/notice'
 import PromotionUpdate from '../../components/promotion/PromotionUpdate'
