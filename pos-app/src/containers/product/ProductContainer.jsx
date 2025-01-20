@@ -2,13 +2,29 @@ import React, { useEffect, useState } from 'react'
 import ProductList from '../../components/product/ProductList'
 import * as products from '../../apis/product'
 import * as categories from '../../apis/category'
+import * as options from '../../apis/option'
 
 const ProductContainer = () => {
 
   const [cateList, setCateList] = useState([])
   const [proList, setProList] = useState([])
   const [filteredProList, setFilteredProList] = useState([]) // 필터링된 상품 목록
+  const [optList, setOptList] = useState([])
 
+  // 옵션 목록 불러오기
+  const optLoad = async () => {
+    try {
+      const response = await options.list()
+      const data = response.data
+      const status = response.status
+      if ( status == 200 ){
+        setOptList(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  
   // 카테고리 목록 불러오기
   const cateLoad = async () => {
     try {
@@ -57,6 +73,7 @@ const ProductContainer = () => {
 
   // 컴포넌트가 처음 렌더링될 때 카테고리 목록과 상품 목록 불러오기
   useEffect(() => {
+    optLoad()
     cateLoad()
     listLoad()
   }, [])
@@ -64,6 +81,7 @@ const ProductContainer = () => {
   return (
     <>
       <ProductList 
+        optLoad={optList}
         cateList={cateList}
         proList={filteredProList}  // 필터링된 상품 목록 전달
         onCategoryChange={handleCategoryChange}  // 카테고리 변경 시 핸들러

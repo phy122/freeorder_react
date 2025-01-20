@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Product.module.css';
 
-const ProductInsert = ({ proInsert, cateList }) => {
+const ProductInsert = ({ proInsert, cateList, optList }) => {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -10,6 +10,8 @@ const ProductInsert = ({ proInsert, cateList }) => {
   });
 
   const [file, setFile] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [isOptionListVisible, setIsOptionListVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +20,15 @@ const ProductInsert = ({ proInsert, cateList }) => {
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+
+  const handleOptionSelect = (option) => {
+    const isSelected = selectedOptions.some((opt) => opt.id === option.id);
+    if (isSelected) {
+      setSelectedOptions(selectedOptions.filter((opt) => opt.id !== option.id));
+    } else {
+      setSelectedOptions([...selectedOptions, option]);
+    }
   };
 
   const handleSubmit = async () => {
@@ -30,7 +41,15 @@ const ProductInsert = ({ proInsert, cateList }) => {
       data.append('productFile', file);
     }
 
+    selectedOptions.forEach((option) => {
+      data.append('options[]', option.id);
+    });
+
     await proInsert(data);
+  };
+
+  const toggleOptionListVisibility = () => {
+    setIsOptionListVisible(!isOptionListVisible); // 옵션 리스트 토글
   };
 
   return (
@@ -103,13 +122,46 @@ const ProductInsert = ({ proInsert, cateList }) => {
           />
         </div>
 
-        {/* 임시 옵션 UI */}
+        {/* 옵션 추가 UI */}
         <div className={styles['form-group']}>
           <label htmlFor="optionId">옵션</label>
-          <div className={styles['plus-box']} onClick={() => alert('옵션 추가')}>
-            <a>+선택</a>
+          <div
+            className={styles['plus-box']}
+            onClick={toggleOptionListVisibility} // 버튼 클릭 시 옵션 리스트 토글
+          >
+            <a>{isOptionListVisible ? '닫기' : '+선택'}</a>
           </div>
         </div>
+
+        {/* 옵션 리스트 표시 여부 제어 */}
+        {isOptionListVisible && (
+          <div className={styles['form-group']}>
+            <div id="optionList">
+              {optList.map((opt) => (
+                <div
+                  key={opt.id}
+                  className={`${styles['opt-list']} ${selectedOptions.some((option) => option.id === opt.id) ? styles.active : ''}`}
+                  onClick={() => handleOptionSelect(opt)}
+                >
+                  <div className={styles['opt-title']}>{opt.name}</div>
+
+                  {/* 옵션 아이템 */}
+                  <div className={styles['text-icon']}>
+                    {opt.itemList && opt.itemList.length > 0 ? (
+                      opt.itemList.map((item) => (
+                        <div key={item.id} className={styles['opt-item']}>
+                          <span>{item.name}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <span>옵션 아이템 없음</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className={styles['button-group']}>
           <button
