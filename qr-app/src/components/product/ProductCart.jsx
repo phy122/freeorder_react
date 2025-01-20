@@ -2,7 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './css/cart.css'
 import * as Swal from '../../apis/alert'
-const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCartItems, cartDelete, menuPayment }) => {
+const ProductCart = ({
+   totalPrice, 
+   cartList, 
+   openModal, 
+   closeModal, 
+   deleteAllCartItems, 
+   cartDelete, 
+   menuPayment,
+    }) => {
   const onPayment = () => {
     Swal.confirm(`결제 하시겠습니까?` , `총 결제 금액 : ${ totalPrice.toLocaleString()}원 `,`success`,()=>{
       menuPayment()
@@ -111,13 +119,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCar
             </div>
           </div>
       }
-      {/* <!-- 옵션변경 모달 --> */}
-      <div id="option-modal">
-        <button type="button" onClick={closeModal} className="circle-btn bg-lightgray scale-normal dark" id="close-modal">X</button>
-        <div className="modal-wrap">
-          <div id="modal-body"></div>
-        </div>
-      </div>
+      
     </div>
   )
 }

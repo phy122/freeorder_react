@@ -1,12 +1,16 @@
 package com.aloha.freeorder.controller.qr;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +48,7 @@ public class QrCartController {
     private CartService cartService;
     @Autowired
     private ProductService productService;
-    
+
     @GetMapping("/all/{id}")
     public ResponseEntity<?> getAllByUsersId(@PathVariable("id") String usersId) {
         log.info("장바구니 목록 조회 by UsersId");
@@ -56,6 +60,7 @@ public class QrCartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
         log.info("장바구니 조회");
@@ -66,6 +71,40 @@ public class QrCartController {
             log.error("장바구니 조회 중 에러 발생", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/option/{id}")
+    public ResponseEntity<?>  option(@PathVariable("id") String id, Model model) throws Exception {
+        log.info("옵션 리스트 출력!!");
+        Map<String, Object > response = new HashMap<>();
+        // 장바구니 정보 조회
+        Cart cart = cartService.select(id);
+        response.put("cart", cart);
+        Product product = productService.select(cart.getProductsId());
+        response.put("product", product);
+        log.info("상품 정보 : " + product);
+        // 장바구니 옵션 리스트 - optionItemsId
+        List<CartOption> cartOptionList = cart.getOptionList();
+        log.info("장바구니 옵션 리스트 : " + cartOptionList);
+        // 상품 옵션 리스트 - id
+        if (product.getOption() != null && product.getOption().getItemList() != null) {
+            List<OptionItem> optionList = product.getOption().getItemList();
+            for (OptionItem optionItem : optionList) {
+                if (cartOptionList != null) {
+                    for (CartOption cartOption : cartOptionList) {
+                        if (cartOption.getOptionItemsId().equals(optionItem.getId())) {
+                            optionItem.setChecked(true);
+                        }
+                    }
+                }
+            }
+            log.info(optionList.toString());
+            response.put("optionList", optionList);
+        } else {
+            response.put("optionList", Collections.emptyList());
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/{id}")
@@ -174,10 +213,8 @@ public class QrCartController {
         }
     }
 
-    
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> destroy( @PathVariable("id") String cartsId) {
+    public ResponseEntity<?> destroy(@PathVariable("id") String cartsId) {
         log.info("장바구니 메뉴 삭제");
         try {
             int result = cartService.delete(cartsId);
@@ -185,7 +222,7 @@ public class QrCartController {
                 cartService.deleteOption(cartsId);
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("FAIL",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             log.error("장바구니 삭제 중 에러 발생", e);

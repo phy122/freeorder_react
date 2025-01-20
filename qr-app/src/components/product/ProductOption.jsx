@@ -1,10 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductInfoModal from '../Modals/ProductInfoModal';
 
-const ProductOption = ({ product, optionList, cart }) => {
+const ProductOption = ({ product, optionList, cart, updateCart }) => {
+  // console.dir(product);
+  // console.dir(cart);
+  // console.dir(optionList);
+  const [itemList, setItemList] = useState([]);
+
+  const handleCheckbox = (e, itemId) => {
+    const { checked } = e.target
+
+    if (checked) {
+      
+      setItemList((prev) => [...prev, itemId])
+
+    } else {
+      setItemList((prev) => 
+        prev.filter((item) => item !== itemId))
+    }
+  }
+
+  useEffect(() => {
+    const initiallyCheckde = optionList
+    .filter((item) => item.checked)
+    .map((item) => item.id)
+    setItemList(initiallyCheckde)
+  }, [optionList])
+  
+
+  const onSubmit = (e) => {
+    console.log('폼전송');
+
+    e.preventDefault();
+    const form = e.target;
+    const cartsId = cart.id;
+    const productsId = product.id;
+    const cartOptions = optionList
+    .filter((item) => itemList.includes(item.id))
+    .map((item) => ({
+      optionItemsId: item.id
+    }))
+    // console.dir(form);
+    let data = {
+      id: cartsId,
+      productsId: productsId,
+      optionList: cartOptions,
+    };
+    updateCart(data)
+  };
   return (
-    <div className="option-container">
+    <div className="option-container ">
       <div className="container bg-white border10">
         {/* <!-- [상단] 닫기
             - 상품명
@@ -23,7 +68,7 @@ const ProductOption = ({ product, optionList, cart }) => {
                 - 가격
                 - 수량
                 --> */}
-        <form onsubmit="return false" id="cart-update">
+        <form id="cart-update" onSubmit={onSubmit}>
           <input type="hidden" value={cart?.id || ''} />
 
           {product?.option && (
@@ -43,36 +88,33 @@ const ProductOption = ({ product, optionList, cart }) => {
                   optionList.map((item) => (
                     <label
                       className="option-checkbox flex align-items-center mr-5 ml-5"
-                      for={item.id}
+                      htmlFor={item.id}
+                      key={item.id}
                     >
                       <input
                         type="checkbox"
                         id={item.id}
                         name="itemList"
-                        value={item.id}
-                        checked={item?.checked ? true : false}
+                        defaultValue={item.id}
+                        defaultChecked={item?.checked ? true : false}
+                        onChange={(e) => handleCheckbox(e,item.id)}
                       />
                       <span>{item.name}</span>
                       <div className="read-option-price mr-5">
-                        <span>
-                          {item.price.toLocaleString('ko-KR')}원
-                        </span>
+                        <span>{item.price.toLocaleString('ko-KR')}원</span>
                       </div>
                     </label>
                   ))}
               </div>
             </>
           )}
+          {/* <!-- [하단] 변경하기 --> */}
+          <div className="change-btn-border">
+            <button className="change-btn white" type="submit">
+              변경하기
+            </button>
+          </div>
         </form>
-      </div>
-
-      {/* <!-- [하단] 변경하기 --> */}
-      <div className="change-btn-border">
-        <Link to="/cart">
-          <button className="change-btn white" onClick="editCart()">
-            변경하기
-          </button>
-        </Link>
       </div>
     </div>
   );
