@@ -480,9 +480,6 @@ align-items: center;
 justify-content: center;
 }
 
-.option-container {
-}
-
 .checkbox-container {
 display: flex;
 flex-direction: column;
