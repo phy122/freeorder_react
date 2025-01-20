@@ -59,9 +59,7 @@ public class OptionController {
     ) {
         try {
             Option option = optionService.read(id);
-            Map<String, Object> response = new HashMap<>();
-            response.put("option", option);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(option, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
