@@ -38,7 +38,6 @@ public class QrOrderController {
         log.info("전체 주문 목록");
         try {
             List<Order> orderList = orderService.list();
-            log.info(orderList.toString());
             return new ResponseEntity<>(orderList, HttpStatus.OK);
         } catch (Exception e) {
             log.error("목록 조회 중 에러 발생", e);

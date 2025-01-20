@@ -70,7 +70,7 @@ const ProductList = ({ cateList, proList, noticeList, infoModalPopup }) => {
                 <div className="info-box">
                   <div className="top-area p-10 mb-1 ml-1">
                     <span className="menu-name">{product.name}</span>
-                    <span className="menu-price">{product.price}</span>
+                    <span className="menu-price">{product.price.toLocaleString()}원</span>
                   </div>
                   <div className="bot-area">
                     <span className="menu-info p-10 ml-1">{product.description}</span>

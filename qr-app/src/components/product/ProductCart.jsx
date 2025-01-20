@@ -4,7 +4,7 @@ import './css/cart.css'
 import * as Swal from '../../apis/alert'
 const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCartItems, cartDelete, menuPayment }) => {
   const onPayment = () => {
-    Swal.confirm(`결제 하시겠습니까?` , `총 결제 금액 : ${ totalPrice} `,``,()=>{
+    Swal.confirm(`결제 하시겠습니까?` , `총 결제 금액 : ${ totalPrice.toLocaleString()}원 `,`success`,()=>{
       menuPayment()
     })
   }
@@ -69,7 +69,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCar
                         <div className="right-right mr-1">
                           <div className="menu-name">{cart.productName}</div>
                           <div className="price-amount">
-                            <div className="c-price">{cart.price}원</div>
+                            <div className="c-price">{cart.price.toLocaleString()}원</div>
                             <div className="amount">| {cart.amount}개</div>
                           </div>
                           <ul className="option-list">
@@ -77,7 +77,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCar
                               cart.optionList?.map((option) => (
                                 <li key={option.id}>
                                   <span>{`+${option.name}`}</span>
-                                  <span>{option.price}원</span>
+                                  <span>({option.price.toLocaleString()}원)</span>
                                 </li>
                               ))
                             }
@@ -105,7 +105,7 @@ const ProductCart = ({ totalPrice, cartList, openModal, closeModal, deleteAllCar
             <div className="total-card-fix">
               <div className="total-card flex justify-content-around align-items-center">
                 <div className="total">TOTAL : </div>
-                <div className="total-price" >{totalPrice}원</div>
+                <div className="total-price" >{totalPrice.toLocaleString()}원</div>
                 <button onClick={onPayment} className="pay-btn square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</button>
               </div>
             </div>

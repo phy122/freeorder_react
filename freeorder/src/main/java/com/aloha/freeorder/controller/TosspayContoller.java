@@ -147,7 +147,8 @@ public class TosspayContoller {
         return new ResponseEntity<>( response, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/confirm")
+    
+    @PostMapping("/confirm")
     public ResponseEntity<JSONObject> confirmPayment(
     @RequestBody String jsonBody) throws Exception {
         log.info("결제성공 후 프로그램 DB에 연동 시도...");
@@ -160,7 +161,7 @@ public class TosspayContoller {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
             paymentKey = (String) requestData.get("paymentKey");
-            ordersId = (String) requestData.get("orderId");
+            ordersId = (String) requestData.get("ordersId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
             throw new RuntimeException(e);

@@ -120,7 +120,6 @@ const ProductListPage = () => {
         noticeList={noticeList}
         infoModalPopup={infoModalPopup}
         productInfo = {productInfo}
-        isVisible = {isVisible}
       />
       {/* <!-- 이벤트 모달 팝업(전체화면) --> */}
       <ProductInfoModal

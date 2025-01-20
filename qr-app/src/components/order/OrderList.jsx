@@ -33,11 +33,11 @@ const OrderList = ({ orderList }) => {
         <div className="line"></div>
         {/* <!-- [중단] 주문 목록 --> */}
         {
-          orderList.id != null ?
+          orderList != null ?
             orderList.map((order) => (
-              <div className="ord-complete">
+              <div className="ord-complete" key={order.id}>
                 {/* <!-- 이미지 파일 --> */}
-                <img src="#" alt="" />
+                <img src={`/api/pimg?id=${order.itemList[0].productsId}`} alt="" />
                 {/* <!-- 주문 정보 --> */}
                 <div className="order-info">
                   <div className="date-status">
@@ -45,11 +45,11 @@ const OrderList = ({ orderList }) => {
                     <p>·</p>
                     <p>{order.status == 'PAID' ? '결제완료' : '주문완료'}</p>
                   </div>
-                  <Link to={`/order/read/${order.id}`}>
-                    <button className="detail-ord">
-                      <a>주문상세</a>
-                    </button>
-                  </Link>
+
+                  <button className="detail-ord">
+                    <Link to={`/order/read/${order.id}`}>주문상세</Link>
+                  </button>
+
                 </div>
 
                 {/* <!-- 메뉴 정보 --> */}
@@ -57,12 +57,12 @@ const OrderList = ({ orderList }) => {
                   <ul>
                     <li className="ord-name">
                       <Link to={`/order/read/${order.id}`}>
-                        <a>{order.title}</a>
+                        {order.title}
                       </Link>
                     </li>
                     <li className="ord-price">
-                      <a href="#">총 가격 : </a>
-                      <a>{order.totalPrice}</a>
+                      <span href="#">총 가격 : </span>
+                      <span>{order.totalPrice.toLocaleString()}원</span>
                     </li>
                   </ul>
                 </div>

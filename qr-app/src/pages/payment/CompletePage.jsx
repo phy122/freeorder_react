@@ -3,9 +3,7 @@ import CompleteContainer from '../../containers/payment/CompleteContainer'
 
 const CompletePage = () => {
   return (
-    <>
-     <CompleteContainer />
-    </>
+    <CompleteContainer/>
   )
 }
 
