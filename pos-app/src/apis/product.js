@@ -18,3 +18,6 @@ export const getById = (id) => api.get(`/pos/products/${id}`);
 // 카테고리 목록 조회
 export const getCategories = () => api.get(`/pos/categories`);
 
+// 상품 순서 변경
+export const locate = (formData, headers) => api.post(`/pos/products/locate`, formData, headers);
+
