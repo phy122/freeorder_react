@@ -4,6 +4,7 @@ import * as carts from '../../apis/cart'
 import { LoginContext } from '../../contexts/LoginContextProvider'
 import * as Swal from '../../apis/alert'
 import { useNavigate } from 'react-router-dom'
+import ProductOption from '../../components/product/ProductOption'
 const CartContainer = () => {
 
   const { usersId } = useContext(LoginContext)
@@ -11,6 +12,9 @@ const CartContainer = () => {
 
   const [totalPrice, setTotalPrice] = useState(0)
   const [cartList, setCartList] = useState([])
+  const [cart, setCart] = useState(null)
+  const [product, setProduct] = useState(null)
+  const [optionList, setOptionList] = useState([])
 
   const [isModal, setIsModal] = useState(false)
 
@@ -32,16 +36,36 @@ const CartContainer = () => {
 
   // 옵션 변경창 열기
   const openModal = async (id) => {
-    const response = await carts.select(id)
+    
+    const response = await carts.selectOption(id)
     const data = response.data
     const status = response.status
+    // console.log("전송받은 데이터");
+    // console.dir(data)
     if (status == 200) {
+      setCart(data.cart)
+      setProduct(data.product)
+      setOptionList(data.optionList)
+      console.log("모달팝업");
+      
       setIsModal(true)
     }
   }
   // 옵션 변경창 닫기
   const closeModal = () => {
     setIsModal(false)
+  }
+
+  // 옵션 변경하기
+  const updateCart = async (cart) => {
+    const response = await carts.update(cart,usersId)
+    const data = response.data
+    const status = response.status
+    if (status == 200) {
+      console.log(data);
+      cartLoad()
+      setIsModal(false)
+    }
   }
 
   // 장바구니 개별 삭제
@@ -87,7 +111,23 @@ const CartContainer = () => {
         cartDelete={cartDelete}
         deleteAllCartItems={deleteAllCartItems}
         menuPayment={menuPayment}
+        
       />
+      {/* <!-- 옵션변경 모달 --> */}
+      <div id="option-modal" className={isModal?`open`:``}>
+        <button type="button" onClick={closeModal} className="circle-btn bg-lightgray scale-normal dark" id="close-modal">X</button>
+        <div className="modal-wrap">
+          <div id="modal-body">
+            <ProductOption
+              cart={cart}
+              product={product}
+              optionList={optionList}
+              updateCart={updateCart}
+              isModal={isModal}
+            />
+          </div>
+        </div>
+      </div>
     </>
   )
 }
