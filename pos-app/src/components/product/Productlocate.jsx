@@ -61,7 +61,7 @@ const Productlocate = ({ proList, setupSaveProductOrder }) => {
                      onDrop={() => handleDrop(index)}
                      >
                     <div className={styles['product-image-placeholder']}>
-                        <img src={`/pimg?id=${pro.id}`} alt="" width="100%" height="100%" draggable="false" />
+                        <img src={`/api/pimg?id=${pro.id}`} alt="" width="100%" height="100%" draggable="false" />
                     </div>
                     <span 
                          className={styles['product-name']}
@@ -70,7 +70,6 @@ const Productlocate = ({ proList, setupSaveProductOrder }) => {
                         {pro.name}
                     </span>
                     <span className={styles['product-price']}>{pro.price}</span>
-                    <span className={styles['product-seq']}>{pro.seq}</span>
                 </div>
                 ))
             ) : (

@@ -74,7 +74,6 @@ const CategorySeqList = ({ cateList, setupSaveCategoryOrder }) => {
               >
                 {cate.name}
               </span>
-              <span className={styles["category-seq"]}>{cate.seq}</span>
             </div>
           ))
         ) : (
