@@ -3,7 +3,10 @@ import styles from './Promotion.module.css'
 import { Link } from 'react-router-dom';
 
 
-const Promotion = ({ proList }) => {
+const Promotion = ({ proList, promotionDelete }) => {
+
+    
+    
     return (
         <div>
             <div className={styles['promotion-page']}>
@@ -16,6 +19,7 @@ const Promotion = ({ proList }) => {
             </div>
 
             <table className={styles['promotion-list']}>
+                <div>
                 {proList && proList.length > 0 ? (
                     <>
                         <thead>
@@ -52,7 +56,7 @@ const Promotion = ({ proList }) => {
                                         <button
                                             type="button"
                                             className={styles['delete-btn']}
-                                            onClick={() => promotionDelete(pro.id)}
+                                            onClick={promotionDelete}
                                         >
                                             삭제
                                         </button>
@@ -70,14 +74,10 @@ const Promotion = ({ proList }) => {
                         </tr>
                     </tbody>
                 )}
+            </div>
             </table>
         </div>
     );
-};
-
-// 삭제 함수 (예시)
-const promotionDelete = (id) => {
-    console.log(`프로모션 삭제: ${id}`);
 };
 
 export default Promotion;
