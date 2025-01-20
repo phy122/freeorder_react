@@ -149,7 +149,7 @@ public class NoticeController {
         }
     }
     
-    @DeleteMapping()
+    @DeleteMapping("{id}")
     public ResponseEntity<?> destroy(Notice notice) {
         String id = notice.getId();
         log.info("공지사항 삭제");
