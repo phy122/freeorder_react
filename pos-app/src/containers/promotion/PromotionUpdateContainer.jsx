@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
-import PromotionUpdate from '../../components/promotion/PromotionUpdate'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as notice from '../../apis/notice'
+import PromotionUpdate from '../../components/promotion/PromotionUpdate'
+
 
 const PromotionUpdateContainer = () => {
 
+  const {id} = useParams()
+  const navigate = useNavigate()
+
   const [proList, setProList] = useState({})
-  const [thumbFile, setThumbFile] = useState([])
-  const [contentFile, setContentFile] = useState([])
+  const [thumbFile, setThumbFile] = useState()
+  const [contentFile, setContentFile] = useState()
 
   // 프로모션 데이터 요청
   const getProList = async () => {
-    const response = await notice.list
+    const response = await notice.list(id)
     const data = await response.data
-    setProList(data.list)
+    setProList(data)
     setThumbFile(data.thumbFile)
     setContentFile(data.contentFile)
 
-    const thumb = await data.notice.thumbFile
-    getThumbFile(thumb)
-
-    const content = await data.notice.contentFile
-    getContentFile(content)
   }
 
   // 프로모션 수정 요청 이벤트
@@ -32,20 +32,7 @@ const PromotionUpdateContainer = () => {
 
       alert('프로모션 수정 완료')
       
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
-
-  // 프로모션 삭제 요청 이벤트
-  const proDelete = async (id) => {
-    try {
-      const response = await notice.remove(id)
-      const data = await response.data
-      console.log(data);
-
-      alert('프로모션 삭제 완료')
+      navigate('/promotion')
       
     } catch (error) {
       console.log(error);
@@ -62,7 +49,6 @@ const PromotionUpdateContainer = () => {
     <>
         <PromotionUpdate proList={proList}
                          proUpdate={proUpdate}
-                         proDelete={proDelete}
                          thumbFile={thumbFile}
                          contentFile={contentFile} />
     </>
