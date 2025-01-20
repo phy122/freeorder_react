@@ -1,14 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Product.module.css'
 
-const Productlocate = () => {
+const Productlocate = ({ proList, setupSaveProductOrder }) => {
+    const [products, setProducts] = useState(proList || [])
+    const [draggedIndex, setDraggedIndex] = useState(null)
+
+    const handleDragStart = (index) => {
+        setDraggedIndex(index)
+    }
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    }
+
+    const handleDrop = (index) => {
+        if(draggedIndex === null || draggedIndex === index) return;
+
+        const updatedProducts = [...products];
+        const [moveProduct] = updatedProducts.splice(draggedIndex, 1)
+        updatedProducts.splice(index, 0, moveProduct);
+
+        const reorderedProducts = updatedProducts.map((product,i) => ({
+            ...product,
+            seq: i + 1,
+        }));
+
+        setProducts(reorderedProducts)
+        setDraggedIndex(null)
+    }
+
+    const handleSave = () => {
+        setupSaveProductOrder(products)
+    }
+
+    useEffect(() => {
+      setProducts(proList)
+    }, [proList])
+    
   return (
     <div className={styles['l-container']} layout:fragment="content">
         <div className={styles['l-btn-container']}>
-            <a href="/pos/product">
+            <a href="/">
                 <button type="button" className={styles['l-cancel-btn']}>취소</button>
             </a>
-            <button type="button" className={styles['l-save-btn']} id="saveBtn" onclick="setupSaveProductOrder()">저장</button>
+            <button type="button" className={styles['l-save-btn']} id="saveBtn" onClick={handleSave}>저장</button>
         </div>
 
         <div className={styles['l-select-title']}>
@@ -16,20 +51,33 @@ const Productlocate = () => {
         </div>
 
         <div className={styles['l-product-list']}>
-            <th:block th:if="${productList != null}" th:each="product, iterStat : ${productList}">
-                <div className={styles['l-product-card']} draggable="true">
+            {products && products.length > 0 ? (
+                products.map((pro, index) => (
+                <div key={pro.id} 
+                     className={styles['l-product-card']} 
+                     draggable="true" 
+                     onDragStart={() => handleDragStart(index)}
+                     onDragOver={handleDragOver}
+                     onDrop={() => handleDrop(index)}
+                     >
                     <div className={styles['product-image-placeholder']}>
-                        <img th:src="|/pimg?id=${product.id}|" alt="" width="100%" height="100%" draggable="false"
-                            ondragover="preventDrop(event)" ondrop="preventDrop(event)"/>
+                        <img src={`/pimg?id=${pro.id}`} alt="" width="100%" height="100%" draggable="false" />
                     </div>
-                    <span className={styles['product-name']} th:text="${product.name}" th:data-id="${product.id}"></span>
-                    <span className={styles['product-price']} th:text="${product.price}"></span>
-                    <span className={styles['product-seq']} th:text="${product.seq}"></span>
+                    <span 
+                         className={styles['product-name']}
+                         data-id={pro.id}
+                    >
+                        {pro.name}
+                    </span>
+                    <span className={styles['product-price']}>{pro.price}</span>
+                    <span className={styles['product-seq']}>{pro.seq}</span>
                 </div>
-            </th:block>
-            <th:block th:if="${productList.isEmpty()}">
+                ))
+            ) : (
+            <div>
                 상품이 없습니다.
-            </th:block>
+            </div>
+             )}
         </div>
     </div>
   )

@@ -1,7 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Category.module.css';
 
 const CategorySeqList = ({ cateList, setupSaveCategoryOrder }) => {
+  const [categories, setCategories] = useState(cateList || []);
+  const [draggedIndex, setDraggedIndex] = useState(null);
+
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (index) => {
+    if (draggedIndex === null || draggedIndex === index) return;
+
+    const updatedCategories = [...categories];
+    const [movedCategory] = updatedCategories.splice(draggedIndex, 1);
+    updatedCategories.splice(index, 0, movedCategory);
+
+    const reorderedCategories = updatedCategories.map((category, i) => ({
+      ...category,
+      seq: i + 1,
+    }));
+
+    setCategories(reorderedCategories); 
+    setDraggedIndex(null); 
+  };
+
+  const handleSave = () => {
+    setupSaveCategoryOrder(categories); 
+  };
+
+  useEffect(() => {
+    setCategories(cateList); 
+  }, [cateList]);
+
   return (
     <div className={styles["seq-container"]}>
       <div className={styles["seq-btn-container"]}>
@@ -12,7 +47,7 @@ const CategorySeqList = ({ cateList, setupSaveCategoryOrder }) => {
           type="button"
           className={styles["seq-save-btn"]}
           id="seqSaveBtn"
-          onClick={setupSaveCategoryOrder}
+          onClick={handleSave}
         >
           저장
         </button>
@@ -23,12 +58,15 @@ const CategorySeqList = ({ cateList, setupSaveCategoryOrder }) => {
       </div>
 
       <div className={styles["seq-category-list"]}>
-        {cateList && cateList.length > 0 ? (
-          cateList.map((cate) => (
+        {categories && categories.length > 0 ? (
+          categories.map((cate, index) => (
             <div
               key={cate.id}
               className={styles["seq-category-item"]}
               draggable="true"
+              onDragStart={() => handleDragStart(index)}
+              onDragOver={handleDragOver}
+              onDrop={() => handleDrop(index)}
             >
               <span
                 className={styles["category-name"]}
