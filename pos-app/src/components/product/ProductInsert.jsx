@@ -10,7 +10,7 @@ const ProductInsert = ({ proInsert, cateList, optList }) => {
   });
 
   const [file, setFile] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({});
   const [isOptionListVisible, setIsOptionListVisible] = useState(false);
 
   const handleChange = (e) => {
@@ -23,12 +23,7 @@ const ProductInsert = ({ proInsert, cateList, optList }) => {
   };
 
   const handleOptionSelect = (option) => {
-    const isSelected = selectedOptions.some((opt) => opt.id === option.id);
-    if (isSelected) {
-      setSelectedOptions(selectedOptions.filter((opt) => opt.id !== option.id));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
+    setSelectedOptions(option);
   };
 
   const handleSubmit = async () => {
@@ -41,10 +36,7 @@ const ProductInsert = ({ proInsert, cateList, optList }) => {
       data.append('productFile', file);
     }
 
-    selectedOptions.forEach((option) => {
-      data.append('options[]', option.id);
-    });
-
+    data.append('optionsId', selectedOptions.id);
     await proInsert(data);
   };
 
@@ -140,7 +132,7 @@ const ProductInsert = ({ proInsert, cateList, optList }) => {
               {optList.map((opt) => (
                 <div
                   key={opt.id}
-                  className={`${styles['opt-list']} ${selectedOptions.some((option) => option.id === opt.id) ? styles.active : ''}`}
+                  className={`${styles['opt-list']} ${selectedOptions.id === opt.id ? styles.active : ''}`}
                   onClick={() => handleOptionSelect(opt)}
                 >
                   <div className={styles['opt-title']}>{opt.name}</div>

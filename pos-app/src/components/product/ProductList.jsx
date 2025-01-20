@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as carts from '../../apis/cart'; // options API 호출
+import * as options from '../../apis/option'; // options API 호출
 import styles from './Product.module.css';
-import * as options from '../../apis/option';  // options API 호출
+import { useContext } from 'react';
+import { LoginContext } from '../../contexts/LoginContextProvider';
 
 const ProductList = ({ cateList, proList, onCategoryChange }) => {
   const [ModalOpen, setModalOpen] = useState(false);
   const [optModalOpen, setOptModalOpen] = useState(false); // 옵션 선택 모달 열기
   const [selectedProduct, setSelectedProduct] = useState(null); // 선택된 상품
-  const [selectedOption, setSelectedOption] = useState(null); // 선택된 옵션
-  const [optList, setOptList] = useState([]);  // 옵션 목록
+  const [selectedOption, setSelectedOption] = useState([]); // 선택된 옵션
+  const [option, setOption] = useState(null);  // 선택한 상품의 옵션
   const [selectedProducts, setSelectedProducts] = useState([]); // 결제 창에 보여줄 상품 목록
   const [totalPrice, setTotalPrice] = useState(0); // 총 가격
+  const [cartList, setCartList] = useState([])    // 장바구니 목록
+
+  const { isLogin, userInfo } = useContext(LoginContext)
+  const usersId = userInfo?.username
 
   // 옵션 목록 불러오기
   const optionLoad = async () => {
+    if (selectedProduct == null) return
     try {
-      const response = await options.list();  // 옵션 API 호출
+      const response = await options.read(selectedProduct.optionsId)
       const data = response.data;
       const status = response.status;
       if (status === 200) {
-        setOptList(data);  // 옵션 리스트 상태 업데이트
+        setOption(data);  // 옵션 리스트 상태 업데이트
       }
     } catch (error) {
       console.error('옵션 불러오기 오류:', error);
@@ -28,7 +36,7 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
   // 옵션 목록을 한 번만 불러오기
   useEffect(() => {
     optionLoad();
-  }, []);
+  }, [selectedProduct]);
 
   // 모달 열기 함수
   const openModal = () => {
@@ -43,7 +51,7 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
   // 아이템 옵션 열기 함수
   const openOptSelect = (product) => {
     setSelectedProduct(product);  // 선택된 상품 설정
-    setSelectedOption(null);  // 기존 선택된 옵션 초기화
+    setSelectedOption([]);  // 기존 선택된 옵션 초기화
     setOptModalOpen(true);  // 옵션 모달 열기
   };
 
@@ -53,30 +61,68 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
   };
 
   // 옵션 선택 처리 함수
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);  // 선택된 옵션 설정
+  const handleOptionSelect = (e, value) => {
+    const { checked } = e.target
+    if (checked) {
+      setSelectedOption([...selectedOption, value])
+    } else {
+      setSelectedOption(selectedOption.filter((option) => option !== value))
+    }
   };
 
   // 옵션 선택 완료 후 결제창으로 상품 추가
-  const handleOptionConfirm = () => {
-    if (selectedProduct && selectedOption) {
-      // 상품과 옵션을 결제 목록에 추가
-      setSelectedProducts((prevProducts) => [
-        ...prevProducts,
-        {
-          product: selectedProduct,
-          option: selectedOption,
-          total: selectedProduct.price + selectedOption.price, // 상품 + 옵션 가격 합산
-        },
-      ]);
-
-      // 총 가격 업데이트
-      setTotalPrice((prevTotal) => prevTotal + selectedProduct.price + selectedOption.price);
-
-      // 옵션 선택 모달 닫기
-      closeOptSelect();
+  const handleOptionConfirm = async () => {
+    console.log(`장바구니에 추가`)
+    const product = {
+      id: selectedProduct.id,
+      quantity: 1,
+      option: {
+        id: selectedProduct.optionsId,
+        itemList: selectedOption
+      }
     }
+
+    // 장바구니에 추가
+    const response = await carts.insert(product, usersId)
+    const data = response.data
+    const status = response.status
+
+    console.log(data)
+
+
+
+    // 옵션 선택 모달 닫기
+    closeOptSelect();
   };
+
+  // 장바구니 목록 불러오기
+  const cartsLoad = async () => {
+    console.log(`장바구니 목록 불러오기`)
+    const response = await carts.list()
+    const data = response.data
+    const status = response.status
+    if (status == 200) {
+      setCartList(data)
+      // 총 가격 업데이트
+      let total = 0
+      data.map((cart)=>{
+        let itemTotal = Number(cart.price)
+
+        cart.optionList.map((option)=>{
+          itemTotal += Number(option.price)
+        })
+        total += (itemTotal * Number(cart.amount))
+      })
+      setTotalPrice(total);
+    }
+  }
+
+  useEffect(() => {
+    if (isLogin) {
+      cartsLoad()
+    }
+  }, [totalPrice, isLogin])
+
 
   // 결제 목록에서 상품 삭제
   const handleRemoveProduct = (productIndex) => {
@@ -185,12 +231,12 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
           </div>
           <div className={styles['cart-list']}>
             <ul>
-              {selectedProducts.length > 0 ? (
-                selectedProducts.map((item, index) => (
-                  <li key={index}>
+              {cartList.length > 0 ? (
+                cartList.map((cart, index) => (
+                  <li key={cart.id}>
                     <div className={styles['cart-header']}>
                       <div className={styles['cart-menu']}>
-                        <span>{item.product.name} {item.product.price}원</span>
+                        <span>{cart.productName} {cart.price}원</span>
                       </div>
                       <button
                         className={styles['cart-item-del-btn']}
@@ -201,9 +247,16 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
                     </div>
 
                     <div className={styles['option-list']}>
-                      <li className={styles['cart-option-price']}>
-                        {item.option.name}{item.option.price.toLocaleString()}원
-                      </li>
+                      <ul>
+                        {
+                          cart.optionList.map((option) => (
+                            <li className={styles['cart-option-price']}>
+                              {option.name}{option.price.toLocaleString()}원
+                            </li>
+                          ))
+                        }
+
+                      </ul>
                     </div>
                   </li>
                 ))
@@ -216,11 +269,11 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
           {/* 결제 관련 */}
           <div className={styles['payment-buttons']}>
             <button className={styles['card-pay']} onClick={() => console.log('카드 결제')}>
-              <span className={styles['material-symbols-outlined']}>credit_card</span>
+              <span className='material-symbols-outlined'>credit_card</span>
               <p>카드 결제</p>
             </button>
             <button className={styles['cash-pay']} onClick={() => console.log('현금 결제')}>
-              <span className={styles['material-symbols-outlined']}>paid</span>
+              <span className='material-symbols-outlined'>paid</span>
               <p>현금 결제</p>
             </button>
           </div>
@@ -292,7 +345,7 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
               <div className={styles['so-option-title']}>
                 <h5>옵션 선택</h5>
                 <span
-                  className={styles['material-symbols-outlined']}
+                  className="darkgray material-symbols-outlined"
                   onClick={closeOptSelect}
                 >
                   close
@@ -300,37 +353,39 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
               </div>
 
               <div className={styles['so-option-select']}>
-                {optList.length > 0 ? (
-                  optList.map((opt) => (
-                    <div key={opt.id} className={styles['so-option-card']}>
+
+                {
+                  option != null ? (
+
+                    <div key={option.id} className={styles['so-option-card']}>
                       <div className={styles['opt-items']}>
-                        {opt.itemList && opt.itemList.length > 0 ? (
-                          opt.itemList.map((item) => (
-                            <div
+                        {option.itemList && option.itemList.length > 0 ? (
+                          option.itemList.map((item) => (
+                            <label
                               key={item.id}
                               className={styles['opt-item']}
-                              onClick={() => handleOptionSelect(item)}
+                              htmlFor={item.id}
                             >
                               <input
                                 type="checkbox"
-                                checked={selectedOption?.id === item.id}
-                                readOnly
+                                defaultChecked={selectedOption?.id === item.id}
+                                onChange={(e) => handleOptionSelect(e, item)}
+                                id={item.id}
                               />
                               <span>{item.name}</span>
                               <div className={styles['item-price']}>
                                 {item.price.toLocaleString()}원
                               </div>
-                            </div>
+                            </label>
                           ))
                         ) : (
                           <p>아이템이 없습니다.</p>
                         )}
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <p>옵션이 없습니다.</p>
-                )}
+                  ) : (
+                    <p>옵션이 없습니다.</p>
+                  )}
               </div>
 
               <div className={styles['option-btns']}>
