@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Product.module.css';
 import * as options from '../../apis/option';  // options API 호출
-import api from '../../apis/api';  // 기존 API 호출
 
 const ProductList = ({ cateList, proList, onCategoryChange }) => {
   const [ModalOpen, setModalOpen] = useState(false);
@@ -9,6 +8,8 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
   const [selectedProduct, setSelectedProduct] = useState(null); // 선택된 상품
   const [selectedOption, setSelectedOption] = useState(null); // 선택된 옵션
   const [optList, setOptList] = useState([]);  // 옵션 목록
+  const [selectedProducts, setSelectedProducts] = useState([]); // 결제 창에 보여줄 상품 목록
+  const [totalPrice, setTotalPrice] = useState(0); // 총 가격
 
   // 옵션 목록 불러오기
   const optionLoad = async () => {
@@ -54,6 +55,37 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
   // 옵션 선택 처리 함수
   const handleOptionSelect = (option) => {
     setSelectedOption(option);  // 선택된 옵션 설정
+  };
+
+  // 옵션 선택 완료 후 결제창으로 상품 추가
+  const handleOptionConfirm = () => {
+    if (selectedProduct && selectedOption) {
+      // 상품과 옵션을 결제 목록에 추가
+      setSelectedProducts((prevProducts) => [
+        ...prevProducts,
+        {
+          product: selectedProduct,
+          option: selectedOption,
+          total: selectedProduct.price + selectedOption.price, // 상품 + 옵션 가격 합산
+        },
+      ]);
+
+      // 총 가격 업데이트
+      setTotalPrice((prevTotal) => prevTotal + selectedProduct.price + selectedOption.price);
+
+      // 옵션 선택 모달 닫기
+      closeOptSelect();
+    }
+  };
+
+  // 결제 목록에서 상품 삭제
+  const handleRemoveProduct = (productIndex) => {
+    const updatedProducts = selectedProducts.filter((_, index) => index !== productIndex);
+    setSelectedProducts(updatedProducts);
+
+    // 삭제된 상품의 가격만큼 총 가격을 감소
+    const removedProduct = selectedProducts[productIndex];
+    setTotalPrice((prevTotal) => prevTotal - removedProduct.total);
   };
 
   return (
@@ -151,28 +183,49 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
               전체 삭제
             </button>
           </div>
-          <div id="selected-products" className={styles['selected-products']}>
-            <ul className={styles['cart-list']} id="cart-list">
-              {selectedOption && (
-                <li>
-                  <span>{selectedOption.name}</span> -{' '}
-                  <span>{selectedOption.price}원</span>
-                </li>
+          <div className={styles['cart-list']}>
+            <ul>
+              {selectedProducts.length > 0 ? (
+                selectedProducts.map((item, index) => (
+                  <li key={index}>
+                    <div className={styles['cart-header']}>
+                      <div className={styles['cart-menu']}>
+                        <span>{item.product.name} {item.product.price}원</span>
+                      </div>
+                      <button
+                        className={styles['cart-item-del-btn']}
+                        onClick={() => handleRemoveProduct(index)}
+                      >
+                        삭제
+                      </button>
+                    </div>
+
+                    <div className={styles['option-list']}>
+                      <li className={styles['cart-option-price']}>
+                        {item.option.name}{item.option.price.toLocaleString()}원
+                      </li>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <p>상품을 선택해주세요.</p>
               )}
             </ul>
           </div>
+
+          {/* 결제 관련 */}
           <div className={styles['payment-buttons']}>
-            <button className={styles['card-pay']} onclick="sendPayment('카드')">
+            <button className={styles['card-pay']} onClick={() => console.log('카드 결제')}>
               <span className={styles['material-symbols-outlined']}>credit_card</span>
               <p>카드 결제</p>
             </button>
-            <button className={styles['cash-pay']} onclick="sendPayment('현금')">
+            <button className={styles['cash-pay']} onClick={() => console.log('현금 결제')}>
               <span className={styles['material-symbols-outlined']}>paid</span>
               <p>현금 결제</p>
             </button>
           </div>
-          <div id="total-price">
-            총 가격: <span id="cart-total-price"></span>원
+          <div className={styles['total-price']}>
+            총 가격: <span>{totalPrice.toLocaleString()}</span>원
           </div>
         </div>
       </div>
@@ -226,10 +279,10 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
         </div>
       )}
 
-      {/* 옵션 선택 모달 */}
+      {/* 옵션 아이템 선택 모달 */}
       {optModalOpen && selectedProduct && (
         <div
-          className={optModalOpen ? `${styles.show} ${styles['modal']}` : ``}
+          className={optModalOpen ? `${styles.show} ${styles.modal}` : ``}
         >
           <div
             className={styles['modal-container']}
@@ -237,7 +290,7 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
           >
             <div className={styles['so-container']}>
               <div className={styles['so-option-title']}>
-                <h3>옵션 선택</h3>
+                <h5>옵션 선택</h5>
                 <span
                   className={styles['material-symbols-outlined']}
                   onClick={closeOptSelect}
@@ -249,21 +302,29 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
               <div className={styles['so-option-select']}>
                 {optList.length > 0 ? (
                   optList.map((opt) => (
-                    <div
-                      key={opt.id}
-                      className={`${styles['so-option-card']} ${
-                        selectedOption?.id === opt.id ? styles.active : ''
-                      }`}
-                      onClick={() => handleOptionSelect(opt)}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedOption?.id === opt.id}
-                        readOnly
-                      />
-                      <span>{opt.name}</span>
-                      <div className={styles['read-option-price']}>
-                        {opt.price}원
+                    <div key={opt.id} className={styles['so-option-card']}>
+                      <div className={styles['opt-items']}>
+                        {opt.itemList && opt.itemList.length > 0 ? (
+                          opt.itemList.map((item) => (
+                            <div
+                              key={item.id}
+                              className={styles['opt-item']}
+                              onClick={() => handleOptionSelect(item)}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={selectedOption?.id === item.id}
+                                readOnly
+                              />
+                              <span>{item.name}</span>
+                              <div className={styles['item-price']}>
+                                {item.price.toLocaleString()}원
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p>아이템이 없습니다.</p>
+                        )}
                       </div>
                     </div>
                   ))
@@ -275,7 +336,7 @@ const ProductList = ({ cateList, proList, onCategoryChange }) => {
               <div className={styles['option-btns']}>
                 <button
                   className={styles['select-btn']}
-                  onClick={() => handleOptionSelect(selectedOption)}
+                  onClick={handleOptionConfirm}
                 >
                   옵션 선택 완료
                 </button>
