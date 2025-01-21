@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import ProductCart from '../../components/Product/ProductCart'
+import ProductCart from '../../components/product/ProductCart'
 import * as carts from '../../apis/cart'
 import { LoginContext } from '../../contexts/LoginContextProvider'
 import * as Swal from '../../apis/alert'
@@ -115,7 +115,6 @@ const CartContainer = () => {
       />
       {/* <!-- 옵션변경 모달 --> */}
       <div id="option-modal" className={isModal?`open`:``}>
-        <button type="button" onClick={closeModal} className="circle-btn bg-lightgray scale-normal dark" id="close-modal">X</button>
         <div className="modal-wrap">
           <div id="modal-body">
             <ProductOption
@@ -124,6 +123,7 @@ const CartContainer = () => {
               optionList={optionList}
               updateCart={updateCart}
               isModal={isModal}
+              closeModal={closeModal}
             />
           </div>
         </div>

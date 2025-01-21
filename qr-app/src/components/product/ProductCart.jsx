@@ -114,7 +114,7 @@ const ProductCart = ({
               <div className="total-card flex justify-content-around align-items-center">
                 <div className="total">TOTAL : </div>
                 <div className="total-price" >{totalPrice.toLocaleString()}원</div>
-                <button onClick={onPayment} className="pay-btn square-button flex flex-column justify-content-center align-items-center mt-1">결제하기</button>
+                <button onClick={onPayment} className="pay-btn square-button flex flex-column justify-content-center align-items-center mt-1 white">결제하기</button>
               </div>
             </div>
           </div>
