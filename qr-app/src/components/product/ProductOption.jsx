@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
-const ProductOption = ({ product, optionList, cart, updateCart }) => {
+
+const ProductOption = ({ product, optionList, cart, updateCart, closeModal }) => {
   // console.dir(product);
   // console.dir(cart);
   // console.dir(optionList);
@@ -55,12 +55,16 @@ const ProductOption = ({ product, optionList, cart, updateCart }) => {
             - 상품명
             - 옵션 변경
             --> */}
-        <div className="back flex justify-content-start align-items-center gap-2 p-10 bg-white border10">
+        <div className="back flex justify-content-between align-items-center gap-2 p-10 bg-white border10">
           <span className="menu-pop-name fs-large black ml-5">
             {product?.name || ''}
           </span>
+          <button type="button" onClick={closeModal} className="circle-btn bg-lightgray scale-normal dark" >
+            <img src="/img/exit.png" className="back-icon scale-small" alt="나가기" />
+            </button>
         </div>
         <div className="option-name ml-1 mb-5 mt-3">옵션변경</div>
+        
 
         {/* <!-- [중단] 옵션 리스트
                 - 체크박스

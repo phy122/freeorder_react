@@ -136,6 +136,7 @@
   background-color: var(--main-color);
   border-radius: 8px;
   font-size: medium;
+  margin-bottom: 10px;
 }
 
 .pay-btn:hover {

@@ -1,5 +1,6 @@
 import React from 'react'
-import ProductRead from '../Product/ProductRead'
+import ProductRead from '../product/ProductRead'
+import ProductOption from '../product/ProductOption'
 
 const ProductInfoModal = ({eventModalClose, productInfo, visibleAnime, quantity, quantityCount, addCart}) => {
   return (
@@ -16,6 +17,7 @@ const ProductInfoModal = ({eventModalClose, productInfo, visibleAnime, quantity,
             quantityCount = {quantityCount}
             addCart = {addCart}
           />
+          
         </div>
       </div>
     </>

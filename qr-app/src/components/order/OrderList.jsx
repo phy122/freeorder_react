@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import * as format from '../../utils/format'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import * as format from '../../utils/format';
 
 const OrderList = ({ orderList }) => {
   return (
@@ -9,8 +9,13 @@ const OrderList = ({ orderList }) => {
       <div className="header">
         <div className="back flex justify-content-start align-items-center gap-2 p-10 bg-white">
           <Link to="/list">
-            <button className="circle-btn bg-lightgray scale-normal dark"><img
-              src="/img/back.png" className="back-icon scale-small" alt="뒤로가기" /></button>
+            <button className="circle-btn bg-lightgray scale-normal dark">
+              <img
+                src="/img/back.png"
+                className="back-icon scale-small"
+                alt="뒤로가기"
+              />
+            </button>
           </Link>
           <span className="fs-large black">주문 내역</span>
         </div>
@@ -32,12 +37,15 @@ const OrderList = ({ orderList }) => {
         </div>
         <div className="line"></div>
         {/* <!-- [중단] 주문 목록 --> */}
-        {
-          orderList != null ?
+        <div className="ord-scroll">
+          {orderList != null ? (
             orderList.map((order) => (
               <div className="ord-complete" key={order.id}>
                 {/* <!-- 이미지 파일 --> */}
-                <img src={`/api/pimg?id=${order.itemList[0].productsId}`} alt="" />
+                <img
+                  src={`/api/pimg?id=${order.itemList[0].productsId}`}
+                  alt=""
+                />
                 {/* <!-- 주문 정보 --> */}
                 <div className="order-info">
                   <div className="date-status">
@@ -49,16 +57,13 @@ const OrderList = ({ orderList }) => {
                   <button className="detail-ord">
                     <Link to={`/order/read/${order.id}`}>주문상세</Link>
                   </button>
-
                 </div>
 
                 {/* <!-- 메뉴 정보 --> */}
                 <div className="ord-menu">
                   <ul>
                     <li className="ord-name">
-                      <Link to={`/order/read/${order.id}`}>
-                        {order.title}
-                      </Link>
+                      <Link to={`/order/read/${order.id}`}>{order.title}</Link>
                     </li>
                     <li className="ord-price">
                       <span href="#">총 가격 : </span>
@@ -68,17 +73,18 @@ const OrderList = ({ orderList }) => {
                 </div>
               </div>
             ))
-            :
+          ) : (
             <div className="empty-info">
               <div className="info-icon">
                 <span className="material-symbols-outlined">receipt_long</span>
               </div>
               <span className="empty-title">주문 내역이 없습니다.</span>
             </div>
-        }
+          )}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default OrderList
+export default OrderList;
