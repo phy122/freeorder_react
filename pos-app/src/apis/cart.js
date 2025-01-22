@@ -18,3 +18,9 @@ export const remove = (id) => api.delete(`/pos/carts/${id}`)
 
 // 전체 삭제
 export const allRemove = (id) => api.delete(`/pos/carts/all/${id}`)
+
+// 증가
+export const increment = (id) => api.put(`/pos/carts/plus/${id}`)
+
+// 감소
+export const decrement = (id) => api.put(`/pos/carts/minus/${id}`)

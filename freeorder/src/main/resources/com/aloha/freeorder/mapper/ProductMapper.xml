@@ -65,25 +65,26 @@
     </select>
 
     <!-- 목록 조회 -->
-    <select id="allList" resultType="Product">
+    <select id="allList" resultMap="productMap">
         SELECT 
-            p.id,
-            p.options_id,
-            p.categories_id,
-            c.name as category_name,
-            p.id as products_id,
-            p.name,
-            p.description,
-            p.price,
-            p.product_img,
-            p.stock_check,
-            p.stock,
-            p.seq,
-            IF(oc.order_count >= 100, TRUE, FALSE) AS is_popular,
-            IF(p.created_at >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS is_new,
-            IF(rp.products_id IS NOT NULL, TRUE, FALSE) AS is_recommended
+            p.*
+            ,o.id as options_id
+            ,o.name as options_name
+            ,o.stock_check
+            ,o.stock
+            ,o.essential
+            ,o.select_min
+            ,o.select_max
+            ,oi.id as option_items_id
+            ,oi.name as option_items_name
+            ,oi.price as option_items_price
+            ,oi.seq as option_items_seq
+            ,IF(oc.order_count >= 100, TRUE, FALSE) AS is_popular
+            ,IF(p.created_at >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS is_new
+            ,IF(rp.products_id IS NOT NULL, TRUE, FALSE) AS is_recommended
         FROM products p
-        LEFT JOIN categories c ON p.categories_id = c.ID
+        LEFT JOIN categories c 
+            ON p.categories_id = c.ID
         LEFT JOIN (
             SELECT 
                 oi.products_id,
@@ -92,43 +93,57 @@
             JOIN orders o ON oi.orders_id = o.ID
             WHERE o.status = 'PAID'  
             GROUP BY oi.products_id
-        ) oc ON p.ID = oc.products_id
-        LEFT JOIN recommended_products rp ON p.ID = rp.products_id
+        ) oc 
+            ON p.ID = oc.products_id
+        LEFT JOIN recommended_products rp 
+            ON p.ID = rp.products_id
+        LEFT JOIN options o
+            ON p.options_id = o.id
+        LEFT OUTER JOIN option_items oi
+            ON o.id = oi.options_id
+        
         ORDER BY p.seq ASC;
     </select>
 
     <!-- 목록 조회 - categories_id -->
-    <select id="listByCate" resultType="Product">
-        select 
-            p.id,
-            p.options_id,
-            p.categories_id,
-            c.name as category_name,
-            p.id as products_id,
-            p.name,
-            p.description,
-            p.price,
-            p.product_img,
-            p.stock_check,
-            p.stock,
-            p.seq,
-            if(oc.order_count >= 100, true, false) as is_popular,
-            if(p.created_at >= now() - interval 2 week, true, false) as is_new,
-            if(rp.products_id is not null, true, false) as is_recommended
-        from products p
-        join categories c on p.categories_id = c.id
-        left join (
-            select 
+    <select id="listByCate" resultMap="productMap">
+        SELECT 
+            p.*
+            ,o.id as options_id
+            ,o.name as options_name
+            ,o.stock_check
+            ,o.stock
+            ,o.essential
+            ,o.select_min
+            ,o.select_max
+            ,oi.id as option_items_id
+            ,oi.name as option_items_name
+            ,oi.price as option_items_price
+            ,oi.seq as option_items_seq
+            ,IF(oc.order_count >= 100, TRUE, FALSE) AS is_popular
+            ,IF(p.created_at >= NOW() - INTERVAL 2 WEEK, TRUE, FALSE) AS is_new
+            ,IF(rp.products_id IS NOT NULL, TRUE, FALSE) AS is_recommended
+        FROM products p
+        LEFT JOIN categories c 
+            ON p.categories_id = c.ID
+        LEFT JOIN (
+            SELECT 
                 oi.products_id,
-                count(oi.id) as order_count
-            from order_items oi
-            join orders o on oi.orders_id = o.id
-            where o.status = 'PAID'  
-            group by oi.products_id
-        ) oc on p.id = oc.products_id
-        left join recommended_products rp on p.id = rp.products_id
+                COUNT(oi.ID) AS order_count
+            FROM order_items oi
+            JOIN orders o ON oi.orders_id = o.ID
+            WHERE o.status = 'PAID'  
+            GROUP BY oi.products_id
+        ) oc 
+            ON p.ID = oc.products_id
+        LEFT JOIN recommended_products rp 
+            ON p.ID = rp.products_id
+        LEFT JOIN options o
+            ON p.options_id = o.id
+        LEFT OUTER JOIN option_items oi
+            ON o.id = oi.options_id
         where p.categories_id = #{id}  
-        order by p.seq asc;
+        ORDER BY p.seq ASC;
     </select>
 
     <!-- 등록 -->

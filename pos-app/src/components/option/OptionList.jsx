@@ -10,7 +10,7 @@ const OptionList = ({ optionList }) => {
         <h2>옵션 관리</h2>
         <Link to="/options/insert">
           <button className={styles['add-button']}>
-            <span className={styles['material-symbols-outlined']}>add_circle</span>
+            <span className='material-symbols-outlined'>add_circle</span>
             <span>추가</span>
           </button>
         </Link>
@@ -43,7 +43,7 @@ const OptionList = ({ optionList }) => {
                 {/* Edit Button */}
                 <div className={styles['opt-list-right']}>
                   <Link to={`/options/update/${option.id}`}>
-                    <span className={styles['material-symbols-outlined']}>edit</span>
+                    <span className='material-symbols-outlined'>edit</span>
                   </Link>
                 </div>
               </div>

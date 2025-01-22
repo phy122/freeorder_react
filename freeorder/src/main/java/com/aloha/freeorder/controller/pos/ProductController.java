@@ -61,6 +61,7 @@ public class ProductController {
             } else {
                 productList = productService.listByCate(cateId);
             }
+            log.info(productList.toString());
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             log.error("상품 목록 조회 중 에러 발생...", e);
@@ -89,7 +90,10 @@ public class ProductController {
         // 아이디 생성
         String id = UUID.randomUUID().toString();
         product.setId(id);
-
+        String optionsId = product.getOptionsId();
+        if(optionsId.equals("undefined") || optionsId.equals("null") || optionsId.equals("")){
+            product.setOptionsId(null);
+        }
         try {
             String productPath = uploadPath + product.getProductFile().getName();
             product.setProductImg(productPath);
@@ -123,7 +127,10 @@ public class ProductController {
         // 아이디 생성
         String id = product.getId();
         fileDelete(id, "product");
-
+        String optionsId = product.getOptionsId();
+        if(optionsId.equals("undefined") || optionsId.equals("null") || optionsId.equals("")){
+            product.setOptionsId(null);
+        }
         try {
             String productPath = uploadPath + product.getProductFile().getName();
             product.setProductImg(productPath);

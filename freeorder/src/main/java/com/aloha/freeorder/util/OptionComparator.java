@@ -15,13 +15,21 @@ public class OptionComparator {
     public static boolean areOptionListsEqual(List<CartOption> list1, List<CartOption> list2) {
         // log.info("list1 :" + list1);
         // log.info("list2 :" + list2);
-
-        log.info("A###################################");
+        
+        log.info("리스트 둘다 비어있는지 계산...");
+        log.info("list1 : " + list1 );
+        log.info("list2 : " + list2 );
+        if ((list1 == null || list1.size() == 0) && (list2 == null || list2.size() == 0)) {
+            return true;
+        }
+        
+        log.info("리스트 사이즈 계산");
         if (list1.size() != list2.size()) {
             return false; // 크기가 다르면 다른 옵션 세트
         }
-        log.info("B###################################");
-
+        
+        
+        log.info("리스트 정렬");
         List<String> optionItemIdList1 = new ArrayList<>();
         for (CartOption cartOption : list1) {
             String id1 = cartOption.getOptionItemsId();
@@ -39,6 +47,7 @@ public class OptionComparator {
         }
         Collections.sort(optionItemIdList2);
 
+        log.info("리스트 비교하기");
         for (int i = 0; i < optionItemIdList1.size(); i++) {
             String id1 = optionItemIdList1.get(i);
             String id2 = optionItemIdList2.get(i);
