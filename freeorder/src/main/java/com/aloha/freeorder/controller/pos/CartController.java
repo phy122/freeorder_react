@@ -64,6 +64,7 @@ public class CartController {
         byte[] signingKey = secretKey.getBytes();
 
         log.info("장바구니 목록 조회");
+
         // JWT 토큰 해석 : 💍 ➡ 👩‍💼
         Jws<Claims> parsedToken = Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(signingKey))
@@ -74,7 +75,7 @@ public class CartController {
         log.info("username : " + usersId);
         try {
             List<Cart> cartList = cartService.listByUser(usersId);
-            log.info(cartList.toString());
+            // log.info(cartList.toString());
             return new ResponseEntity<>(cartList, HttpStatus.OK);
         } catch (Exception e) {
             log.error("장바구니 목록 조회 중 에러...", e);
@@ -101,19 +102,19 @@ public class CartController {
         log.info("장바구니 목록 추가");
         try {
             Product infoProduct = productService.select(product.getId());
-            log.info("infoProdsuct : " + infoProduct);
+            // log.info("infoProdsuct : " + infoProduct);
 
             String id = UUID.randomUUID().toString();
             Cart cart = new Cart();
             cart.setId(id);
             cart.setProductName(infoProduct.getName());
             cart.setProductsId(product.getId());
-            log.info("product : " + product);
+            // log.info("product : " + product);
             Option option = product.getOption();
             if (option != null) {
-                // log.info("option null 아님");
+                log.info("option null 아님");
                 List<OptionItem> getOpList = option.getItemList();
-                // log.info(getOpList.toString());
+                log.info(getOpList.toString());
                 List<CartOption> optionList = new ArrayList<>();
                 for (OptionItem optionItem : getOpList) {
                     if (optionItem.isChecked()) {
@@ -133,7 +134,7 @@ public class CartController {
             cart.setPrice(infoProduct.getPrice());
             cart.setAmount(product.getQuantity());
             cart.setUsersId(usersId);
-            // log.info(cart.toString());
+            // log.info("카트 정보 : " + cart.toString());
             List<Cart> existCartList = cartService.ListByUsersIdAndProductsId(usersId, product.getId());
             // log.info("existCartList : " + existCartList);
             if (existCartList != null)
@@ -145,12 +146,12 @@ public class CartController {
                     List<CartOption> existCartOptionList = existCart.getOptionList();
                     List<CartOption> cartOptionList = cart.getOptionList();
 
-                    log.info("existCartOptionList : " + existCartOptionList);
+                    log.info("existCart : " + existCart);
+                    log.info("cart : " + cart);
+                    
 
-                    if (existCartOptionList == null || cartOptionList == null)
-                        continue;
-
-                    if (OptionComparator.areOptionListsEqual(existCartOptionList, cartOptionList)) {
+                    if ((existCartOptionList == null && cartOptionList == null) || OptionComparator.areOptionListsEqual(existCartOptionList, cartOptionList)) {
+                        log.info("장바구니 개수 증가");
                         existCart.setAmount(existCart.getAmount() + cart.getAmount());
                         cartService.updateAmount(existCart);
                         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);

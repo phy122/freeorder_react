@@ -3,10 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Option.module.css';
 
 const OptionUpdate = ({ option, optionUpdate, optionDelete }) => {
+    console.log(`옵션 : `)
+    console.dir(option)
     const { id } = useParams();
     const navigate = useNavigate();
-    const [optionName, setOptionName] = useState('');  // 옵션 이름 상태
-    const [optionItems, setOptionItems] = useState([]);  // 옵션 항목 리스트 상태
+    const [optionName, setOptionName] = useState(option?.name);  // 옵션 이름 상태
+    const [optionItems, setOptionItems] = useState(option?.itemList);  // 옵션 항목 리스트 상태
 
     // 옵션 이름 입력 값 변경
     const changeOptionName = (e) => {
@@ -82,7 +84,7 @@ const OptionUpdate = ({ option, optionUpdate, optionDelete }) => {
         }
     
         // 기존 옵션 항목을 로드
-        if (option && option.itemList && optionItems.length === 0) {
+        if (option && option.itemList) {
             setOptionItems(option.itemList);
         }
     }, [option]);
@@ -118,7 +120,7 @@ const OptionUpdate = ({ option, optionUpdate, optionDelete }) => {
 
                     {/* 옵션 아이템 리스트 */}
                     <div id="opt-item-list">
-                        {optionItems.map((item, index) => (
+                        {optionItems?.map((item, index) => (
                             <div key={item.id} className="opt-item">
                                 <input
                                     type="text"

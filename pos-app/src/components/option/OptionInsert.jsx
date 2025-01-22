@@ -73,7 +73,7 @@ const OptionInsert = ({ optionInsert }) => {
                             className={styles['plus-box']}
                             onClick={addOptionItem} // 옵션 추가 시 호출
                         >
-                            <i className={styles['material-symbols-outlined']}>add_circle</i>
+                            <i className='material-symbols-outlined'>add_circle</i>
                             <span>옵션 추가</span>
                         </button>
                     </div>
