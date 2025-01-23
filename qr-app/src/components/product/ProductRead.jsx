@@ -32,7 +32,6 @@ const ProductRead = ({ productInfo, addCart, eventModalClose, quantity, quantity
     // console.dir(data)
     addCart( data )
   }
-
   useEffect(() => {
     if (option?.itemList) {
       setItemList(option.itemList);
@@ -43,7 +42,7 @@ const ProductRead = ({ productInfo, addCart, eventModalClose, quantity, quantity
     <div className="container pb-35">
       <form id="cart-insert" >
         {/* <!-- [상단] 상품명,닫기버튼 --> */}
-        <div className="back flex justify-content-between align-items-center gap-2 p-10 bg-white">
+        <div className="back flex justify-content-between align-items-center gap-2 p-10">
           <span className="menu-pop-name fs-large black ml-5">{productInfo?.name}</span>
           <button type="button" className="circle-btn bg-lightgray scale-normal dark" onClick={eventModalClose}>
             <img src="/img/exit.png" className="back-icon scale-small" alt="나가기" />

@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductList from '../../components/Product/ProductList'
+import ProductList from '../../components/product/ProductList'
 const ListContainer = ({ cateList, proList, noticeList, infoModalPopup, eventModalClose, productInfo }) => {
 
   return (

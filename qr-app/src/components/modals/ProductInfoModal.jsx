@@ -6,9 +6,9 @@ const ProductInfoModal = ({eventModalClose, productInfo, visibleAnime, quantity,
   return (
     <>
       <div id="event-modal" className={visibleAnime? `slide-up` : `slide-down`}>
-        <button id="event-modal-close" type="button">
+        {/* <button id="event-modal-close" type="button">
           <span className="material-symbols-outlined">close</span>
-        </button>
+        </button> */}
         <div id="event-modal-body">
           <ProductRead
             productInfo = {productInfo}

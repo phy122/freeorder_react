@@ -14,7 +14,7 @@ const ProductList = ({ cateList, proList, noticeList, infoModalPopup }) => {
                 <img src="/img/back.png" className="back-icon scale-small" alt="뒤로가기" />
               </button>
             </Link>
-            <span className="fs-large black">메뉴</span>
+            <span className="fs-large black ml-2">메뉴</span>
           </div>
 
           {/* <!-- 카테고리 --> */}
