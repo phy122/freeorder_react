@@ -42,7 +42,7 @@
   Java, Spring Boot, Spring MVC, Spring Security, RESTful API
 
 - **Frontend**:  
-  HTML, CSS, JavaScript, Thymleaf
+  HTML, CSS, JavaScript, React
 
 - **Database**:  
   MySQL  
@@ -185,7 +185,7 @@ QR 코드를 활용한 주문 및 관리 시스템의 세부 기능입니다.
 
 ### **3. 개발 환경 및 장비**  
 - **개발 툴:** VS Code  
-- **협업 도구:** Notion, Figma
+- **협업 도구:** Notion, Figma, GitHub
 
 ---
 
