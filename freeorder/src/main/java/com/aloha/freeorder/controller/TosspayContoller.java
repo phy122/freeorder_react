@@ -56,7 +56,6 @@ public class TosspayContoller {
     public ResponseEntity<?> payment(
         @PathVariable("id") String usersId,
         @PathVariable("orderType") String orderType
-
     ) throws Exception {
         log.info("결제 창 출력!!");
         log.info("유저 아이디 : " + usersId);

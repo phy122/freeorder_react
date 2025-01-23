@@ -1,6 +1,8 @@
 package com.aloha.freeorder.controller.pos;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +28,9 @@ import com.aloha.freeorder.domain.CustomUser;
 import com.aloha.freeorder.domain.Order;
 import com.aloha.freeorder.domain.OrderItem;
 import com.aloha.freeorder.domain.OrderOption;
+import com.aloha.freeorder.domain.PaySearch;
 import com.aloha.freeorder.domain.Payment;
+import com.aloha.freeorder.domain.SystemStatus;
 import com.aloha.freeorder.domain.Users;
 import com.aloha.freeorder.service.CartService;
 import com.aloha.freeorder.service.OrderService;
@@ -51,16 +56,30 @@ public class PaymentController {
     @Autowired
     private CartService cartService;
 
+    /**
+     * Payment
+     */
+    // 결제 내역 목록
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        log.info("결제내역 목록 조회");
-        try {
-            List<Payment> payList = paymentService.list();
-            return new ResponseEntity<>(payList, HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("결제내역 목록 조회 중 에러...", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> showPaymentPage(PaySearch paySearch) throws Exception {
+        log.info("결제내역 페이지");
+        log.info(" 서치 옵션 : " + paySearch);
+        // 검색 값이 없을경우 기본값 세팅
+        if (paySearch == null || paySearch.getDate() == 0) {
+            paySearch = PaySearch.builder().date(7).build();
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        String stDate = sdf.format(c.getTime());
+        paySearch.setEndDay(stDate);
+        c.add(Calendar.DATE, -paySearch.getDate());
+        String endDate = sdf.format(c.getTime());
+        paySearch.setStartDay(endDate);
+        log.info(paySearch.toString());
+
+        List<Payment> payList = paymentService.listByOption(paySearch);
+        log.info("결제 리스트 : " + payList.toString());
+        return new ResponseEntity<>(payList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -76,9 +95,9 @@ public class PaymentController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(Authentication authentication, 
-        @RequestBody Payment payment,
-        @CookieValue(value = "orderType",defaultValue = "") String orderType) {
+    public ResponseEntity<?> create(Authentication authentication,
+            @RequestBody Payment payment,
+            @CookieValue(value = "orderType", defaultValue = "") String orderType) {
         log.info("결제내역 등록");
         log.info("결제 정보 : " + payment.getPaymentMethod());
         CustomUser customUser = (CustomUser) authentication.getPrincipal();

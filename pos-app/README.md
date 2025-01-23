@@ -18,3 +18,10 @@ npm i sweetalert2 sweetalert2-react-content
 
 # one
 npm install react-router-dom axios js-cookie sweetalert2 sweetalert2-react-content
+
+
+## 클래스변환 정규 표현식
+
+class="([^"]+)"
+->
+className={styles['$1']}
